@@ -16,6 +16,7 @@ export class ForestTemplateComponent implements OnInit {
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
   user;
+  bgImg;
 
   constructor(
     private route: ActivatedRoute,
@@ -82,8 +83,8 @@ a Christmas tree permit with the United States Forest Service on your National F
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
           console.log(this.forest);
         }
-
         this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+        this.bgImg = './assets/img/forests/' + this.forest.forestAbbr + '.jpg';
       }
     });
   }

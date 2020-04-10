@@ -1,7 +1,7 @@
-<section id="forest-finder-intro" class="usa-main">
+<section id="forest-finder-intro" class="usa-land" [ngStyle]="{'background-image': 'url(' + bgImg + ')'}">
   <div class="usa-grid">
-    <div class="usa-main-callout">
-      <h1 id="skip-nav-target" tabindex="-1">{{forest.forestName}}</h1>
+    <div class="usa-land-callout">
+      <h1 id="skip-nav-target" tabindex="-1">{{forest.description}}</h1>
     </div>
   </div>
 </section>
@@ -9,34 +9,57 @@
 <section id="forest-template">
     <div id="skip-nav-target" tabindex="-1" class="usa-width-one-whole">
       <app-section-heading heading="This Forest's Products" id="forest-list" tabIndex="-1"></app-section-heading>
-      <div *ngFor="let item of forest| keyvalue">
+      <!-- below commented code for testing purposes -->
+      <!-- <div *ngFor="let item of forest| keyvalue">
         {{ item.key }} - {{ item.value }}
-      </div>
-
-      <div class="help-pick-flex" id="fs-background">
+      </div> -->
+      <div class="help-pick-flex" id="tree-background">
         <div class="small-col">
-          <img alt="tree image" role="img" alt="Image of Trees" src="/assets/img/site-wide/test_home.jpg">
-          <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
+          <app-tree-cutting-dates-min class="seas-dates" [forest]="forest"></app-tree-cutting-dates-min>
         </div>
         <div class="big-col">
           <h2>Christmas Trees</h2>
           <p>{{forest.forestName}} allows you to purchase a Christmas tree permit online with Open Forest</p>
           <div class="button-row">
             <button [routerLink]="['/christmas-trees/forests/', forest.forestAbbr]" class="usa-button margin-top-1" tabIndex="-1">Learn More</button>
-            <!-- testing season is open -->
-            <button #staticBuyButton [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" tabIndex="-1">Get permit</button>
-            <!-- <button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" tabIndex="-1">Get permit</button> -->
+            <button #staticBuyButton [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button-primary-alt margin-top-1" tabIndex="-1">Get permit</button>
+            <!-- <button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button-primary-alt margin-top-1" tabIndex="-1">Get permit</button> -->
           </div>
         </div>
       </div>
-      <!-- <ngx-md *ngIf="forest && forest.content" [data]="forest.content.introduction"></ngx-md> -->
-
-      <!--when to cut-->
-      
-      
-
-      <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
-      <ngx-md class="contact-table" *ngIf="forest && forest.content" [data]="forest.content.forestContact"></ngx-md>
+      <div class="diff">
+        <h2 class="diff-head">Looking for something different?</h2>
+        <p class="diff-text">Contact the forest office of visit their website to get more information on permit avialability for other forest products and special uses.</p>
+      </div>
 
     </div>
 </section>
+<section id="contact-us">
+  <div id="skip-nav-target" tabindex="-1" class="usa-width-one-whole">
+    <div class="left-contact">
+      <i class="fas fa-phone phone-ico"></i>
+    </div>
+    <div class="right-contact">
+      <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
+      <p>Please contact us through the {{forest.forestName}} local ranger district offices and public services centers with any questions</p>
+    </div>
+    
+    <ngx-md class="contact-table" *ngIf="forest && forest.content" [data]="forest.content.forestContact"></ngx-md>
+    <div class="diff">
+      <h2 class="diff-head">
+        Not your Nearest Forest?
+      </h2>
+      <h3>Search by your Location</h3>
+    </div>
+  </div>
+  <!-- map placeholder below -->
+  <div class="usa-grid">
+  </div>
+  <div class="map-grid">
+  </div>
+  <!-- end of map placeholder -->
+</section>
+
+
+
+

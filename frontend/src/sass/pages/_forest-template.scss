@@ -4,7 +4,89 @@
         min-width: 100%;
         padding: 45px;
     }
+    .small-col{
+        background: url(/assets/img/site-wide/test_home.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 40vh;
+        min-width: 350px;
+        position: relative;
+        .seas-dates{
+            position: absolute;
+            bottom: 0px;
+            min-width: 100%;
+            #forest-cutting-dates{
+                padding: 30px;
+            }
+        }
+        #cutting-season-dates-heading{
+            margin-top: 0px;
+        }
+    }
+    #tree-background{
+        padding: 20px;
+      }
+}
+
+.phone-ico{
+    font-size: 3em;
+    color: $fs-green;
+    padding: 30px;
+}
+#contact-us{
+    .usa-width-one-whole{
+        background-color: $fs-tan-dark;
+        min-width: 100%;
+        padding: 45px;
+    }
     .contact-table > table{
         min-width: 100%;
     }
+    .left-contact, .right-contact {
+        display: inline-block;
+    }
+    .left-contact {
+        width: 10%;
+    }
+    .right-contact {
+        width: 90%;
+    }
 }
+
+.diff{
+    text-align: center;
+    .diff-head{
+        padding-top: 50px;
+    }
+}
+
+.usa-land {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px;
+    .usa-grid{
+        min-width: 100%;
+    }
+    .usa-land-callout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40vh;
+        width: 100%;
+        h1 {
+          font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+          font-weight: 400;
+          text-transform: uppercase;
+          color: $white !important;
+          text-shadow: 5px 4px 10px black;
+        }
+     }
+    @media screen and (min-width: $small-screen) {
+      .usa-land-callout {
+          min-height: 55vh;
+            h1 {
+                font-size: 4em;
+            }
+      }
+    }
+  }
