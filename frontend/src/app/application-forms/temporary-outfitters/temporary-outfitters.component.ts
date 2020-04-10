@@ -100,6 +100,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]],
+        mapUrl: ['', [urlValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
       },
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
