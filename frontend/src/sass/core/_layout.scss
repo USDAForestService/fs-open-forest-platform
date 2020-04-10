@@ -92,3 +92,8 @@
   filter: alpha(opacity=50);
   opacity: 0.5;
 }
+
+.margin-bottom-1, .temp-outfitter-info-display{
+  display: flex;
+  flex-direction: column;
+}
