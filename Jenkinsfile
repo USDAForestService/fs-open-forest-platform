@@ -255,7 +255,6 @@ sh '''
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..	
 	'''
-
   sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''
