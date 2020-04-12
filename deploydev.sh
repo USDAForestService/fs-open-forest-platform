@@ -1,6 +1,8 @@
+#!/bin/bash
 echo "Workspace url echo $1"
 cd "$1"
 pwd
+        source /home/Jenkins/openforest.sh
         sudo chown -R Jenkins:Jenkins frontend
         sudo chown -R Jenkins:Jenkins server
         chmod -R 777 frontend
