@@ -30,8 +30,6 @@ pipeline {
 	AUTHOR = 'kilara77'	
 	BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
 	BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
-	CF_USERNAME = credentials('CF_USERNAME')
-        CF_PASSWORD = credentials('CF_PASSWORD')	    
         JENKINS_URL="https://jenkins.fedgovcloud.us"
         SONARQUBE_URL="https://sca.fedgovcloud.us/dashboard?id=fs-openforest-platform"        
     }
