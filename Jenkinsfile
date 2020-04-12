@@ -40,7 +40,7 @@ pipeline {
         timestamps()
         disableConcurrentBuilds()
         ansiColor('xterm')
-     //   buildDiscarder(logRotator(numToKeepStr: '10'))
+        buildDiscarder(logRotator(numToKeepStr: '50'))
     }  
 
  stages { 
@@ -75,15 +75,10 @@ pipeline {
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''					    
 		    sh '''
-	pwd
+
 	cd frontend
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install	
-	npm i typescript@3.1.6 --save-dev --save-exact
 	cd ../server
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install		
 	'''	
       sh '''
@@ -126,6 +121,7 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed	
 	 npm run migrate	
 	 npm run seed		 
+	 npm run coverage --silent
 	'''
 
     sh '''
@@ -258,10 +254,8 @@ sh '''
       '''
 
 	sh '''
-		pwd
 		cd server
 		./copy-frontend-assets.sh
-        	pwd
 		cd ../frontend/node_modules/protractor
 		npm i webdriver-manager@latest
 		cd ../..
@@ -293,11 +287,11 @@ sh '''
 	sh '''
       		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       	'''		
-	sh '''
-	pwd
-	chmod 765 deploydev.sh
-	./deploydev.sh ${WORKSPACE}
-	'''
+	//sh '''
+	//pwd
+	//chmod 765 deploydev.sh
+	//./deploydev.sh ${WORKSPACE}
+	//'''
 	sh '''
       		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       	'''	
