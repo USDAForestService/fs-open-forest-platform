@@ -111,6 +111,7 @@ stage('run-unit-tests'){
 	cd server
 	./copy-frontend-assets.sh
 	cd ../frontend
+	npm install node-sass
 	npm run test:ci
         cd ../server
 	 npm run undoAllSeed
