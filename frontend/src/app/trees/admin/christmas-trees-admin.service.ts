@@ -38,19 +38,19 @@ export class ChristmasTreesAdminService {
    * @returns admin navigation links
    */
   getAdminNavItems(user) {
-    let navItems = [{
-      id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'
-    }, {
-      id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'
-    }];
-
+    // xmas tree permits
+    let navItems = [{id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'}];
+    // reports
+    if (user && ((user.poc1_forests && user.poc1_forests.length > 0) || (user.poc2_forests && user.poc2_forests.length > 0))) {
+      navItems.push({id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
+    }
+    // season dates
     if (user && user.poc1_forests && user.poc1_forests.length > 0) {
       navItems.push({id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'});
       navItems.push({id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'})
     }
-    if (user && ((user.poc1_forests && user.poc1_forests.length > 0) || (user.poc2_forests && user.poc2_forests.length > 0))) {
-      navItems.push({id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
-    }
+    // feedback
+    navItems.push({id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'})
     return navItems;
   }
 }
