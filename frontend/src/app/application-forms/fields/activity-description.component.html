@@ -42,7 +42,8 @@
     </ng-container>
 
     <input id="need-temporary-improvements" type="checkbox" formControlName="needTemporaryImprovements" />
-    <label id="need-temporary-improvements-label" class="usa-input" for="need-temporary-improvements">{{ pointOfView }} would like to use temporary directional signage.</label>
+    <label id="need-temporary-improvements-label" class="usa-input" for="need-temporary-improvements">{{ pointOfView }} 
+      would like to use temporary directional signage.</label>
     <ng-container *ngIf="parentForm.get('activityDescriptionFields.needTemporaryImprovements').value">
       <label id="list-of-temporary-improvements-label" class="usa-input">List of temporary improvements or signs that you propose to use. <span class="required-fields-asterisk">*</span></label>
       <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" aria-required="true"
