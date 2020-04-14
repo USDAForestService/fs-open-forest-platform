@@ -18,8 +18,7 @@ describe('Special use email templates', () =>{
 
   describe('for noncommericial apps', () => {
     let application = {};
-    beforeEach(function () {
-      // runs before each test in this block
+    beforeEach(function () { // runs before each test in this block
       let applicationFactory = noncommercialPermitApplicationFactory.create();
       noncommController.translateFromClientToDatabase(applicationFactory, application);
       application.forestName = forestName;
