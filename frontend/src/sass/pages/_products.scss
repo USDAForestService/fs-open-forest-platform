@@ -1,4 +1,9 @@
 #product-section{
+    .link-out{
+      color: $fs-green;
+      text-decoration: underline;
+      cursor: pointer;
+    }
     h2 {
         color: $fs-green;
     }

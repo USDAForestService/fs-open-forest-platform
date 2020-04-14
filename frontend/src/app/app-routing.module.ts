@@ -48,7 +48,11 @@ const appRoutes: Routes = [
     component: MainLandingComponent
   }, {
     path: 'ChristmasTreePermit',
-    component: DummyComponent
+    component: DummyComponent,
+    data: {
+      breadcrumbs: true,
+      text: 'Home'
+    }
   }, 
 
   {
@@ -56,7 +60,7 @@ const appRoutes: Routes = [
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Products'
+      text: 'Forests'
     },
     resolve: {
       user: UserResolver

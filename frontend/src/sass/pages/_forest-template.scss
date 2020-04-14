@@ -1,4 +1,7 @@
 #forest-template{
+    .usa-extra-wide{
+        min-width: 100%;
+    }
     .usa-width-one-whole{
         background-color: $fs-tan;
         min-width: 100%;
@@ -23,9 +26,66 @@
             margin-top: 0px;
         }
     }
-    #tree-background{
-        padding: 20px;
-      }
+        #tree-background{
+            padding: 20px;
+        }
+        .tree-flex{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .small-col{
+                width: 20%;
+                justify-content: space-around;
+                .usa-ico{
+                font-size: 4em;
+                }
+            }
+            .big-col{
+                width: 70%;
+                justify-content: space-around;
+                padding: 30px;
+                h2 {
+                    margin-top: 0px;
+                }
+            }  
+        }
+}
+.pad-one-half{
+    padding: 0px 60px;
+}
+#non-commercial-bg{
+    background: url(/assets/img/site-wide/camp.jpeg);
+}
+#temp-outfitters-bg{
+    margin-top: 50px;
+    background: url(/assets/img/site-wide/hike.jpeg);
+}
+.special-use-bg{
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: 0px !important;
+    min-height: 60vh;
+    width: 100% ;
+    position: relative;
+    h3 {
+        margin-top: 4px;
+        color: $fs-green;
+    }
+    .special-use-info{
+        background-color: white;
+        position: absolute;
+        min-width: 100%;
+        bottom: 0px;
+        left: 0px;
+        padding: 10px;
+        .wide-btn{
+            min-width: 90%;
+            margin: auto;
+            .usa-button{
+                min-width: 100% !important;
+            }
+        }
+    }
 }
 
 .phone-ico{

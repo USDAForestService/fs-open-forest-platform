@@ -30,8 +30,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let forest of forests">
-            <td class="feedback-created" (click)="goToForest(forest)"><span>{{forest.forestName}}</span></td>
-            <td class="feedback-created"><span>{{forest.state}}</span></td>
+            <td class="link-out" (click)="goToForest(forest)"><span>{{forest.forestName}}</span></td>
+            <td><span>{{forest.state}}</span></td>
           </tr>
         </tbody>
       </table>
