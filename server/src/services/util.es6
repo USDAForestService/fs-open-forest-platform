@@ -379,7 +379,7 @@ util.fullApplicationTypeName = (application) => {
   let applicationType;
   if (application.type === 'tempOutfitters') {
     applicationType = 'Temporary Outfitting and Guiding';
-  } else if (application.type === 'noncommercial') {
+  } else {
     applicationType = 'Non-Commercial Group Use';
   }
   return applicationType;
