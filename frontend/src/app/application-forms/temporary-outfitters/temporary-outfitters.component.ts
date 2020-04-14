@@ -114,7 +114,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
-        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
         experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
       })
     });
