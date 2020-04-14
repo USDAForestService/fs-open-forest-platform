@@ -12,7 +12,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         min-height: 40vh;
-        min-width: 350px;
+        min-width: 100%;
         position: relative;
         .seas-dates{
             position: absolute;
@@ -26,11 +26,7 @@
             margin-top: 0px;
         }
     }
-        #tree-background{
-            padding: 20px;
-        }
         .tree-flex{
-            display: flex;
             align-items: center;
             justify-content: space-between;
             .small-col{
@@ -41,17 +37,14 @@
                 }
             }
             .big-col{
-                width: 70%;
+                width: 100%;
                 justify-content: space-around;
-                padding: 30px;
+                padding: 20px 0px;
                 h2 {
                     margin-top: 0px;
                 }
             }  
         }
-}
-.pad-one-half{
-    padding: 0px 60px;
 }
 #non-commercial-bg{
     background: url(/assets/img/site-wide/camp.jpeg);
@@ -102,14 +95,11 @@
     .contact-table > table{
         min-width: 100%;
     }
-    .left-contact, .right-contact {
-        display: inline-block;
-    }
     .left-contact {
-        width: 10%;
+        display: none;
     }
     .right-contact {
-        width: 90%;
+        width: 100%;
     }
 }
 
@@ -130,6 +120,7 @@
     .usa-land-callout {
         display: flex;
         align-items: center;
+        text-align: center;
         justify-content: center;
         min-height: 40vh;
         width: 100%;
@@ -141,12 +132,35 @@
           text-shadow: 5px 4px 10px black;
         }
      }
-    @media screen and (min-width: $small-screen) {
-      .usa-land-callout {
-          min-height: 55vh;
-            h1 {
-                font-size: 4em;
-            }
-      }
     }
-  }
+@media screen and (min-width: $large-screen) {
+    #forest-template{
+        .small-col{
+            min-width: 350px;
+        }
+        .tree-flex{
+            display: flex;
+            .small-col{
+                width: 20%;
+            }
+            .big-col{
+                width: 70%;
+            }  
+        }
+    }
+    #contact-us{
+        .left-contact, .right-contact {
+            display: inline-block;
+        }
+        .left-contact {
+            width: 10%;
+        }
+        .right-contact {
+            width: 90%;
+        }
+    }
+    .pad-one-half{
+        padding: 0px 60px;
+    }
+}
+  
