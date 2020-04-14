@@ -375,16 +375,15 @@ util.adminApplicationLink = (application, plainText) => {
  * @param {Object} application - application object
  * @return {string} - application type name
  */
-util.fullApplicationTypeName = (application, plainText) => {
+util.fullApplicationTypeName = (application) => {
   let applicationType;
   if (application.type === 'tempOutfitters') {
     applicationType = 'Temporary Outfitting and Guiding';
-  }
-  else if (application.type === 'noncommercial') {
+  } else if (application.type === 'noncommercial') {
     applicationType = 'Non-Commercial Group Use';
   }
   return applicationType;
-}
+};
 
 /**
  * @function getRandomString - Create a random hex string.
