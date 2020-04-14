@@ -370,6 +370,23 @@ util.adminApplicationLink = (application, plainText) => {
 };
 
 /**
+ * @function fullApplicationTypeName - Get the variable of an application type (NCGU or TOG)
+ * and convert it to it's full name.
+ * @param {Object} application - application object
+ * @return {string} - application type name
+ */
+util.fullApplicationTypeName = (application, plainText) => {
+  let applicationType;
+  if (application.type === 'tempOutfitters') {
+    applicationType = 'Temporary Outfitting and Guiding';
+  }
+  else if (application.type === 'noncommercial') {
+    applicationType = 'Non-Commercial Group Use';
+  }
+  return applicationType;
+}
+
+/**
  * @function getRandomString - Create a random hex string.
  * @param {integer} length - random string to be length
  * @return {string} - random string
