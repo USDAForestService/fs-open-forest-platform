@@ -32,6 +32,7 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
      you hear from a special use administrator. Submitting an application does not guarantee your permit
       will be approved.</p>
     ${defaultApplicationDetails.html(application)}
+
     <h2>What happens next?</h2>
     <ol>
       <li>Your application will be reviewed by our staff${reviewTime}.</li>
