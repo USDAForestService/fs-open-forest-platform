@@ -19,15 +19,17 @@
     "lint": "ng lint",
     "ng": "ng",
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
-    "serve-static-files": "./node_modules/superstatic/bin/server dist/ -c ./development-configurations/superstatic.json --port 4200 --host=127.0.0.1",
+    "serve-static-files": "./node_modules/superstatic/bin/server dist/ -c ./development-configurations/superstatic.json --port 4200",
     "shutdown": "ng build --prod --configuration=shutdown",
     "build-test-pa11y": "./development-configurations/build-test-pa11y.sh",
+    "snyk-protect": "snyk protect",
+    "snyk-test": "snyk test",
+    "snyk-wizard": "snyk wizard",
     "start": "ng serve",
     "test:ci": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --code-coverage --watch=false --source-map=false --progress=false",
     "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
-    "update-version": "node ./replace.build.js",
-    "postinstall": "cd ./node_modules/protractor && npm i webdriver-manager@latest"
+    "update-version": "node ./replace.build.js"
   },
   "private": true,
   "dependencies": {
@@ -39,8 +41,6 @@
     "@angular/platform-browser": "^7.2.7",
     "@angular/platform-browser-dynamic": "^7.2.7",
     "@angular/router": "^7.2.7",
-    "@fortawesome/fontawesome-free": "^5.12.1",
-    "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@types/google.analytics": "0.0.39",
     "@types/jasminewd2": "^2.0.6",
     "angular2-csv": "0.2.5",
@@ -60,7 +60,6 @@
     "tslib": "^1.9.0",
     "uswds": "^1.6.9",
     "web-animations-js": "^2.2.5",
-    "webdriver-manager": "^12.1.7",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
@@ -87,6 +86,7 @@
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
     "replace-in-file": "^2.5.2",
     "sinon": "^4.4.6",
+    "snyk": "^1.248.0",
     "superstatic": "^6.0.4",
     "ts-node": "^3.1.0",
     "tslint": "^5.12.1",
