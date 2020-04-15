@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
     if (forest) {
       const navTo = '/products/' + forest.forestAbbr;
       this.router.navigate([navTo]);
-    } 
+    }
   }
 }
 

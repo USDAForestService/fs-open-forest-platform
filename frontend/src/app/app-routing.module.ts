@@ -52,7 +52,7 @@ const appRoutes: Routes = [
       breadcrumbs: true,
       text: 'Home'
     }
-  }, 
+  },
 
   {
     path: 'products',

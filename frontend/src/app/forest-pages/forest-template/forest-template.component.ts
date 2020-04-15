@@ -84,7 +84,7 @@ permits with the United States Forest Service on your National Forest with Open 
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
           console.log(this.forest);
         }
-        if(this.forest.forestAbbr == 'mbs'){
+        if (this.forest.forestAbbr === 'mbs') {
           this.specialUse = true;
         }
         this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
