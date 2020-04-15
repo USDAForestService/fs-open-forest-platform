@@ -33,11 +33,11 @@ export class ErrorMessageComponent {
   }
 
   minlength(errors) {
-    return `${this.name} requires a minimum of ${errors.minlength.requiredLength} characters. `;
+      return `${this.name} requires a minimum of ${errors.minlength.requiredLength} characters. `;
   }
 
   maxlength(errors) {
-    return `${this.name} allows a maximum of ${errors.maxlength.requiredLength} characters. `;
+      return `${this.name} allows a maximum of ${errors.maxlength.requiredLength} characters. `;
   }
 
   alphanumericRequirement(errors) {
@@ -113,7 +113,15 @@ export class ErrorMessageComponent {
     } else if (errors.pattern.requiredPattern === '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$') {
       result = `${this.name} requires a valid email address— i.e. you@email.com `;
     }
-
     return result;
   }
+
+  phoneNumberMinRequirement(errors) {
+    return `${this.name} requires a minimum of 10 characters. ex: 5551234567`;
+  }
+
+  phoneNumberMaxRequirement(errors) {
+  return `${this.name} allows a maximum of 10 characters. ex: 5551234567`;
+  }
+
 }

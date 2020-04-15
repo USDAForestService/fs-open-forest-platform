@@ -62,8 +62,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   ) {
 
     this.meta.addTag({
-      name: 'description', content: 'Apply for a temporary outffitter\
- and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
+      name: 'description',
+      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -114,7 +114,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
-        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
         experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
       })
     });

@@ -6,8 +6,8 @@
       <app-sidebar [items]="items"></app-sidebar>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Open Forest: Noncommercial group use information</h2>
-      <p>A non-commercial permit is needed for any activity involving a group of 75 or
+      <h2 id="skip-nav-target" tabindex="-1">Open Forest: Non-Commercial Group Use information</h2>
+      <p>A Non-commercial Group Use permit is needed for any activity involving a group of 75 or
 more people on National Forest Service land where there is no participant fee
 charged, and where there is no sale of goods or services. Examples include:
 weddings, religious gatherings, races, regattas, camping trips, hikes, music
@@ -17,7 +17,6 @@ festivals, rallies and graduations.</p>
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>
       </ng-container>
-
       <app-button link="/special-use/applications/noncommercial-group-use/new" buttonText="Noncommercial permit" btnAlt="true"></app-button>
       <hr class="light margin-top-1 margin-bottom-1">
       <a routerLink="/special-use" class="display-block">Return to the Mt. Baker-Snoqualmie Open Forest homepage</a>
