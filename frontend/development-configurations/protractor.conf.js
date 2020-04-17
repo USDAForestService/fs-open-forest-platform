@@ -15,7 +15,7 @@ let chromeOptions = {};
 if (isDocker) {
   chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
 } else if (process.env['HEADLESS'] === 'true') {
-  chromeOptions = { args: ['--headless', 'no-sandbox'] };
+  chromeOptions = { args: ['--headless', '--window-size=800x600'] };
 }
 
 exports.config = {
@@ -26,7 +26,7 @@ exports.config = {
     chromeOptions
   },
   directConnect: true,
-  baseUrl: 'http://127.0.0.1:4200/',
+  baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
