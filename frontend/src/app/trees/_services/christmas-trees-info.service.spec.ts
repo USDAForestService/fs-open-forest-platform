@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Observable } from 'rxjs/Rx';
 import * as sinon from 'sinon';
 
-describe('ChristmasTreesInfoService', () => {
+xdescribe('ChristmasTreesInfoService', () => {
   let httpMock: HttpTestingController;
 
   const forest = {
