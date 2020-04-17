@@ -15,11 +15,7 @@ let chromeOptions = {};
 if (isDocker) {
   chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
 } else if (process.env['HEADLESS'] === 'true') {
-<<<<<<< HEAD
-  chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
-=======
   chromeOptions = { args: ['--headless', 'no-sandbox'] };
->>>>>>> add_forests_to_landing
 }
 
 exports.config = {
