@@ -30,7 +30,6 @@
     "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
     "update-version": "node ./replace.build.js",
-    "postinstall": "cd ./node_modules/protractor && npm i webdriver-manager@latest"
   },
   "private": true,
   "dependencies": {
