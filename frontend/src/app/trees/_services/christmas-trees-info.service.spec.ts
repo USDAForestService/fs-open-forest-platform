@@ -116,9 +116,6 @@ describe('ChristmasTreesInfoService', () => {
       mdRequestUrls.forEach(mdRequestUrl => mdRequests.push(httpMock.expectOne(mdRequestUrl)));
       mdRequests.forEach(request => request.flush('blah'));
 
-      const jsonRequest = httpMock.expectOne('/assets/config/christmasTreesForests-arp.json');
-      jsonRequest.flush(forestJSON);
-
       httpMock.verify();
     })
   );
