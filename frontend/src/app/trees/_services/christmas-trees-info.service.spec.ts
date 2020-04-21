@@ -137,19 +137,21 @@ describe('ChristmasTreesInfoService', () => {
         'test8',
         'test9',
         'test10',
-        'test11'
+        'test11',
+        'test12'
       ];
       const namedContent = {
         introduction: 'test0',
         contactUs: 'test1',
-        beforeYouCut: 'test2',
-        whenYouCut: 'test3',
-        whenToCutInfo: 'test6',
-        whereToCutCuttingAreaMaps: 'test7',
-        whereToCutProhibited: 'test8',
-        howToPlanYourTrip: 'test9',
-        rules: 'test10',
-        permitRules: 'test11'
+        forestContact: 'test2',
+        beforeYouCut: 'test3',
+        whenYouCut: 'test6',
+        whenToCutInfo: 'test7',
+        whereToCutCuttingAreaMaps: 'test8',
+        whereToCutProhibited: 'test9',
+        howToPlanYourTrip: 'test10',
+        rules: 'test11',
+        permitRules: 'test12'
       };
       expect(service.nameMdArray(content, 'arp')).toEqual(namedContent);
     })
