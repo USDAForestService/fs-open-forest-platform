@@ -93,7 +93,7 @@ describe('ChristmasTreesInfoService', () => {
         expect(res.forestAbbr).toEqual('arp');
         expect(res.cuttingAreas).toEqual(forest.cuttingAreas);
         expect(res.content.contactUs).toEqual('blah');
-        expect(Object.keys(res.content).length).toEqual(10);
+        expect(Object.keys(res.content).length).toEqual(11);
       });
 
       const forestRequest = httpMock.expectOne('http://localhost:8080/forests/arp');
