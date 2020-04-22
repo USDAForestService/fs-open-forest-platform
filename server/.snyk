@@ -200,6 +200,10 @@ ignore:
     - svg2png > yargs > yargs-parser:
         reason: No upgrade avail
         expires: '2020-06-18T16:36:01.376Z'
+  SNYK-JS-SVG2PNG-567041:
+    - svg2png:
+        reason: None given
+        expires: '2020-05-22T17:21:26.655Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
