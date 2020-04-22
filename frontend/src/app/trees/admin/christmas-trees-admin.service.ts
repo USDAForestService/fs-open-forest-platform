@@ -40,10 +40,10 @@ export class ChristmasTreesAdminService {
   getAdminNavItems() {
     return [
       { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
-      { id: 'forest-admin-reports', routerLink: '/admin/christmas-trees/reports', title: 'Generate reports'},
-      { id: 'forest-admin-seasons', routerLink: '/admin/christmas-trees/season-dates', title: 'Change season dates'},
-      { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'},
-      { id: 'forest-admin-feedback', routerLink: '/admin/christmas-trees/feedback-review', title: 'Feedback'}
+      { id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'},
+      { id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'},
+      { id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'},
+      { id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'}
     ];
   }
 }

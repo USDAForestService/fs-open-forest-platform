@@ -5,6 +5,7 @@ import { ReportResultsComponent } from './admin/report/results/report-results.co
 import { SharedModule } from '../shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
+import { TreeCuttingDatesMinComponent } from './forests/tree-guidelines/tree-cutting-dates-min/tree-cutting-dates-min.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
 import { ChristmasTreesInfoService } from './_services/christmas-trees-info.service';
 import { FeedbackService } from './_services/feedback.service';
@@ -31,6 +32,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
+    TreeCuttingDatesMinComponent,
     TreeSpeciesComponent,
     ForestFinderComponent,
     ChristmasTreeMapDetailsComponent,
@@ -45,6 +47,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     TreeGuidelinesComponent,
     BuyPermitBarComponent,
     TreeCuttingDatesComponent,
+    TreeCuttingDatesMinComponent,
     TreeSpeciesComponent,
     ChristmasTreeMapDetailsComponent
   ],
