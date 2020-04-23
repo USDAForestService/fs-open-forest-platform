@@ -21,7 +21,6 @@ module.exports = {
       allowAdditionalHeight: { type: Sequelize.BOOLEAN, field: 'allow_additional_height' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
-      state: { type: Sequelize.STRING(50), field: 'state'}
     });
   },
   down: function(queryInterface, Sequelize) {
