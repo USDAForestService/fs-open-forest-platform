@@ -37,7 +37,7 @@ export class ChristmasTreesAdminService {
   /**
    * @returns admin navigation links
    */
-  getAdminNavItems(user) {
+  getAdminNavItems() {
     // xmas tree permits
     const navItems = [{id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'}];
     // reports
