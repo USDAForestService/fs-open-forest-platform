@@ -443,7 +443,7 @@ util.getPOC1Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is or POC1 access
+    // check if a role is or POC1 access
     if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
