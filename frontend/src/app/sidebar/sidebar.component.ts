@@ -111,7 +111,7 @@ export class SidebarComponent implements OnInit {
    * Set default styles
    */
   ngOnInit() {
-    this.forestAdminNavItems = this.adminService.getAdminNavItems(this.user);
+    this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
     this.top = '0px';
     this.route = this.router.url.split('#')[0];
