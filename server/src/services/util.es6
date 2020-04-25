@@ -431,11 +431,12 @@ util.getEauthForests = (approles) => {
   return [...new Set(forests)];
 };
 
+
 /**
- * Return an array of POC1 forests (short names) from the provided eAuth approles string
+ * Return an array of POC2 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC1Forests = (approles) => {
+util.getPOC2Forests = (approles) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -443,8 +444,8 @@ util.getPOC1Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if a role is or POC1 access
-    if (roles[i].includes('POC1')) {
+    // check if the role is or POC2 access (POC1 inherits POC2)
+    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -470,10 +471,10 @@ util.getPOC1Forests = (approles) => {
 };
 
 /**
- * Return an array of POC2 forests (short names) from the provided eAuth approles string
+ * Return an array of POC1 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC2Forests = (approles) => {
+util.getPOC1Forests = (approles) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -481,8 +482,8 @@ util.getPOC2Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is or POC2 access (POC1 inherits POC2)
-    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+    // check if a role is or POC1 access
+    if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
