@@ -513,15 +513,15 @@ util.getPOC1Forests = (approles) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = approles => {
+util.getUserRole = (approles) => {
   let role = 'user';
-  let poc1_forests = util.getPOC1Forests(approles);
-  let poc2_forests = util.getPOC2Forests(approles);
-  if (poc1_forests.length > 0 || poc2_forests.length > 0) {
-    role = 'admin'
+  const poc1forests = util.getPOC1Forests(approles);
+  const poc2forests = util.getPOC2Forests(approles);
+  if (poc1forests.length > 0 || poc2forests.length > 0) {
+    role = 'admin';
   }
   return role;
-}
+};
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
