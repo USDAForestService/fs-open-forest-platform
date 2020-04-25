@@ -559,6 +559,9 @@ util.handleErrorResponse = (error, res, method) => {
 * @param {Object} applicationOrPermit - what the permit object is
 */
 util.logControllerAction = (req, controller, applicationOrPermit) => {
+  console.log(req);
+  console.log(controller);
+  console.log(applicationOrPermit);
   // let eventTime;
   // if (req.method === 'PUT') {
   //   eventTime = applicationOrPermit.updatedAt;
