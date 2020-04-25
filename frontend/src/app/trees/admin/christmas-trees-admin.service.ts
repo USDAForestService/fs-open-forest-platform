@@ -38,14 +38,12 @@ export class ChristmasTreesAdminService {
    * @returns admin navigation links
    */
   getAdminNavItems() {
-    // xmas tree permits
-    const navItems = [
-      {id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
-      {id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'},
-      {id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'},
-      {id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'},
-      {id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'}
+    return [
+      { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
+      { id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'},
+      { id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'},
+      { id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'},
+      { id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'}
     ];
-    return navItems;
   }
 }
