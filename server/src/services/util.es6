@@ -559,28 +559,31 @@ util.handleErrorResponse = (error, res, method) => {
 * @param {Object} applicationOrPermit - what the permit object is
 */
 util.logControllerAction = (req, controller, applicationOrPermit) => {
-  let eventTime;
-  if (req.method === 'PUT') {
-    eventTime = applicationOrPermit.updatedAt;
-  } else {
-    eventTime = applicationOrPermit.createdAt;
-  }
-
-  let userID;
-  let role;
-  let permitID;
-  const subPath = controller.split('.');
-  if (subPath[0] === 'christmasTreePermits') {
-    userID = applicationOrPermit.emailAddress;
-    role = 'PUBLIC';
-    permitID = applicationOrPermit.permitId;
-  } else {
-    userID = req.user.email;
-    role = util.getUserRole(req);
-    permitID = applicationOrPermit.applicationId;
-  }
-
-  logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
+  console.log(req);
+  console.log(controller);
+  console.log(applicationOrPermit);
+  // let eventTime;
+  // if (req.method === 'PUT') {
+  //   eventTime = applicationOrPermit.updatedAt;
+  // } else {
+  //   eventTime = applicationOrPermit.createdAt;
+  // }
+  //
+  // let userID;
+  // let role;
+  // let permitID;
+  // const subPath = controller.split('.');
+  // if (subPath[0] === 'christmasTreePermits') {
+  //   userID = applicationOrPermit.emailAddress;
+  //   role = 'PUBLIC';
+  //   permitID = applicationOrPermit.permitId;
+  // } else {
+  //   userID = req.user.email;
+  //   role = util.getUserRole(req);
+  //   permitID = applicationOrPermit.applicationId;
+  // }
+  //
+  // logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
 };
 
 util.request = request;
