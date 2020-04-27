@@ -1,5 +1,6 @@
 set -e
 
+source /home/Jenkins/openforest.sh
 cf install-plugin autopilot -f -r CF-Community
 
 wget https://github.com/Comcast/cf-recycle-plugin/releases/download/v2.0.1/cf-recycle-plugin-2.0.1.tgz
