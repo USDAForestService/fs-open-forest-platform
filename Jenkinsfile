@@ -248,7 +248,6 @@ sh '''
 		cd server
 		./copy-frontend-assets.sh        	
 		cd ../frontend/node_modules/protractor
-		npm i webdriver-manager@latest
 		cd ../..
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..	
