@@ -16,7 +16,7 @@ let chromeOptions = {};
 if (isDocker) {
   chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
 } else if (process.env['HEADLESS'] === 'true') {
-  chromeOptions = { args: ['--headless', '--window-size=800x600'] };
+  chromeOptions = { args: ['--headless', 'no-sandbox','--window-size=800x600'] };
 }
 
 exports.config = {
