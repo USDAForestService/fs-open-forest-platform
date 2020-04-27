@@ -1,5 +1,8 @@
 export NODE_ENV=test
 
+sudo kill -9 $(sudo lsof -t -i:8080)
+sudo kill -9 $(sudo lsof -t -i:4200)
+
 SUITE=""
 if [ $CIRCLE_NODE_TOTAL -ge 3 ]
 then
