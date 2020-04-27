@@ -99,18 +99,14 @@ export class AdminDistrictDatesComponent implements OnInit {
         userForests.push(forest.forestAbbr);
       })
     }
-    console.dir(userForests)
     userForests.forEach(forestAbbr => {
       this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
-        console.log('got one')
-        console.dir(forest)
         if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
           userForestsWithDistricts.push(forest);
           this.setForest(forest.forestAbbr)
         }
       });
     })
-    console.dir(userForestsWithDistricts);
     return userForestsWithDistricts;
   }
 
