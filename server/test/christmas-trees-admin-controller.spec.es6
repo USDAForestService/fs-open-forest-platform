@@ -85,7 +85,7 @@ describe('christmas tree admin controller', () => {
     const reportStartDate = '2018-11-01';
     const reportEndDate = '2018-11-02';
 
-    const getPermitSummaryReportUrl = (forestId, startDate, endDate) => `/admin/christmas-trees/permits/summary?forestId=${forestId}&startDate=${startDate}&endDate=${endDate}`;
+    const getPermitSummaryReportUrl = (forestId, startDate, endDate) => `/christmas-trees/admin/permits/summary?forestId=${forestId}&startDate=${startDate}&endDate=${endDate}`;
 
     describe('when not authenticated as an admin', () => {
       it('returns 403', (done) => {
@@ -156,7 +156,7 @@ describe('christmas tree admin controller', () => {
   });
 
   describe('.getPermitReport', () => {
-    const getPermitReportUrl = permitNumber => `/admin/christmas-trees/permits/${permitNumber}`;
+    const getPermitReportUrl = permitNumber => `/christmas-trees/admin/permits/${permitNumber}`;
 
     describe('when not authenticated as an admin', () => {
       it('returns 403', (done) => {
@@ -186,7 +186,7 @@ describe('christmas tree admin controller', () => {
         const permitNumber = unauthorizedPermit.id;
         agent.get(getPermitReportUrl(permitNumber))
           .expect((res) => {
-            expect(res.error.message).to.equal('cannot GET /admin/christmas-trees/permits/undefined (404)');
+            expect(res.error.message).to.equal('cannot GET /christmas-trees/admin/permits/undefined (404)');
           })
           .expect(404, done);
       });
@@ -208,7 +208,7 @@ describe('christmas tree admin controller', () => {
   });
 
   describe('.updateForestDetails', () => {
-    const updateForestDetailsUrl = forestId => `/admin/christmas-trees/forests/${forestId}`;
+    const updateForestDetailsUrl = forestId => `/christmas-trees/admin/forests/${forestId}`;
 
     describe('when not authenticated as an admin', () => {
       it('returns 403', (done) => {

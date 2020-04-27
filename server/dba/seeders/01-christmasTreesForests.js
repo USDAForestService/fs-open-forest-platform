@@ -22,7 +22,8 @@ const forests = [
           + '"REDFEATHERLAKES": {"startDate": "2019-12-07 13:30:00Z", "endDate": "2019-12-15 19:30:00Z", "name": "Red Feather Lakes"},'
           + '"SULPHUR": {"startDate": "2019-11-01 15:00:00Z", "endDate": "2020-01-06 22:30:00Z", "name": "Sulphur"},'
           + '"CANYONLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Canyon Lakes"} }',
-    poss_financial_id: '999900004'
+    poss_financial_id: '999900004',
+    state: 'Colorado'
   },
   {
     id: 2,
@@ -43,7 +44,8 @@ const forests = [
     forest_name_short: 'Flathead',
     timezone: 'America/Denver',
     cutting_areas: '{}',
-    poss_financial_id: '999900005'
+    poss_financial_id: '999900005',
+    state: 'Montana'
   },
   {
     id: 3,
@@ -64,7 +66,8 @@ const forests = [
     forest_name_short: 'Mt. Hood',
     timezone: 'America/Los_Angeles',
     cutting_areas: '{}',
-    poss_financial_id: '999900007'
+    poss_financial_id: '999900007',
+    state: 'Oregon'
   },
   {
     id: 4,
@@ -86,7 +89,8 @@ const forests = [
     forest_name_short: 'Shoshone',
     timezone: 'America/Denver',
     cutting_areas: '{}',
-    poss_financial_id: '999900006'
+    poss_financial_id: '999900006',
+    state: 'Wyoming'
   },
   {
     id: 5,
@@ -107,7 +111,8 @@ const forests = [
     forest_name_short: 'Gifford Pinchot',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900014'
+    poss_financial_id: '999900014',
+    state: 'Washington'
   },
   {
     id: 6,
@@ -128,7 +133,8 @@ const forests = [
     forest_name_short: 'Fremont-Winema',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900015'
+    poss_financial_id: '999900015',
+    state: 'Oregon'
   },
   {
     id: 7,
@@ -149,7 +155,8 @@ const forests = [
     forest_name_short: 'Mt. Baker-Snoqualmie',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900010'
+    poss_financial_id: '999900010',
+    state: 'Washington'
   },
   {
     id: 8,
@@ -170,7 +177,8 @@ const forests = [
     forest_name_short: 'Deschutes',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900008'
+    poss_financial_id: '999900008',
+    state: 'Oregon'
   },
   {
     id: 9,
@@ -191,7 +199,8 @@ const forests = [
     forest_name_short: 'Willamette',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900012'
+    poss_financial_id: '999900012',
+    state: 'Oregon'
   },
   {
     id: 10,
@@ -212,7 +221,8 @@ const forests = [
     forest_name_short: 'Rogue River-Siskiyou',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900009'
+    poss_financial_id: '999900009',
+    state: 'Oregon and California'
   },
   {
     id: 11,
@@ -233,7 +243,8 @@ const forests = [
     forest_name_short: 'Okanogan-Wenatchee',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900011'
+    poss_financial_id: '999900011',
+    state: 'Washington'
   },
   {
     id: 12,
@@ -254,7 +265,9 @@ const forests = [
     forest_name_short: 'Umatilla',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900013'
+    poss_financial_id: '999900013',
+    state: 'Oregon and Washington'
+
   },
   {
     id: 13,
@@ -275,7 +288,8 @@ const forests = [
     forest_name_short: 'Ochoco',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900016'
+    poss_financial_id: '999900016',
+    state: 'Oregon'
   }
 ];
 

@@ -55,7 +55,7 @@
       "security": [
         "david.corwin@gsa.gov"
       ],
-      "smtp_server": "smtp.gmail.com",
+      "smtp_server": "smtp.sendgrid.net",
       "username": "do_not_reply_openforest@example.com"
     }
   }, {

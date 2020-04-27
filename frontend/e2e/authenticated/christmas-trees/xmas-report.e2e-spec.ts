@@ -14,7 +14,7 @@ describe('Xmas tree - Admin Reports', () => {
 
       loginAdmin();
 
-      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/admin/christmas-trees/reports');
+      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/christmas-trees/admin/reports');
     });
 
     describe('basic elements', () => {

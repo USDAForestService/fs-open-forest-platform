@@ -83,7 +83,7 @@ export class PermitApplicationViewComponent implements OnInit {
         'Permit application successfully rejected and an email with your message has been sent to the applicant.'
       );
     }
-    this.router.navigate(['admin/applications']);
+    this.router.navigate(['special-use/admin/applications']);
   }
 
   provideReasonOrCancel(status) {

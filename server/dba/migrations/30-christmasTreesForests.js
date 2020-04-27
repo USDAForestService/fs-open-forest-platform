@@ -20,7 +20,7 @@ module.exports = {
       maxNumTrees: { type: Sequelize.INTEGER, field: 'max_num_trees' },
       allowAdditionalHeight: { type: Sequelize.BOOLEAN, field: 'allow_additional_height' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
-      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
     });
   },
   down: function(queryInterface, Sequelize) {

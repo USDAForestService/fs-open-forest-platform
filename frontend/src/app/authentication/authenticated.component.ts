@@ -102,7 +102,7 @@ export class AuthenticatedComponent implements OnInit {
   }
 
   setRoute(user) {
-    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications';
+    user.role === 'admin' ? this.useRoute = '/special-use/admin/applications' : this.useRoute = '/special-use/user/applications';
   }
 
   /**
