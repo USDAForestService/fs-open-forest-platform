@@ -47,6 +47,7 @@ module.exports = {
       tempOutfitterFieldsIndividualCitizen: { type: Sequelize.BOOLEAN, field: 'temp_outfitter_indiv_citizen', allowNull: false },
       tempOutfitterFieldsSmallBusiness: { type: Sequelize.BOOLEAN, field: 'temp_outfitter_small_business', allowNull: false },
       tempOutfitterFieldsActivityDescription: { type: Sequelize.STRING, field: 'temp_outfitter_activity_desc' },
+      tempOutfitterFieldsAdditionalInfoDescription: { type: Sequelize.STRING, field: 'temp_outfitter_additional_info_desc' },
       tempOutfitterFieldsAdvertisingUrl: { type: Sequelize.STRING, field: 'temp_outfitter_advertising_url' },
       tempOutfitterFieldsAdvertisingDescription: { type: Sequelize.STRING, field: 'temp_outfitter_advertising_desc' },
       tempOutfitterFieldsClientCharges: { type: Sequelize.STRING, field: 'temp_outfitter_client_charges' },
