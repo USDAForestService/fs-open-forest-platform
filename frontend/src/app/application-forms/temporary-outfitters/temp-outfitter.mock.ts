@@ -23,12 +23,14 @@ export const tempOutfitterMock = {
     website: '',
     goodStandingEvidence: ''
   },
+  additionalInfo: '',
   guideIdentification: '',
   operatingPlan: '',
   liabilityInsurance: '',
   acknowledgementOfRisk: '',
   locationMap: '',
   tempOutfitterFields: {
+    additionalInfoDescription: '',
     individualIsCitizen: '',
     smallBusiness: '',
     advertisingDescription: '',
