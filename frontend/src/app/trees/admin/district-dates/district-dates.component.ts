@@ -92,21 +92,21 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   getUserForestsWithDistricts(userForests, allForests) {
-    let userForestsWithDistricts = []
+    const userForestsWithDistricts = [];
     if (userForests.includes('all')) {
-      userForests = []
+      userForests = [];
       allForests.forEach(forest => {
         userForests.push(forest.forestAbbr);
-      })
+      });
     }
     userForests.forEach(forestAbbr => {
       this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
         if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
           userForestsWithDistricts.push(forest);
-          this.setForest(forest.forestAbbr)
+          this.setForest(forest.forestAbbr);
         }
       });
-    })
+    });
     return userForestsWithDistricts;
   }
 

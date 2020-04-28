@@ -1,5 +1,4 @@
 const { Strategy } = require('passport-local');
-const util = require('../services/util.es6');
 
 const localAdminStrategy = (loginUrl) => {
   const strategy = new Strategy({ usernameField: 'email' }, (email, password, done) => {
