@@ -26,13 +26,14 @@ export class FileUploadComponent implements DoCheck, OnInit {
   errorMessage: string;
   maxFileSize = 10 * 1024 * 1024;
   uploader: FileUploader;
+  status: any;
+  index: null;
 
   constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
       allowedMimeType: this.allowedMimeType,
-      queueLimit: 2
     });
     this.uploader.onWhenAddingFileFailed = (item, filter, options) =>
       this.onWhenAddingFileFailed(item, filter, options);
@@ -53,20 +54,9 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   onAfterAddingFile(uploader) {
-    if (uploader.queue.length > 0) {
-      this.errorMessage = '';
-      this.fileUploadService.addOneFile();
-    }
-    if (uploader.queue.length > 1) {
-      uploader.removeFromQueue(uploader.queue[0]);
-      this.fileUploadService.removeOneFile();
-    }
-    if (uploader.queue.length > 0) {
-      this.field.patchValue(uploader.queue[0].file.name);
-      this.field.markAsTouched();
-      this.field.updateValueAndValidity();
-      this.field.setErrors(null);
-    }
+        this.field.markAsTouched();
+        this.field.updateValueAndValidity();
+        this.field.setErrors(null);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, Filter: any, options: any) {
@@ -108,9 +98,27 @@ export class FileUploadComponent implements DoCheck, OnInit {
     }
   }
 
-  clickInput(event) {
+  clickInput(event, status, index) {
     event.preventDefault();
-    document.getElementById(`${this.type}`).click();
+
+    switch (status) {
+      case 'Upload':
+        document.getElementById(`${this.type}`).click();
+        this.errorMessage = '';
+        this.fileUploadService.addOneFile();
+        this.field.patchValue(this.uploader.queue[index].file.name);
+        break;
+      case 'Replace':
+        this.uploader.removeFromQueue(this.uploader.queue[index]);
+        document.getElementById(`${this.type}`).click();
+        this.errorMessage = '';
+        this.field.patchValue(this.uploader.queue[index].file.name);
+        break;
+      case 'Delete':
+        this.uploader.removeFromQueue(this.uploader.queue[index]);
+        this.errorMessage = '';
+        break;
+    }
   }
 
   ngDoCheck() {
