@@ -35,6 +35,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   fileUploadProgress: number;
   fileUploadError = false;
   numberOfFiles: number;
+  canDisplay = false;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -103,12 +104,15 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
       },
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
+      additionalInfo: ['', Validators.maxLength(1000)],
       guideIdentification: ['', [Validators.maxLength(255)]],
       operatingPlan: ['', [Validators.maxLength(255)]],
       liabilityInsurance: ['', [Validators.required, Validators.maxLength(255)]],
       acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
       locationMap: ['', [Validators.maxLength(255)]],
       tempOutfitterFields: this.formBuilder.group({
+        additionalInfo: ['', Validators.maxLength(1000)],
+        additionalInfoDescription: ['', [alphanumericValidator(), Validators.maxLength(1000)]],
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
@@ -130,6 +134,23 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.orgTypeChange(type);
     });
+
+    this.applicationForm.get('tempOutfitterFields.additionalInfo').valueChanges.subscribe(value => {
+      this.additionalInfoToggle(
+        value,
+        this.applicationForm.get('tempOutfitterFields.additionalInfoDescription')
+      );
+    });
+  }
+
+  additionalInfoToggle(value, additionalInfoDescription) {
+    if (value) {
+      additionalInfoDescription.setValidators([Validators.required, alphanumericValidator()]);
+      additionalInfoDescription.updateValueAndValidity();
+    } else {
+      additionalInfoDescription.setValidators(null);
+      additionalInfoDescription.updateValueAndValidity();
+    }
   }
 
   advertisingRequirementToggle(value, advertisingUrl, advertisingDescription) {
@@ -296,6 +317,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
           case 'acknowledgement-of-risk-form':
             type = 'acknowledgementOfRisk';
             break;
+          case 'additional-info':
+            type = 'additionalInfo';
+            break;
           case 'good-standing-evidence':
             type = 'applicantInfo.goodStandingEvidence';
             break;
@@ -411,7 +435,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.application.status = 'Submitted';
         this.applicationService.update(this.application, 'temp-outfitter').subscribe(
           (data: any) => {
-            this.router.navigate([`special-use/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+            this.router.navigate([`mbs/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
           },
           (e: any) => {
             this.apiErrors = e;
