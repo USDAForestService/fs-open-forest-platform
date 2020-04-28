@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ApplicationFieldsService } from './_services/application-fields.service';
 
 import { ActivityDescriptionComponent } from './fields/activity-description.component';
+import { AdditionalInfoComponent } from './fields/additional-info.component';
 import { AddressComponent } from './fields/address.component';
 import { AdvertisingComponent } from './fields/advertising.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
@@ -39,6 +40,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
 @NgModule({
   declarations: [
     ActivityDescriptionComponent,
+    AdditionalInfoComponent,
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
@@ -69,6 +71,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
   ],
   exports: [
     ActivityDescriptionComponent,
+    AdditionalInfoComponent,
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
