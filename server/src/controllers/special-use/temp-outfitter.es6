@@ -111,6 +111,8 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
   output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock = input
     .tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
+  output.tempOutfitterFieldsAdditionalInfoDescription = input
+    .tempOutfitterFields.additionalInfoDescription;
   output.tempOutfitterFieldsAdvertisingDescription = input
     .tempOutfitterFields.advertisingDescription;
   output.tempOutfitterFieldsAdvertisingUrl = input
@@ -190,6 +192,7 @@ const translateFromDatabaseToClient = (input) => {
     status: input.status,
     type: input.type,
     tempOutfitterFields: {
+      additionalInfoDescription: input.tempOutfitterFieldsAdditionalInfoDescription,
       advertisingDescription: input.tempOutfitterFieldsAdvertisingDescription,
       advertisingURL: input.tempOutfitterFieldsAdvertisingUrl,
       clientCharges: input.tempOutfitterFieldsClientCharges,
@@ -321,6 +324,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = (application) => {
         application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock
       }\nCleanup activities: ${
         application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration}`,
+      additionalInfoDescription: application.tempOutfitterFieldsAdditionalInfoDescription,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
       clientCharges: application.tempOutfitterFieldsClientCharges,
@@ -536,6 +540,16 @@ const acceptApplication = application => new Promise((resolve, reject) => {
           options: {
             filename: files['acknowledgement-of-risk-form'].filename,
             contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
+          }
+        };
+      }
+
+      if (files['additional-info']) {
+        requestOptions.formData.operatingPlan = {
+          value: files['additional-info'].buffer,
+          options: {
+            filename: files['additional-info'].filename,
+            contentType: util.getContentType(files['additional-info'].filename)
           }
         };
       }
