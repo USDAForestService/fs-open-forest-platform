@@ -29,7 +29,7 @@ describe('tempoutfitter controllers', () => {
     });
   });
 
-  xdescribe('when authenticated as an admin', () => {
+  describe('when authenticated as an admin', () => {
     const agent = request.agent(server);
 
     before(loginAdmin(agent));
@@ -339,6 +339,22 @@ describe('tempoutfitter controllers', () => {
           .type('multipart/form-data')
           .field('applicationId', applicationId)
           .field('documentType', 'acknowledgement-of-risk-form')
+          .set('Accept', 'text/html')
+          .attach('file', './test/data/test.docx')
+          .expect('Content-Type', /json/)
+          .expect(/"applicationId":"[\d]+"/)
+          .expect(201, (err) => {
+            expect(err).to.be.null;
+            done(err);
+          });
+      });
+
+      it('should accept a additional-info file and return 201 created', (done) => {
+        agent
+          .post(fileUploadUrl)
+          .type('multipart/form-data')
+          .field('applicationId', applicationId)
+          .field('documentType', 'additional-info')
           .set('Accept', 'text/html')
           .attach('file', './test/data/test.docx')
           .expect('Content-Type', /json/)
