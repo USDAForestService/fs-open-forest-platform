@@ -1,0 +1,12 @@
+<ng-container [formGroup]="tempOutfitterFields">
+    <fieldset>
+      <ng-container>
+        <label id="additional-info-description-label" class="usa-input" >Additional Info <span class="required-fields-asterisk">*</span></label>
+        <p id="additional-info-description-hint-text" class="help-text usa-form-hint">Enter any additional information you'd like your forest administrator to be aware of.</p>
+        <textarea id="additional-info-description" type="text" formControlName="additionalInfoDescription" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.additionalInfoDescription, 'additional-info-description-label additional-info-description-hint-text', 'additional-info-description-error')"
+        [attr.aria-invalid]="afs.hasError(tempOutfitterFields.controls.additionalInfoDescription)"></textarea>
+        <app-error-message fieldId="additiona-info-description-error" name="Additional Info Description" [control]="tempOutfitterFields.controls.additionalInfoDescription"></app-error-message>
+      </ng-container>
+    </fieldset>
+  </ng-container>
