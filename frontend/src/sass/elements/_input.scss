@@ -43,6 +43,11 @@ label, span, .character-limit-hint{
   .form-directions {
     margin-bottom: 0;
   }
+
+  .additional-info-hide {
+    display: none;
+  }
+
 }
 
 .noncommercial-section {
@@ -68,11 +73,6 @@ label, span, .character-limit-hint{
   float: left;
   margin-right: 1.5rem;
 }
-
-// .number-input-wrapper {
-//   display: flex;
-//   flex-direction: row;
-// }
 
 input.number-input-sizing {
   width: 9rem;
@@ -118,24 +118,50 @@ input.ng-touched.invaliddate,
     border: solid 3px $fs-red;
   }
 
-  &.file-selected {
-    background-position-x: 94%;
-    background-position-y: 4%;
-    background: url(/assets/img/site-wide/checkmark.svg) no-repeat;
-    background-size: 5%;
-    @media (min-width: $medium-screen) {
-      background-position-x: 94%;
-      background-position-y: 50%;
-      background-size: 8%;
+  .upload-queue {
+    display: flex;
+    flex-direction: column;
     }
-  }
+
+  .upload-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+
+      @media(min-width: $small-screen){
+        position: relative;
+        display: flex;
+        flex-direction: row;
+      }
+    }
 
   .file-name {
-    max-width: 90%;
+    max-width: 25rem;
+  }
+
+  .file-upload-buttons {
+    display: flex;
+    flex-direction: row;
+
+    @media(min-width: $small-screen) {
+      position: absolute;
+      left: 28rem;
+    }
+
   }
 
   .usa-button {
     margin-bottom: 10px;
+    &.usa-replace-button{
+      margin-top: 0rem;
+      height: 3rem;
+      padding: 0rem 1rem;
+    }
+    &.usa-delete-button{
+      margin-top: 0rem;
+      height: 3rem;
+      padding: 0rem 1rem;
+    }
   }
 
   input[type='file'] {
