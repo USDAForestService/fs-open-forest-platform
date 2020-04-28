@@ -18,11 +18,12 @@ class MockApplicationService {
   get(): Observable<{}> {
     const array = [
       { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
-      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
-      { documentType: 'insurance-certificate', originalFileName: 'test3' },
-      { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' },
-      { documentType: 'location-map', originalFileName: 'test6' }
+      { documentType: 'additional-info', originalFileName: 'test2' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test3' },
+      { documentType: 'insurance-certificate', originalFileName: 'test4' },
+      { documentType: 'guide-document', originalFileName: 'test5' },
+      { documentType: 'operating-plan', originalFileName: 'test6' },
+      { documentType: 'location-map', originalFileName: 'test7' }
     ];
     return Observable.of(array);
   }
