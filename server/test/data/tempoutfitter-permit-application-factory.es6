@@ -83,7 +83,9 @@ module.exports = factory.factory({
     // required boolean
     smallBusiness: false,
     // optional string
-    advertisingDescription: 'Advertising',
+    additionalInfoDescription: 'Advertising',
+    // optional string
+    advertisingDescription: 'Additional Info',
     // optional string URL
     advertisingURL: 'http://advertising.url',
     // required string
