@@ -44,11 +44,12 @@ class MockApplicationService {
   get(): Observable<{}> {
     const array = [
       { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
-      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
-      { documentType: 'insurance-certificate', originalFileName: 'test3' },
-      { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' },
-      { documentType: 'location-map', originalFileName: 'test6' }
+      { documentType: 'additional-info', originalFileName: 'test2' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test3' },
+      { documentType: 'insurance-certificate', originalFileName: 'test4' },
+      { documentType: 'guide-document', originalFileName: 'test5' },
+      { documentType: 'operating-plan', originalFileName: 'test6' },
+      { documentType: 'location-map', originalFileName: 'test7' }
     ];
     return Observable.of(array);
   }
@@ -364,6 +365,19 @@ describe('TemporaryOutfittersComponent', () => {
     ).toBeFalsy();
   });
 
+  it('should toggle additional info description', () => {
+  component.additionalInfoToggle(
+    true,
+    component.applicationForm.get('tempOutfitterFields.additionalInfoDescription')
+  );
+  expect(component.applicationForm.get('tempOutfitterFields.additionalInfoDescription').valid).toBeFalsy();
+  component.applicationForm.get('tempOutfitterFields.additionalInfoDescription').setValue('test');
+  expect(component.applicationForm.get('tempOutfitterFields.additionalInfoDescription').valid).toBeTruthy();
+  component.additionalInfoToggle(
+    false,
+    component.applicationForm.get('tempOutfitterFields.additionalInfoDescription')
+  );
+  });
   it('should not remove used data', () => {
     const formBuilder = new FormBuilder();
     const experienceFields = formBuilder.group({
