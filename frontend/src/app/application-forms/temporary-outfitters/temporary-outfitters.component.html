@@ -218,6 +218,32 @@
           (inViewportAction)="elementInView($event)">
         </app-experience>
 
+        <fieldset id="section-additional-info" tabindex="-1"
+             inViewport
+             [inViewportOptions]="{ partial: true }"
+             (inViewportAction)="elementInView($event)">
+          <legend>Additional Information</legend>
+          <input id="application-addtional-info" type="checkbox" formControlName="additionalInfo" (click)="!canDisplay? canDisplay = true: canDisplay = false" />
+          <label id="application-addtional-info-label" class="usa-input" for="application-addtional-info">I would like to provide additional information or more files.</label>
+
+          <div [ngClass]="{'additional-info-hide': !canDisplay}">
+            <app-additional-info id="section-additional-info-description" tabindex="-1"
+              [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
+              inViewport
+              [inViewportOptions]="{ partial: true }"
+              (inViewportAction)="elementInView($event)">
+            </app-additional-info>
+
+              <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
+              <app-file-upload-field id="section-additional-info-upload" name="Additional Info" type="additional-info"
+              [uploadFiles]="uploadFiles"
+              [applicationId]="applicationId"
+              [checkFileUploadHasError]="submitted"
+              [field]="applicationForm.controls.additionalInfo"
+              ></app-file-upload-field>
+            </div>
+        </fieldset>
+
         <fieldset id="section-signature" tabindex="-1"
           inViewport
           [inViewportOptions]="{ partial: true }"
@@ -241,7 +267,7 @@
         </div>
 
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/special-use/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
+        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
         <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save Edits & Submit</button>
 
       </form>
