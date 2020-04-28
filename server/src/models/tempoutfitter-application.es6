@@ -330,6 +330,16 @@ module.exports = util.getSequelizeConnection().define(
         }
       }
     },
+    tempOutfitterFieldsAdditionalInfoDescription: {
+      type: Sequelize.STRING(1000),
+      field: 'temp_outfitter_advertising_desc',
+      validate: {
+        len: {
+          args: [0, 1000],
+          msg: 'tempOutfitterFieldsAdditionalInfoDescription must be less than 255 characters in length'
+        }
+      }
+    },
     tempOutfitterFieldsClientCharges: {
       type: Sequelize.STRING(512),
       field: 'temp_outfitter_client_charges',
