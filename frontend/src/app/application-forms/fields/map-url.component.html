@@ -1,6 +1,6 @@
 <ng-container [formGroup]="applicantInfo">
     <label id="map-url-label" class="usa-input">Map URL Test</label>
-    <input id="map-url" name="mapUrl" type="url"  formControlName="mapUrl" (blur)="blurHandler()"
+    <input id="map-url" name="mapUrl" type="url"  formControlName="mapUrl"
       [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.mapUrl, 'map-url-label', 'map-url-error')"
       [attr.aria-invalid]="afs.hasError(applicantInfo.controls.mapUrl)"
     />
