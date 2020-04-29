@@ -3,7 +3,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Map details page', () => {
   let page: TreesSidebarPage;
-  const redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
+  // const redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
 
   describe('ARP', () => {
     beforeAll(() => {
