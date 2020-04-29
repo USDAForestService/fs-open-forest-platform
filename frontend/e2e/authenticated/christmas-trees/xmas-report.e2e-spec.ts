@@ -148,4 +148,4 @@ describe('Xmas tree - Admin Reports', () => {
       expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
     });
   });
-})
+});
