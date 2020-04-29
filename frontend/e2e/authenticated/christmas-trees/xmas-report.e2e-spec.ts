@@ -36,7 +36,7 @@ describe('Xmas tree - Admin Reports', () => {
       //   expect<any>(page.endMonthInput().isPresent()).toBeTruthy();
       //   expect<any>(page.endDayInput().isPresent()).toBeTruthy();
       //   expect<any>(page.endYearInput().isPresent()).toBeTruthy();
-      });
+      // });
     });
 
     describe('forest select', () => {
