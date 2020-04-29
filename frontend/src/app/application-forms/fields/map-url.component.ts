@@ -8,12 +8,6 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 })
 export class MapUrlComponent {
   @Input() applicantInfo: FormGroup;
-  @Output() blurWebsite: EventEmitter<any> = new EventEmitter();
 
   constructor(public afs: ApplicationFieldsService) {}
-
-  blurHandler(): void {
-    // function to make blur event bubble up
-    this.blurWebsite.emit();
-  }
 }
