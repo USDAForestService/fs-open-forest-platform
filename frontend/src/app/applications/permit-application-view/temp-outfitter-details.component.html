@@ -50,9 +50,6 @@
       <span class="display: block" *ngIf="application.applicantInfo.website">
         Website: <a href="{{application.applicantInfo.website | UrlPipe }}" target="_blank">{{application.applicantInfo.website}}</a>
       </span>
-      <span class="display: block" *ngIf="application.applicantInfo.mapUrl">
-        Map Link: <a href="{{application.applicantInfo.mapUrl | UrlPipe }}" target="_blank">{{application.applicantInfo.mapUrl}}</a>
-      </span>
     </div>
 
     <div class="margin-bottom-1">
@@ -121,6 +118,8 @@
 
       <h3>Location of routes and starting and ending points for the proposed operations:</h3>
       <span>{{ application.tempOutfitterFields.activityDescriptionFields.locationDescription }}</span>
+      <h3 *ngIf="application.applicantInfo.mapUrl">Map Link:</h3>
+      <a href="{{application.applicantInfo.mapUrl | UrlPipe }}">{{application.applicantInfo.mapUrl}}</a>
 
       <h3>Services being offered:</h3>
       <span>{{ application.tempOutfitterFields.activityDescriptionFields.servicesProvided }}</span>
