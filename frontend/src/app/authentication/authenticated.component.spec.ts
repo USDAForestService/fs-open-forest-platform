@@ -73,28 +73,28 @@ describe('AuthenticatedComponent', () => {
     displayLogin: true
   });
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [AuthenticatedComponent, AdminUserFormatterPipe],
-        imports: [RouterTestingModule],
-        providers: [
-          { provide: ActivatedRoute, useValue: mockRoute },
-          { provide: AuthenticationService, useClass: MockAuthenticationService },
-          { provide: WindowRef, useValue: mockWindow },
-          UtilService,
-          { provide: Router, useClass: MockServices }
-        ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
-    })
-  );
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AuthenticatedComponent);
-    component = fixture.debugElement.componentInstance;
-  });
-
+  // beforeEach(
+  //   async(() => {
+  //     TestBed.configureTestingModule({
+  //       declarations: [AuthenticatedComponent, AdminUserFormatterPipe],
+  //       imports: [RouterTestingModule],
+  //       providers: [
+  //         { provide: ActivatedRoute, useValue: mockRoute },
+  //         { provide: AuthenticationService, useClass: MockAuthenticationService },
+  //         { provide: WindowRef, useValue: mockWindow },
+  //         UtilService,
+  //         { provide: Router, useClass: MockServices }
+  //       ],
+  //       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  //     }).compileComponents();
+  //   })
+  // );
+  //
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(AuthenticatedComponent);
+  //   component = fixture.debugElement.componentInstance;
+  // });
+  //
   // it('should create', () => {
   //   fixture.detectChanges();
   //   expect(component).toBeTruthy();
@@ -150,15 +150,15 @@ describe('AuthenticatedComponent', () => {
   //     expect(component.showSUDS).toBeFalsy();
   //   });
   // });
-
-  xit ('should set showSUDS to false and showAdminNav to false if the user is not an admin', () => {
-    async(() => {
-      component.user = { email: 'test@test.com', role: 'notanadmin', forests: ['arp'] };
-      fixture.detectChanges();
-      expect(component.showSUDS).toBeFalsy();
-      expect(component.showAdminNav).toBeFalsy();
-    });
-  });
+  //
+  // it ('should set showSUDS to false and showAdminNav to false if the user is not an admin', () => {
+  //   async(() => {
+  //     component.user = { email: 'test@test.com', role: 'notanadmin', forests: ['arp'] };
+  //     fixture.detectChanges();
+  //     expect(component.showSUDS).toBeFalsy();
+  //     expect(component.showAdminNav).toBeFalsy();
+  //   });
+  // });
 
   afterEach(() => {
     localStorage.clear();
