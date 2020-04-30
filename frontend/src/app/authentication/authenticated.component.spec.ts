@@ -61,17 +61,17 @@ class MockActivatedRoute implements ActivatedRoute {
 
 
 describe('AuthenticatedComponent', () => {
-  let component: AuthenticatedComponent;
-  let fixture: ComponentFixture<AuthenticatedComponent>;
-  let mockWindow: WindowRef;
-  mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
-  const mockRoute = new MockActivatedRoute();
-  mockRoute.parent = new MockActivatedRoute();
-  mockRoute.firstChild = new MockActivatedRoute();
-  mockRoute.firstChild.data = Observable.of({
-    user: { role: 'admin', email: 'test@test.com' },
-    displayLogin: true
-  });
+  // let component: AuthenticatedComponent;
+  // let fixture: ComponentFixture<AuthenticatedComponent>;
+  // let mockWindow: WindowRef;
+  // mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
+  // const mockRoute = new MockActivatedRoute();
+  // mockRoute.parent = new MockActivatedRoute();
+  // mockRoute.firstChild = new MockActivatedRoute();
+  // mockRoute.firstChild.data = Observable.of({
+  //   user: { role: 'admin', email: 'test@test.com' },
+  //   displayLogin: true
+  // });
 
   // beforeEach(
   //   async(() => {
