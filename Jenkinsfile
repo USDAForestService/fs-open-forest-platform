@@ -297,6 +297,10 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   npm install
                   
                   ./copy-frontend-assets.sh
+		  npm run undoAllSeed
+      		  npm run migrate
+      		  npm run seed
+		  
                   cd ..
                   .circleci/run-e2e.sh
                          
