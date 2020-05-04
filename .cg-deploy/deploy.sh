@@ -25,15 +25,15 @@ elif [ $SPACE = 'platform-staging' ]; then
   FRONTEND_MANIFEST="./.cg-deploy/manifests/staging/manifest-frontend-staging.yml"
   API_NAME="open-forest-platform-api-staging"
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
-  CF_USERNAME=$CF_USERNAME
-  CF_PASSWORD=$CF_PASSWORD
+  CF_USERNAME=$CF_USERNAME_STAGING
+  CF_PASSWORD=$CF_PASSWORD_STAGING
 elif [ $SPACE = 'platform-dev' ]; then
   FRONTEND_NAME="open-forest-platform-frontend-dev"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/dev/manifest-frontend-dev.yml"
   API_NAME="open-forest-platform-api-dev"
   API_MANIFEST="./.cg-deploy/manifests/dev/manifest-api-dev.yml"
-  CF_USERNAME=$CF_USERNAME
-  CF_PASSWORD=$CF_PASSWORD
+  CF_USERNAME=$CF_USERNAME_DEV
+  CF_PASSWORD=$CF_PASSWORD_DEV
 else
 echo "Unknown space: $SPACE"
 exit
