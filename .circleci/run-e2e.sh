@@ -13,7 +13,7 @@ npm start &
 serverid=$!
 sleep 1
 cd ../frontend;
-sudo npm run e2e $PARAMS;
+npm run e2e $PARAMS;
 
 e2ereturncode=$?
 
