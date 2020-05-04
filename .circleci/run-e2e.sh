@@ -1,23 +1,6 @@
 export NODE_ENV=test
 
 SUITE="xmas"
-if [ $CIRCLE_NODE_TOTAL -ge 3 ]
-then
-  case $CIRCLE_NODE_INDEX in
-    0)
-      SUITE="xmas"
-      ;;
-    1)
-      SUITE="su"
-      ;;
-    2)
-      SUITE="unauthenticated"
-      ;;
-    *)
-      exit 0
-      ;;
-  esac
-fi
 
 PARAMS=""
 if [ -n "$SUITE" ]
@@ -34,7 +17,7 @@ sudo npm run e2e $PARAMS;
 
 e2ereturncode=$?
 
-if [[ $e2ereturncode = 0 ]]
+if [ $e2ereturncode = 0 ]
 then
   echo 'SUCCESS'
 else
