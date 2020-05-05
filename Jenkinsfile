@@ -43,8 +43,6 @@ pipeline {
     CF_PASSWORD_STAGING = credentials('CF_PASSWORD_STAGING')  
     CF_USERNAME_PROD = credentials('CF_USERNAME_PROD')  
     CF_PASSWORD_PROD = credentials('CF_PASSWORD_PROD')  
-
-
     }
 
     options {
