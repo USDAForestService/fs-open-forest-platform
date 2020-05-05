@@ -131,10 +131,7 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                  pwd
-                  ls -ltr
-                  printenv
-                  
+                 
                   cd frontend
                   npm install
                   cd ../server
@@ -285,9 +282,6 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                 docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                  pwd
-                  ls -ltr
-                  printenv
                   
                   cd frontend
                   npm install
@@ -402,9 +396,7 @@ post{
             sh '''
                 pwd
                 export DATABASE_URL="${DB_URL}${currentdate}"
-                printenv
                 cd server
-                printenv
                 npm run dropdb
             '''
 
@@ -433,9 +425,7 @@ post{
             sh '''
                 pwd
                 export DATABASE_URL="${DB_URL}${currentdate}"
-                printenv
                 cd server
-                printenv
                 npm run dropdb
             '''
 
