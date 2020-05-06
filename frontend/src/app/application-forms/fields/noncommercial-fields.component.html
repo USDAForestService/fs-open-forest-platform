@@ -1,75 +1,38 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { alphanumericValidator } from '../validators/alphanumeric-validation';
+<ng-container [formGroup]="parentForm">
+  <ng-container formGroupName="{{formName}}">
+    <label id="location-label" class="usa-input">Location <span class="required-fields-asterisk">*</span></label>
+    <span id="location-hint-text" class="help-text usa-form-hint">Description of National Forest lands and facilities you would like to use.</span>
+    <input id="location" type="text" formControlName="locationDescription" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.locationDescription, 'location-label location-hint-text', 'location-error')"
+      [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.locationDescription)"
+    />
+    <app-error-message fieldId="location-error" name="Location" [control]="noncommercialFields.controls.locationDescription"></app-error-message>
 
-@Component({
-  selector: 'app-activity-description',
-  templateUrl: './activity-description.component.html'
-})
-export class ActivityDescriptionComponent implements OnInit {
-  @Input() parentForm: FormGroup;
-  @Input() name: string;
-  @Input() pointOfView: string;
+    <label id="participants-label" class="usa-input">Estimated number of participants <span class="required-fields-asterisk">*</span></label>
+    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of event participants.</span>
+    <input id="participants" type="number" (keypress)="numberOnly($event)" formControlName="numberParticipants" aria-required="true" min="1"
+      [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberParticipants, 'participants-label participants-hint-text', 'participants-error')"
+      [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberParticipants)"
+    />
+    <app-error-message fieldId="participants-error" name="Participants" [control]="noncommercialFields.controls.numberParticipants"></app-error-message>
 
-  dateStatus = {
-    startDateTimeValid: true,
-    endDateTimeValid: true,
-    startBeforeEnd: true,
-    startAfterToday: true,
-    hasErrors: false,
-    dateTimeSpan: 0
-  };
+    <label id="spectators-label" class="usa-input">Estimated number of spectators <span class="required-fields-asterisk">*</span></label>
+    <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as a sporting event), please provide the number of spectators.</span>
+    <input id="spectators" type="number" (keypress)="numberOnly($event)" formControlName="numberSpectators" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberSpectators, 'spectators-label spectators-hint-text', 'spectators-error')"
+      [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberSpectators)"
+    />
+    <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
 
-  toggleSubFields: any;
+    <app-error-message fieldId="total-attendees-error" name="Total attendees" [control]="noncommercialFields"></app-error-message>
 
-  @Output() updateRootDateStatus: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {
-    this.toggleSubFields = [
-      {'toggleField': 'needGovernmentFacilities',
-      'dataField': 'listOfGovernmentFacilities'},
-      {'toggleField': 'needTemporaryImprovements',
-      'dataField': 'listOfTemporaryImprovements'},
-      {'toggleField': 'haveMotorizedEquipment',
-      'dataField': 'statementOfMotorizedEquipment'},
-      {'toggleField': 'haveLivestock',
-      'dataField': 'statementOfTransportationOfLivestock'},
-      {'toggleField': 'needAssignedSite',
-      'dataField': 'statementOfAssignedSite'}
-    ];
-  }
-
-  ngOnInit() {
-    const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator(), Validators.maxLength(255)]],
-      numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
-      servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
-      audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
-      needGovernmentFacilities: [false],
-      listOfGovernmentFacilities: ['', Validators.maxLength(1000)],
-      needTemporaryImprovements: [false],
-      listOfTemporaryImprovements: ['', Validators.maxLength(1000)],
-      haveMotorizedEquipment: [false],
-      statementOfMotorizedEquipment: ['', Validators.maxLength(1000)],
-      haveLivestock: [false],
-      statementOfTransportationOfLivestock: ['', Validators.maxLength(1000)],
-      needAssignedSite: [false],
-      statementOfAssignedSite: ['', Validators.maxLength(1000)],
-      descriptionOfCleanupAndRestoration: [
-        '',
-        [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]
-      ]
-    });
-    this.parentForm.addControl('activityDescriptionFields', activityDescription);
-    this.afs.toggleSwitchAdder(this.toggleSubFields, 'activityDescriptionFields', this.parentForm);
-
-  }
-
-  updateDateStatus(dateStatus: any): void {
-    this.dateStatus = dateStatus;
-    this.updateRootDateStatus.emit(dateStatus);
-  }
-}
+    <label id="activity-description-label" class="usa-input">Description of proposed activity
+      <span class="required-fields-asterisk">*</span>
+      <span class="help-text usa-form-hint character-limit-hint">(1000 character limit)</span>
+    </label>
+    <textarea id="activity-description" formControlName="activityDescription" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.activityDescription, 'activity-description-label', 'activity-description-error')"
+      [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.activityDescription)"></textarea>
+    <app-error-message fieldId="activity-description-error" name="Activity description" [control]="noncommercialFields.controls.activityDescription"></app-error-message>
+  </ng-container>
+</ng-container>
