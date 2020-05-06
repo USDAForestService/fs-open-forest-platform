@@ -26,8 +26,7 @@ pipeline {
 	RUN_E2E_STATUS = 'Pending'
 	RUN_PA11Y_STATUS = 'Pending'
 	DEPLOY_STATUS = 'Pending'
-	RUN_SONARQUBE_STATUS = 'Pending'	
-        SONARQUBE_URL=$SONAR_URL_OPENFORESTPLATFORM
+	RUN_SONARQUBE_STATUS = 'Pending'	        
 
     POSTGRES_HOST = 'localhost'
     POSTGRES_USER = 'postgres'
@@ -430,20 +429,20 @@ post{
                 npm run dropdb
             '''
 
-	    env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
- 	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
+	        env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
+ 	        env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
 		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
 		env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
 		env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
 		env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
 		env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
-  	    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"
+  	        env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"
 		env.LGIT_BRANCH = "${GIT_BRANCH}"
 		env.LGIT_AUTHOR = ""
   		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
-	    env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"
+	        env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
-		env.LSONARQUBE_URL="${SONARQUBE_URL}"
+		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
       	emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
 	    }
         }
@@ -459,8 +458,8 @@ post{
                 npm run dropdb
             '''
 
-	    env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
- 	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
+	        env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
+ 	        env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
   		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
 		env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
 		env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
@@ -472,7 +471,7 @@ post{
   		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
 		env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
-		env.LSONARQUBE_URL="${SONARQUBE_URL}"
+		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
 	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
 	    }
         }
