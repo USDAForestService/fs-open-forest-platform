@@ -20,7 +20,7 @@ export class EsriMapComponent implements OnInit {
     ])
       .then(([EsriMap, EsriMapView]) => {
         const map = new EsriMap({
-          basemap: 'streets'
+          basemap: 'topo-vector'
         });
 
         const mapView = new EsriMapView({
