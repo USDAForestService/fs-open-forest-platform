@@ -20,7 +20,7 @@ describe('MainLandingComponent', () => {
     const fixture = TestBed.createComponent(EsriMapComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#mapViewNode')).not.toBe(null);
+    expect(compiled.querySelector('app-esri-map')).not.toBe(null);
   }));
 });
 
