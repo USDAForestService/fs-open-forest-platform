@@ -91,6 +91,25 @@ export class AdminDistrictDatesComponent implements OnInit {
     });
   }
 
+  getUserForestsWithDistricts(userForests, allForests) {
+    const userForestsWithDistricts = [];
+    if (userForests.includes('all')) {
+      userForests = [];
+      allForests.forEach(forest => {
+        userForests.push(forest.forestAbbr);
+      });
+    }
+    userForests.forEach(forestAbbr => {
+      this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
+        if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
+          userForestsWithDistricts.push(forest);
+          this.setForest(forest.forestAbbr);
+        }
+      });
+    });
+    return userForestsWithDistricts;
+  }
+
   /**
    * Set data from route resolver
    */
@@ -101,8 +120,7 @@ export class AdminDistrictDatesComponent implements OnInit {
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
-        this.forests = data.forests;
-
+        this.forests = this.getUserForestsWithDistricts(['mthood'], data.forests);
         if (this.forests[0]) {
           // set default forest to first one on form
           this.forest = this.forests[0];
