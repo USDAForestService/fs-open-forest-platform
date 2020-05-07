@@ -15,6 +15,8 @@ const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
+const forestService = require('./forest.service.es6');
+
 const util = {};
 
 util.ADMIN_ROLE = 'admin';
@@ -389,6 +391,16 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
+util.getForestsByRegion = (region) => {
+  const forests = this.forestService.getForests();
+  let regionForests = [];
+  for (let i = 0; i < forests.length; i += 1) {
+    if (forests[i].region === region) {
+      regionForests.push(forests[i].forestAbbr);
+    }
+  }
+  return regionForests;
+}
 
 /**
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
@@ -396,14 +408,17 @@ util.getAdminForests = (adminUsername) => {
 */
 util.getEauthForests = (approles) => {
   // split the roles from one long string into an array of roles
+  approles = 'FS_Open-Forest_R06';
   const roles = approles.split('^');
   let forests = [];
   let forest = '';
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is related to Open Forest
-    if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      forests = util.getForestsByRegion(region);
+    } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -444,8 +459,10 @@ util.getPOC2Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is or POC2 access (POC1 inherits POC2)
-    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      forests = util.getForestsByRegion(region);
+    } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -482,8 +499,10 @@ util.getPOC1Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if a role is or POC1 access
-    if (roles[i].includes('POC1')) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      forests = util.getForestsByRegion(region);
+    } else if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
