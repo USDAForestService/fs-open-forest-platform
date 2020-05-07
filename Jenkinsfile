@@ -285,15 +285,22 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   cd frontend
                   npm install
                   cd ../server
-                  npm install
                   
+		   npm config rm proxy
+		   npm config rm https-proxy
+	    	   npm config set registry http://registry.npmjs.org/
+	    	   npm config set strict-ssl false                    
+                   npm i -D webdriver-manager
+                   rm -rf node_modules
+                   npm install
+		    
                   ./copy-frontend-assets.sh
 		  npm run undoAllSeed
       		  npm run migrate
       		  npm run seed
 		  
                   cd ..
-               #   .circleci/run-e2e.sh
+                  .circleci/run-e2e.sh
                          
                   '''
                   }
@@ -319,7 +326,7 @@ sh '''
 	 
  stage('dev-deploy'){	 
 	when{
-	branch 'Migration_Jenkins'
+	branch 'dev'
 	}
 	steps {
 	    echo 'run this stage - ony if the branch = dev branch'
