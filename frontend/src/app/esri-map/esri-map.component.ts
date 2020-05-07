@@ -35,16 +35,16 @@ export class EsriMapComponent implements OnInit {
         url: 'https://opendata.arcgis.com/datasets/06ed165cbff74a819a1139d43067a5c1_1.geojson',
         // Enable renderer to outline forests
         renderer: {
-          type: "simple",
+          type: 'simple',
           symbol: {
-            type: "simple-line",
-            color: "green",
-            width: "2px"
+            type: 'simple-line',
+            color: 'green',
+            width: '2px'
           }
         },
         popupTemplate: {  // Enable a popup
-          title: "{COMMONNAME}", // Show attribute value
-          content: "This forest is in region {REGION}."  // Display text in pop-up
+          title: '{COMMONNAME}', // Show attribute value
+          content: 'This forest is in region {REGION}.'  // Display text in pop-up
         }
       });
 
