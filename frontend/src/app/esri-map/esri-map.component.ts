@@ -17,9 +17,9 @@ export class EsriMapComponent implements OnInit {
     loadModules([
       'esri/Map',
       'esri/views/MapView',
-      'esri/layers/WMSLayer'
+      'esri/layers/GeoJSONLayer',
     ])
-      .then(([EsriMap, MapView, WMSLayer]) => {
+      .then(([EsriMap, MapView, GeoJSONLayer]) => {
         const map = new EsriMap({
           basemap: 'topo',
         });
@@ -31,11 +31,24 @@ export class EsriMapComponent implements OnInit {
           map: map
         });
 
-      const wmsForest = new WMSLayer({
-        url: 'https://apps.fs.usda.gov/arcx/services/EDW/EDW_ForestCommonNames_01/MapServer/WMSServer?request=GetCapabilities&service=WMS',
+      const geoJson = new GeoJSONLayer({
+        url: 'https://opendata.arcgis.com/datasets/06ed165cbff74a819a1139d43067a5c1_1.geojson',
+        // Enable renderer to outline forests
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-line",
+            color: "green",
+            width: "2px"
+          }
+        },
+        popupTemplate: {  // Enable a popup
+          title: "{COMMONNAME}", // Show attribute value
+          content: "This forest is in region {REGION}."  // Display text in pop-up
+        }
       });
 
-      map.add(wmsForest);
+      map.add(geoJson);
 
       })
       .catch(err => {
