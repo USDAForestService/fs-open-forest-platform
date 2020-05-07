@@ -15,13 +15,6 @@ describe('MainLandingComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-
-  it('should load Esri Map', async(() => {
-    const fixture = TestBed.createComponent(EsriMapComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-esri-map')).not.toBe(null);
-  }));
 });
 
 
