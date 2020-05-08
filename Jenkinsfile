@@ -127,8 +127,8 @@ stage('run-unit-tests'){
   sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''
-    docker.image('circleci/node:8.15.1').withRun() {
-                docker.image('circleci/node:8.15.1').inside() {
+    docker.image('circleci/node:8.15.1-browsers').withRun() {
+                docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
                  #export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
