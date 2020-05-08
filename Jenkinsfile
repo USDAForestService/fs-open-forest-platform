@@ -127,8 +127,8 @@ stage('run-unit-tests'){
   sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''
-    docker.image('circleci/node:8.15.1-browsers').withRun() {
-                docker.image('circleci/node:8.15.1-browsers').inside() {
+    //docker.image('circleci/node:8.15.1-browsers').withRun() {
+      //          docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
                  export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
@@ -138,24 +138,20 @@ stage('run-unit-tests'){
 	    	   npm config set strict-ssl false                    
 
 
-		   cd frontend
-                   rm -rf node_modules
-		   npm install
-                   cd ../server	                  
-                   npm i -D webdriver-manager
-                   npm install                  
+
+                   cd server	                  
                   ./copy-frontend-assets.sh
-                  cd ../frontend
-                  npm run test:ci
-                  cd ../server
-                  npm run undoAllSeed
+                   cd ../frontend
+                   npm run test:ci
+                   cd ../server
+                     npm run undoAllSeed
 	              npm run migrate
-	              npm run seed
-                 npm run coverage --silent                    
+	               npm run seed
+                     npm run coverage --silent                    
                   '''
 		
-                  }
-              }
+                  //}
+              //}
 
     sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
