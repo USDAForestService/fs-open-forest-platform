@@ -42,6 +42,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "sequelize": "^5.15.1",
+    "snyk": "^1.290.1",
     "svg2png": "^4.1.1",
     "swagger-ui-express": "^2.0.15",
     "tough-cookie": "^2.4.3",
@@ -79,7 +80,6 @@
     "copy-frontend-assets": "./copy-frontend-assets.sh",
     "coverage": "nyc --check-coverage --lines 70 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
-    "dropdb": "sequelize db:drop",    
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
     "docs": "npm run jsdoc",
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r .",
@@ -87,12 +87,17 @@
     "lint:fix": "eslint **/**/*.es6 **/**/**/*.es6 --fix",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
+    "snyk-email": "node scripts/email-snyk-report.js",
+    "snyk-test": "snyk test",
+    "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
-    "undoLastMigrate": "sequelize db:migrate:undo"
+    "undoLastMigrate": "sequelize db:migrate:undo",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^10.18.0"
@@ -104,5 +109,6 @@
     "exclude": [
       "src/pay-gov-mocks/*.*"
     ]
-  }
+  },
+  "snyk": true
 }
