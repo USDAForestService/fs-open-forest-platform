@@ -139,12 +139,12 @@ stage('run-unit-tests'){
                   
                   ./copy-frontend-assets.sh
                   cd ../frontend
-               #   npm run test:ci
+                  npm run test:ci
                   cd ../server
                   npm run undoAllSeed
 	              npm run migrate
 	              npm run seed
-                #  npm run coverage --silent                    
+                 npm run coverage --silent                    
                   '''
 		
                   }
