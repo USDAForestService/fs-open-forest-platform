@@ -9,7 +9,7 @@ cd "$1"
         npm run update-version
         mkdir -p ./src/assets/typedoc && sudo npm run docs
         sudo chown -R Jenkins:Jenkins ../frontend
-        npm run dist-trees
+        npm run $3
 
         cd ../server
         ./copy-frontend-assets.sh
