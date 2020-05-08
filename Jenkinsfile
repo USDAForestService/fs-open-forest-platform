@@ -132,11 +132,18 @@ stage('run-unit-tests'){
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
                  export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
-                  cd frontend
-                  npm install
-                  cd ../server
-                  npm install
-                  
+		   npm config rm proxy
+		   npm config rm https-proxy
+	    	   npm config set registry http://registry.npmjs.org/
+	    	   npm config set strict-ssl false                    
+
+
+		   cd frontend
+                   rm -rf node_modules
+		   npm install
+                   cd ../server	                  
+                   npm i -D webdriver-manager
+                   npm install                  
                   ./copy-frontend-assets.sh
                   cd ../frontend
                   npm run test:ci
