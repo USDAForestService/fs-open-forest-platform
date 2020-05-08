@@ -1,4 +1,5 @@
 const { Strategy } = require('passport-local');
+const util = require('../services/util.es6');
 
 const localAdminStrategy = (loginUrl) => {
   const strategy = new Strategy({ usernameField: 'email' }, (email, password, done) => {
@@ -8,9 +9,7 @@ const localAdminStrategy = (loginUrl) => {
         adminUsername: username,
         email: 'admin@example.com',
         role: 'admin',
-        forests: ['all'],
-        poc1_forests: ['all'],
-        poc2_forests: ['all']
+        forests: util.getAdminForests(username)
       });
     }
     return done(null, false);

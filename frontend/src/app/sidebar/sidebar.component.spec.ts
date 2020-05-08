@@ -31,7 +31,7 @@ class MockUtilService {
   }
 }
 
-xdescribe('SidebarComponent', () => {
+describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
   beforeEach(

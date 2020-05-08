@@ -37,19 +37,13 @@ export class ChristmasTreesAdminService {
   /**
    * @returns admin navigation links
    */
-  getAdminNavItems(user) {
-    const navItems = [{id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'}];
-    if (user.poc1_forests.length > 0 || user.poc2_forests.length > 0) {
-      navItems.push({id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
-    }
-    if (user.poc1_forests.length > 0) {
-      navItems.push({id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'});
-      // TODO check if forests have district dates
-      navItems.push({id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'});
-    }
-    if (user.poc1_forests.length > 0 || user.poc2_forests.length > 0) {
-      navItems.push({id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'});
-    }
-    return navItems;
+  getAdminNavItems() {
+    return [
+      { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
+      { id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'},
+      { id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'},
+      { id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'},
+      { id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'}
+    ];
   }
 }

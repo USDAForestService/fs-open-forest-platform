@@ -16,7 +16,7 @@ class MockAuthenticationService {
   }
 }
 
-xdescribe('ForestAdminNavComponent', () => {
+describe('ForestAdminNavComponent', () => {
   let component: ForestAdminNavComponent;
   let fixture: ComponentFixture<ForestAdminNavComponent>;
 
@@ -67,3 +67,4 @@ xdescribe('ForestAdminNavComponent', () => {
     expect(component.menuBtnPosition).toEqual('absolute');
   });
 });
+
