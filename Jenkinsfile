@@ -33,7 +33,7 @@ pipeline {
     HOME='.' 
     currentdate= sh (returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
     DB_URL = 'postgres://fs_open_forest:fs_open_forest@10.0.0.102/'
-    OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
+    //OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
 
 
     CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')  
@@ -131,13 +131,13 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:8.15.1').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                 export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
-		   npm config rm proxy
-		   npm config rm https-proxy
-	    	   npm config set registry http://registry.npmjs.org/
-	    	   npm config set strict-ssl false                    
+                 #export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
+		 #  npm config rm proxy
+		 #  npm config rm https-proxy
+	    	 #  npm config set registry http://registry.npmjs.org/
+	    	 #  npm config set strict-ssl false                    
 
-	cd server	                  
+		cd server	                  
                   ./copy-frontend-assets.sh
                    cd ../frontend
                    npm run test:ci
