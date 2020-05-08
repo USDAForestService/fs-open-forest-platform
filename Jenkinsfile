@@ -17,7 +17,7 @@ pipeline {
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         //MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov,SM.FS.OpenFrstOps@usda.gov,michael.laney@usda.gov,Brian.Davidson2@usda.gov,Dylan.Mcafee@usda.gov,Rebekah.Hernandez@usda.gov,jonathan.lerner@usda.gov,shadat.mahmud@usda.gov,bdavidson@cynerge.com'
-        MAILING_LIST = 'ikumarasamy@techtrend.us,ilayaraja.kumarasamy@usda.gov,matthew.reiss@usda.gov,abdul.qureshi@usda.gov'
+        MAILING_LIST = 'ikumarasamy@techtrend.us,abdul.qureshi@usda.gov'
 
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
