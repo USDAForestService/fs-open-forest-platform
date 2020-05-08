@@ -131,7 +131,7 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                 
+                 export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
                   cd frontend
                   npm install
                   cd ../server
