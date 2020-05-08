@@ -4,7 +4,7 @@ const url = require('url');
 const Sequelize = require('sequelize');
 const logger = require('./src/services/logger.es6');
 const vcapConstants = require('./src/vcap-constants.es6');
-console.log(vcapConstants.database.url);
+
 if (!vcapConstants.database || !vcapConstants.database.url) {
   throw new Error('Database configuraction is not set. Please set DATABASE_URL environment variable or add it to configuration.');
 }
