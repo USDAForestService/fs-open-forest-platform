@@ -211,7 +211,8 @@ stage('run-sonarqube'){
       '''
 	def scannerhome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQube') {
-          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
+        //  sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
+		sh 'pwd'
       	  //sh 'rm -rf sonarqubereports'
           //sh 'mkdir sonarqubereports'
   	  //sh 'sleep 30'
@@ -249,7 +250,7 @@ sh '''
       '''
 		sh '''
 	cd frontend
-        npm run build-test-pa11y
+      #  npm run build-test-pa11y
 	'''
 
 sh '''
@@ -304,7 +305,7 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
       		  npm run seed
 		  
                   cd ..
-                  .circleci/run-e2e.sh
+               #   .circleci/run-e2e.sh
                          
                   '''
                   }
