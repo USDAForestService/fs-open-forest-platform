@@ -35,7 +35,6 @@ pipeline {
     DB_URL = 'postgres://fs_open_forest:fs_open_forest@10.0.0.102/'
     OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
 
-
     CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')  
     CF_PASSWORD_DEV = credentials('CF_PASSWORD_DEV')  
     CF_USERNAME_STAGING = credentials('CF_USERNAME_STAGING')  
