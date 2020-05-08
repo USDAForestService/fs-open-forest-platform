@@ -392,15 +392,15 @@ util.getAdminForests = (adminUsername) => {
 };
 
 util.getForestsByRegion = (region) => {
-  const forests = this.forestService.getForests();
-  let regionForests = [];
+  const forests = forestService.getForests();
+  const regionForests = [];
   for (let i = 0; i < forests.length; i += 1) {
     if (forests[i].region === region) {
       regionForests.push(forests[i].forestAbbr);
     }
   }
   return regionForests;
-}
+};
 
 /**
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
@@ -408,7 +408,6 @@ util.getForestsByRegion = (region) => {
 */
 util.getEauthForests = (approles) => {
   // split the roles from one long string into an array of roles
-  approles = 'FS_Open-Forest_R06';
   const roles = approles.split('^');
   let forests = [];
   let forest = '';
@@ -416,7 +415,7 @@ util.getEauthForests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
-      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
       forests = util.getForestsByRegion(region);
     } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
@@ -460,7 +459,7 @@ util.getPOC2Forests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
-      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
       forests = util.getForestsByRegion(region);
     } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
@@ -500,7 +499,7 @@ util.getPOC1Forests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
-      let region = parseInt(roles[i].replace('FS_Open-Forest_R', ''));
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
       forests = util.getForestsByRegion(region);
     } else if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
@@ -578,9 +577,6 @@ util.handleErrorResponse = (error, res, method) => {
 * @param {Object} applicationOrPermit - what the permit object is
 */
 util.logControllerAction = (req, controller, applicationOrPermit) => {
-  console.log(req);
-  console.log(controller);
-  console.log(applicationOrPermit);
   // let eventTime;
   // if (req.method === 'PUT') {
   //   eventTime = applicationOrPermit.updatedAt;
