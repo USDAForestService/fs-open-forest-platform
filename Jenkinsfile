@@ -342,7 +342,7 @@ sh '''
 		'''
 		sh '''
 		chmod 765 deploy.sh
-		./deploy.sh ${WORKSPACE} platform-dev
+		./deploy.sh ${WORKSPACE} platform-dev dist-dev
 		'''
 		sh '''
 		   curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
@@ -376,7 +376,7 @@ sh '''
 		'''
 		sh '''
 		chmod 765 deploy.sh
-		./deploy.sh ${WORKSPACE} platform-staging
+		./deploy.sh ${WORKSPACE} platform-staging dist-trees
 		'''
 		sh '''
 		   curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
@@ -409,7 +409,7 @@ sh '''
 		'''
 		sh '''
 		chmod 765 deploy.sh
-		./deploy.sh ${WORKSPACE} platform-prod
+		./deploy.sh ${WORKSPACE} platform-prod dist-prod
 		'''
 		sh '''
 		   curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
