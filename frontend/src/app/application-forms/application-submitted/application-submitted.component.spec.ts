@@ -6,7 +6,7 @@ import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import { Observable } from 'rxjs/Observable';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial.mock';
 import { ApplicationService } from '../../_services/application.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -36,7 +36,7 @@ describe('ApplicationSubmittedComponent', () => {
           { provide: ApplicationService, useClass: MockApplicationService }
         ],
         schemas: [NO_ERRORS_SCHEMA],
-        imports: [HttpClientModule]
+        imports: [HttpClientTestingModule]
       }).compileComponents();
     })
   );

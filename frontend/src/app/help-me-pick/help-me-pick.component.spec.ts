@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HelpMePickComponent } from './help-me-pick.component';
 import { MockActivatedRoute, MockRouter } from '../_mocks/routes.mock';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HelpMePickComponent', () => {
   let component: HelpMePickComponent;
@@ -21,7 +21,7 @@ describe('HelpMePickComponent', () => {
           { provide: ActivatedRoute, useValue: mockActivatedRoute },
           { provide: Router, useValue: mockRouter }
         ],
-        imports: [HttpClientModule],
+        imports: [HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
