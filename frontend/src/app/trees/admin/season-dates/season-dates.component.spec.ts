@@ -119,12 +119,12 @@ describe('Season Dates Admin Component', () => {
       fixture.detectChanges();
     });
 
-    xit('should create', () => {
+    it('should create', () => {
       expect(component).toBeTruthy();
     });
 
 
-    xit('should update season dates', () => {
+    it('should update season dates', () => {
       component.updateStatus = '';
       component.forest = {
         id: 1,
@@ -145,7 +145,7 @@ describe('Season Dates Admin Component', () => {
       component.updateSeasonDates();
     });
 
-    xit('should update date status', () => {
+    it('should update date status', () => {
       component.updateDateStatus({
         startDateTimeValid: false,
         endDateTimeValid: false,
@@ -164,7 +164,7 @@ describe('Season Dates Admin Component', () => {
       });
     });
 
-    xit('should set start and end dates', () => {
+    it('should set start and end dates', () => {
       component.forest = component.forests.find(forest => forest.id === 2);
 
       component.setStartEndDate(component.forest, component.form);
@@ -180,7 +180,7 @@ describe('Season Dates Admin Component', () => {
       expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
     });
 
-    xit('should change the forest when the forestId changes', async(() => {
+    it('should change the forest when the forestId changes', async(() => {
       component.form.get('forestId').setValue(2);
       fixture.whenStable().then(() => {
         expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
