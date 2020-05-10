@@ -52,7 +52,7 @@ export class AdminDistrictDatesComponent implements OnInit {
     this.form.get('forestAbbr').valueChanges.subscribe(forestAbbr => {
       if (forestAbbr) {
         this.updateStatus = null;
-        this.setForest(forestAbbr);
+        this.forests = this.getUserForestsWithDistricts(this.user.forests, this.forests)
       }
     });
 
@@ -93,6 +93,8 @@ export class AdminDistrictDatesComponent implements OnInit {
 
   getUserForestsWithDistricts(userForests, allForests) {
     const userForestsWithDistricts = [];
+
+    // convert 'all' forests into an array containing all the abbreviated forest names
     if (userForests.includes('all')) {
       userForests = [];
       allForests.forEach(forest => {
@@ -103,7 +105,7 @@ export class AdminDistrictDatesComponent implements OnInit {
       this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
         if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
           userForestsWithDistricts.push(forest);
-          // this.setForest(forest.forestAbbr);
+          this.setForest(forestAbbr);
         }
       });
     });
@@ -120,7 +122,7 @@ export class AdminDistrictDatesComponent implements OnInit {
     this.route.data.subscribe(data => {
       if (data && data.user && data.forests) {
         this.user = data.user;
-        this.forests = this.getUserForestsWithDistricts(data.user.forests, data.forests);
+        this.forests = data.forests;
         if (this.forests[0]) {
           // set default forest to first one on form
           this.forest = this.forests[0];
