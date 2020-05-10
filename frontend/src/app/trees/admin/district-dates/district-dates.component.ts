@@ -52,7 +52,7 @@ export class AdminDistrictDatesComponent implements OnInit {
     this.form.get('forestAbbr').valueChanges.subscribe(forestAbbr => {
       if (forestAbbr) {
         this.updateStatus = null;
-        this.forests = this.getUserForestsWithDistricts(this.user.forests, this.forests)
+        this.forests = this.getUserForestsWithDistricts(this.user.forests, this.forests);
       }
     });
 
