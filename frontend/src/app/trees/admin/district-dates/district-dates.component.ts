@@ -103,7 +103,7 @@ export class AdminDistrictDatesComponent implements OnInit {
       this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
         if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
           userForestsWithDistricts.push(forest);
-          this.setForest(forest.forestAbbr);
+          // this.setForest(forest.forestAbbr);
         }
       });
     });
@@ -118,9 +118,9 @@ export class AdminDistrictDatesComponent implements OnInit {
       'Christmas trees permits cutting area dates admin | U.S. Forest Service Open Forest'
     );
     this.route.data.subscribe(data => {
-      if (data && data.user) {
+      if (data && data.user && data.forests) {
         this.user = data.user;
-        this.forests = this.getUserForestsWithDistricts(['mthood'], data.forests);
+        this.forests = this.getUserForestsWithDistricts(data.user.forests, data.forests);
         if (this.forests[0]) {
           // set default forest to first one on form
           this.forest = this.forests[0];
