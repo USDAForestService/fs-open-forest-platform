@@ -26,7 +26,6 @@ pipeline {
 	RUN_PA11Y_STATUS = 'Pending'
 	DEPLOY_STATUS = 'Pending'
 	RUN_SONARQUBE_STATUS = 'Pending'	        
-
     POSTGRES_HOST = 'localhost'
     POSTGRES_USER = 'postgres'
     HOME='.' 
