@@ -328,7 +328,7 @@ sh '''
 	 
  stage('dev-deploy'){	 
 	when{
-	branch 'dev'
+	branch 'CircleCI_to_Jenkins'
 	}
 	steps {
 	    echo 'run this stage - ony if the branch = dev branch'
