@@ -414,10 +414,11 @@ util.getEauthForests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    if (roles[i].includes('FS_Open-Forest_R')) {
-      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
-    } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
+    // if (roles[i].includes('FS_Open-Forest_R')) {
+    //   const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+    //   forests = util.getForestsByRegion(region);
+    // } else
+    if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -458,10 +459,11 @@ util.getPOC2Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    if (roles[i].includes('FS_Open-Forest_R')) {
-      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
-    } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+    // if (roles[i].includes('FS_Open-Forest_R')) {
+    //   const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+    //   forests = util.getForestsByRegion(region);
+    // } else
+    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -498,10 +500,11 @@ util.getPOC1Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    if (roles[i].includes('FS_Open-Forest_R')) {
-      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
-    } else if (roles[i].includes('POC1')) {
+    // if (roles[i].includes('FS_Open-Forest_R')) {
+    //   const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+    //   forests = util.getForestsByRegion(region);
+    // } else
+    if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
