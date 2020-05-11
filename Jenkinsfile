@@ -17,8 +17,7 @@ pipeline {
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         //MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov,SM.FS.OpenFrstOps@usda.gov,michael.laney@usda.gov,Brian.Davidson2@usda.gov,Dylan.Mcafee@usda.gov,Rebekah.Hernandez@usda.gov,jonathan.lerner@usda.gov,shadat.mahmud@usda.gov,bdavidson@cynerge.com'
-        MAILING_LIST = 'ikumarasamy@techtrend.us,ilayaraja.kumarasamy@usda.gov,matthew.reiss@usda.gov,abdul.qureshi@usda.gov'
-
+        MAILING_LIST = 'ikumarasamy@techtrend.us,ilayaraja.kumarasamy@usda.gov,abdul.qureshi@usda.gov'
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
@@ -35,7 +34,6 @@ pipeline {
     DB_URL = 'postgres://fs_open_forest:fs_open_forest@10.0.0.102/'
     OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
 
-
     CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')  
     CF_PASSWORD_DEV = credentials('CF_PASSWORD_DEV')  
     CF_USERNAME_STAGING = credentials('CF_USERNAME_STAGING')  
@@ -48,7 +46,7 @@ pipeline {
         timestamps()
         disableConcurrentBuilds()
         ansiColor('xterm')
-	buildDiscarder(logRotator(numToKeepStr: '3'))
+	buildDiscarder(logRotator(numToKeepStr: '5'))
     }
 
  stages {
@@ -89,7 +87,6 @@ pipeline {
                 npm install
                 cd ../server
                 npm install
-
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 npm run createdb
                 npm run migrate
@@ -131,7 +128,7 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                 export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
+                 
                   cd frontend
                   npm install
                   cd ../server
@@ -142,9 +139,9 @@ stage('run-unit-tests'){
                   npm run test:ci
                   cd ../server
                   npm run undoAllSeed
-	              npm run migrate
-	              npm run seed
-                 npm run coverage --silent                    
+	          npm run migrate
+	          npm run seed
+                  npm run coverage --silent                    
                   '''
 		
                   }
