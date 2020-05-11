@@ -131,13 +131,27 @@
 }
 
 .phone-number-section {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  @media (min-width: 600px) {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-  }
 
+  @media (max-width: 600px) {
+     position: unset;
+     display: flex;
+     flex-direction: column;
+     align-items: unset;
+   }
 }
+
+  .phone-extension-wrapper {
+    position: absolute;
+    top: 2.2rem;
+    left: 30rem;
+
+    @media (max-width: 600px) {
+      position: unset;
+      top: unset;
+      left: unset;
+    }
+  }
