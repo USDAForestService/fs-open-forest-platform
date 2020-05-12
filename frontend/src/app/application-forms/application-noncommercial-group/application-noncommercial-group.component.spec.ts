@@ -1,98 +1,144 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import * as sinon from 'sinon';
-import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
-import { ApplicationService } from '../../_services/application.service';
-import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FormBuilder } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AlertService } from '../../_services/alert.service';
-import { AuthenticationService } from '../../_services/authentication.service';
-import { UtilService } from '../../_services/util.service';
-import { WindowRef } from '../../_services/native-window.service';
-import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
+<h1 class="forest-title">{{forest}}</h1>
+<section id="application" class="usa-section noncommercial-section">
+  <div class="usa-grid">
 
-describe('ApplicationNoncommercialGroupComponent', () => {
-  let component: ApplicationNoncommercialGroupComponent;
-  let fixture: ComponentFixture<ApplicationNoncommercialGroupComponent>;
+    <app-breadcrumbs></app-breadcrumbs>
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [ApplicationNoncommercialGroupComponent],
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [
-          UtilService,
-          { provide: WindowRef },
-          { provide: ApplicationService, useClass: ApplicationService },
-          { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
-          { provide: FormBuilder, useClass: FormBuilder },
-          AlertService,
-          AuthenticationService,
-          SpecialUseInfoService
-        ],
-        imports: [RouterTestingModule, HttpClientTestingModule]
-      }).compileComponents();
-    })
-  );
+    <!-- left nav -->
+    <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ApplicationNoncommercialGroupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    <div class="usa-width-two-thirds temp-outfitter-main-content">
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-Commercial Group Use permit with Open Forest.</h2>
 
-  it('should call orgTypeChange if org type is changed', () => {
-    const spy = sinon.spy(component, 'orgTypeChange');
-    component.applicationForm.get('applicantInfo.orgType').setValue('Person');
-    component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
-    expect(spy.calledTwice).toBeTruthy();
-  });
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
-  it('should call addRemoveAddress if primary is same as secondary checkbox is checked', () => {
-    const spy = sinon.spy(component, 'addRemoveAddress');
-    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(false);
-    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
-    component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(false);
-    component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(true);
-    expect(spy.callCount).toEqual(4);
-  });
+      <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit(applicationForm)" novalidate>
 
-  it('should call addSecondaryPermitHolder if addSecondaryPermitHolder field is changed', () => {
-    const spy = sinon.spy(component, 'addSecondaryPermitHolder');
-    component.applicationForm.get('applicantInfo.addSecondaryPermitHolder').setValue(true);
-    component.applicationForm.get('applicantInfo.addSecondaryPermitHolder').setValue(false);
-    expect(spy.calledTwice).toBeTruthy();
-  });
+        <!-- application process -->
+        <p *ngIf="!applicationFieldsService.getEditApplication()">Your application will be saved once it is submitted. You won't be able to save the application to complete it later.</p>
+        <p *ngIf="applicationFieldsService.getEditApplication()">You are about to update your permit application. Once you click "Save Edits & Submit" you will not be able to make any further updates unless your application is placed on hold again.</p>
+        <legend>Application process</legend>
+        <div>
+          <ol>
+            <li>Fill out and submit the application below.</li>
+            <li>Once submitted, your application will go through a preliminary review within two business days.</li>
+            <li>If additional information is needed following the preliminary review and acceptance, a Special Use Administrator will contact you by email.</li>
+            <li>Once your application is approved, you will receive your permit within 2 weeks. If your application is not approved, you will be notified via email.</li>
+          </ol>
+        </div>
+        <br>
+        <p class="form-directions">required fields<span class="required-fields-asterisk">*</span></p>
+        <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">There are errors in your application.</h3>
+            <p class="usa-alert-text">Please correct the errors before submitting.</p>
+          </div>
+        </div>
 
-  it('should update date status', () => {
-    component.updateDateStatus({
-      startDateTimeValid: false,
-      endDateTimeValid: false,
-      startBeforeEnd: false,
-      startAfterToday: false,
-      hasErrors: false
-    });
-    expect(component.dateStatus.startDateTimeValid).toBeFalsy();
-  });
+        <!-- applicant info -->
+        <ng-container formGroupName="applicantInfo">
+          <fieldset id="section-applicant-information" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+            <legend>Applicant information</legend>
+            <app-org-type id="applicant-information" [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
+            <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Person'">
+              <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
+              <app-address id="person-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
+            </div>
+            <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Corporation'">
+              <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
+              <app-address id="organization-address" [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
+            </div>
+            <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number (10 digits. No special characters.)"></app-phone-number>
+            <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
+            <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
+            <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+              <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
+            </div>
+          </fieldset>
 
-  it('should submit the application', () => {
-    component.onSubmit(component.applicationForm);
-    expect(component.submitted).toBeTruthy();
-  });
+          <!-- primary permit holder -->
+          <fieldset *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+            <legend>Primary permit holder</legend>
+            <app-permit-holder-name id="organization-primary-name" [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
+            <input id="primary-permit-holder-same-address" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
+            <label id="primary-permit-holder-same-address-label" class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
+            <div [hidden]="applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
+              <app-address id="organization-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
+            </div>
+          </fieldset>
 
-  it('should remove unused data', () => {
-    component.removeUnusedData();
-    component.applicationForm.get('applicantInfo.orgType').setValue('Person');
-    expect(component.applicationForm.get('applicantInfo.organizationAddress')).toBeFalsy();
-    expect(component.applicationForm.get('applicantInfo.organizationName').value).toEqual('');
-    expect(component.applicationForm.get('applicantInfo.website').value).toEqual('');
-    component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
-    component.removeUnusedData();
-    expect(component.applicationForm.get('applicantInfo.primaryAddress')).toBeFalsy();
-    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
-    expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
-    expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
-  });
-});
+          <!-- secondary permit holder -->
+          <input id="add-secondary-permit-holder" type="checkbox" formControlName="addSecondaryPermitHolder" />
+          <label id="add-secondary-permit-holder-label" class="usa-input" for="add-secondary-permit-holder">Add secondary permit holder.</label>
+          <p id="add-secondary-permit-holder-hint-text" class="help-text usa-form-hint">If there is an additional useful contact or a second significant user of the permit, please add their information.</p>
+          <div [hidden]="!applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
+            <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary" name="Secondary permit holder"></app-permit-holder-name>
+            <input id="secondary-permit-holder-same-address" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
+            <label id="secondary-permit-holder-same-address-label" *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
+            <label id="secondary-permit-holder-same-address-label" *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
+            <app-address
+              [hidden]="applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').value"
+              [parentForm]="applicationForm.get('applicantInfo')"
+              formName="secondaryAddress"
+              id="secondary-address"
+              type="secondary-permit-holder">
+            </app-address>
+          </div>
+        </ng-container>
+
+        <!-- event details -->
+        <fieldset id="section-event-details" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <legend id="event-details">Event details</legend>
+          <label id="name-label" class="usa-input">Event Name <span class="required-fields-asterisk">*</span></label>
+          <input id="event-name"
+            formControlName="eventName"
+            type="text"
+            aria-required="true"
+            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.eventName, 'name-label', 'name-error')"
+            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.eventName)"
+          />
+          <app-error-message fieldId="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
+          <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
+          <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+        </fieldset>
+
+        <!-- signature -->
+        <fieldset id="section-signature" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <legend>Signature</legend>
+          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
+          <input id="signature"
+            name="signature"
+            type="text"
+            minlength="2"
+            maxlength="3"
+            formControlName="signature"
+            aria-required="true"
+            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
+            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
+          />
+          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
+        </fieldset>
+
+        <!-- accept PII -->
+        <div class="noncommercial-applications-pii-accept-checkbox-container">
+          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
+          <label id='accept-pii-label' for="accept-pii">
+            <span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+            information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>.
+          </label>
+          <app-error-message
+            fieldId="accept-rules-error"
+            name="To purchase a noncommercial permit, consenting to our collection of your name and email"
+            [control]="applicationForm.controls.acceptPII">
+          </app-error-message>
+        </div>
+
+        <!-- action buttons -->
+        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
+        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
+        <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save Edits & Submit</button>
+
+      </form>
+    </div>
+  </div>
+</section>
