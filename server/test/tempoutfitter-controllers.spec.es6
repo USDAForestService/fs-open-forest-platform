@@ -92,24 +92,24 @@ describe('tempoutfitter controllers', () => {
 
     it('POST should return a 400 status code and 9 errors when the activity description fields are all over 400 characters', (done) => {
       const permitApplication = tempOutfitterPermitApplicationFactory.create();
-      permitApplication.tempOutfitterFields.activityDescriptionFields.audienceDescription = util.getRandomString(401);
+      permitApplication.tempOutfitterFields.activityDescriptionFields.audienceDescription = util.getRandomString(1001);
       permitApplication.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration = util.getRandomString(
-        401
+        1001
       );
       permitApplication.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities = util.getRandomString(
-        401
+        1001
       );
       permitApplication.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements = util.getRandomString(
-        401
+        1001
       );
-      permitApplication.tempOutfitterFields.activityDescriptionFields.locationDescription = util.getRandomString(401);
-      permitApplication.tempOutfitterFields.activityDescriptionFields.servicesProvided = util.getRandomString(401);
-      permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite = util.getRandomString(401);
+      permitApplication.tempOutfitterFields.activityDescriptionFields.locationDescription = util.getRandomString(1001);
+      permitApplication.tempOutfitterFields.activityDescriptionFields.servicesProvided = util.getRandomString(1001);
+      permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite = util.getRandomString(1001);
       permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment = util.getRandomString(
-        401
+        1001
       );
       permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock = util.getRandomString(
-        401
+        1001
       );
       agent
         .post(tempoutfitterUrl)
