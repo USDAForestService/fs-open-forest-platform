@@ -15,9 +15,7 @@ export function phoneNumberMinMaxValidator(): ValidatorFn {
       if (valid && val.length > 10) {
         return {phoneNumberMaxRequirement: true};
       }
-      else {
         return null;
-      }
     }
   };
 }
