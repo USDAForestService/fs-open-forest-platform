@@ -87,7 +87,6 @@ pipeline {
                 cd ../server
                 npm install
                 export DATABASE_URL="${DB_URL}${currentdate}"
-		export VCAP_SERVICES = ""
                 npm run createdb
                 npm run migrate
                 npm run seed
