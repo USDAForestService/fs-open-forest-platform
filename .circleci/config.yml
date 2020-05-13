@@ -1,0 +1,323 @@
+_defaults:
+  docker_image: &docker_image
+    docker:
+      - image: circleci/node:8.15.1
+    environment:
+      SNYK_DIR: "snyk"
+
+  docker_image_browser: &docker_image_browser
+    docker:
+      - image: circleci/node:8.15.1-browsers
+        environment:
+          DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+          VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
+      - image: postgres:9.6.3
+        environment:
+          POSTGRES_USER: "ubuntu"
+          POSTGRES_DB: "circle_test"
+
+_run:
+  populate_server: &populate_server
+    name: populate db for server
+    command: |
+      cd server
+      npm run undoAllSeed
+      npm run migrate
+      npm run seed
+  install_cf: &install_cf
+    name: Install cf cli
+    command: |
+      curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
+      sudo mv cf /usr/local/bin
+  login_cf_platform-production: &login_cf_platform-production
+    name: Login to Cloud.gov targeting space `platform-production`
+    command: |
+      CF_API="https://api.fr.cloud.gov"
+      cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
+      cf t -o usda-forest-service -s platform-production
+_cache:
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-fs-epermit-repo-{{ .Environment.CIRCLE_SHA1 }}
+        - v1-fs-epermit-repo-
+
+  restore_deps: &restore_deps
+    restore_cache:
+      keys:
+        - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+        - fs-epermit-deps-
+
+version: 2
+jobs:
+  checkout-code:
+    <<: *docker_image
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-fs-epermit-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ./
+
+  install-dependencies:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Install frontend dependencies
+          command: cd frontend; npm install
+      - run:
+          name: Install server dependencies
+          command: cd server; npm install
+      - save_cache:
+          key: fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+
+  run-snyk:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Frontend - snyk dependency scan
+          command: |
+            cd frontend
+            npm run snyk-protect
+            npm run snyk-test
+      - run:
+          name: Server - snyk dependency scan
+          command: |
+            cd server
+            npm run snyk-protect
+            npm run snyk-test
+  run-lint:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Frontend - lint
+          command: cd frontend; npm run lint
+      - run:
+          name: Server - lint
+          command: cd server; npm run lint
+
+  run-unit-tests:
+    <<: *docker_image_browser
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Copy shared assets from frontend into serverr
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
+          name: Frontend - unit tests
+          command: cd frontend; npm run test:ci
+      - run: *populate_server
+      - run:
+          name: Server - unit tests
+          command: cd server; npm run coverage
+      - store_artifacts:
+          path: frontend/coverage
+          prefix: frontend-coverage
+      - store_artifacts:
+          path: server/coverage
+          prefix: server-coverage
+
+  run-e2e:
+    <<: *docker_image_browser
+    parallelism: 3
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      # uncomment below once selenium and protractor are updated by respective teams
+
+      # - run:
+          # name: Install latest chrome
+          # command: |
+          #   sudo apt-get update
+          #   sudo apt-get install lsb-release libappindicator3-1
+          #   curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_73.0.3683.103-1_amd64.deb
+          #   sudo dpkg -i google-chrome.deb
+          #   sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+          #   rm google-chrome.deb
+          #   google-chrome --version
+      - run:
+          name: Copy shared assets from frontend into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run: *populate_server
+      - run:
+          name: Run e2e tests
+          command: .circleci/run-e2e.sh
+      - run:
+          name: Install dependencies and clean s3 bucket
+          command: ./.circleci/clean-s3-bucket.sh
+      - store_artifacts:
+          path: frontend/e2e-test-results
+          prefix: e2e-results
+
+  run-pa11y:
+    <<: *docker_image_browser
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: pa11y test
+          command: cd frontend; npm run build-test-pa11y
+
+  staging-deploy:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Run update-version to set frontend builddate and version in environment.ts for footer
+          command: cd frontend; npm run update-version
+      - run:
+          name: generate typedocs
+          command: cd frontend; mkdir -p ./src/assets/typedoc && npm run docs
+      - run:
+          name: Create frontend compiled distribution
+          command: cd frontend; npm run dist-trees
+      - run:
+          name: Generate basic auth for staging
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
+      - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
+          name: generate jsdocs
+          command: cd server; npm run docs
+      - run: *install_cf
+      - run:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "USDAForestService" ];
+              then ./.cg-deploy/deploy.sh platform-staging;
+            fi
+  prod-deploy:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Run update-version to set frontend builddate and version in environment.ts for footer
+          command: cd frontend; npm run update-version
+      - run:
+          name: generate typedocs
+          command: cd frontend; mkdir -p ./src/assets/typedoc && npm run docs
+      - run:
+          name: Create frontend compiled distribution
+          command: cd frontend; npm run dist-prod
+      - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
+          name: generate jsdocs
+          command: cd server; npm run docs
+      - run: *install_cf
+      - run:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "USDAForestService" ];
+              then ./.cg-deploy/deploy.sh platform-production;
+            fi
+  nightly-snyk:
+    <<: *docker_image
+    steps:
+      - <<: *restore_repo
+      - <<: *restore_deps
+      - run:
+          name: Generate Snyk report
+          command: ./.circleci/generate-snyk.sh
+      - run:
+          name: Upload Snyk report to S3
+          command: ./.circleci/upload-snyk.sh
+      - run: *install_cf
+      - run: *login_cf_platform-production
+      - run:
+          name: Email Snyk Report
+          command: |
+            export DATE_STRING=`date +"%m-%d-%Y-%H"`
+            export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
+            cd server
+            cf run-task open-forest-platform-api "npm run snyk-email -- ${DATE_STRING} ${SNYK_REPORT} '`cat ../${SNYK_DIR}/${SNYK_REPORT}`'"
+  recycle-production:
+    <<: *docker_image
+    steps:
+      - run: *install_cf
+      - run:
+          name: Install cf-recycle-plugin 2.0.1 release
+          command: |
+            sudo wget https://github.com/Comcast/cf-recycle-plugin/releases/download/v2.0.1/cf-recycle-plugin-2.0.1.tgz
+            sudo tar -zxvf cf-recycle-plugin-2.0.1.tgz
+            cf install-plugin cf-recycle-plugin-linux -f
+            cf plugins
+      - run: *login_cf_platform-production
+      - run:
+          name: Recycle Production instances
+          command: |
+            cf recycle open-forest-platform-frontend
+            cf recycle open-forest-platform-api
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+     # - checkout-code
+     # - install-dependencies:
+     #     requires:
+     #       - checkout-code
+     # - run-unit-tests:
+     #     requires:
+     #       - install-dependencies
+     # - run-e2e:
+     #     requires:
+     #       - install-dependencies
+     # - run-pa11y:
+     #     requires:
+     #       - install-dependencies
+     # - run-lint:
+     #     requires:
+     #       - install-dependencies
+     # - run-snyk:
+     #     requires:
+     #       - install-dependencies
+     #     filters:
+     #       branches:
+     #         only: dev
+     # - staging-deploy:
+     #     requires:
+     #       - run-snyk
+     #       - run-unit-tests
+     #       - run-e2e
+     #       - run-pa11y
+     #       - run-lint
+     #     filters:
+     #       branches:
+     #         only: dev
+     # - prod-deploy:
+     #     requires:
+     #       - run-snyk
+     #       - run-unit-tests
+     #       - run-e2e
+     #       - run-pa11y
+     #       - run-lint
+     #     filters:
+     #       branches:
+     #         only: master
+  nightly:
+    jobs:
+      - nightly-snyk
+      - recycle-production
+    triggers:
+      - schedule:
+          # every night at 2:11 AM UTC (10:11 PM ET)
+          # temp set to 16:30 UTC (12:30 PM ET)
+          cron: "30 5 * * *"
+          filters:
+            branches:
+              only:
+                - master
