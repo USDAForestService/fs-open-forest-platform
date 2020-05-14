@@ -16,9 +16,8 @@ pipeline {
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
-        //MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov,SM.FS.OpenFrstOps@usda.gov,michael.laney@usda.gov,Brian.Davidson2@usda.gov,Dylan.Mcafee@usda.gov,Rebekah.Hernandez@usda.gov,jonathan.lerner@usda.gov,shadat.mahmud@usda.gov,bdavidson@cynerge.com'
-        MAILING_LIST = 'ikumarasamy@techtrend.us,ilayaraja.kumarasamy@usda.gov,matthew.reiss@usda.gov,abdul.qureshi@usda.gov'
-
+        MAILING_LIST = 'matthew.reiss@usda.gov,abdul.qureshi@usda.gov,SM.FS.OpenFrstOps@usda.gov,michael.laney@usda.gov,Brian.Davidson2@usda.gov,Dylan.Mcafee@usda.gov,Rebekah.Hernandez@usda.gov,jonathan.lerner@usda.gov,shadat.mahmud@usda.gov,bdavidson@cynerge.com,ilayaraja.kumarasamy@usda.gov'
+       
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
@@ -27,14 +26,12 @@ pipeline {
 	RUN_PA11Y_STATUS = 'Pending'
 	DEPLOY_STATUS = 'Pending'
 	RUN_SONARQUBE_STATUS = 'Pending'	        
-
     POSTGRES_HOST = 'localhost'
     POSTGRES_USER = 'postgres'
     HOME='.' 
     currentdate= sh (returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
     DB_URL = 'postgres://fs_open_forest:fs_open_forest@10.0.0.102/'
     OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
-
 
     CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')  
     CF_PASSWORD_DEV = credentials('CF_PASSWORD_DEV')  
@@ -48,7 +45,7 @@ pipeline {
         timestamps()
         disableConcurrentBuilds()
         ansiColor('xterm')
-	buildDiscarder(logRotator(numToKeepStr: '3'))
+	buildDiscarder(logRotator(numToKeepStr: '5'))
     }
 
  stages {
@@ -89,7 +86,6 @@ pipeline {
                 npm install
                 cd ../server
                 npm install
-
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 npm run createdb
                 npm run migrate
@@ -131,7 +127,7 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                 export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
+                 
                   cd frontend
                   npm install
                   cd ../server
@@ -142,9 +138,9 @@ stage('run-unit-tests'){
                   npm run test:ci
                   cd ../server
                   npm run undoAllSeed
-	              npm run migrate
-	              npm run seed
-                 npm run coverage --silent                    
+	          npm run migrate
+	          npm run seed
+                  npm run coverage --silent                    
                   '''
 		
                   }
@@ -165,7 +161,7 @@ stage('run-unit-tests'){
 sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''
-	    sh 'exit 1'
+
     		}
                 }
             }
@@ -198,7 +194,7 @@ sh '''
 sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''
-			     sh 'exit 1'
+
     		}
                 }
             }
@@ -236,7 +232,6 @@ stage('run-sonarqube'){
 sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''
-			       sh 'exit 1'
 
     		}
                 }
@@ -267,7 +262,7 @@ sh '''
 sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''
-				 sh 'exit 1'
+				 
     		}
                 }
             }
