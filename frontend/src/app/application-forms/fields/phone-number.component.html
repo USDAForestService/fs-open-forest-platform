@@ -5,10 +5,10 @@
         <label id="day-phone-label" class="usa-input">{{ name }}<span class="required-fields-asterisk">*</span></label>
         <input id="day-phone" type="text" formControlName="tenDigit" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.tenDigit'), 'day-phone-label', 'day-phone-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))" />
+        [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))"/>
         <app-error-message fieldId="day-phone-error" name="Phone number" [control]="parentForm.get('dayPhone.tenDigit')"></app-error-message>
       </div>
-      <div class="usa-input-grid usa-input-grid-small">
+      <div class="usa-input-grid usa-input-grid-small phone-extension-wrapper">
         <label id="day-phone-ext-label" class="usa-input">Ext</label>
         <input id="day-phone-ext" class="usa-input" type="text" minlength="1" maxlength="6" formControlName="extension"
           [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.extension'), 'day-phone-ext-label', 'day-phone-ext-error')"
@@ -30,7 +30,7 @@
         [attr.aria-invalid]="afs.hasError(parentForm.get('eveningPhone.tenDigit'))" />
         <app-error-message fieldId="eveing-phone-error" name="Evening phone" [control]="parentForm.get('eveningPhone.tenDigit')"></app-error-message>
       </div>
-      <div class="usa-input-grid usa-input-grid-small">
+      <div class="usa-input-grid usa-input-grid-small phone-extension-wrapper">
         <label id="evening-phone-ext-label" class="usa-input">Ext</label>
         <input id="evening-phone-ext" class="usa-input" type="text" minlength="1" maxlength="6" formControlName="extension"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('eveningPhone.extension'), 'evening-phone-ext-label', 'evening-phone-ext-error')"
