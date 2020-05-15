@@ -4,3 +4,24 @@
 .esri-view {
   height: 500px;
 }
+
+.esri-search_input_container{
+  align-items: center;
+  justify-content: center;
+}
+
+.esri-component{
+  margin: 0px auto !important;
+  height: 50px !important;
+}
+.esri-input{
+  margin: 0px auto !important;
+  height: 50px !important;
+}
+.esri-input[type="text"], .esri-input[type="number"]{
+  height: 75px !important;
+}
+
+#main-content > app-main-landing > app-esri-map > div > div.esri-view-root > div.esri-ui > div.esri-ui-inner-container.esri-ui-corner-container > div.esri-ui-top-right.esri-ui-corner > div > div > div.esri-search__input-container > form > input{
+  height: 75px !important;
+}

@@ -30,17 +30,17 @@ export class EsriMapComponent implements OnInit {
 
         const mapView = new MapView({
           container: this.mapViewEl.nativeElement,
-          center: [-98, 38],
-          zoom: 5,
+          center: [-97, 38], // lon, lat
+          scale: 10000000,
           map: map,
         });
 
               // Search widget
-      const search = new Search({
-        mapView: mapView
-      });
+      // const search = new Search({
+      //   mapView: mapView
+      // });
 
-      mapView.ui.add(search, 'top-right');
+
 
       // const wmsLayer = new WMSLayer({
       //   url: 'https://apps.fs.usda.gov/arcx/services/EDW/EDW_ProclaimedForestBoundaries_01/MapServer/WMSServer?request=GetCapabilities&service=WMS',
@@ -72,6 +72,33 @@ export class EsriMapComponent implements OnInit {
           `<p> For more information please visit <a href='{URL}'>{URL}</a> </p>`  // Display text in pop-up
         }
       });
+
+      var searchWidget = new Search({
+        mapView: mapView,
+        allPlaceholder: "Forest or Region",
+        sources: [
+          {
+            layer: geoJson,
+            searchFields: ["COMMONNAME"],
+            displayField: "COMMONNAME",
+            exactMatch: false,
+            outFields: ["COMMONNAME", "ADMINFORESTNAME"],
+            name: "Forest Name",
+            placeholder: "example: Mark Twain National Forest"
+          },
+          {
+            layer: geoJson,
+            searchFields: ["REGION"],
+            displayField: "REGION",
+            exactMatch: false,
+            outFields: ["COMMONNAME"],
+            name: "Region Number",
+            placeholder: "example: 02"
+          },
+        ]
+      });
+
+      mapView.ui.add(searchWidget, 'top-right');
 
       // keeping this below for future iterations
 //       const csvContent = [
