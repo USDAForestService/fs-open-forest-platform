@@ -15,7 +15,7 @@ const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
-const forestService = require('./forest.service.es6');
+// const forestService = require('./forest.service.es6');
 
 const util = {};
 
