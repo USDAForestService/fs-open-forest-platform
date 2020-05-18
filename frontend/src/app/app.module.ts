@@ -48,6 +48,8 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
 import { MainLandingComponent } from './main-landing/main-landing.component';
 import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
 import { ProductsComponent } from './products/products.component';
+import { MapComponent } from './map/map.component';
+import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { ProductsComponent } from './products/products.component';
     UsaBannerComponent,
     MainLandingComponent,
     ForestTemplateComponent,
-    ProductsComponent
+    ProductsComponent,
+    MapComponent,
+    EsriMapComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
   providers: [
