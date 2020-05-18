@@ -56,7 +56,7 @@ export class EsriMapComponent implements OnInit {
 
       const searchWidget = new Search({
         mapView: mapView,
-        allPlaceholder: 'Forest or Region',
+        allPlaceholder: 'Address, City, or State',
         sources: [
           {
             layer: geoJson,
@@ -79,7 +79,15 @@ export class EsriMapComponent implements OnInit {
         ]
       });
 
-      mapView.ui.add(searchWidget, 'top-right');
+      searchWidget.on("select-result", function(event){
+        console.log(event)
+        mapView.goTo({
+          target: event.result.feature,
+          zoom: 9
+        });
+      });
+
+      mapView.ui.add(searchWidget, 'top-leading');
 
       map.add(geoJson);
       })
