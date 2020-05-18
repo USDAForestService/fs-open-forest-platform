@@ -3,11 +3,29 @@
 
 .esri-view {
   height: 500px;
-  .esri-search {
-    width: 500px !important;
-    .esri-search_container{
-      border: 2px solid green !important;
+  .esri-view-root{
+    .esri-ui{
+      .esri-corner{
+        .esri-search.esri-component.esri-widget {
+          width: 500px !important;
+        }
+      }
     }
   }
+}
+
+.esri-search {
+  width: 540px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  margin: auto !important;
+  border: 2px solid green;
+  box-shadow: 4px 4px 10px black !important;
+  position: absolute;
+  top: 0px;
+  left: 750%;
 }
 

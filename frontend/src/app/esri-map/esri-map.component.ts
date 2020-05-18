@@ -79,8 +79,7 @@ export class EsriMapComponent implements OnInit {
         ]
       });
 
-      searchWidget.on("select-result", function(event){
-        console.log(event)
+      searchWidget.on('select-result', function(event) {
         mapView.goTo({
           target: event.result.feature,
           zoom: 9
