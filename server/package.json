@@ -5,6 +5,7 @@
   "description": "fs-open-forest-platform",
   "dependencies": {
     "aws-sdk": "^2.395.0",
+    "axios": "^0.19.2",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
     "body-parser-xml": "^1.1.0",
@@ -87,7 +88,7 @@
     "lint": "eslint **/**/*.es6 **/**/**/*.es6",
     "lint:fix": "eslint **/**/*.es6 **/**/**/*.es6 --fix",
     "migrate": "sequelize db:migrate",
-    "seed": "sequelize db:seed:all", 
+    "seed": "sequelize db:seed:all",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
