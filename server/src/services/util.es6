@@ -10,6 +10,7 @@ const request = require('request-promise-native');
 const Sequelize = require('sequelize');
 const Util = require('util');
 const xml2js = require('xml2js');
+const axios = require('axios');
 
 const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
@@ -391,16 +392,17 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
-// util.getForestsByRegion = (region) => {
-//   const forests = forestService.getForests();
-//   const regionForests = [];
-//   for (let i = 0; i < forests.length; i += 1) {
-//     if (forests[i].region === region) {
-//       regionForests.push(forests[i].forestAbbr);
-//     }
-//   }
-//   return regionForests;
-// };
+util.getForestsByRegion = async (region) => {
+  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/forests`;
+  const forests = await axios.get(url);
+  const regionForests = [];
+  for (let i = 0; i < forests.length; i += 1) {
+    if (forests[i].region === region) {
+      regionForests.push(forests[i].forestAbbr);
+    }
+  }
+  return regionForests;
+};
 
 /**
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
@@ -415,7 +417,8 @@ util.getEauthForests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
-      forests = ['all'];
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+      forests = getForestsByRegion(region)
     } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
