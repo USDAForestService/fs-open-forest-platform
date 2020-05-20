@@ -17,6 +17,7 @@ export class PermitApplicationViewComponent implements OnInit {
   userType: string;
   application: any = {};
   fixedCtas = false;
+  kangaroo: string;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
     confirmButtonText: '',

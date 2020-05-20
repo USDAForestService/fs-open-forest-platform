@@ -78,6 +78,7 @@
         <label>Permit holder</label>
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div class="application-details">
+          <div class="add-kangaroo"></div>
           <a class="usa-button usa-button-secondary-alt" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>
