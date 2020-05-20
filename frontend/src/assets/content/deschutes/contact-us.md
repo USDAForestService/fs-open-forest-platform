@@ -7,14 +7,14 @@ Bend, OR   97701
 (541) 383-5300
 
 ### Crescent Ranger District
-136471 Highway 97 N   
+136471 Highway 97 North   
 Crescent, OR   97733
 
 (541) 433-3200
 
 ### Sisters Ranger District
-Pine Street and Highway   
-20 Sisters, OR 97759
+Pine Street and Highway 20   
+Sisters, OR 97759
 
 (541) 549-7700
 

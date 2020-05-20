@@ -3,7 +3,7 @@
     <div role="alert" aria-label="info" class="usa-alert usa-alert-info">
       <div class="usa-alert-body">
         <h3 *ngIf="heading" class="usa-alert-heading">{{ heading }}</h3>
-        <p class="usa-alert-text">{{ message }}</p>
+        <p class="usa-alert-text" [innerHTML]="message"></p>
       </div>
     </div>
   </div>

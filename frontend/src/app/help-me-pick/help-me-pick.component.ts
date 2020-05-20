@@ -28,7 +28,8 @@ export class HelpMePickComponent implements OnInit {
         this.title = 'Does your activity involve more than 75 people (spectators and participants)?';
         break;
       case '4':
-        this.title = 'Your activity does not require a permit.';
+        this.title =
+        `Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.`;
         break;
       case '5':
         this.title = 'Does your activity involve guiding or outfitting?';
@@ -37,10 +38,10 @@ export class HelpMePickComponent implements OnInit {
         this.title = 'Your activity requires a permit, but not one available online.';
         break;
       case '7':
-        this.title = 'The correct permit for you is the "noncommercial group use application."';
+        this.title = 'The correct permit for you is the "Non-Commercial Group Use application."';
         break;
       case '8':
-        this.title = 'The correct permit for you is the "temporary outfitter and guide permit."';
+        this.title = 'The correct permit for you is the "Temporary Outfitting and Guiding permit."';
         break;
     }
   }

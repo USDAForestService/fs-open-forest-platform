@@ -214,26 +214,4 @@ describe('christmas tree controller permit tests', () => {
         .expect(200, done);
     });
   });
-
-  describe('.printPermit', () => {
-    it('should return a 200 response when getting permit printable svg', (done) => {
-      request(server)
-        .get(`/forests/christmas-trees/permits/${DATA.completedPermit.permitId}/print?permit=true`)
-        .expect('Content-Type', /json/)
-        .expect((res) => {
-          expect(res.body).to.include.all.keys('result');
-        })
-        .expect(200, done);
-    });
-
-    it('GET should return a 200 response when getting permit rules printable html', (done) => {
-      request(server)
-        .get(`/forests/christmas-trees/permits/${DATA.completedPermit.permitId}/print?rules=true`)
-        .expect('Content-Type', /json/)
-        .expect((res) => {
-          expect(res.body).to.include.all.keys('result');
-        })
-        .expect(200, done);
-    });
-  });
 });

@@ -98,6 +98,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     possFinancialId: {
       type: DataTypes.STRING(50),
       field: 'poss_financial_id'
+    },
+    state: {
+      type: DataTypes.STRING(50),
+      field: 'state'
     }
   },
   {

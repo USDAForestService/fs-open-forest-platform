@@ -46,13 +46,13 @@ ignore:
   SNYK-JS-LODASH-450202:
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         reason: No upgrade path available
-        expires: '2019-08-08T16:11:43.777Z'
+        expires: '2020-05-08T16:11:43.777Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
-        expires: '2019-08-17T04:16:00.748Z'
+        expires: '2020-05-08T04:16:00.748Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
-        expires: '2019-09-19T14:58:22.562Z'
+        expires: '2020-05-08T14:58:22.562Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
         reason: None given
         expires: '2019-09-19T14:59:24.052Z'
@@ -62,6 +62,57 @@ ignore:
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
         reason: snyk re-install does not update lodash
         expires: '2019-10-19T19:32:13.828Z'
+    - openid-client > node-jose > lodash:
+        reason: not actually patching
+        expires: '2019-11-21T16:18:33.936Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: snyk re-install does not update lodash
+        expires: '2020-02-21T16:18:33.936Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-05-21T16:22:41.008Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-05-21T16:22:41.008Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-05-21T16:22:41.008Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-05-21T16:22:41.008Z'
+    - express-winston > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - html-to-text > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - newrelic > async > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - openid-client > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - passport-saml > xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - sequelize > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - snyk > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - winston > async > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
+    - xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-05-20T21:18:10.419Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
         reason: No upgrade path available
@@ -84,8 +135,169 @@ ignore:
         expires: '2019-10-19T19:32:13.828Z'
   SNYK-JS-MARKDOWNIT-459438:
     - jsdoc > markdown-it:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        reason: no upgrade path currenty
+        expires: '2020-06-08T15:38:05.011Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - newrelic > https-proxy-agent:
         reason: None given
-        expires: '2019-11-08T18:09:41.408Z'
+        expires: '2020-06-20T21:18:10.419Z'
+  SNYK-JS-ACORN-559469:
+    - jsdom > acorn:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - jsdom > acorn-globals > acorn:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+  SNYK-JS-DOTPROP-543489:
+    - snyk > configstore > dot-prop:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - snyk > update-notifier > configstore > dot-prop:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+  SNYK-JS-MINIMIST-559764:
+    - snyk > update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - snyk > update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - html-to-text > optimist > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - jsdoc > mkdirp > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - multer > mkdirp > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: None given
+        expires: '2020-06-12T20:20:22.049Z'
+    - html-to-text > optimist > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+    - jsdoc > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+    - multer > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+    - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-06-12T20:45:56.284Z'
+  SNYK-JS-YARGSPARSER-560381:
+    - svg2png > yargs > yargs-parser:
+        reason: No upgrade avail
+        expires: '2020-06-18T16:36:01.376Z'
+  SNYK-JS-SVG2PNG-567041:
+    - svg2png:
+        reason: None given
+        expires: '2020-05-22T17:21:26.655Z'
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.416Z'
+    - express-winston > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - html-to-text > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - openid-client > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - sequelize > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - newrelic > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - winston > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - openid-client > node-jose > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - passport-saml > xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdoc > catharsis > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdoc > requizzle > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > inquirer > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-config > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/ruby-semver > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
+import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -35,21 +35,69 @@ import { AdminFeedbackReviewComponent } from './trees/admin/feedback-review/feed
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
+import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
+import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ProductsComponent } from './products/products.component';
+import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
+
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'christmas-trees/forests',
-    pathMatch: 'full'
+    component: MainLandingComponent
+  }, {
+    path: 'ChristmasTreePermit',
+    component: DummyComponent,
+    data: {
+      breadcrumbs: true,
+      text: 'Home'
+    }
   },
+
   {
-    path: 'mbs',
+    path: 'products',
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Apply for a permit with Open Forest',
+      text: 'Forests'
+    },
+    resolve: {
+      user: UserResolver
+    },
+    children: [
+      {
+        path: '',
+        component: ProductsComponent,
+      },
+      {
+      path: ':id',
+      resolve: {
+        forest: ForestResolver
+      },
+      data: {
+        breadcrumbs: true,
+        text: '{{forest.forestName}}'
+      },
+      children: [
+        {
+          path: '',
+          component: ForestTemplateComponent
+        },
+      ]
+      }
+    ]
+  },
+
+
+  // start of MBS and children routes
+  {
+    path: 'special-use',
+    data: {
+      title: 'US Forest Service Open Forest',
+      breadcrumbs: true,
+      text: 'Mt. Baker-Snoqualmie special use permits',
       displayLogin: true,
-      specialUse: true
+      specialUse: true,
     },
     resolve: {
       user: UserResolver
@@ -64,21 +112,23 @@ const appRoutes: Routes = [
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
-          breadcrumbs: 'Help me find a permit available on Open Forest'
+          breadcrumbs: 'Help me find a permit'
         }
       },
       {
         path: 'applications/noncommercial-group-use/learn-more',
         component: NoncommercialLearnMoreComponent,
         data: {
-          title: 'Learn more about a noncommercial group use permit',
+          title: 'Learn more about a Non-Commercial Group Use permit',
+          breadcrumbs: 'Learn more'
         }
       },
       {
         path: 'applications/temp-outfitters/learn-more',
         component: TemporaryOutfittersLearnMoreComponent,
         data: {
-          title: 'Learn more about a temporary outfitters permit',
+          title: 'Learn more about a Temporary Outfitting and Guiding permit',
+          breadcrumbs: 'Learn more'
         },
       },
       {
@@ -93,14 +143,16 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/new',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Apply for a noncommercial group use permit with Open Forest',
+              title: 'Apply for a Non-Commercial Group Use permit with Open Forest',
+              breadcrumbs: 'Application'
             },
           },
           {
             path: 'noncommercial-group-use/:id/edit',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Edit your noncommercial group use permit with Open Forest'
+              title: 'Edit your Non-Commercial Group Use permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
           {
@@ -108,39 +160,45 @@ const appRoutes: Routes = [
             component: ApplicationSubmittedComponent,
             data: {
               title: 'Application submitted for review with Open Forest',
+              breadcrumbs: 'Application submitted'
             },
           },
           {
             path: 'temp-outfitters/new',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Apply for a temporary outfitters permit with Open Forest',
+              title: 'Apply for a Temporary Outfitting and Guiding permit with Open Forest',
+              breadcrumbs: 'Application'
             },
           },
           {
             path: 'temp-outfitters/:id/edit',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Edit your temporary outfitters permit with Open Forest',
+              title: 'Edit your Temporary Outfitting and Guiding permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
         ]
       },
     ]
   },
+    // end of MBS and children routes
+
   {
     path: 'shutdown',
     component: ShutdownComponent
   },
+  // start of admin applications and children routes
   {
-    path: 'admin/applications',
+    path: 'special-use/admin/applications',
     canActivateChild: [AdminAccessControlService],
     data: {
-      breadcrumbs: true,
-      text: 'Permit applications',
       displayLogin: true,
       admin: true,
-      specialUse: true
+      specialUse: true,
+      breadcrumbs: true,
+      text: 'Admin applications'
     },
     resolve: {
       user: UserResolver
@@ -150,7 +208,7 @@ const appRoutes: Routes = [
         path: '',
         component: PermitApplicationListComponent,
         data: {
-          title: 'Application administration listing'
+          title: 'Application administration listing',
         }
       },
       {
@@ -158,13 +216,16 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View application',
-          breadcrumbs: 'View application'
+          breadcrumbs: 'Application details'
         }
       }
     ]
   },
+    // end of admin applications and children routes
+
+      // start of admin trees and children routes
   {
-    path: 'admin/christmas-trees',
+    path: 'christmas-trees/admin',
     canActivateChild: [AdminAccessControlService],
     data: {
       admin: true,
@@ -215,11 +276,16 @@ const appRoutes: Routes = [
       }
     ]
   },
+  // end of admin trees and children routes
+
+  // start of user applications and children routes
   {
-    path: 'user/applications',
+    path: 'special-use/user/applications',
     data: {
       displayLogin: true,
-      specialUse: true
+      specialUse: true,
+      breadcrumbs: true,
+      text: 'User Applications'
     },
     canActivateChild: [AccessControlService],
     resolve: {
@@ -238,10 +304,13 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View submitted Open Forest application',
+          breadcrumbs: 'Application details'
         },
       },
     ]
   },
+  // end of user applications and children routes
+
   {
     path: 'christmas-trees/forests',
     data: {
@@ -318,6 +387,14 @@ const appRoutes: Routes = [
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
   },
+  {
+    path: 'feedback',
+    component: SubmitFeedbackComponent,
+    resolve: {
+      user: UserResolver
+    },
+    data: { title: 'Submit Feedback' }
+  },
 
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
@@ -333,3 +410,4 @@ const appRoutes: Routes = [
   providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
+

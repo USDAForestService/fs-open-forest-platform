@@ -48,14 +48,16 @@ describe('HelpMePickComponent', () => {
     component.getTitle('3');
     expect(component.title).toEqual('Does your activity involve more than 75 people (spectators and participants)?');
     component.getTitle('4');
-    expect(component.title).toEqual('Your activity does not require a permit.');
+    expect(component.title).toEqual(
+      `Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.`
+      );
     component.getTitle('5');
     expect(component.title).toEqual('Does your activity involve guiding or outfitting?');
     component.getTitle('6');
     expect(component.title).toEqual('Your activity requires a permit, but not one available online.');
     component.getTitle('7');
-    expect(component.title).toEqual('The correct permit for you is the "noncommercial group use application."');
+    expect(component.title).toEqual('The correct permit for you is the "Non-Commercial Group Use application."');
     component.getTitle('8');
-    expect(component.title).toEqual('The correct permit for you is the "temporary outfitter and guide permit."');
+    expect(component.title).toEqual('The correct permit for you is the "Temporary Outfitting and Guiding permit."');
   });
 });

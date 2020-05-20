@@ -102,8 +102,22 @@ export class UtilService {
       if (element) {
         element.scrollIntoView(true);
         const scrolledY = this.winRef.getNativeWindow().pageYOffset || document.documentElement.scrollTop;
-        this.winRef.getNativeWindow().scroll(0, scrolledY - 80);
-        document.getElementById(fragment).focus();
+        this.winRef.getNativeWindow().scroll(0, scrolledY + 10);
+        this.currentSection = fragment;
+        return fragment;
+      } else {
+        return fragment;
+      }
+    } else {
+      const element = document.querySelector('#' + fragment);
+      this.currentSubSection = fragment;
+      if (element) {
+        element.scrollIntoView(true);
+        const scrolledY = this.winRef.getNativeWindow().pageYOffset || document.documentElement.scrollTop;
+        this.winRef.getNativeWindow().scroll(0, scrolledY + 10);
+        this.currentSection = fragment;
+        return fragment;
+      } else {
         return fragment;
       }
     }

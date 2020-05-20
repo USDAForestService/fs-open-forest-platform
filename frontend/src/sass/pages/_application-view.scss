@@ -57,6 +57,8 @@
         }
       }
       #reason-for-return {
+        height: 10vh !important;
+        max-height: 10vh !important;
         max-width: 100% !important;
         width: 100% !important;
       }
@@ -126,4 +128,16 @@
   width: 20px;
   height: 20px;
   display: inline-block;
+}
+
+.phone-number-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  @media (min-width: 600px) {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
 }

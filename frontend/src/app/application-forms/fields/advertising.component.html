@@ -5,7 +5,7 @@
 
     <label id="advertising-url-label" class="usa-input">
       Promotional website
-      <span *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">(optional)</span>
+      <span *ngIf="!tempOutfitterFields.controls.noPromotionalWebsite.value"><span class="required-fields-asterisk">*</span></span>
     </label>
     <input id="advertising-url"
       type="url"
@@ -21,7 +21,7 @@
     <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I would like to provide alternate advertising or marketing information for my operation OR I don’t have a promotional website.</label>
 
     <ng-container *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">
-      <label id="advertising-description-label" class="usa-input" >Advertising description</label>
+      <label id="advertising-description-label" class="usa-input" >Advertising description <span class="required-fields-asterisk">*</span></label>
       <p id="advertising-description-hint-text" class="help-text usa-form-hint">Enter a description of your marketing plan or a reason why there isn't one.</p>
       <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.advertisingDescription, 'advertising-description-label advertising-description-hint-text', 'advertising-description-error')"

@@ -7,4 +7,6 @@ to help you measure and choose a tree that meets your permit's restrictions.
 
 ![No cutting tops of trees off](/assets/img/site-wide/tree-top-icon.svg "no tree-topping")  **Take the whole tree.** Cutting the tree top off is prohibited.
 
+Your tree may be cut, or dug up and removed as a transplant. The ground can start freezing in early November. Remember to fill in the hole created when digging the tree.
+
 If snow is on the ground, remove it from around the stump so you can accurately measure the stump and tree height.

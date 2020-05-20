@@ -4,6 +4,14 @@
 const defaultNoncommerialApplicationDetails = require('./templates/noncommercial/default-application-details.es6');
 const defaultTempApplicationDetails = require('./templates/temp-outfitter/default-application-details.es6');
 
+const defaultAdminNoncommerialApplicationDetails = require(
+  './templates/noncommercial/default-admin-application-details.es6'
+);
+
+const defaultAdminTempApplicationDetails = require('./templates/temp-outfitter/default-admin-application-details.es6');
+
+const specialUseApplicationReviewAdmin = require('./templates/special-use-common/application-review-admin.es6');
+
 const specialUseSubmittedConfirm = require('./templates/special-use-common/application-submitted-confirmation.es6');
 
 const noncommercialSubmittedAdminConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
@@ -90,6 +98,16 @@ emailTemplates.tempOutfitterApplicationRejected = application => specialUseAppli
 emailTemplates.noncommercialApplicationReview = application => specialUseApplicationReview(
   application,
   defaultNoncommerialApplicationDetails
+);
+
+emailTemplates.noncommercialApplicationAdminReview = application => specialUseApplicationReviewAdmin(
+  application,
+  defaultAdminNoncommerialApplicationDetails
+);
+
+emailTemplates.tempOutfitterApplicationAdminReview = application => specialUseApplicationReviewAdmin(
+  application,
+  defaultAdminTempApplicationDetails
 );
 
 emailTemplates.tempOutfitterApplicationReview = application => specialUseApplicationReview(

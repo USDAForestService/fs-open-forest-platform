@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
-  <label class="usa-input" for='email-confirmation' id="email-confirmation-label">Email address confirmation</label>
+  <label class="usa-input" for='email-confirmation' id="email-confirmation-label">Email address confirmation <span class="required-fields-asterisk">*</span></label>
   <span id="email-confirmation-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
   <input id="email-confirmation" type="email" formControlName="emailAddressConfirmation" pattern="{{applicantInfo.controls.emailAddress.value}}" aria-required="true"
     [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.emailAddressConfirmation, 'email-confirmation-label email-confirmation-hint-text', 'email-confirmation-error')"

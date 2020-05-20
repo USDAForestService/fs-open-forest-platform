@@ -2,24 +2,6 @@
   "name": "okawen",
   "treeSpecies": [
     {
-      "id": "noble-fir",
-      "name": "Noble Fir",
-      "status": "recommended",
-      "photoCredits": "Susan McDougal"
-    },
-    {
-      "id": "subalpine-fir",
-      "name": "Subalpine Fir",
-      "status": "recommended",
-      "photoCredits": "J.S. Peterson"
-    },
-    {
-      "id": "pacific-silver-fir",
-      "name": "Pacific Silver Fir",
-      "status": "recommended",
-      "photoCredits": "Susan McDougal"
-    },
-    {
       "id": "douglas-fir",
       "name": "Douglas-fir",
       "status": "not recommended",
@@ -30,6 +12,24 @@
       "name": "Grand Fir",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "noble-fir",
+      "name": "Noble Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "pacific-silver-fir",
+      "name": "Pacific Silver Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },    
+    {
+      "id": "subalpine-fir",
+      "name": "Subalpine Fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
     }
   ]
 }

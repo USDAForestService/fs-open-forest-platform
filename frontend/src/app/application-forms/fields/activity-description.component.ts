@@ -45,22 +45,22 @@ export class ActivityDescriptionComponent implements OnInit {
       numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator(), Validators.maxLength(255)]],
       numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
-      servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
-      audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
+      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
+      servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
+      audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
       needGovernmentFacilities: [false],
-      listOfGovernmentFacilities: ['', Validators.maxLength(400)],
+      listOfGovernmentFacilities: ['', Validators.maxLength(1000)],
       needTemporaryImprovements: [false],
-      listOfTemporaryImprovements: ['', Validators.maxLength(400)],
+      listOfTemporaryImprovements: ['', Validators.maxLength(1000)],
       haveMotorizedEquipment: [false],
-      statementOfMotorizedEquipment: ['', Validators.maxLength(400)],
+      statementOfMotorizedEquipment: ['', Validators.maxLength(1000)],
       haveLivestock: [false],
-      statementOfTransportationOfLivestock: ['', Validators.maxLength(400)],
+      statementOfTransportationOfLivestock: ['', Validators.maxLength(1000)],
       needAssignedSite: [false],
-      statementOfAssignedSite: ['', Validators.maxLength(400)],
+      statementOfAssignedSite: ['', Validators.maxLength(1000)],
       descriptionOfCleanupAndRestoration: [
         '',
-        [Validators.required, alphanumericValidator(), Validators.maxLength(400)]
+        [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]
       ]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);

@@ -2,6 +2,7 @@ The Christmas tree permits are valid for use in the eastern portions of Pierce, 
 
 No cutting or removing trees within:
 
+* Research natural areas.
 * Developed campgrounds and picnic areas.
 * Trailheads.
 * Administrative sites.

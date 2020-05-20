@@ -25,8 +25,6 @@ export class ChristmasTreesAdminService {
    */
   setStartEndTimes(formGroup, form) {
     if (formGroup && form.get('dateTimeRange')) {
-      console.log(form.get('dateTimeRange.endPeriod'));
-      console.log(form.get('dateTimeRange.startHour'));
       form.get('dateTimeRange.startHour').setValue(moment(formGroup.startDate).format('hh'));
       form.get('dateTimeRange.startMinutes').setValue(moment(formGroup.startDate).format('mm'));
       form.get('dateTimeRange.startPeriod').setValue(moment(formGroup.startDate).format('A'));
@@ -39,14 +37,19 @@ export class ChristmasTreesAdminService {
   /**
    * @returns admin navigation links
    */
-  getAdminNavItems() {
-    return [
-      { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
-      { id: 'forest-admin-reports', routerLink: '/admin/christmas-trees/reports', title: 'Generate reports'},
-      { id: 'forest-admin-seasons', routerLink: '/admin/christmas-trees/season-dates', title: 'Change season dates'},
-      { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'},
-      { id: 'forest-admin-feedback', routerLink: '/admin/christmas-trees/feedback-review', title: 'Feedback'},
-      { id: 'forest-admin-form', href: environment.changeRequestForm, title: 'Request a content change' }
-    ];
+  getAdminNavItems(user) {
+    const navItems = [{id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'}];
+    if (user && (user.poc1_forests.length > 0 || user.poc2_forests.length > 0)) {
+      navItems.push({id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
+    }
+    if (user && user.poc1_forests.length > 0) {
+      navItems.push({id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'});
+      // TODO check if forests have district dates
+      navItems.push({id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'});
+    }
+    if (user && (user.poc1_forests.length > 0 || user.poc2_forests.length > 0)) {
+      navItems.push({id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'});
+    }
+    return navItems;
   }
 }

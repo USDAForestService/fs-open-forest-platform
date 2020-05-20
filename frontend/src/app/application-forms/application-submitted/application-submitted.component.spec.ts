@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationSubmittedComponent } from './application-submitted.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +35,7 @@ describe('ApplicationSubmittedComponent', () => {
           { provide: Router, useValue: mockRouter },
           { provide: ApplicationService, useClass: MockApplicationService }
         ],
+        schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientModule]
       }).compileComponents();
     })

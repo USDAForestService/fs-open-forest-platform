@@ -1,5 +1,9 @@
 <p>Below are some of the tree types that you may see during your trip to the {{ forest.forestName }} and how you can identify them.
 </p>
+
+<p *ngIf="forest.forestName == 'Okanogan-Wenatchee National Forest'">Noble Fir, Sub Alpine Fir and Pacific Silver Fir trees are found at higher elevations. 
+  Higher elevations typically receive snow early in the season and may not be easily accessible.
+</p>
 <div [attr.id]="'tree-species-'+ i" class="tree-speci usa-grid" *ngFor="let tree of forest.species; let i=index">
   <h3 class="margin-top-1">{{ tree.name }}</h3>
   <div *ngIf="tree.status == 'prohibited'" class="tree-status">

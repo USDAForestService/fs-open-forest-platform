@@ -1,21 +1,23 @@
 <h1 class="forest-title">{{forest}}</h1>
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       <app-sidebar [items]="items"></app-sidebar>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Open Forest: Temporary outfitters permit information</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Open Forest: Temporary Outfitting and Guiding permit information</h2>
       <p>If you charge a fee for someone to participate in a service that you are providing or otherwise stand to gain from providing that service, you generally need a permit.
          This includes non-profit organizations.</p>
-      <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">See definitions</a> for “Commercial Use”, “Guiding”, “Outfitting”.</p>
+      <p><a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">See definitions</a> for “Commercial Use”, “Guiding”, “Outfitting”.</p>
+      <p>It may take approximately 40-65 minutes to complete this online application.</p>
       <ng-container *ngFor="let item of items">
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>
       </ng-container>
-      <app-button link="/mbs/applications/temp-outfitters/new" buttonText="Temp outfitter's permit" btnAlt="true"></app-button>
+      <app-button link="/special-use/applications/temp-outfitters/new" buttonText="Temporary Outfitting and Guiding permit" btnAlt="true"></app-button>
       <hr class="light margin-top-1 margin-bottom-1">
-      <a routerLink="/mbs" class="display-block">Return to the Mt. Baker-Snoqualmie Open Forest homepage</a>
+      <a routerLink="/special-use" class="display-block">Return to the Mt. Baker-Snoqualmie Open Forest homepage</a>
     </div>
   </div>
 </section>

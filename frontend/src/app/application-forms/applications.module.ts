@@ -6,6 +6,7 @@ import { ActivityDescriptionComponent } from './fields/activity-description.comp
 import { AddressComponent } from './fields/address.component';
 import { AdvertisingComponent } from './fields/advertising.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
+import { ApplicationNoncommercialGroupLeftNavComponent } from './application-noncommercial-group/application-noncommercial-group-left-nav.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
 import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
@@ -41,6 +42,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
+    ApplicationNoncommercialGroupLeftNavComponent,
     ApplicationSubmittedComponent,
     ClientChargesComponent,
     DateTimeRangeComponent,
@@ -70,6 +72,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
+    ApplicationNoncommercialGroupLeftNavComponent,
     ApplicationSubmittedComponent,
     ClientChargesComponent,
     DateTimeRangeComponent,

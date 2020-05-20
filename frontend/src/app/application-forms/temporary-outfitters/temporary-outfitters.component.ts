@@ -1,4 +1,3 @@
-
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
@@ -9,7 +8,7 @@ import { emailConfirmationValidator } from '../validators/email-confirmation-val
 import { FileUploadService } from '../_services/file-upload.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 import { Meta } from '@angular/platform-browser';
@@ -63,11 +62,15 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   ) {
 
     this.meta.addTag({
-      name: 'description', content: 'Apply for a temporary outffitter\
- and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
+      name: 'description',
+      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+    });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
     });
 
     this.applicationForm = this.formBuilder.group({
+      acceptPII: [false, Validators.required],
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
       createdAt: ['', [Validators.maxLength(255)]],
@@ -87,11 +90,14 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
-        emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
-        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddressConfirmation: [
+          '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
+            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
+          ), Validators.maxLength(255)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
@@ -99,7 +105,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
       guideIdentification: ['', [Validators.maxLength(255)]],
       operatingPlan: ['', [Validators.maxLength(255)]],
-      liabilityInsurance: ['', [Validators.maxLength(255)]],
+      liabilityInsurance: ['', [Validators.required, Validators.maxLength(255)]],
       acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
       locationMap: ['', [Validators.maxLength(255)]],
       tempOutfitterFields: this.formBuilder.group({
@@ -108,7 +114,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
-        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
         experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
       })
     });
@@ -152,13 +158,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
     const orgName = this.applicationForm.get('applicantInfo.organizationName');
     this.applicationFieldsService.updateValidators(gse, true, 255);
-    this.applicationFieldsService.updateValidators(orgName, true, 255);
+    this.applicationFieldsService.updateValidators(orgName, true, 60);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
-        this.applicationFieldsService.updateValidators(orgName, false, 255);
+        this.applicationFieldsService.updateValidators(orgName, false, 60);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
@@ -273,6 +279,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.applicationId = application.applicationId;
         this.applicationForm.patchValue(this.application);
         this.getFiles(this.application.applicationId);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;
@@ -404,7 +411,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.application.status = 'Submitted';
         this.applicationService.update(this.application, 'temp-outfitter').subscribe(
           (data: any) => {
-            this.router.navigate([`mbs/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+            this.router.navigate([`special-use/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
           },
           (e: any) => {
             this.apiErrors = e;

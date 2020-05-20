@@ -77,7 +77,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
+      if (container.getBoundingClientRect().top < -60) {
         this.top = '40px';
         this.bottom = 'auto';
         this.position = 'fixed';
@@ -115,7 +115,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
           .listAllNationalForestPermits;
         break;
     }
-
     if (field) {
       this.applicationFieldsService.touchField(field);
     }

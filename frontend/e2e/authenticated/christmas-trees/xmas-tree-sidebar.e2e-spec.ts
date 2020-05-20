@@ -36,7 +36,7 @@ describe('Xmas sidebar page', () => {
         .switchTo()
         .activeElement()
         .getAttribute('id')
-    ).toEqual('trip-planning');
+    ).toEqual('trip-planning-link');
   });
 
   it('should have a menu button and hide sidebar nav when resized to mobile', () => {

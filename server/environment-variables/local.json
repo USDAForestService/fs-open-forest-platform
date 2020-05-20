@@ -49,12 +49,13 @@
     "name": "smtp-service",
     "credentials": {
       "admins": [
-        "david.corwin@gsa.gov"
+        "david.corwin@gsa.gov",
+        "mtlaney@gmail.com"
       ],
       "security": [
         "david.corwin@gsa.gov"
       ],
-      "smtp_server": "smtp.gmail.com",
+      "smtp_server": "smtp.sendgrid.net",
       "username": "do_not_reply_openforest@example.com"
     }
   }, {

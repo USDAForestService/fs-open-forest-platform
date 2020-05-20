@@ -16,7 +16,7 @@ export class TreePermitViewComponent implements OnInit {
   error: any = null;
   nativeWindow: any;
   isPermitExpired = false;
-  includeRules = false;
+  includeRules = true;
   jwtToken: string;
 
   constructor(
@@ -83,7 +83,7 @@ export class TreePermitViewComponent implements OnInit {
    * Create popup containing printable permit
    */
   printPermit() {
-    const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+    const popupWin = this.nativeWindow.open('ChristmasTreePermit', '_blank', 'top=0,left=0,height=auto,width=auto');
 
     const includeRules = this.includeRules;
 

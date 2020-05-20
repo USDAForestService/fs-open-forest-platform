@@ -18,11 +18,13 @@ const forests = [
     forest_name_short: 'Arapaho and Roosevelt',
     timezone: 'America/Denver',
     cutting_areas:
-          '{ "ELKCREEK": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Elk Creek"},'
-          + '"REDFEATHERLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Red Feather Lakes"},'
+          '{ "ELKCREEK": {"startDate": "2019-12-01 14:00:00Z", "endDate": "2019-12-08 21:00:00Z", "name": "Elk Creek"},'
+          + '"REDFEATHERLAKES": {"startDate": "2019-12-07 13:30:00Z", "endDate": "2019-12-15 19:30:00Z", "name": "Red Feather Lakes"},'
           + '"SULPHUR": {"startDate": "2019-11-01 15:00:00Z", "endDate": "2020-01-06 22:30:00Z", "name": "Sulphur"},'
           + '"CANYONLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Canyon Lakes"} }',
-    poss_financial_id: '999900004'
+    poss_financial_id: '999900004',
+    state: 'Colorado',
+    region: 2
   },
   {
     id: 2,
@@ -43,7 +45,9 @@ const forests = [
     forest_name_short: 'Flathead',
     timezone: 'America/Denver',
     cutting_areas: '{}',
-    poss_financial_id: '999900005'
+    poss_financial_id: '999900005',
+    state: 'Montana',
+    region: 1
   },
   {
     id: 3,
@@ -64,7 +68,9 @@ const forests = [
     forest_name_short: 'Mt. Hood',
     timezone: 'America/Los_Angeles',
     cutting_areas: '{}',
-    poss_financial_id: '999900007'
+    poss_financial_id: '999900007',
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 4,
@@ -86,7 +92,9 @@ const forests = [
     forest_name_short: 'Shoshone',
     timezone: 'America/Denver',
     cutting_areas: '{}',
-    poss_financial_id: '999900006'
+    poss_financial_id: '999900006',
+    state: 'Wyoming',
+    region: 2
   },
   {
     id: 5,
@@ -99,7 +107,7 @@ const forests = [
     end_date: '2019-12-31T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '11-02-14',
+    org_structure_code: '11-06-03',
     description: 'Gifford Pinchot | Washington',
     forest_abbr: 'giffordpinchot',
     tree_cost: 5,
@@ -107,20 +115,22 @@ const forests = [
     forest_name_short: 'Gifford Pinchot',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900014'
+    poss_financial_id: '999900014',
+    state: 'Washington',
+    region: 6
   },
   {
     id: 6,
     forest_name: 'Fremont-Winema National Forest',
     forest_url: 'https://www.fs.usda.gov/fremont-winema',
     tree_height: 15,
-    stump_height: 6,
-    stump_diameter: 0,
-    start_date: '2019-11-018T08:00:00Z',
+    stump_height: 12,
+    stump_diameter: 6,
+    start_date: '2019-11-01T08:00:00Z',
     end_date: '2019-12-25T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-02',
     description: 'Fremont-Winema | Oregon',
     forest_abbr: 'fremont-winema',
     tree_cost: 5,
@@ -128,7 +138,9 @@ const forests = [
     forest_name_short: 'Fremont-Winema',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900015'
+    poss_financial_id: '999900015',
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 7,
@@ -141,7 +153,7 @@ const forests = [
     end_date: '2019-12-30T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-05',
     description: 'Mt. Baker-Snoqualmie | Washington',
     forest_abbr: 'mbs',
     tree_cost: 10,
@@ -149,7 +161,9 @@ const forests = [
     forest_name_short: 'Mt. Baker-Snoqualmie',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900010'
+    poss_financial_id: '999900010',
+    state: 'Washington',
+    region: 6
   },
   {
     id: 8,
@@ -162,7 +176,7 @@ const forests = [
     end_date: '2019-12-25T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-01',
     description: 'Deschutes | Oregon',
     forest_abbr: 'deschutes',
     tree_cost: 5,
@@ -170,20 +184,22 @@ const forests = [
     forest_name_short: 'Deschutes',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900008'
+    poss_financial_id: '999900008',
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 9,
     forest_name: 'Willamette National Forest ',
     forest_url: 'https://www.fs.usda.gov/willamette',
-    tree_height: 12,
+    tree_height: 15,
     stump_height: 6,
     stump_diameter: 0,
     start_date: '2019-11-12T08:00:00Z',
     end_date: '2020-01-06T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-18',
     description: 'Willamette | Oregon',
     forest_abbr: 'willamette',
     tree_cost: 5,
@@ -191,7 +207,9 @@ const forests = [
     forest_name_short: 'Willamette',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900012'
+    poss_financial_id: '999900012',
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 10,
@@ -204,7 +222,7 @@ const forests = [
     end_date: '2019-12-25T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-10',
     description: 'Rogue River-Siskiyou | Oregon',
     forest_abbr: 'rrs',
     tree_cost: 5,
@@ -212,7 +230,9 @@ const forests = [
     forest_name_short: 'Rogue River-Siskiyou',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900009'
+    poss_financial_id: '999900009',
+    state: 'Oregon and California',
+    region: 6
   },
   {
     id: 11,
@@ -225,7 +245,7 @@ const forests = [
     end_date: '2019-12-31T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-17',
     description: 'Okanogan-Wenatchee | Washington',
     forest_abbr: 'okawen',
     tree_cost: 5,
@@ -233,7 +253,9 @@ const forests = [
     forest_name_short: 'Okanogan-Wenatchee',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900011'
+    poss_financial_id: '999900011',
+    state: 'Washington',
+    region: 6
   },
   {
     id: 12,
@@ -246,7 +268,7 @@ const forests = [
     end_date: '2019-12-31T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '11-06-14',
     description: 'Umatilla | Oregon',
     forest_abbr: 'umatilla',
     tree_cost: 5,
@@ -254,7 +276,10 @@ const forests = [
     forest_name_short: 'Umatilla',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900013'
+    poss_financial_id: '999900013',
+    state: 'Oregon and Washington',
+    region: 6
+
   },
   {
     id: 13,
@@ -267,7 +292,7 @@ const forests = [
     end_date: '2019-12-25T08:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '060607',
+    org_structure_code: '11-06-07',
     description: 'Ochoco | Oregon',
     forest_abbr: 'ochoco',
     tree_cost: 5,
@@ -275,7 +300,9 @@ const forests = [
     forest_name_short: 'Ochoco',
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
-    poss_financial_id: '999900016'
+    poss_financial_id: '999900016',
+    state: 'Oregon',
+    region: 6
   }
 ];
 

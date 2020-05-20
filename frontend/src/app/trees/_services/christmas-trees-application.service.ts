@@ -12,7 +12,7 @@ import * as moment from 'moment/moment';
 @Injectable()
 export class ChristmasTreesApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees';
-  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees';
+  private adminEndpoint = environment.apiUrl + 'christmas-trees/admin';
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
@@ -113,7 +113,7 @@ export class ChristmasTreesApplicationService {
   }
 
   /**
-   * @returns Update distrct dates for forest district
+   * @returns Update district dates for forest district
    */
 
   //  double check before commit, should be good though

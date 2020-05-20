@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
-  <label id="website-label" class="usa-input">Website (optional)</label>
+  <label id="website-label" class="usa-input">Website</label>
   <input id="website" name="website" type="url"  formControlName="website" (blur)="blurHandler()"
     [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.website, 'website-label', 'website-error')"
     [attr.aria-invalid]="afs.hasError(applicantInfo.controls.website)"

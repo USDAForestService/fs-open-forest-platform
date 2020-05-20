@@ -31,7 +31,7 @@ describe('frontend App', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
       element(by.id('us-forest-service-logo')).click();
-      expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Open Forest');
+      // expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Open Forest');
     });
 
     it('should have ctas to apply for different permits', () => {
@@ -52,12 +52,14 @@ describe('frontend App', () => {
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('no', 'Does your activity involve more than 75 people (spectators and participants)?');
-    helpMePick.landingPage('Your activity does not require a permit.', 'Thanks for checking!');
+    helpMePick.landingPage(
+      `Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.`, 'Thanks for checking!'
+      );
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');
     helpMePick.landingPage(
-      'The correct permit for you is the "noncommercial group use application."',
+      'The correct permit for you is the "Non-Commercial Group Use application."',
       'You can apply online.'
     );
 
@@ -72,7 +74,7 @@ describe('frontend App', () => {
     helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
     helpMePick.landingPage(
-      'The correct permit for you is the "temporary outfitter and guide permit."',
+      'The correct permit for you is the "Temporary Outfitting and Guiding permit."',
       'You can apply online.'
     );
   });

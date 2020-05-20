@@ -15,6 +15,8 @@ const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
+// const forestService = require('./forest.service.es6');
+
 const util = {};
 
 util.ADMIN_ROLE = 'admin';
@@ -325,6 +327,51 @@ util.userApplicationLink = (application, plainText) => {
 };
 
 /**
+ * @function adminApplicationUrl - Get the user's application URL
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - application url
+*/
+util.adminApplicationLink = (application, plainText) => {
+  let applicationType = application.type;
+  if (application.type === 'tempOutfitters') {
+    applicationType = 'temp-outfitter'; // for resolving url
+  }
+  const applicationID = application.appControlNumber;
+  const applicationStatus = application.status;
+
+  let status;
+  switch (applicationStatus) {
+    case 'Accepted':
+      status = 'accepted application';
+      break;
+    case 'Hold':
+      status = 'application which needs additional information';
+      break;
+    case 'Review':
+      status = 'application which is under review';
+      break;
+    case 'Cancelled':
+      status = 'cancelled application';
+      break;
+    case 'Submitted':
+      status = 'submitted application';
+      break;
+    default:
+      status = 'application';
+      break;
+  }
+  let text;
+  if (plainText === true) {
+    text = `You can view the ${status} here`;
+  } else {
+    text = `View the ${status} here`;
+  }
+  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/${applicationType}/${applicationID}`;
+  return { text, url };
+};
+
+/**
  * @function getRandomString - Create a random hex string.
  * @param {integer} length - random string to be length
  * @return {string} - random string
@@ -344,16 +391,152 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
+// util.getForestsByRegion = (region) => {
+//   const forests = forestService.getForests();
+//   const regionForests = [];
+//   for (let i = 0; i < forests.length; i += 1) {
+//     if (forests[i].region === region) {
+//       regionForests.push(forests[i].forestAbbr);
+//     }
+//   }
+//   return regionForests;
+// };
+
+/**
+ * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
+ *
+*/
+util.getEauthForests = (approles) => {
+  // split the roles from one long string into an array of roles
+  const roles = approles.split('^');
+  let forests = [];
+  let forest = '';
+
+  // check each role for a forest
+  for (let i = 0; i < roles.length; i += 1) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      forests = ['all'];
+    } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
+        .replace('-POC1', '')
+        .replace('_POC1', '')
+        .replace('-POC', '')
+        .replace('_POC', '')
+        .replace('SuperUser', '')
+        .replace('Super-User', '')
+        .replace('Regional', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest);
+      }
+    }
+  }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
+  return [...new Set(forests)];
+};
+
+
+/**
+ * Return an array of POC2 forests (short names) from the provided eAuth approles string
+ *
+*/
+util.getPOC2Forests = (approles) => {
+  // split the roles from one long string into an array of roles
+  const roles = approles.split('^');
+  let forests = [];
+  let forest = '';
+
+  // check each role for a forest
+  for (let i = 0; i < roles.length; i += 1) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      forests = ['all'];
+    } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
+        .replace('-POC1', '')
+        .replace('_POC1', '')
+        .replace('-POC', '')
+        .replace('_POC', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest);
+      }
+    }
+  }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
+  return [...new Set(forests)];
+};
+
+/**
+ * Return an array of POC1 forests (short names) from the provided eAuth approles string
+ *
+*/
+util.getPOC1Forests = (approles) => {
+  // split the roles from one long string into an array of roles
+  const roles = approles.split('^');
+  let forests = [];
+  let forest = '';
+
+  // check each role for a forest
+  for (let i = 0; i < roles.length; i += 1) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      forests = ['all'];
+    } else if (roles[i].includes('POC1')) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
+        .replace('-POC1', '')
+        .replace('_POC1', '')
+        .replace('-POC', '')
+        .replace('_POC', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest);
+      }
+    }
+  }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
+  return [...new Set(forests)];
+};
+
 /**
 * @function getUserRole - Check if the given user is admin, return user role if not find
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = adminUsername => (
-  vcapConstants.EAUTH_USER_SAFELIST.find(
-    element => element.admin_username === adminUsername
-  ) ? util.ADMIN_ROLE
-    : util.USER_ROLE);
+util.getUserRole = (approles) => {
+  let role = 'user';
+  const poc1forests = util.getPOC1Forests(approles);
+  const poc2forests = util.getPOC2Forests(approles);
+  if (poc1forests.length > 0 || poc2forests.length > 0) {
+    role = 'admin';
+  }
+  return role;
+};
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
@@ -407,8 +590,8 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
   } else {
-    userID = req.user.email;
-    role = util.getUserRole(req);
+    // userID = req.user.email;
+    // role = util.getUserRole(req);
     permitID = applicationOrPermit.applicationId;
   }
 

@@ -3,7 +3,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Map details page', () => {
   let page: TreesSidebarPage;
-  let redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
+  // const redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
 
   describe('ARP', () => {
     beforeAll(() => {
@@ -18,20 +18,20 @@ describe('Map details page', () => {
       browser.sleep(800);
     });
 
-    it('should have link to long alt text for Sulphur District', () => {
-      sulphurLink = element.all(by.css('.screen-reader-only')).get(0);
-      expect<any>(sulphurLink.getText()).toEqual('Sulphur Ranger District map description');
-    });
-
-    it('should have link to long alt text for Elk Creek', () => {
-      elkLink = element.all(by.css('.screen-reader-only')).get(1);
-      expect<any>(elkLink.getText()).toEqual('Elk Creek Cutting Area map description');
-    });
-
-    it('should have link to long alt text for Red Feather Lakes', () => {
-      redLink = element.all(by.css('.screen-reader-only')).get(2);
-      expect<any>(redLink.getText()).toEqual('Red Feather Lakes Cutting Area map description');
-    });
+    // it('should have link to long alt text for Sulphur District', () => {
+    //   sulphurLink = element.all(by.css('.screen-reader-only')).get(0);
+    //   expect<any>(sulphurLink.getText()).toEqual('Sulphur Ranger District map description');
+    // });
+    //
+    // it('should have link to long alt text for Elk Creek', () => {
+    //   elkLink = element.all(by.css('.screen-reader-only')).get(1);
+    //   expect<any>(elkLink.getText()).toEqual('Elk Creek Cutting Area map description');
+    // });
+    //
+    // it('should have link to long alt text for Red Feather Lakes', () => {
+    //   redLink = element.all(by.css('.screen-reader-only')).get(2);
+    //   expect<any>(redLink.getText()).toEqual('Red Feather Lakes Cutting Area map description');
+    // });
 
     describe('red feather lakes map description', () => {
       beforeAll(() => {
@@ -92,15 +92,15 @@ describe('Map details page', () => {
       browser.sleep(800);
     });
 
-    it('should have link to long alt text for Clackamas', () => {
-      clackamasLink = element.all(by.css('.screen-reader-only')).get(0);
-      expect<any>(clackamasLink.getText()).toEqual('Clackamas River Ranger District map description');
-    });
-
-    it('should have link to long alt text for Zigzag', () => {
-      zigzagLink = element.all(by.css('.screen-reader-only')).get(1);
-      expect<any>(zigzagLink.getText()).toEqual('Zigzag Ranger District map description');
-    });
+    // it('should have link to long alt text for Clackamas', () => {
+    //   clackamasLink = element.all(by.css('.screen-reader-only')).get(0);
+    //   expect<any>(clackamasLink.getText()).toEqual('Clackamas River Ranger District map description');
+    // });
+    //
+    // it('should have link to long alt text for Zigzag', () => {
+    //   zigzagLink = element.all(by.css('.screen-reader-only')).get(1);
+    //   expect<any>(zigzagLink.getText()).toEqual('Zigzag Ranger District map description');
+    // });
 
     describe('clackamas map description', () => {
       beforeAll(() => {

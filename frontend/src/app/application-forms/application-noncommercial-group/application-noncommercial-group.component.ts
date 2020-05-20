@@ -5,9 +5,9 @@ import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -20,6 +20,7 @@ import { SpecialUseInfoService } from '../../_services/special-use-info.service'
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
   application: any = {};
+  currentSection: any;
   forest = this.specialUseInfoService.getOne('0605');
   mode = 'Observable';
   primaryPermitHolderSameAddress = true;
@@ -44,6 +45,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private applicationService: ApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private authentication: AuthenticationService,
+    public renderer: Renderer2,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -51,11 +53,13 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a noncommercial group\
- use permit on the Mount Baker Snoqualmie\
- National Forest with Open Forest.'
+      content: 'Apply for a Non-Commercial Group Use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+    });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
     });
     this.applicationForm = this.formBuilder.group({
+      acceptPII: [false, Validators.required],
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
       createdAt: ['', [Validators.maxLength(255)]],
@@ -74,16 +78,19 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255), alphanumericValidator()]],
-        emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddressConfirmation: [
+          '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
+            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
+          ), Validators.maxLength(255)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
+        primaryFirstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
         secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
-        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(36)]],
+        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]]
       },
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
@@ -126,8 +133,18 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
-        255
+        60
       );
+    }
+  }
+
+  public elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
+    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
+
+    const viewableElements = document.getElementsByClassName('in-view');
+    if (viewableElements.length) {
+      this.currentSection = viewableElements[viewableElements.length - 1].id;
     }
   }
 
@@ -178,6 +195,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       application => {
         this.application = application;
         this.applicationForm.patchValue(application);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;
@@ -191,7 +209,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
       .subscribe(
         (persistedApplication: any) => {
-          this.router.navigate([`mbs/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+          this.router.navigate([`special-use/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
         },
         (e: any) => {
           this.apiErrors = e;

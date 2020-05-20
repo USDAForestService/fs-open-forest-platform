@@ -14,6 +14,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
 import { CancelApplicationComponent } from './applications/actions/cancel-application.component';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
+import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ErrorInterceptor } from './error-pages/error-interceptor.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
@@ -44,6 +45,11 @@ import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
 import { GoogleAnalyticsService } from './_services/google-analytics.service';
+import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
+import { ProductsComponent } from './products/products.component';
+import { MapComponent } from './map/map.component';
+import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +59,7 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     Base64,
     CancelApplicationComponent,
     DaysToOrDate,
+    DummyComponent,
     ForestAdminNavComponent,
     HelpMePickComponent,
     HomeComponent,
@@ -72,7 +79,12 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     StyleGuideComponent,
     TempOutfitterDetailsComponent,
     TitleDirective,
-    UsaBannerComponent
+    UsaBannerComponent,
+    MainLandingComponent,
+    ForestTemplateComponent,
+    ProductsComponent,
+    MapComponent,
+    EsriMapComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
   providers: [

@@ -1,8 +1,9 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Mount Baker-Snoqualmie National Forest</h1>
+    <app-breadcrumbs></app-breadcrumbs>
+    <h1 id="skip-nav-target" tabindex="-1">Mt. Baker-Snoqualmie National Forest</h1>
     <div class="application-status-toggle-wrapper">
-      <label for="application-status-toggle">Filter by</label>
+      <label for="application-status-toggle">Filter by Application Status:</label>
       <select class="usa-input-inline" id="application-status-toggle" (change)="applicationStatusChange($event)">
         <option value="pending" selected>Pending</option>
         <option value="accepted">Accepted</option>
@@ -11,7 +12,8 @@
         <option value="expired">Expired</option>
       </select>
     </div>
-    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications for Open Forest</h2>
+
+    <h3>{{appStatusMessage}}</h3>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -46,7 +48,9 @@
           <span *ngIf="application.status === 'Review'" class="usa-label">{{reviewText}}</span>
         </div>
         <label *ngIf="isAdmin">Type</label>
-        <div class="application-type" *ngIf="isAdmin">{{ application.type }}</div>
+          <div class="application-type" *ngIf="isAdmin">
+            {{application.type === 'Temp outfitter' ? 'Temporary Outfitting & Guiding' : application.type}}
+          </div>
         <label>Identification Number</label>
         <div class="application-id">{{ application.applicationId }}</div>
         <label>Submitted</label>
@@ -79,7 +83,7 @@
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div class="application-details">
           <div class="add-kangaroo"></div>
-          <a class="usa-button usa-button-secondary-alt" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
+          <a class="usa-button usa-button-secondary-alt" routerLink="/special-use/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Detallos</a>
         </div>
         <div>
           <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
@@ -88,8 +92,9 @@
     </div>
     <div *ngIf="!isAdmin"class="usa-width-one-whole">
       <div class="float-right">
-        <button class="usa-button margin-right-0" routerLink="/mbs">Apply for another permit.</button>
+        <button class="usa-button margin-right-0" routerLink="/special-use">Apply for another permit.</button>
       </div>
     </div>
   </div>
 </section>
+

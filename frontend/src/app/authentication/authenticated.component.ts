@@ -69,6 +69,17 @@ export class AuthenticatedComponent implements OnInit {
     });
     }
 
+  // navigate user to /feedback
+  goToFeedback() {
+    // store redirect in localStorage
+    const origin = window.location.origin;
+    const href = window.location.href;
+    const split = href.split(origin);
+    const redirect = split[1];
+    localStorage.setItem('feedbackRedirect', redirect);
+    this.router.navigate(['/feedback']);
+  }
+
   /**
    * determine if SUDS login displays in header
    */
@@ -91,7 +102,7 @@ export class AuthenticatedComponent implements OnInit {
   }
 
   setRoute(user) {
-    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications';
+    user.role === 'admin' ? this.useRoute = '/special-use/admin/applications' : this.useRoute = '/special-use/user/applications';
   }
 
   /**
