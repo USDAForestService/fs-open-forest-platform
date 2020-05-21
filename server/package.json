@@ -5,7 +5,6 @@
   "description": "fs-open-forest-platform",
   "dependencies": {
     "aws-sdk": "^2.395.0",
-    "axios": "^0.19.2",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
     "body-parser-xml": "^1.1.0",
