@@ -7,7 +7,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
 const logger = require('../services/logger.es6');
-const christmasTreeForestController = require('../controllers/christmas-tree/forests.es6');
+const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
@@ -37,29 +37,42 @@ eAuth.setUserObject = async (profile) => {
   let role = 'user';
   let email = '';
   let approles = '';
-
-  const forestsData = await christmasTreeForestController.getForests();
+  let forestsData = [];
+  let adminUserObject = {};
 
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-
   if (profile.usdaapproles) {
     approles = `${profile.usdaapproles}`;
   }
   logger.info(`APP ROLES : ${approles}`);
 
   role = util.getUserRole(approles);
-
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
-  const adminUserObject = {
-    adminUsername: role === 'admin' ? adminUsername : '',
-    email,
-    role,
-    poc1_forests: util.getPOC1Forests(approles, forestsData),
-    poc2_forests: util.getPOC2Forests(approles, forestsData),
-    forests: util.getEauthForests(approles, forestsData)
-  };
+
+  try {
+    forestsData = await treesDb.christmasTreesForests.findAll();
+    adminUserObject = {
+      adminUsername: role === 'admin' ? adminUsername : '',
+      email,
+      role,
+      poc1_forests: util.getPOC1Forests(approles, forestsData),
+      poc2_forests: util.getPOC2Forests(approles, forestsData),
+      forests: util.getEauthForests(approles, forestsData)
+    };
+  }
+  catch {
+    forestsData = [];
+    adminUserObject = {
+      adminUsername: role === 'admin' ? adminUsername : '',
+      email,
+      role,
+      poc1_forests: util.getPOC1Forests(approles, forestsData),
+      poc2_forests: util.getPOC2Forests(approles, forestsData),
+      forests: util.getEauthForests(approles, forestsData)
+    };
+  }
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
 };

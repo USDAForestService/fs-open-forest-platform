@@ -392,7 +392,7 @@ util.getAdminForests = (adminUsername) => {
 util.getForestsByRegion = (region, forests) => {
   const regionForests = [];
   for (let i = 0; i < forests.length; i += 1) {
-    if (forests[i].region === region) {
+    if (forests[i] && forests[i].region === region) {
       regionForests.push(forests[i].forestAbbr);
     }
   }
