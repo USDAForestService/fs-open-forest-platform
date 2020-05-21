@@ -17,8 +17,7 @@ const localAdminStrategy = (loginUrl) => {
           poc1_forests: util.getPOC1Forests('Super', forestsData),
           poc2_forests: util.getPOC2Forests('Super', forestsData)
         };
-      }
-      catch(error) {
+      } catch (error) {
         userData = {
           adminUsername: username,
           email: 'admin@example.com',

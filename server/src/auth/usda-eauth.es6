@@ -61,8 +61,7 @@ eAuth.setUserObject = async (profile) => {
       poc2_forests: util.getPOC2Forests(approles, forestsData),
       forests: util.getEauthForests(approles, forestsData)
     };
-  }
-  catch {
+  } catch (error) {
     forestsData = [];
     adminUserObject = {
       adminUsername: role === 'admin' ? adminUsername : '',
