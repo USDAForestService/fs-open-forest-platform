@@ -7,6 +7,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
 const logger = require('../services/logger.es6');
+const christmasTreeForestController = require('../controllers/christmas-tree/forests.es6');
 
 const eAuth = {};
 
@@ -30,12 +31,14 @@ eAuth.strategy = () => new SamlStrategy(
  * @function setUserObject - set user profile in the eAuth authentication response
  * @param {Object} profile
  */
-eAuth.setUserObject = (profile) => {
+eAuth.setUserObject = async (profile) => {
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
   let email = '';
   let approles = '';
+
+  const forestsData = await christmasTreeForestController.getForests();
 
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
@@ -53,9 +56,9 @@ eAuth.setUserObject = (profile) => {
     adminUsername: role === 'admin' ? adminUsername : '',
     email,
     role,
-    poc1_forests: util.getPOC1Forests(approles),
-    poc2_forests: util.getPOC2Forests(approles),
-    forests: util.getEauthForests(approles)
+    poc1_forests: util.getPOC1Forests(approles, forestsData),
+    poc2_forests: util.getPOC2Forests(approles, forestsData),
+    forests: util.getEauthForests(approles, forestsData)
   };
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;

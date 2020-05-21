@@ -10,13 +10,10 @@ const request = require('request-promise-native');
 const Sequelize = require('sequelize');
 const Util = require('util');
 const xml2js = require('xml2js');
-const axios = require('axios');
 
 const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
-
-// const forestService = require('./forest.service.es6');
 
 const util = {};
 
@@ -392,9 +389,7 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
-util.getForestsByRegion = async (region) => {
-  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/forests`;
-  const forests = await axios.get(url);
+util.getForestsByRegion = (region, forests) => {
   const regionForests = [];
   for (let i = 0; i < forests.length; i += 1) {
     if (forests[i].region === region) {
@@ -408,7 +403,7 @@ util.getForestsByRegion = async (region) => {
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
  *
 */
-util.getEauthForests = (approles) => {
+util.getEauthForests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -418,7 +413,7 @@ util.getEauthForests = (approles) => {
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
       const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
+      forests = util.getForestsByRegion(region, forestsData);
     } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
@@ -452,7 +447,7 @@ util.getEauthForests = (approles) => {
  * Return an array of POC2 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC2Forests = (approles) => {
+util.getPOC2Forests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -462,7 +457,7 @@ util.getPOC2Forests = (approles) => {
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
       const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
+      forests = util.getForestsByRegion(region, forestsData);
     } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
@@ -492,7 +487,7 @@ util.getPOC2Forests = (approles) => {
  * Return an array of POC1 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC1Forests = (approles) => {
+util.getPOC1Forests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -502,7 +497,7 @@ util.getPOC1Forests = (approles) => {
   for (let i = 0; i < roles.length; i += 1) {
     if (roles[i].includes('FS_Open-Forest_R')) {
       const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
-      forests = util.getForestsByRegion(region);
+      forests = util.getForestsByRegion(region, forestsData);
     } else if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
