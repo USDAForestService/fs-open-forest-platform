@@ -7,6 +7,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
 const logger = require('../services/logger.es6');
+const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
@@ -30,33 +31,47 @@ eAuth.strategy = () => new SamlStrategy(
  * @function setUserObject - set user profile in the eAuth authentication response
  * @param {Object} profile
  */
-eAuth.setUserObject = (profile) => {
+eAuth.setUserObject = async (profile) => {
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
   let email = '';
   let approles = '';
+  let forestsData = [];
+  let adminUserObject = {};
 
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-
   if (profile.usdaapproles) {
     approles = `${profile.usdaapproles}`;
   }
   logger.info(`APP ROLES : ${approles}`);
 
   role = util.getUserRole(approles);
-
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
-  const adminUserObject = {
-    adminUsername: role === 'admin' ? adminUsername : '',
-    email,
-    role,
-    poc1_forests: util.getPOC1Forests(approles),
-    poc2_forests: util.getPOC2Forests(approles),
-    forests: util.getEauthForests(approles)
-  };
+
+  try {
+    forestsData = await treesDb.christmasTreesForests.findAll();
+    adminUserObject = {
+      adminUsername: role === 'admin' ? adminUsername : '',
+      email,
+      role,
+      poc1_forests: util.getPOC1Forests(approles, forestsData),
+      poc2_forests: util.getPOC2Forests(approles, forestsData),
+      forests: util.getEauthForests(approles, forestsData)
+    };
+  } catch (error) {
+    forestsData = [];
+    adminUserObject = {
+      adminUsername: role === 'admin' ? adminUsername : '',
+      email,
+      role,
+      poc1_forests: util.getPOC1Forests(approles, forestsData),
+      poc2_forests: util.getPOC2Forests(approles, forestsData),
+      forests: util.getEauthForests(approles, forestsData)
+    };
+  }
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
 };
