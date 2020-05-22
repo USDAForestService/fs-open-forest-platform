@@ -31,14 +31,13 @@ eAuth.strategy = () => new SamlStrategy(
  * @function setUserObject - set user profile in the eAuth authentication response
  * @param {Object} profile
  */
-eAuth.setUserObject = async (profile) => {
+eAuth.setUserObject = (profile) => {
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
   let email = '';
   let approles = '';
-  let forestsData = [];
-  let adminUserObject = {};
+  const forests = eAuth.getForests();
 
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
@@ -51,29 +50,22 @@ eAuth.setUserObject = async (profile) => {
   role = util.getUserRole(approles);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
 
-  try {
-    forestsData = await treesDb.christmasTreesForests.findAll();
-    adminUserObject = {
-      adminUsername: role === 'admin' ? adminUsername : '',
-      email,
-      role,
-      poc1_forests: util.getPOC1Forests(approles, forestsData),
-      poc2_forests: util.getPOC2Forests(approles, forestsData),
-      forests: util.getEauthForests(approles, forestsData)
-    };
-  } catch (error) {
-    forestsData = [];
-    adminUserObject = {
-      adminUsername: role === 'admin' ? adminUsername : '',
-      email,
-      role,
-      poc1_forests: util.getPOC1Forests(approles, forestsData),
-      poc2_forests: util.getPOC2Forests(approles, forestsData),
-      forests: util.getEauthForests(approles, forestsData)
-    };
-  }
+  const adminUserObject = {
+    adminUsername: role === 'admin' ? adminUsername : '',
+    email,
+    role,
+    poc1_forests: util.getPOC1Forests(approles, forests),
+    poc2_forests: util.getPOC2Forests(approles, forests),
+    forests: util.getEauthForests(approles, forests)
+  };
+
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
+};
+
+eAuth.getForests = async () => {
+  const forests = await treesDb.christmasTreesForests.findAll();
+  return forests;
 };
 
 module.exports = eAuth;
