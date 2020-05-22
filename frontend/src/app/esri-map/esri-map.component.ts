@@ -86,7 +86,7 @@ export class EsriMapComponent implements OnInit {
         });
       });
 
-      mapView.ui.add(searchWidget, 'top-leading');
+      mapView.ui.add(searchWidget, 'top-right');
 
       map.add(geoJson);
       })
