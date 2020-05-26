@@ -1,17 +1,33 @@
 const { Strategy } = require('passport-local');
+const treesDb = require('../models/trees-db.es6');
+const util = require('../services/util.es6');
 
 const localAdminStrategy = (loginUrl) => {
-  const strategy = new Strategy({ usernameField: 'email' }, (email, password, done) => {
+  const strategy = new Strategy({ usernameField: 'email' }, async (email, password, done) => {
     if (email && password && email === 'test@test.com') {
       const username = 'TEST_USER';
-      return done(null, {
-        adminUsername: username,
-        email: 'admin@example.com',
-        role: 'admin',
-        forests: ['all'],
-        poc1_forests: ['all'],
-        poc2_forests: ['all']
-      });
+      let userData = {};
+      try {
+        const forestsData = await treesDb.christmasTreesForests.findAll();
+        userData = {
+          adminUsername: username,
+          email: 'admin@example.com',
+          role: 'admin',
+          forests: util.getEauthForests('Super', forestsData),
+          poc1_forests: util.getPOC1Forests('Super', forestsData),
+          poc2_forests: util.getPOC2Forests('Super', forestsData)
+        };
+      } catch (error) {
+        userData = {
+          adminUsername: username,
+          email: 'admin@example.com',
+          role: 'admin',
+          forests: ['all'],
+          poc1_forests: ['all'],
+          poc2_forests: ['all']
+        };
+      }
+      return done(null, userData);
     }
     return done(null, false);
   });

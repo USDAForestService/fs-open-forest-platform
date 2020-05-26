@@ -102,6 +102,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     state: {
       type: DataTypes.STRING(50),
       field: 'state'
+    },
+    region: {
+      type: DataTypes.INTEGER,
+      field: 'region'
     }
   },
   {
