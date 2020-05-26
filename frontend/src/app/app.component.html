@@ -3,10 +3,16 @@
 <header id="header" role="banner" class="usa-header usa-header-extended">
   <app-usa-banner></app-usa-banner>
   <div class="usa-navbar">
+    <div class="usa-alert usa-alert-warning application-deadline-warning application-browser-alert" aria-role="dialog" aria-label="warning" *ngIf="getBrowserName() !== 'Chrome'">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Warning</h3>
+        <p class="usa-alert-text">The browser your are currently using is not compatible with the Open Forest website. For a better experience please switch to Google Chrome.</p>
+      </div>
+    </div>
     <app-page-header></app-page-header>
   </div>
 </header>
-<main id="main-content">
+<main id="main-content" [ngClass]="{'browser-validation-main-content':getBrowserName() !== 'Chrome'}">
   <app-alert [message]="status.message" [heading]="status.heading"></app-alert>
   <router-outlet></router-outlet>
 </main>
