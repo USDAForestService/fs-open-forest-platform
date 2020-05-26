@@ -144,3 +144,15 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.browser-validation-main-content {
+  @media (min-width: 319px) {
+    margin-top: 18rem;
+  }
+  @media (min-width:359px) {
+    margin-top: 11rem;
+  }
+  @media (min-width: 1020px) {
+    margin-top: unset;
+  }
+}
