@@ -4,18 +4,18 @@
     <h1 id="skip-nav-target" tabindex="-1">Open Forest</h1>
     <h2>{{ title }}</h2>
     <div *ngIf="id == 1">
-      <a class="usa-button-primary yes" attr.aria-label="Yes, the purpose of your activity is selling goods or services" type="button" routerLink="/mbs/help-me-pick/5">Yes</a>
-      <a class="usa-button-primary no" attr.aria-label="No, the purpose of your activity is not selling goods or services" type="button" routerLink="/mbs/help-me-pick/2">No</a>
+      <a class="usa-button-primary yes" attr.aria-label="Yes, the purpose of your activity is selling goods or services" type="button" routerLink="/special-use/help-me-pick/5">Yes</a>
+      <a class="usa-button-primary no" attr.aria-label="No, the purpose of your activity is not selling goods or services" type="button" routerLink="/special-use/help-me-pick/2">No</a>
     </div>
 
     <div *ngIf="id == 2">
-      <a class="usa-button-primary yes" attr.aria-label="Yes, the purpose of my activity is selling goods or services." type="button" routerLink="/mbs/help-me-pick/5">Yes</a>
-      <a class="usa-button-primary no" attr.aria-label="No, the purpose of my activity is not selling goods or services." type="button" routerLink="/mbs/help-me-pick/3">No</a>
+      <a class="usa-button-primary yes" attr.aria-label="Yes, the purpose of my activity is selling goods or services." type="button" routerLink="/special-use/help-me-pick/5">Yes</a>
+      <a class="usa-button-primary no" attr.aria-label="No, the purpose of my activity is not selling goods or services." type="button" routerLink="/special-use/help-me-pick/3">No</a>
     </div>
 
     <div *ngIf="id == 3">
-      <a class="usa-button-primary yes" attr.aria-label="Yes, my activity involve more than 75 people (spectators and participants)." type="button" routerLink="/mbs/help-me-pick/7">Yes</a>
-      <a class="usa-button-primary no" attr.aria-label="No, my activity does not involve more than 75 people (spectators and participants)." type="button" routerLink="/mbs/help-me-pick/4">No</a>
+      <a class="usa-button-primary yes" attr.aria-label="Yes, my activity involve more than 75 people (spectators and participants)." type="button" routerLink="/special-use/help-me-pick/7">Yes</a>
+      <a class="usa-button-primary no" attr.aria-label="No, my activity does not involve more than 75 people (spectators and participants)." type="button" routerLink="/special-use/help-me-pick/4">No</a>
     </div>
 
     <div *ngIf="id == 4">
@@ -23,25 +23,25 @@
     </div>
 
     <div *ngIf="id == 5">
-      <a class="usa-button-primary yes" attr.aria-label="Yes, my activity involves guiding or outfitting." type="button" routerLink="/mbs/help-me-pick/8">Yes</a>
-      <a class="usa-button-primary no" attr.aria-label="No, my activity does not involve guiding or outfitting." type="button" routerLink="/mbs/help-me-pick/6">No</a>
+      <a class="usa-button-primary yes" attr.aria-label="Yes, my activity involves guiding or outfitting." type="button" routerLink="/special-use/help-me-pick/8">Yes</a>
+      <a class="usa-button-primary no" attr.aria-label="No, my activity does not involve guiding or outfitting." type="button" routerLink="/special-use/help-me-pick/6">No</a>
     </div>
 
     <div *ngIf="id == 6">
       <p class="message">Learn about other permit types (available via a paper application) at Mt. Baker-Snoqualmie.</p>
-      <a href="//www.fs.usda.gov/main/mbs/passes-permits" target="_blank" class="usa-button-primary learn-more" type="button">Learn more (Opens a new window)</a>
+      <a href="//www.fs.usda.gov/main/special-use/passes-permits" target="_blank" class="usa-button-primary learn-more" type="button">Learn more (Opens a new window)</a>
     </div>
 
     <div *ngIf="id == 7">
       <p class="message">You can apply online.</p>
-      <app-button link="/mbs/applications/noncommercial-group-use/new" buttonText="Noncommercial permit" btnAlt="true"></app-button>
-      <a routerLink="/mbs/applications/noncommercial-group-use/learn-more" class="learn-more-link display-block">Learn more about this permit</a>
+      <app-button link="/special-use/applications/noncommercial-group-use/new" buttonText="Non-Commercial Group Use permit" btnAlt="true"></app-button>
+      <a routerLink="/special-use/applications/noncommercial-group-use/learn-more" class="learn-more-link display-block">Learn more about this permit</a>
     </div>
 
     <div *ngIf="id == 8">
       <p class="message">You can apply online.</p>
-      <app-button link="/mbs/applications/temp-outfitters/new" buttonText="Temporary Outfitting and Guiding Permit" btnAlt="true"></app-button>
-      <a routerLink="/mbs/applications/temp-outfitters/learn-more" class="learn-more-link display-block">Learn more about this permit</a>
+      <app-button link="/special-use/applications/temp-outfitters/new" buttonText="Temporary Outfitting and Guiding Permit" btnAlt="true"></app-button>
+      <a routerLink="/special-use/applications/temp-outfitters/learn-more" class="learn-more-link display-block">Learn more about this permit</a>
     </div>
 
   </div>

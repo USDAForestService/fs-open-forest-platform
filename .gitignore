@@ -14,6 +14,8 @@ server/docs/code
 server/npm-debug.log
 protractor-config
 
+**/node_modules
+
 # compiled output
 frontend/dist
 frontend/tmp

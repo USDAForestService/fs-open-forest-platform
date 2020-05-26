@@ -7,6 +7,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
 const logger = require('../services/logger.es6');
+const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
@@ -35,19 +36,36 @@ eAuth.setUserObject = (profile) => {
   let adminUsername = '';
   let role = 'user';
   let email = '';
+  let approles = '';
+  const forests = eAuth.getForests();
+
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-  role = util.getUserRole(adminUsername);
+  if (profile.usdaapproles) {
+    approles = `${profile.usdaapproles}`;
+  }
+  logger.info(`APP ROLES : ${approles}`);
+
+  role = util.getUserRole(approles);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
+
   const adminUserObject = {
     adminUsername: role === 'admin' ? adminUsername : '',
     email,
     role,
-    forests: util.getAdminForests(adminUsername)
+    poc1_forests: util.getPOC1Forests(approles, forests),
+    poc2_forests: util.getPOC2Forests(approles, forests),
+    forests: util.getEauthForests(approles, forests)
   };
+
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
+};
+
+eAuth.getForests = async () => {
+  const forests = await treesDb.christmasTreesForests.findAll();
+  return forests;
 };
 
 module.exports = eAuth;

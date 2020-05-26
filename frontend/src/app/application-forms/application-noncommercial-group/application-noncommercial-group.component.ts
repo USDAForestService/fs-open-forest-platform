@@ -53,7 +53,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a noncommercial group use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+      content: 'Apply for a Non-Commercial Group Use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -209,7 +209,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
       .subscribe(
         (persistedApplication: any) => {
-          this.router.navigate([`mbs/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+          this.router.navigate([`special-use/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
         },
         (e: any) => {
           this.apiErrors = e;

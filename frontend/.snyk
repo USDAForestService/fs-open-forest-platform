@@ -63,4 +63,8 @@ ignore:
     - uswds > yargs > yargs-parser:
         reason: Not ready to upgrade
         expires: '2020-06-18T16:35:27.164Z'
+  SNYK-JS-LODASH-567746:
+    - newrelic > async > lodash:
+        reason: None given
+        expires: '2020-06-05T18:00:59.885Z'
 patch: {}

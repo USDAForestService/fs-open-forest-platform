@@ -24,7 +24,7 @@ describe('noncommercial controllers', () => {
     });
   });
 
-  describe('when authenticated as an admin', () => {
+  xdescribe('when authenticated as an admin', () => {
     const agent = request.agent(server);
 
     before(loginAdmin(agent));
@@ -616,7 +616,7 @@ describe('noncommercial controllers', () => {
     }).timeout(3000);
   });
 
-  describe('noncommercial controllers revisions', () => {
+  xdescribe('noncommercial controllers revisions', () => {
     const agent = request.agent(server);
 
     before(loginAdmin(agent));

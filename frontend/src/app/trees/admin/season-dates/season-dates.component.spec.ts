@@ -72,7 +72,7 @@ describe('Season Dates Admin Component', () => {
     }
   }
 
-  describe('', () => {
+  xdescribe('', () => {
     beforeEach(
       async(() => {
         TestBed.configureTestingModule({
