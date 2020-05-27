@@ -530,10 +530,10 @@ util.getPOC1Forests = (approles, forestsData) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = (approles) => {
+util.getUserRole = (approles, forestsData) => {
   let role = 'user';
-  const poc1forests = util.getPOC1Forests(approles);
-  const poc2forests = util.getPOC2Forests(approles);
+  const poc1forests = util.getPOC1Forests(approles, forestsData);
+  const poc2forests = util.getPOC2Forests(approles, forestsData);
   if (poc1forests.length > 0 || poc2forests.length > 0) {
     role = 'admin';
   }

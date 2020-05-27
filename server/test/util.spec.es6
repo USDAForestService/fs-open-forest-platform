@@ -54,14 +54,6 @@ describe('util tests', () => {
       });
     });
 
-    xit('should return admin role', () => {
-      expect(util.getUserRole('FS_OpenForest_Super-User')).to.equal('admin');
-    });
-
-    xit('should return user role', () => {
-      expect(util.getUserRole('FS_Open-Forest_umatilla-POC2')).to.equal('user');
-    });
-
     it('should get admin forests', () => {
       expect(util.getAdminForests('TEST_USER')[0]).to.equal('arp');
     });

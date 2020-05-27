@@ -27,7 +27,7 @@ xdescribe('Usda eauth', () => {
    // expect(userObject.forests.length).to.equal(0);
   });
 
-  describe('admin user with forests', () => {
+  xdescribe('admin user with forests', () => {
     let userRoleStub;
     let forestsStub;
     beforeEach(() => {
