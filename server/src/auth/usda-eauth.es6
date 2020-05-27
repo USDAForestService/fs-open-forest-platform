@@ -47,11 +47,11 @@ eAuth.setUserObject = async (profile) => {
     approles = `${profile.usdaapproles}`;
   }
   logger.info(`APP ROLES : ${approles}`);
-  role = util.getUserRole(approles);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
 
   try {
     forestsData = await treesDb.christmasTreesForests.findAll();
+    role = util.getUserRole(approles, forestsData);
     adminUserObject = {
       adminUsername: role === 'admin' ? adminUsername : '',
       email,
