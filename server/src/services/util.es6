@@ -391,9 +391,11 @@ util.getAdminForests = (adminUsername) => {
 
 util.getForestsByRegion = (region, forests) => {
   const regionForests = [];
-  for (let i = 0; i < forests.length; i += 1) {
-    if (forests[i] && forests[i].region === region) {
-      regionForests.push(forests[i].forestAbbr);
+  if (forests) {
+    for (let i = 0; i < forests.length; i += 1) {
+      if (forests[i] && forests[i].region === region) {
+        regionForests.push(forests[i].forestAbbr);
+      }
     }
   }
   return regionForests;
@@ -528,10 +530,10 @@ util.getPOC1Forests = (approles, forestsData) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = (approles) => {
+util.getUserRole = (approles, forestsData) => {
   let role = 'user';
-  const poc1forests = util.getPOC1Forests(approles);
-  const poc2forests = util.getPOC2Forests(approles);
+  const poc1forests = util.getPOC1Forests(approles, forestsData);
+  const poc2forests = util.getPOC2Forests(approles, forestsData);
   if (poc1forests.length > 0 || poc2forests.length > 0) {
     role = 'admin';
   }
