@@ -5,7 +5,7 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: `Your ${util.camelCaseToRegularForm(application.type)} Open Forest permit application has been submitted for review!`,
+    subject: `Your ${application.type === 'tempOutfitters' ? 'Temporary Outfitting and Guiding' : 'Non-Commercial Group Use'} permit application has been submitted for review!`,
     body: `
       Submitted for review!
       **************************************
