@@ -1,20 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { EsriMapComponent } from '../esri-map/esri-map.component';
 import { MainLandingComponent } from './main-landing.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MainLandingComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MainLandingComponent, EsriMapComponent ]
+  let component: MainLandingComponent;
+  let fixture: ComponentFixture<MainLandingComponent>;
+
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientModule, RouterTestingModule],
+        declarations: [MainLandingComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(MainLandingComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MainLandingComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 });
-
-
