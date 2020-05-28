@@ -13,7 +13,7 @@ const localAdminStrategy = (loginUrl) => {
         userData = {
           adminUsername: username,
           email: 'admin@example.com',
-          role: 'admin',
+          role: util.getUserRole(approles),
           forests: util.getEauthForests(approles, forestsData),
           poc1_forests: util.getPOC1Forests(approles, forestsData),
           poc2_forests: util.getPOC2Forests(approles, forestsData)

@@ -31,7 +31,7 @@ eAuth.strategy = () => new SamlStrategy(
  * @function setUserObject - set user profile in the eAuth authentication response
  * @param {Object} profile
  */
-eAuth.setUserObject = (profile) => {
+eAuth.setUserObject = async (profile) => {
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
@@ -46,34 +46,26 @@ eAuth.setUserObject = (profile) => {
   if (profile.usdaapproles) {
     approles = `${profile.usdaapproles}`;
   }
-
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
-  forestsData = [{
-    description: "Arapaho & Roosevelt | Colorado",
-    endDate: "2020-01-06T07:59:59.000Z",
-    forestAbbr: "arp",
-    forestName: "Arapaho and Roosevelt National Forests",
-    forestNameShort: "Arapaho and Roosevelt",
-    id: 1,
-    region: 2,
-    startDate: "2019-11-01T07:00:00.000Z",
-    state: "Colorado",
-    timezone: "America/Denver"
-  }];
-  role = util.getUserRole(approles, forestsData);
-  adminUserObject = {
-    adminUsername: role === 'admin' ? adminUsername : '',
-    email,
-    role,
-    poc1_forests: util.getPOC1Forests(approles, forestsData),
-    poc2_forests: util.getPOC2Forests(approles, forestsData),
-    forests: util.getEauthForests(approles, forestsData)
-  };
 
+  try {
+    forestsData = await treesDb.christmasTreesForests.findAll();
+    role = util.getUserRole(approles);
+    adminUserObject = {
+      adminUsername: role === 'admin' ? adminUsername : '',
+      email,
+      role,
+      poc1_forests: util.getPOC1Forests(approles, forestsData),
+      poc2_forests: util.getPOC2Forests(approles, forestsData),
+      forests: util.getEauthForests(approles, forestsData)
+    };
+    return adminUserObject;
+  } catch (error) {
+    console.log(error);
+    return adminUserObject;
+  }
   logger.info(`APP ROLES : ${approles}`);
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
-
-  return adminUserObject;
 };
 
 module.exports = eAuth;
