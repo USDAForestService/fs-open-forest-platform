@@ -49,15 +49,15 @@ eAuth.setUserObject = (profile) => {
 
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
   forestsData = [{
-    description: "Arapaho & Roosevelt | Colorado"
-    endDate: "2020-01-06T07:59:59.000Z"
-    forestAbbr: "arp"
-    forestName: "Arapaho and Roosevelt National Forests"
-    forestNameShort: "Arapaho and Roosevelt"
-    id: 1
-    region: 2
-    startDate: "2019-11-01T07:00:00.000Z"
-    state: "Colorado"
+    description: "Arapaho & Roosevelt | Colorado",
+    endDate: "2020-01-06T07:59:59.000Z",
+    forestAbbr: "arp",
+    forestName: "Arapaho and Roosevelt National Forests",
+    forestNameShort: "Arapaho and Roosevelt",
+    id: 1,
+    region: 2,
+    startDate: "2019-11-01T07:00:00.000Z",
+    state: "Colorado",
     timezone: "America/Denver"
   }];
   role = util.getUserRole(approles, forestsData);
