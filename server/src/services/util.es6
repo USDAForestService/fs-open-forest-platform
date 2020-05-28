@@ -416,6 +416,9 @@ util.getEauthForests = (approles, forestsData) => {
     if (roles[i].includes('FS_Open-Forest_R')) {
       const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
       forests = util.getForestsByRegion(region, forestsData);
+      console.log('region: ' + region);
+      console.log('forests:');
+      console.dir(forests);
     } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')

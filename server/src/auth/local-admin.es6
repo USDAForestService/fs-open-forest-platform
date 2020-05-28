@@ -9,13 +9,14 @@ const localAdminStrategy = (loginUrl) => {
       let userData = {};
       try {
         const forestsData = await treesDb.christmasTreesForests.findAll();
+        const approles = 'FS_Open-Forest_R06';
         userData = {
           adminUsername: username,
           email: 'admin@example.com',
           role: 'admin',
-          forests: util.getEauthForests('Super', forestsData),
-          poc1_forests: util.getPOC1Forests('Super', forestsData),
-          poc2_forests: util.getPOC2Forests('Super', forestsData)
+          forests: util.getEauthForests(approles, forestsData),
+          poc1_forests: util.getPOC1Forests(approles, forestsData),
+          poc2_forests: util.getPOC2Forests(approles, forestsData)
         };
       } catch (error) {
         userData = {
