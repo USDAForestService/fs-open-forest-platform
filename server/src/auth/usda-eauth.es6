@@ -7,7 +7,6 @@ const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
 const logger = require('../services/logger.es6');
-const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
