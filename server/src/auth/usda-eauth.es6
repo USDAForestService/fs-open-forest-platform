@@ -11,7 +11,7 @@ const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
-const forestData = [
+const forestsData = [
    {
       "id":1,
       "forestName":"Arapaho and Roosevelt National Forests",
