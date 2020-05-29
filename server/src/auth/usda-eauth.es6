@@ -200,6 +200,7 @@ eAuth.setUserObject = (profile) => {
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
+
   if (profile.usdaapproles) {
     approles = `${profile.usdaapproles}`;
   }
