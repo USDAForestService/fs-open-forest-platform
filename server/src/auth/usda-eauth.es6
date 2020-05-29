@@ -11,6 +11,165 @@ const treesDb = require('../models/trees-db.es6');
 
 const eAuth = {};
 
+const forestData = [
+   {
+      "id":1,
+      "forestName":"Arapaho and Roosevelt National Forests",
+      "forestNameShort":"Arapaho and Roosevelt",
+      "description":"Arapaho & Roosevelt | Colorado",
+      "forestAbbr":"arp",
+      "startDate":"2019-11-01T07:00:00.000Z",
+      "endDate":"2020-01-06T07:59:59.000Z",
+      "timezone":"America/Denver",
+      "state":"Colorado",
+      "region":2
+   },
+   {
+      "id":2,
+      "forestName":"Flathead National Forest",
+      "forestNameShort":"Flathead",
+      "description":"Flathead | Montana",
+      "forestAbbr":"flathead",
+      "startDate":"2019-11-15T07:00:00.000Z",
+      "endDate":"2019-12-31T07:59:59.000Z",
+      "timezone":"America/Denver",
+      "state":"Montana",
+      "region":1
+   },
+   {
+      "id":3,
+      "forestName":"Mt. Hood National Forest",
+      "forestNameShort":"Mt. Hood",
+      "description":"Mt. Hood | Oregon",
+      "forestAbbr":"mthood",
+      "startDate":"2019-11-14T08:00:00.000Z",
+      "endDate":"2019-12-24T08:59:59.000Z",
+      "timezone":"America/Los_Angeles",
+      "state":"Oregon",
+      "region":6
+   },
+   {
+      "id":4,
+      "forestName":"Shoshone National Forest",
+      "forestNameShort":"Shoshone",
+      "description":"Shoshone | Wyoming",
+      "forestAbbr":"shoshone",
+      "startDate":"2019-11-18T07:00:00.000Z",
+      "endDate":"2019-12-30T07:59:59.000Z",
+      "timezone":"America/Denver",
+      "state":"Wyoming",
+      "region":2
+   },
+   {
+      "id":5,
+      "forestName":"Gifford Pinchot National Forest",
+      "forestNameShort":"Gifford Pinchot",
+      "description":"Gifford Pinchot | Washington",
+      "forestAbbr":"giffordpinchot",
+      "startDate":"2019-11-14T08:00:00.000Z",
+      "endDate":"2019-12-31T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Washington",
+      "region":6
+   },
+   {
+      "id":6,
+      "forestName":"Fremont-Winema National Forest",
+      "forestNameShort":"Fremont-Winema",
+      "description":"Fremont-Winema | Oregon",
+      "forestAbbr":"fremont-winema",
+      "startDate":"2019-11-01T08:00:00.000Z",
+      "endDate":"2019-12-25T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon",
+      "region":6
+   },
+   {
+      "id":7,
+      "forestName":"Mt. Baker-Snoqualmie National Forest",
+      "forestNameShort":"Mt. Baker-Snoqualmie",
+      "description":"Mt. Baker-Snoqualmie | Washington",
+      "forestAbbr":"mbs",
+      "startDate":"2019-11-12T08:00:00.000Z",
+      "endDate":"2019-12-30T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Washington",
+      "region":6
+   },
+   {
+      "id":8,
+      "forestName":"Deschutes National Forest",
+      "forestNameShort":"Deschutes",
+      "description":"Deschutes | Oregon",
+      "forestAbbr":"deschutes",
+      "startDate":"2019-11-18T08:00:00.000Z",
+      "endDate":"2019-12-25T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon",
+      "region":6
+   },
+   {
+      "id":9,
+      "forestName":"Willamette National Forest ",
+      "forestNameShort":"Willamette",
+      "description":"Willamette | Oregon",
+      "forestAbbr":"willamette",
+      "startDate":"2019-11-12T08:00:00.000Z",
+      "endDate":"2020-01-06T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon",
+      "region":6
+   },
+   {
+      "id":10,
+      "forestName":"Rogue River-Siskiyou National Forest ",
+      "forestNameShort":"Rogue River-Siskiyou",
+      "description":"Rogue River-Siskiyou | Oregon",
+      "forestAbbr":"rrs",
+      "startDate":"2019-11-08T08:00:00.000Z",
+      "endDate":"2019-12-25T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon and California",
+      "region":6
+   },
+   {
+      "id":11,
+      "forestName":"Okanogan-Wenatchee National Forest",
+      "forestNameShort":"Okanogan-Wenatchee",
+      "description":"Okanogan-Wenatchee | Washington",
+      "forestAbbr":"okawen",
+      "startDate":"2019-11-01T08:00:00.000Z",
+      "endDate":"2019-12-31T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Washington",
+      "region":6
+   },
+   {
+      "id":12,
+      "forestName":"Umatilla National Forest",
+      "forestNameShort":"Umatilla",
+      "description":"Umatilla | Oregon",
+      "forestAbbr":"umatilla",
+      "startDate":"2019-11-18T08:00:00.000Z",
+      "endDate":"2019-12-31T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon and Washington",
+      "region":6
+   },
+   {
+      "id":13,
+      "forestName":"Ochoco National Forest",
+      "forestNameShort":"Ochoco",
+      "description":"Ochoco | Oregon",
+      "forestAbbr":"ochoco",
+      "startDate":"2019-11-18T08:00:00.000Z",
+      "endDate":"2019-12-25T08:59:59.000Z",
+      "timezone":"America/Vancouver",
+      "state":"Oregon",
+      "region":6
+   }
+];
+
 // Instantiate the passport SamlStrategy
 eAuth.strategy = () => new SamlStrategy(
   {
@@ -37,7 +196,6 @@ eAuth.setUserObject = (profile) => {
   let role = 'user';
   let email = '';
   let approles = '';
-  let forestsData = [];
   let adminUserObject = {};
 
   if (profile.usdafirstname && profile.usdalastname) {
@@ -48,7 +206,6 @@ eAuth.setUserObject = (profile) => {
   }
 
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
-  forestsData = eAuth.getForestsData();
   role = util.getUserRole(approles);
   adminUserObject = {
     adminUsername: role === 'admin' ? adminUsername : '',
@@ -62,16 +219,6 @@ eAuth.setUserObject = (profile) => {
   logger.info(`APP ROLES : ${approles}`);
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
-};
-
-eAuth.getForestsData = async () => {
-  try {
-    const forestsData = await treesDb.christmasTreesForests.findAll();
-    return forestsData;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
 };
 
 module.exports = eAuth;
