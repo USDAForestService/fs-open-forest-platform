@@ -37,7 +37,7 @@ export class AccessControlService implements CanActivate, CanActivateChild {
    * @returns      boolean
    */
   validateUser(user) {
-    if (window.location.pathname !== '/mbs') {
+    if (window.location.pathname !== '/special-use') {
       localStorage.removeItem('requestingUrl');
     }
 
@@ -54,7 +54,7 @@ export class AccessControlService implements CanActivate, CanActivateChild {
    */
   sendToAuthentication() {
     const requestingUrl = window.location.pathname;
-    if (window.location.pathname !== '/mbs') {
+    if (window.location.pathname !== '/special-use') {
       localStorage.setItem('requestingUrl', requestingUrl);
     }
     this.util.setLoginRedirectMessage();

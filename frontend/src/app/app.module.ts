@@ -45,6 +45,11 @@ import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
 import { GoogleAnalyticsService } from './_services/google-analytics.service';
+import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
+import { ProductsComponent } from './products/products.component';
+import { MapComponent } from './map/map.component';
+import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,12 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     StyleGuideComponent,
     TempOutfitterDetailsComponent,
     TitleDirective,
-    UsaBannerComponent
+    UsaBannerComponent,
+    MainLandingComponent,
+    ForestTemplateComponent,
+    ProductsComponent,
+    MapComponent,
+    EsriMapComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
   providers: [
