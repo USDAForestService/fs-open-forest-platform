@@ -82,7 +82,7 @@ passportConfig.getPassportUser = (req, res) => res.send(req.user);
  */
 passportConfig.logout = (req, res) => {
   // setting reroute based on referrer
-  let backURL = 'mbs';
+  let backURL = 'special-use';
   if (req.header) {
     const referer = req.header('Referer');
     if (referer.indexOf('christmas') > -1) {
