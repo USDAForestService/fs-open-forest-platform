@@ -38,6 +38,7 @@
     "@angular/platform-browser": "^7.2.7",
     "@angular/platform-browser-dynamic": "^7.2.7",
     "@angular/router": "^7.2.7",
+    "@arcgis/webpack-plugin": "^4.15.0",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@types/google.analytics": "0.0.39",
@@ -46,6 +47,7 @@
     "angular2-spinner": "^1.0.10",
     "classlist.js": "^1.1.20150312",
     "core-js": "2.6.1",
+    "esri-loader": "^2.14.0",
     "intl": "^1.2.5",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.21",
@@ -54,6 +56,7 @@
     "ng2-file-upload": "^1.2.1",
     "ngx-md": "^7.1.0",
     "ngx6-angular-breadcrumbs": "^0.0.3",
+    "postcss-loader": "^3.0.0",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.9.0",
@@ -62,6 +65,7 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^9.1.0",
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular/cli": "^7.3.3",
     "@angular/compiler-cli": "^7.2.7",

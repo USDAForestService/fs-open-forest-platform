@@ -33,7 +33,8 @@ forestService.translateForestFromDatabaseToClient = (input) => {
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
     timezone: input.timezone,
-    state: input.state
+    state: input.state,
+    region: input.region
   };
 };
 
