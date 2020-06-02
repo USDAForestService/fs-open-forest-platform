@@ -62,17 +62,12 @@ export class EsriMapComponent implements OnInit {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
             `<h3>Available Permits</h3>` +
-            `<h3 onclick='onBtnActionClickedV()'>Non-Commercial</h3>` +
-            `<a ng-reflect-router-link="/special-use/applications/temp-outfitters/new" href="/special-use/applications/temp-outfitters/new">Testing Again</a>` +
+            `<h3><a href='` + route + `/special-use/applications/noncommercial-group-use/new'>Non-Commercial</a></h3>` +
             `<h3><a href='` + route + `/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
           } else {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>`;
           }
-        }
-
-        function onBtnActionClickedV (event) {
-          this.router.navigate(['/special-use/applications/noncommercial-group-use/new']);
         }
 
       const searchWidget = new Search({
