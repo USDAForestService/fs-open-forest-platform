@@ -48,11 +48,28 @@ export class EsriMapComponent implements OnInit {
           },
           popupTemplate: {  // Enable a popup
             title: '{COMMONNAME}', // Show attribute value
-            content: '<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>' +
-            '<p>It is located in region {REGION} </p>' +
-            `<p> For more information please visit <a href='{URL}'>{URL}</a> </p>`  // Display text in pop-up
+            outFields: ["*"],
+            content: checkForest,
           }
         });
+
+        function checkForest (feature) {
+          const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
+          const common = feature.graphic.attributes.COMMONNAME;
+          const forestURL = feature.graphic.attributes.URL;
+          const adminForest = feature.graphic.attributes.ADMINFORESTNAME;
+          console.log(feature)
+          if(common === mbsForest){
+            return `<p>The {COMMONNAME} is part of ` + adminForest + `</p>` +
+            `<p>For more information about this forest please visit <a href=`+forestURL+`>` + forestURL + `</a>` +
+            `<h3>Available Permits</h3>` + 
+            `<h3><a href='/special-use/applications/noncommercial-group-use/new'>Non-Commercial</a></h3>` + 
+            `<h3><a href='/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`
+          } else {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href=`+forestURL+`>` + forestURL + `</a>`
+          }
+        }
 
       const searchWidget = new Search({
         mapView: mapView,
