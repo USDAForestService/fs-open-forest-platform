@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esri-map',
@@ -11,7 +12,7 @@ export class EsriMapComponent implements OnInit {
 
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     loadModules([
@@ -48,7 +49,7 @@ export class EsriMapComponent implements OnInit {
           },
           popupTemplate: {  // Enable a popup
             title: '{COMMONNAME}', // Show attribute value
-            outFields: ["*"],
+            outFields: ['*'],
             content: checkForest,
           }
         });
@@ -56,19 +57,22 @@ export class EsriMapComponent implements OnInit {
         function checkForest (feature) {
           const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
           const common = feature.graphic.attributes.COMMONNAME;
-          const forestURL = feature.graphic.attributes.URL;
-          const adminForest = feature.graphic.attributes.ADMINFORESTNAME;
-          console.log(feature)
-          if(common === mbsForest){
-            return `<p>The {COMMONNAME} is part of ` + adminForest + `</p>` +
-            `<p>For more information about this forest please visit <a href=`+forestURL+`>` + forestURL + `</a>` +
-            `<h3>Available Permits</h3>` + 
-            `<h3><a href='/special-use/applications/noncommercial-group-use/new'>Non-Commercial</a></h3>` + 
-            `<h3><a href='/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`
+          const route = this.router.url;
+          if (common === mbsForest) {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
+            `<h3>Available Permits</h3>` +
+            `<h3 onclick='onBtnActionClickedV()'>Non-Commercial</h3>` +
+            `<a ng-reflect-router-link="/special-use/applications/temp-outfitters/new" href="/special-use/applications/temp-outfitters/new">Testing Again</a>` +
+            `<h3><a href='` + route + `/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
           } else {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
-            `<p>For more information about this forest please visit <a href=`+forestURL+`>` + forestURL + `</a>`
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>`;
           }
+        }
+
+        function onBtnActionClickedV (event) {
+          this.router.navigate(['/special-use/applications/noncommercial-group-use/new']);
         }
 
       const searchWidget = new Search({
