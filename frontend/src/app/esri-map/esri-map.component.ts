@@ -57,12 +57,14 @@ export class EsriMapComponent implements OnInit {
         function checkForest (feature) {
           const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
           const common = feature.graphic.attributes.COMMONNAME;
+          const route = document.location.origin;
           if (common === mbsForest) {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
             `<h3>Available Permits</h3>` +
             `<h3 onclick='onBtnActionClickedV()'>Non-Commercial</h3>` +
-            `<h3><a href='http://localhost:4200/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
+            `<a ng-reflect-router-link="/special-use/applications/temp-outfitters/new" href="/special-use/applications/temp-outfitters/new">Testing Again</a>` +
+            `<h3><a href='` + route + `/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
           } else {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>`;
