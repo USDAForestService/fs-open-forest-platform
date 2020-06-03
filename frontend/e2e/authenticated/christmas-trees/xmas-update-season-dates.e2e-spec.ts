@@ -14,7 +14,7 @@ describe('Xmas tree - Update Season Dates', () => {
 
       loginAdmin();
 
-      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/admin/christmas-trees/season-dates');
+      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/christmas-trees/admin/season-dates');
     });
 
     describe('basic elements', () => {

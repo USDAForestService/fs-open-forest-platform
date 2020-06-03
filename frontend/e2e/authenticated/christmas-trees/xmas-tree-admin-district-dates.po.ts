@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class TreesAdminDistrictDatesPage {
   navigateTo() {
-    return browser.get('/admin/christmas-trees/district-dates');
+    return browser.get('/christmas-trees/admin/district-dates');
   }
 
   districtUpdatedAlert() {

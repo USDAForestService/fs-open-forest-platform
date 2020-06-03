@@ -36,23 +36,68 @@ import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolv
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
+import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ProductsComponent } from './products/products.component';
+import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
+
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'christmas-trees/forests',
-    pathMatch: 'full'
+    component: MainLandingComponent
   }, {
     path: 'ChristmasTreePermit',
-    component: DummyComponent
-  }, {
-    path: 'mbs',
+    component: DummyComponent,
+    data: {
+      breadcrumbs: true,
+      text: 'Home'
+    }
+  },
+
+  {
+    path: 'products',
+    data: {
+      title: 'US Forest Service Open Forest',
+      breadcrumbs: true,
+      text: 'Forests'
+    },
+    resolve: {
+      user: UserResolver
+    },
+    children: [
+      {
+        path: '',
+        component: ProductsComponent,
+      },
+      {
+      path: ':id',
+      resolve: {
+        forest: ForestResolver
+      },
+      data: {
+        breadcrumbs: true,
+        text: '{{forest.forestName}}'
+      },
+      children: [
+        {
+          path: '',
+          component: ForestTemplateComponent
+        },
+      ]
+      }
+    ]
+  },
+
+
+  // start of MBS and children routes
+  {
+    path: 'special-use',
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
       text: 'Mt. Baker-Snoqualmie special use permits',
       displayLogin: true,
-      specialUse: true
+      specialUse: true,
     },
     resolve: {
       user: UserResolver
@@ -138,12 +183,15 @@ const appRoutes: Routes = [
       },
     ]
   },
+    // end of MBS and children routes
+
   {
     path: 'shutdown',
     component: ShutdownComponent
   },
+  // start of admin applications and children routes
   {
-    path: 'admin/applications',
+    path: 'special-use/admin/applications',
     canActivateChild: [AdminAccessControlService],
     data: {
       displayLogin: true,
@@ -173,8 +221,11 @@ const appRoutes: Routes = [
       }
     ]
   },
+    // end of admin applications and children routes
+
+      // start of admin trees and children routes
   {
-    path: 'admin/christmas-trees',
+    path: 'christmas-trees/admin',
     canActivateChild: [AdminAccessControlService],
     data: {
       admin: true,
@@ -225,8 +276,11 @@ const appRoutes: Routes = [
       }
     ]
   },
+  // end of admin trees and children routes
+
+  // start of user applications and children routes
   {
-    path: 'user/applications',
+    path: 'special-use/user/applications',
     data: {
       displayLogin: true,
       specialUse: true,
@@ -255,6 +309,8 @@ const appRoutes: Routes = [
       },
     ]
   },
+  // end of user applications and children routes
+
   {
     path: 'christmas-trees/forests',
     data: {
