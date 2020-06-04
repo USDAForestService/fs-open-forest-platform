@@ -31,8 +31,8 @@ export class TemporaryOutfittersLearnMoreComponent {
   Service land.</li>
           <li>Held by an outfitter qualified to provide the service.</li>
           <li>Valid for up to 200
-<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
-in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
+<a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
+in a 180-day period per <a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
           <li>Based on a flat-rate fee schedule (see “Costs” below).</li>
           <li>Non-renewable and non-competitive.</li>
           <li>Revocable, suspendable and not appealable.</li>
@@ -59,14 +59,14 @@ and/or permit compliance will be considered in evaluating qualifications.</li>
         type: 'anchor',
         sectionCopy: `
         <p>Permits and service days are managed by use area.
-The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
-varies by <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent
+The maximum allowable <a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
+varies by <a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent
 on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service
-days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a>
+days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a>
 for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
         <ul>
           <li><strong>Example 1:</strong> Use Area "A" = 1000 total
-<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
+<a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
 This means you can apply for 1 permit up to 200 days, every 6 months.</li>
           <li><strong>Example 2:</strong> Use Area "B" = 150 total pool days, with a maximum of 50 days per permit.
 This means you can apply for 1 permit up to 50 days, every 6 months.</li>
@@ -95,7 +95,7 @@ same time.</li>
         sectionCopy: `
         <ul>
           <li>Land-based outfitting and guide permits are available throughout the forest at the discretion of district rangers.</li>
-          <li><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496"> River-based guiding permits are currently only available for select locations</a>.</li>
+          <li><a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295496"> River-based guiding permits are currently only available for select locations</a>.</li>
           <li>Permit inquiries for other forests should be directed to those forests.</li>
         </ul>
         <p><a href="https://www.fs.fed.us/">Information for National Forests within the United States can be
@@ -141,7 +141,7 @@ found here</a>.</p>
         sectionName: 'Application due dates',
         type: 'anchor',
         sectionCopy: `
-        <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">
+        <p><a href="https://www.fs.usda.gov/detail/special-use/passes-permits/event-commercial/?cid=stelprdb5295496">
         Administration of the temporary permits varies by pool and is specified in the land or river pool permit documents found here</a>.</p>
         <p>Ideally, there would be plenty of service days available to allow all temporary use permits
 to be issued on a first-come, first-served basis. However, some permit pools have high demand and are limited in service day capacity.

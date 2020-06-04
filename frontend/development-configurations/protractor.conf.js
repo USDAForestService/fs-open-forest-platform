@@ -12,6 +12,7 @@ var screenshotReporter = new HtmlScreenshotReporter({
 });
 
 let chromeOptions = {};
+
 if (isDocker) {
   chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
 } else if (process.env['HEADLESS'] === 'true') {

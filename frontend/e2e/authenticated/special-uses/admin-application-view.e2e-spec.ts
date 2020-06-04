@@ -15,7 +15,7 @@ describe('Admin applications page', () => {
 
     loginPublic();
 
-    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/mbs/applications/noncommercial-group-use/new');
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/special-use/applications/noncommercial-group-use/new');
     applicationForm.createApplication();
   });
 

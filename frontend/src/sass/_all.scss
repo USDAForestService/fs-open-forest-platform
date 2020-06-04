@@ -38,9 +38,19 @@
 @import 'pages/christmas-trees-report';
 @import 'pages/faq';
 @import 'pages/home';
+@import 'pages/home';
+@import 'pages/products';
+@import 'pages/main-landing';
 @import 'pages/sidebar-page';
 @import 'pages/style-guide';
 @import 'pages/temp-outfitter';
+@import 'pages/forest-template';
 @import 'pages/tree-guidelines';
 @import 'pages/forest-finder';
 @import 'prismjs/themes/prism.css';
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";

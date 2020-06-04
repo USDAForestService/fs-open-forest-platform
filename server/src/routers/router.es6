@@ -30,7 +30,7 @@ router.use((_req, res, next) => {
 router.use('/auth', middleware.setCorsHeaders, authRouter);
 router.use('/permits/applications/special-uses', middleware.setCorsHeaders, middleware.checkPermissions, specialUseRouter);
 router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
-router.use('/admin/christmas-trees', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
+router.use('/christmas-trees/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
 router.use('/admin/special-uses', middleware.setCorsHeaders, middleware.checkAdminPermissions, specialUseRouter);
 router.use('/feedback', middleware.setCorsHeaders, feedbackRouter);
 

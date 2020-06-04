@@ -88,6 +88,7 @@ export class ChristmasTreesInfoService {
     return {
       introduction: `${forest.forestAbbr}/introduction.md`,
       contactUs: `${forest.forestAbbr}/contact-us.md`,
+      forestContact: `${forest.forestAbbr}/forest-contact.md`,
       beforeYouCut: `${forest.forestAbbr}/how-to-cut/helpful-tips.md`,
       whenYouCut: `${forest.forestAbbr}/how-to-cut/measuring.md`,
       whenToCutInfo: `${forest.forestAbbr}/when-to-cut-your-tree.md`,
