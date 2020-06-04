@@ -1,8 +1,8 @@
 /** build script for applying angular-cli build version and date environment settings to the transpiled js */
 
 var replace = require('replace-in-file');
-var package = require('./package.json');
-var buildVersion = package.version;
+var packagejson = require('./package.json');
+var buildVersion = packagejson.version;
 var newDate = new Date();
 
 const versionOptions = {
