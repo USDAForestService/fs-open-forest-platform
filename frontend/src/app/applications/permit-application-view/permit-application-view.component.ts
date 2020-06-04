@@ -116,7 +116,7 @@ export class PermitApplicationViewComponent implements OnInit {
   }
 
   applicationCancelled(application: any): void {
-    this.router.navigate(['user/applications']);
+    this.router.navigate(['/special-use/user/applications']);
   }
 
   ngOnInit() {

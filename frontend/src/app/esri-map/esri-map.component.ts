@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esri-map',
@@ -11,7 +12,7 @@ export class EsriMapComponent implements OnInit {
 
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     loadModules([
@@ -48,11 +49,26 @@ export class EsriMapComponent implements OnInit {
           },
           popupTemplate: {  // Enable a popup
             title: '{COMMONNAME}', // Show attribute value
-            content: '<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>' +
-            '<p>It is located in region {REGION} </p>' +
-            `<p> For more information please visit <a href='{URL}'>{URL}</a> </p>`  // Display text in pop-up
+            outFields: ['*'],
+            content: checkForest,
           }
         });
+
+        function checkForest (feature) {
+          const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
+          const common = feature.graphic.attributes.COMMONNAME;
+          const route = document.location.origin;
+          if (common === mbsForest) {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
+            `<h3>Available Permits</h3>` +
+            `<h3><a href='` + route + `/special-use/applications/noncommercial-group-use/new'>Non-Commercial</a></h3>` +
+            `<h3><a href='` + route + `/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
+          } else {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>`;
+          }
+        }
 
       const searchWidget = new Search({
         mapView: mapView,
@@ -86,7 +102,7 @@ export class EsriMapComponent implements OnInit {
         });
       });
 
-      mapView.ui.add(searchWidget, 'top-leading');
+      mapView.ui.add(searchWidget, 'top-right');
 
       map.add(geoJson);
       })
