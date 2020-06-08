@@ -1,5 +1,6 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
+import { httpsValidator } from '../validators/https-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -100,7 +101,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]],
-        mapUrl: ['', [urlValidator(), Validators.maxLength(255)]],
+        mapUrl: ['', [httpsValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
       },
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),

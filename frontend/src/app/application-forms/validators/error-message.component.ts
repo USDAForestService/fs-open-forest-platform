@@ -124,4 +124,8 @@ export class ErrorMessageComponent {
   return `${this.name} allows a maximum of 10 characters. ex: 5551234567`;
   }
 
+  httpsRequirement(errors) {
+    return `${this.name} requires a valid URL and must include https://.`;
+  }
+
 }
