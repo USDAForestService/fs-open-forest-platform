@@ -34,6 +34,10 @@ export class EsriMapComponent implements OnInit {
           center: [-97, 38], // lon, lat
           scale: 10000000,
           map: map,
+          navigation: {
+            mouseWheelZoomEnabled: false,
+            browserTouchPanEnabled: false
+          }
         });
 
         const geoJson = new GeoJSONLayer({
@@ -101,6 +105,47 @@ export class EsriMapComponent implements OnInit {
           zoom: 9
         });
       });
+
+      mapView.on('mouse-wheel', function(e) {
+        warnUser('To zoom in please double click the map. Use zoom in/out buttons.');
+      });
+      // Trap attempted single touch panning.
+      const pointers = new Map(); // javascript map
+      mapView.on('pointer-down', function(e) {
+        const { pointerId, pointerType, x, y } = e;
+        if (pointerType !== 'touch') { return; }
+        pointers.set(pointerId, { x, y});
+      });
+
+      mapView.on(['pointer-up', 'pointer-leave'], function(e) {
+        const { pointerId, pointerType } = e;
+        if (pointerType !== 'touch') { return; }
+        pointers.delete(pointerId);
+      });
+
+      mapView.on('pointer-move', function(e) {
+        const { pointerId, pointerType, x, y } = e;
+        if (pointerType !== 'touch') { return; }
+        if (pointers.size !== 1) { return; }
+        const distance = Math.sqrt(
+          Math.pow(x - pointers.get(pointerId).x, 2) +
+          Math.pow(y - pointers.get(pointerId).y, 2)
+        );
+        if (distance < 20) { return; }
+        warnUser('Please use two fingers to pan the map.');
+      });
+      // Display a warning.
+      let timeout;
+      function warnUser(warning) {
+        const warningDiv = document.getElementById('warning');
+        warningDiv.innerHTML = `<div class='message'>` + warning + `</div>`;
+        if (timeout) {
+          window.clearTimeout(timeout);
+        }
+        timeout = window.setTimeout(() => {
+          warningDiv.innerHTML = '';
+        }, 1500);
+      }
 
       mapView.ui.add(searchWidget, 'top-right');
 
