@@ -97,10 +97,11 @@
         <br>
         <legend>Estimate your permit cost</legend>
         <table class="faq-table">
+          <caption>Estimate your permit cost</caption>
           <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
+            <th id="numberofservicedays">Number of service days</th>
+            <th id="FlatFee">Flat fee</th>
+            <th id="MaximumGrossRevenue">Maximum gross revenue for each period of service days</th>
           </tr>
           <tr>
             <td>1 to 50</td>
@@ -187,7 +188,7 @@
           [inViewportOptions]="{ partial: true }"
           (inViewportAction)="elementInView($event)">
           <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
+          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank" rel="noopener noreferrer">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Liability insurance" type="insurance-certificate"
             [uploadFiles]="uploadFiles"

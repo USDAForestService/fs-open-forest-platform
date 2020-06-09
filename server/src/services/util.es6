@@ -535,7 +535,10 @@ util.getUserRole = (approles) => {
   let role = 'user';
   const roles = approles.split('^');
   for (let i = 0; i < roles.length; i += 1) {
-    if (roles[i].includes('FS_Open-Forest_R') || roles[i].includes('Super')) {
+    if (roles[i].includes('FS_Open-Forest_R')
+    || roles[i].includes('Super')
+    || roles[i].includes('POC1')
+    || roles[i].includes('POC2 ')) {
       role = 'admin';
     }
   }
