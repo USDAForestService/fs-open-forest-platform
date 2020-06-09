@@ -1,5 +1,6 @@
 def jobnameparts = JOB_NAME.tokenize('/') as String[]
 def jobconsolename = jobnameparts[0]
+properties = null   
 
 pipeline {
     agent {
@@ -44,7 +45,7 @@ pipeline {
         timestamps()
         disableConcurrentBuilds()
         ansiColor('xterm')
-	buildDiscarder(logRotator(numToKeepStr: '5'))
+	buildDiscarder(logRotator(numToKeepStr: '200'))
     }
 
  stages {
@@ -208,7 +209,7 @@ stage('run-sonarqube'){
       '''
 	def scannerhome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQube') {
-          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
+          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.branch.name=$GIT_BRANCH -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
       	  //sh 'rm -rf sonarqubereports'
           //sh 'mkdir sonarqubereports'
   	  //sh 'sleep 30'
@@ -434,23 +435,29 @@ post{
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 cd server
                 npm run dropdb
+
+              	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
+    	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
+	        	 rm -f ${WORKSPACE}/pipeline.properties
+		         touch ${WORKSPACE}/pipeline.properties 
             '''
 
-	        env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
- 	        env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
+        properties = readProperties file: 'pipeline.properties'
+	    env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
+ 	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
 		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
 		env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
 		env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
 		env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
 		env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
-  	        env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"
+  	    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"
 		env.LGIT_BRANCH = "${GIT_BRANCH}"
-		env.LGIT_AUTHOR = ""
+		 env.LGIT_AUTHOR = "${properties.GIT_AUTHOR_NAME}"
   		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
 	        env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
 		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
-      	emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
+      	emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple2.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
 	    }
         }
 
@@ -463,7 +470,15 @@ post{
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 cd server
                 npm run dropdb
+
+              	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
+    	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
+	        	 rm -f ${WORKSPACE}/pipeline.properties
+		         touch ${WORKSPACE}/pipeline.properties 
             '''
+
+        properties = readProperties file: 'pipeline.properties'
+            
 
 	        env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
  	        env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
@@ -474,12 +489,12 @@ post{
 		env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
 		env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"
 		env.LGIT_BRANCH = "${GIT_BRANCH}"
-		env.LGIT_AUTHOR = ""
+		env.LGIT_AUTHOR = "${properties.GIT_AUTHOR_NAME}"
   		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
 		env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
 		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
-	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
+	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple2.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
 	    }
         }
     }
