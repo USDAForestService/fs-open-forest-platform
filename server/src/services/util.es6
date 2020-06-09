@@ -538,7 +538,7 @@ util.getUserRole = (approles) => {
     if (roles[i].includes('FS_Open-Forest_R')
     || roles[i].includes('Super')
     || roles[i].includes('POC1')
-    || roles[i].includes('POC2 ')) {
+    || roles[i].includes('POC2')) {
       role = 'admin';
     }
   }
