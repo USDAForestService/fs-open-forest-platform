@@ -53,4 +53,3 @@ function emailSnykReport(reportDate, reportFilename, reportContent) {
   });
 }
 
-emailSnykReport(...process.argv.slice(2));

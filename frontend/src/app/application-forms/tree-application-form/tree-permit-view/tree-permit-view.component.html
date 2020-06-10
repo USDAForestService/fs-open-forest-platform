@@ -12,7 +12,7 @@
       <h2 class="usa-heading">Print permit</h2>
       <hr class="header-divider">
       <div id="printing-instructions">
-          Your permit and the Christmas tree cutting rules and guidelines were emailed to you at <b>{{permit.emailAddress}}</b>. If for some reason this email address is incorrect, please ensure you print your permit below with rules and guidelines.<br><br>
+          Your permit and the Christmas tree cutting rules and guidelines were emailed to you at <strong>{{permit.emailAddress}}</strong>. If for some reason this email address is incorrect, please ensure you print your permit below with rules and guidelines.<br><br>
           You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
       </div>
       <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
@@ -44,13 +44,13 @@
       <div class="usa-width-one-third">
         <dl>
           <dt>Description</dt>
-          <dd><b>{{forest.forestName}}  Christmas Tree Permit(s)</b></dd>
+          <dd><strong>{{forest.forestName}}  Christmas Tree Permit(s)</strong></dd>
         </dl>
       </div>
       <div class="usa-width-one-third">
         <dl>
           <dt>Order total</dt>
-          <dd><b>${{permit.totalCost}}</b></dd>
+          <dd><strong>${{permit.totalCost}}</strong></dd>
         </dl>
       </div>
     </div>
@@ -59,25 +59,26 @@
       <h2 class="usa-heading">Order details</h2>
       <hr class="header-divider">
       <table class="tree-confirmation-table">
+         <caption>Tree Confirmation Table</caption>
         <tr>
           <td>Permit number</td>
-          <td><b>{{permit.permitNumber | uppercase}}</b></td>
+          <td><strong>{{permit.permitNumber | uppercase}}</strong></td>
         </tr>
         <tr>
           <td>Name</td>
-          <td><b>{{permit.firstName}} {{permit.lastName}}</b></td>
+          <td><strong>{{permit.firstName}} {{permit.lastName}}</strong></td>
         </tr>
         <tr>
           <td>Payment
-          <td><b>Credit card</b></td>
+          <td><strong>Credit card</strong></td>
         </tr>
         <tr>
           <td>Transaction date</td>
-          <td><b>{{permit.transactionDate | date: 'shortDate'}}</b></td>
+          <td><strong>{{permit.transactionDate | date: 'shortDate'}}</strong></td>
         </tr>
         <tr>
           <td>Email</td>
-          <td><b>{{permit.emailAddress}}</b></td>
+          <td><strong>{{permit.emailAddress}}</strong></td>
         </tr>
       </table>
     </div>
