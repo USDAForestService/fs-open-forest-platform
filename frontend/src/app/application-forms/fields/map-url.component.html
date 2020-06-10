@@ -1,8 +1,8 @@
 <ng-container [formGroup]="applicantInfo">
-    <label id="location-map-label" class="usa-input">Map URL</label>
+    <label class="usa-input">Map URL</label>
     <p id="location-map-hint-text" class="help-text usa-form-hint">URL must be on a secure 'https' extension.</p>
     <input id="map-url" name="mapUrl" type="url"  formControlName="mapUrl"
-      [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.mapUrl, 'location-map-label', 'map-url-error')"
+      [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.mapUrl, 'map-url-error')"
       [attr.aria-invalid]="afs.hasError(applicantInfo.controls.mapUrl)"
     />
     <app-error-message fieldId="map-url-error" name="Map URL" [control]="applicantInfo.controls.mapUrl"></app-error-message>
