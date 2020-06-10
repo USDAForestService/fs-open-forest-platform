@@ -438,11 +438,14 @@ post{
 
               	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
-	        	 rm -f ${WORKSPACE}/pipeline.properties
-		         touch ${WORKSPACE}/pipeline.properties 
+	         rm -f ${WORKSPACE}/pipeline.properties
+		touch ${WORKSPACE}/pipeline.properties 
+		AuthorVar="GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME"
+                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties			 
+			 
             '''
 
-        properties = readProperties file: 'pipeline.properties'
+            properties = readProperties file: 'pipeline.properties'
 	    env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
  	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
 		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
@@ -475,6 +478,8 @@ post{
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
 	        	 rm -f ${WORKSPACE}/pipeline.properties
 		         touch ${WORKSPACE}/pipeline.properties 
+		AuthorVar="GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME"
+                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties			 		 
 			 
             '''
 
