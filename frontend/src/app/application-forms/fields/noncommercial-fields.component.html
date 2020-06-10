@@ -13,7 +13,7 @@
         <label id="participants-label" class="usa-input">Estimated number of participants <span class="required-fields-asterisk">*</span></label>
         <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of event participants (Note: The use of a dash is permitted to supply a possible range).</span>
       </div>
-      <input class ="number-input-sizing" id="participants" type="tel" pattern="[0-9\-]+" maxlength="7" (keypress)="numberOnly($event)" formControlName="numberParticipants" aria-required="true" min="1"
+      <input class ="number-input-sizing" id="participants" type="tel" pattern="[0-9\-]+" maxlength="7" formControlName="numberParticipants" aria-required="true" min="1"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberParticipants, 'participants-label participants-hint-text', 'participants-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberParticipants)"
       />
@@ -25,7 +25,7 @@
         <label id="spectators-label" class="usa-input">Estimated number of spectators <span class="required-fields-asterisk">*</span></label>
         <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as a sporting event), please provide the number of spectators (Note: The use of a dash is permitted to supply a possible range).</span>
       </div>
-        <input class ="number-input-sizing" id="spectators" type="tel" pattern="[0-9\-]+" maxlength="7" (keypress)="numberOnly($event)" formControlName="numberSpectators" aria-required="true"
+        <input class ="number-input-sizing" id="spectators" type="tel" pattern="[0-9\-]+" maxlength="7" formControlName="numberSpectators" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberSpectators, 'spectators-label spectators-hint-text', 'spectators-error')"
         [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberSpectators)"
       />
