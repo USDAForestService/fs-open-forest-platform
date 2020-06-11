@@ -3,7 +3,7 @@
     <div class="fs-input-grid-wrapper phone-number-section">
       <div class="usa-input-grid usa-input-grid-medium">
         <label id="day-phone-label" class="usa-input">{{ name }}<span class="required-fields-asterisk">*</span></label>
-        <input id="day-phone" type="text" formControlName="tenDigit" aria-required="true"
+        <input id="day-phone" type="tel" pattern="[0-9]+" maxlength="10" formControlName="tenDigit" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.tenDigit'), 'day-phone-label', 'day-phone-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))"/>
         <app-error-message fieldId="day-phone-error" name="Phone number" [control]="parentForm.get('dayPhone.tenDigit')"></app-error-message>
