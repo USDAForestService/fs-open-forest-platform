@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esri-map',
@@ -11,7 +12,7 @@ export class EsriMapComponent implements OnInit {
 
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     loadModules([
@@ -33,6 +34,10 @@ export class EsriMapComponent implements OnInit {
           center: [-97, 38], // lon, lat
           scale: 10000000,
           map: map,
+          navigation: {
+            mouseWheelZoomEnabled: false,
+            browserTouchPanEnabled: false
+          }
         });
 
         const geoJson = new GeoJSONLayer({
@@ -48,11 +53,26 @@ export class EsriMapComponent implements OnInit {
           },
           popupTemplate: {  // Enable a popup
             title: '{COMMONNAME}', // Show attribute value
-            content: '<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>' +
-            '<p>It is located in region {REGION} </p>' +
-            `<p> For more information please visit <a href='{URL}'>{URL}</a> </p>`  // Display text in pop-up
+            outFields: ['*'],
+            content: checkForest,
           }
         });
+
+        function checkForest (feature) {
+          const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
+          const common = feature.graphic.attributes.COMMONNAME;
+          const route = document.location.origin;
+          if (common === mbsForest) {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
+            `<h3>Available Permits</h3>` +
+            `<h3><a href='` + route + `/special-use/applications/noncommercial-group-use/new'>Non-Commercial</a></h3>` +
+            `<h3><a href='` + route + `/special-use/applications/temp-outfitters/new'>Temporary Outfitters</a></h3>`;
+          } else {
+            return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
+            `<p>For more information about this forest please visit <a href={URL}>{URL}</a>`;
+          }
+        }
 
       const searchWidget = new Search({
         mapView: mapView,
@@ -85,6 +105,47 @@ export class EsriMapComponent implements OnInit {
           zoom: 9
         });
       });
+
+      mapView.on('mouse-wheel', function(e) {
+        warnUser('To zoom in please double click the map. Use zoom in/out buttons.');
+      });
+      // Trap attempted single touch panning.
+      const pointers = new Map(); // javascript map
+      mapView.on('pointer-down', function(e) {
+        const { pointerId, pointerType, x, y } = e;
+        if (pointerType !== 'touch') { return; }
+        pointers.set(pointerId, { x, y});
+      });
+
+      mapView.on(['pointer-up', 'pointer-leave'], function(e) {
+        const { pointerId, pointerType } = e;
+        if (pointerType !== 'touch') { return; }
+        pointers.delete(pointerId);
+      });
+
+      mapView.on('pointer-move', function(e) {
+        const { pointerId, pointerType, x, y } = e;
+        if (pointerType !== 'touch') { return; }
+        if (pointers.size !== 1) { return; }
+        const distance = Math.sqrt(
+          Math.pow(x - pointers.get(pointerId).x, 2) +
+          Math.pow(y - pointers.get(pointerId).y, 2)
+        );
+        if (distance < 20) { return; }
+        warnUser('Please use two fingers to pan the map.');
+      });
+      // Display a warning.
+      let timeout;
+      function warnUser(warning) {
+        const warningDiv = document.getElementById('warning');
+        warningDiv.innerHTML = `<div class='message'>` + warning + `</div>`;
+        if (timeout) {
+          window.clearTimeout(timeout);
+        }
+        timeout = window.setTimeout(() => {
+          warningDiv.innerHTML = '';
+        }, 1500);
+      }
 
       mapView.ui.add(searchWidget, 'top-right');
 

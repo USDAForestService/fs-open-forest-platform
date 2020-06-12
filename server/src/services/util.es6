@@ -401,6 +401,7 @@ util.getForestsByRegion = (region, forests) => {
   return regionForests;
 };
 
+
 /**
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
  *
@@ -530,12 +531,16 @@ util.getPOC1Forests = (approles, forestsData) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = (approles, forestsData) => {
+util.getUserRole = (approles) => {
   let role = 'user';
-  const poc1forests = util.getPOC1Forests(approles, forestsData);
-  const poc2forests = util.getPOC2Forests(approles, forestsData);
-  if (poc1forests.length > 0 || poc2forests.length > 0) {
-    role = 'admin';
+  const roles = approles.split('^');
+  for (let i = 0; i < roles.length; i += 1) {
+    if (roles[i].includes('FS_Open-Forest_R')
+    || roles[i].includes('Super')
+    || roles[i].includes('POC1')
+    || roles[i].includes('POC2')) {
+      role = 'admin';
+    }
   }
   return role;
 };

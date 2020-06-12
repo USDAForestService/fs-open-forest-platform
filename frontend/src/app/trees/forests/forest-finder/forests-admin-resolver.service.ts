@@ -37,6 +37,9 @@ export class ForestsAdminResolver implements Resolve<any> {
           );
         }
         return result;
+      } else if (user && user.role === 'admin') {
+        result = [];
+        return result;
       } else {
         this.router.navigate(['access-denied']);
         return false;
