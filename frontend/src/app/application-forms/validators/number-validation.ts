@@ -8,10 +8,12 @@ export function numberValidator(allowDash: boolean = false): ValidatorFn {
         const numberRegex = /^[\d -]+$/;
         const valid = numberRegex.test(val);
         return valid ? null : { numberDashRequirement: true };
-      } else {
+      }
+      else {
       return null;
       }
-    } else {
+    }
+    else {
       const val = control.value;
       if (val && val.length) {
       const numberRegex = /^\d+$/;
