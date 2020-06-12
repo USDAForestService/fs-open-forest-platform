@@ -146,13 +146,13 @@
 }
 
 .browser-validation-main-content {
-  @media (min-width: 319px) {
+  @media (min-width : 319px) {
     margin-top: 18rem;
   }
-  @media (min-width:365px) {
+  @media (min-width : 365px) {
     margin-top: 11rem;
   }
-  @media (min-width: 1020px) {
+  @media (min-width : 1020px) {
     margin-top: unset;
   }
 }
