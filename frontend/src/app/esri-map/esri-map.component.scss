@@ -15,18 +15,18 @@
 }
 
 .esri-search {
-  width: 540px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
+  width: 640px !important;
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: visible !important;
   margin: auto !important;
-  border: 2px solid green;
+  border: 2px solid green !important;
   box-shadow: 4px 4px 10px black !important;
-  position: absolute;
-  top: 0px;
-  left: 750%;
+  position: absolute !important;
+  top: 0px !important;
+  left: 750% !important;
 }
 
 .esri-popup__main-container {
