@@ -372,6 +372,66 @@ const appRoutes: Routes = [
     ]
   },
   {
+    path: 'firewood/forests',
+    data: {
+      breadcrumbs: true,
+      text: 'Firewood permits',
+      title: 'Firewood permits | U.S. Forest Service Open Forest',
+      showAdmin: true
+    },
+    resolve: {
+      user: UserResolver
+    },
+    children: [
+      {
+        path: '',
+        component: ForestFinderComponent,
+        resolve: {
+          forests: ForestsResolver
+        }
+      },
+      {
+        path: ':id',
+        resolve: {
+          forest: ForestResolver
+        },
+        data: {
+          breadcrumbs: true,
+          text: '{{forest.forestName}}'
+        },
+        children: [
+          {
+            path: '',
+            component: TreeGuidelinesComponent
+          },
+          {
+            path: 'applications',
+            data: { breadcrumbs: 'Buy a permit' },
+            children: [
+              {
+                path: '',
+                component: TreeApplicationFormComponent
+              }
+            ]
+          },
+          {
+            // cancel route
+            path: 'applications/:permitId',
+            component: TreeApplicationFormComponent,
+            resolve: {
+              permit: ChristmasTreePermitResolver
+            },
+            data: { breadcrumbs: 'Buy a permit' }
+          },
+          {
+            path: 'maps/:mapId',
+            component: ChristmasTreeMapDetailsComponent
+          }
+        ]
+      }
+    ]
+  },
+  {
     path: 'christmas-trees/forests/:id/applications/permits/:permitId',
     component: TreePermitViewComponent,
     resolve: {
@@ -410,4 +470,3 @@ const appRoutes: Routes = [
   providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
-
