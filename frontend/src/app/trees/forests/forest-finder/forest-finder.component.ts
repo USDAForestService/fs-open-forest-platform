@@ -12,6 +12,7 @@ import { Meta } from '@angular/platform-browser';
 export class ForestFinderComponent implements OnInit {
   @ViewChild('forestFinder') form: ElementRef;
 
+  permitType = 'trees';
   forests = [];
   selectedForest = null;
   itemsPerRow = 2;
@@ -24,7 +25,7 @@ export class ForestFinderComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description', content: 'Use Open Forest to purchase\
- a Christmas tree permit with the United States Forest Service.'
+ a permit with the United States Forest Service.'
     });
   }
 
@@ -34,6 +35,7 @@ export class ForestFinderComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+      this.permitType = data.permitType;
 
       // sort forests alphabetically
       this.forests.sort(function(a, b) {
@@ -69,7 +71,7 @@ export class ForestFinderComponent implements OnInit {
   goToForest(forest) {
     if (forest) {
       this.showForestSelectError = false;
-      const navTo = '/christmas-trees/forests/' + forest.forestAbbr;
+      const navTo = (this.permitType === 'trees' ? '/christmas-trees' : '/firewood') + '/forests/' + forest.forestAbbr;
       this.router.navigate([navTo]);
     } else {
       this.showForestSelectError = true;

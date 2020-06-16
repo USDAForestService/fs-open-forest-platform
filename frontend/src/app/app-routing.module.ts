@@ -314,6 +314,7 @@ const appRoutes: Routes = [
   {
     path: 'christmas-trees/forests',
     data: {
+      permitType: 'trees',
       breadcrumbs: true,
       text: 'Christmas tree permits',
       title: 'Christmas tree permits | U.S. Forest Service Open Forest',
@@ -374,6 +375,7 @@ const appRoutes: Routes = [
   {
     path: 'firewood/forests',
     data: {
+      permitType: 'firewood',
       breadcrumbs: true,
       text: 'Firewood permits',
       title: 'Firewood permits | U.S. Forest Service Open Forest',
