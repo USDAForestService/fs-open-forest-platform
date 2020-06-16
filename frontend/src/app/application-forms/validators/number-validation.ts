@@ -14,12 +14,12 @@ export function numberValidator(allowDash: boolean = false): ValidatorFn {
     } else {
       const val = control.value;
       if (val && val.length) {
-      const numberRegex = /^\d+$/;
-      const valid = numberRegex.test(val);
-      return valid ? null : { numberRequirement: true };
-    } else {
-      return null;
-    }
+        const numberRegex = /^\d+$/;
+        const valid = numberRegex.test(val);
+        return valid ? null : { numberRequirement: true };
+      } else {
+        return null;
+      }
     }
   };
 }
