@@ -154,5 +154,10 @@ export class EsriMapComponent implements OnInit {
       .catch(err => {
         console.error(err);
       });
+
+      setTimeout(() => {
+        let search = document.querySelector('.esri-search__sources-button.esri-widget--button');
+        search.style.background = 'green'
+      }, 5000)
   }
 }

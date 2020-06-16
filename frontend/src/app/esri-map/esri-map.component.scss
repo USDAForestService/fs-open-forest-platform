@@ -1,5 +1,6 @@
 /* import the required JSAPI css */
 @import 'https://js.arcgis.com/4.10/esri/css/main.css';
+// @import '../../sass/_main.scss';
 
 .esri-view {
   height: 500px;
@@ -13,7 +14,24 @@
     }
   }
 }
+.esri-search__sources-button.esri-widget--button {
+  background: green;
+  $font-color: lightgray;
+$background-color: #3e2104;
 
+$interactive-font-color: lightgray;
+$button-color: green;
+$button-background: green;
+}
+
+.esri-view-width-large .esri-popup__main-container {
+  $font-color: lightgray;
+$background-color: #3e2104;
+
+$interactive-font-color: lightgray;
+$button-color: green;
+$button-background: green;
+}
 .esri-search {
   width: 540px;
   display: flex;
