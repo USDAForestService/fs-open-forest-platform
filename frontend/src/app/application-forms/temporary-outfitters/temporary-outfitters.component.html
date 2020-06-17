@@ -79,8 +79,8 @@
             [pointOfView]="pointOfView"
             (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
 
-          <label id="location-map-label" class="usa-input">Map of proposed activity</label>
-          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
+          <label class="usa-input location-map-url">Map of proposed activity</label>
+          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest. You may submit a file or a link to your map hosted on another website.</p>
           <p class="help-text usa-form-hint">File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Location map" type="location-map"
             [uploadFiles]="uploadFiles"
@@ -88,6 +88,9 @@
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.locationMap"
             ></app-file-upload-field>
+
+            <app-map-url [applicantInfo]="applicationForm.controls.applicantInfo"></app-map-url>
+
         </fieldset>
 
         <!-- cost estimate table -->
