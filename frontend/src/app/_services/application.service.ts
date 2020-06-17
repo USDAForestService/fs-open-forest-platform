@@ -37,7 +37,6 @@ export class ApplicationService {
   }
 
   update(body, type) {
-    
     const options = {
       withCredentials: true,
       headers: new HttpHeaders().set('Content-Type', 'application/json')

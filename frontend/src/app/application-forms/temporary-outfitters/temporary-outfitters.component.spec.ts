@@ -284,8 +284,7 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('should remove class if in view', () => {
-    const target = document.body;
-    
+    const target = document.body;    
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
     component.elementInView({ target: target, visible: true });
     expect(removeClassSpy.called).toBeTruthy();
