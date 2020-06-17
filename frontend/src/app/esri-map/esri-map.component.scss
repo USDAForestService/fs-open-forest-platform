@@ -96,6 +96,7 @@ $search_width: 240px !default;
   }
   .esri-search__sources-button {
     border-right: solid 1px $border-color;
+    display: flex;
   }
   .esri-search__sources-button--up {
     display: none;
@@ -134,9 +135,7 @@ $search_width: 240px !default;
     opacity: 1;
     max-height: inherit;
   }
-  .esri-search__sources-button {
-    display: flex;
-  }
+  
   .esri-search--multiple-sources .esri-search__input {
     border-left: 0;
   }
