@@ -33,7 +33,7 @@
         </span>
       </div>
     </div>
-    <div class="margin-bottom-1">
+    <div class="margin-bottom-1 temp-outfitter-info-display">
       <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
       <span class="display-block" *ngIf="application.applicantInfo.dayPhone">
         Phone: {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
@@ -118,6 +118,8 @@
 
       <h3>Location of routes and starting and ending points for the proposed operations:</h3>
       <span>{{ application.tempOutfitterFields.activityDescriptionFields.locationDescription }}</span>
+      <h3 *ngIf="application.applicantInfo.mapUrl">Map Link:</h3>
+      <a href="{{application.applicantInfo.mapUrl | UrlPipe }}">{{application.applicantInfo.mapUrl}}</a>
 
       <h3>Services being offered:</h3>
       <span>{{ application.tempOutfitterFields.activityDescriptionFields.servicesProvided }}</span>
