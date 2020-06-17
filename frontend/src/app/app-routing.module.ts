@@ -7,7 +7,7 @@ import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { DummyComponent } from './print-permit-dummy-page/dummy.component';
-import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
+import { ForestResolver } from './trees/forests/permit-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './intake-home/home.component';
@@ -22,7 +22,7 @@ import { ReportComponent } from './trees/admin/report/report.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
-import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
+import { PermitGuidelinesComponent } from './trees/forests/permit-guidelines/permit-guidelines.component';
 import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
@@ -343,7 +343,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: '',
-            component: TreeGuidelinesComponent
+            component: PermitGuidelinesComponent
           },
           {
             path: 'applications',
@@ -404,7 +404,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: '',
-            component: TreeGuidelinesComponent
+            component: PermitGuidelinesComponent
           },
           {
             path: 'applications',

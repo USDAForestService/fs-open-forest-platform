@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TreeGuidelinesComponent } from './tree-guidelines.component';
+import { PermitGuidelinesComponent } from './permit-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
@@ -13,9 +13,9 @@ import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 import { forest } from '../../../_mocks/forest.mock';
 
-describe('TreeGuidelinesComponent', () => {
-  let component: TreeGuidelinesComponent;
-  let fixture: ComponentFixture<TreeGuidelinesComponent>;
+describe('PermitGuidelinesComponent', () => {
+  let component: PermitGuidelinesComponent;
+  let fixture: ComponentFixture<PermitGuidelinesComponent>;
   const mockRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({forest: forest})
@@ -24,7 +24,7 @@ describe('TreeGuidelinesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeGuidelinesComponent],
+        declarations: [PermitGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
           ChristmasTreesInfoService,
@@ -40,7 +40,7 @@ describe('TreeGuidelinesComponent', () => {
   describe('', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockRoute });
-      fixture = TestBed.createComponent(TreeGuidelinesComponent);
+      fixture = TestBed.createComponent(PermitGuidelinesComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -85,7 +85,7 @@ describe('TreeGuidelinesComponent', () => {
         })
       };
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockSeasonNotOpenRoute });
-      fixture = TestBed.createComponent(TreeGuidelinesComponent);
+      fixture = TestBed.createComponent(PermitGuidelinesComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
@@ -109,7 +109,7 @@ describe('TreeGuidelinesComponent', () => {
         })
       };
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockSeasonNotOpenRoute });
-      fixture = TestBed.createComponent(TreeGuidelinesComponent);
+      fixture = TestBed.createComponent(PermitGuidelinesComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 

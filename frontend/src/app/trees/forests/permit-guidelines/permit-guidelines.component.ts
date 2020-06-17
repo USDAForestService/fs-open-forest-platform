@@ -9,9 +9,10 @@ import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.
 
 @Component({
   selector: 'app-tree-info',
-  templateUrl: './tree-guidelines.component.html'
+  templateUrl: './permit-guidelines.component.html'
 })
-export class TreeGuidelinesComponent implements OnInit {
+export class PermitGuidelinesComponent implements OnInit {
+  permitType: string;
   template: string;
   forest: any = [];
   id: any;
@@ -79,22 +80,46 @@ a Christmas tree permit with the United States Forest Service on your National F
     });
 
     this.route.data.subscribe(data => {
+      this.permitType = data.permitType;
       this.user = data.user;
       this.forest = data.forest;
-      if (this.forest) {
-        this.forest = this.setSeasonStatus(this.forest);
-        if (this.forest) {
-          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
-        }
 
-        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
-        this.configService.getJSON('trees').subscribe(configData => {
-          this.sidebarItems = configData;
-          if (!this.forest.isSeasonOpen) {
-            this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
+      // firewood permits
+      if (this.permitType === 'firewood') {
+        if (this.forest) {
+          this.forest = this.setSeasonStatus(this.forest);
+          if (this.forest) {
+            this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
           }
-        });
+
+          this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+          this.configService.getJSON('firewood').subscribe(configData => {
+            this.sidebarItems = configData;
+            if (!this.forest.isSeasonOpen) {
+              this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
+            }
+          });
+        }
       }
+
+      // christmas tree permits
+      if (this.permitType === 'trees') {
+        if (this.forest) {
+          this.forest = this.setSeasonStatus(this.forest);
+          if (this.forest) {
+            this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
+          }
+
+          this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+          this.configService.getJSON('trees').subscribe(configData => {
+            this.sidebarItems = configData;
+            if (!this.forest.isSeasonOpen) {
+              this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
+            }
+          });
+        }
+      }
+
     });
   }
 }
