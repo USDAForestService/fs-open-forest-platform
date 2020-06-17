@@ -96,7 +96,6 @@ pipeline {
       sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fs.usda.gov/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''
-
 		    INSTALL_DEPENDENCIES_STATUS= 'Success'
     		}
         }
