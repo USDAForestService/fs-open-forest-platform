@@ -71,7 +71,8 @@ export class ForestFinderComponent implements OnInit {
   goToForest(forest) {
     if (forest) {
       this.showForestSelectError = false;
-      const navTo = (this.permitType === 'trees' ? '/christmas-trees' : '/firewood') + '/forests/' + forest.forestAbbr;
+      // todo: convert this ternary to a function call that returns the correct string based on permitType
+      const navTo = (this.permitType === 'trees/' ? 'christmas-trees' : 'firewood') + '/forests/' + forest.forestAbbr;
       this.router.navigate([navTo]);
     } else {
       this.showForestSelectError = true;

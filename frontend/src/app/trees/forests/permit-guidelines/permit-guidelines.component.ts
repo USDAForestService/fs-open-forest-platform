@@ -13,12 +13,14 @@ import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.
 })
 export class PermitGuidelinesComponent implements OnInit {
   permitType: string;
+  permitFriendlyText: string;
   template: string;
   forest: any = [];
   id: any;
   sidebarItems;
   isSeasonOpen = true;
-  seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
+  seasonOpenAlert = 'No online permits are available at this time,\
+  please check the Season Dates for the type of permit you are interested in.';
   user;
 
   constructor(
@@ -32,13 +34,14 @@ export class PermitGuidelinesComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description', content: `Learn more about how to purchase\
-a Christmas tree permit with the United States Forest Service on your National Forest with Open Forest.`
+a permit with the United States Forest Service on your National Forest with Open Forest.`
     });
   }
 
   /**
    *  @returns forest with season status and open alert
    */
+  // todo: recieve in permitType as an parameter once we have season dates for something other than xmas trees
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
     forest.seasonOpenAlert = this.seasonOpenAlert;
@@ -86,7 +89,9 @@ a Christmas tree permit with the United States Forest Service on your National F
 
       // firewood permits
       if (this.permitType === 'firewood') {
+        this.permitFriendlyText = 'Firewood';
         if (this.forest) {
+          // todo: pass in permitType as an argument once we have season dates for something other than xmas trees
           this.forest = this.setSeasonStatus(this.forest);
           if (this.forest) {
             this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
@@ -104,7 +109,9 @@ a Christmas tree permit with the United States Forest Service on your National F
 
       // christmas tree permits
       if (this.permitType === 'trees') {
+        this.permitFriendlyText = 'Christmas tree';
         if (this.forest) {
+          // todo: pass in permitType as an argument once we have season dates for something other than xmas trees
           this.forest = this.setSeasonStatus(this.forest);
           if (this.forest) {
             this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);

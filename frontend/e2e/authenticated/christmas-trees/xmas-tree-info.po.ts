@@ -27,7 +27,7 @@ export class TreesSidebarPage {
   }
 
   cuttingAreaDates(index) {
-    return element(by.id(`tree-cutting-areas-dates-${index}`));
+    return element(by.id(`cutting-areas-dates-${index}`));
   }
 
   seasonOpenAlert() {
@@ -35,7 +35,7 @@ export class TreesSidebarPage {
   }
 
   cuttingAreaHours(index) {
-    return element(by.id(`tree-cutting-areas-hours-${index}`));
+    return element(by.id(`cutting-areas-hours-${index}`));
   }
 
   contactUsSectionLink() {

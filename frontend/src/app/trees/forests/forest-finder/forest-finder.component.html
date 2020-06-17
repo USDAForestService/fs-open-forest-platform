@@ -39,7 +39,7 @@
       </div>
       <h3>Choose your forest</h3>
       <p>
-        Some national forests currently allow you to buy a Christmas tree permit online with Open Forest. Each forest has
+        Some national forests currently allow you to buy a {{permitType === 'trees' ? 'Christmas tree' : 'Firewood'}} permit online with Open Forest. Each forest has
         its own season dates and rules.
       </p>
     </div>
@@ -51,7 +51,7 @@
         <img alt="explore then buy your permit" role="img" width="150" src="/assets/img/site-wide/arrow-next-step.svg" class="padding-right-1 next-arrow">
       </div>
       <h3>Get the details</h3>
-      <p>Whether it's your first time, or a long-standing family tradition, learn more about Christmas tree cutting on the
+      <p>Whether it's your first time, or a long-standing family tradition, learn more about {{permitType === 'trees' ? 'Christmas trees' : 'Firewood'}} cutting on the
         national forest you select above.
       </p>
     </div>

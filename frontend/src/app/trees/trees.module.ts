@@ -4,12 +4,12 @@ import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../shared/shared.module';
 import { PermitGuidelinesComponent } from './forests/permit-guidelines/permit-guidelines.component';
-import { TreeCuttingDatesComponent } from './forests/permit-guidelines/tree-cutting-dates/tree-cutting-dates.component';
-import { TreeCuttingDatesMinComponent } from './forests/permit-guidelines/tree-cutting-dates-min/tree-cutting-dates-min.component';
+import { CuttingDatesComponent } from './forests/permit-guidelines/cutting-dates/cutting-dates.component';
+import { CuttingDatesMinComponent } from './forests/permit-guidelines/cutting-dates-min/cutting-dates-min.component';
 import { TreeSpeciesComponent } from './forests/permit-guidelines/tree-species/tree-species.component';
 import { ChristmasTreesInfoService } from './_services/christmas-trees-info.service';
 import { FeedbackService } from './_services/feedback.service';
-import { TreeCuttingRulesComponent } from './forests/permit-guidelines/tree-cutting-rules/tree-cutting-rules.component';
+import { TreeCuttingRulesComponent } from './forests/permit-guidelines/cutting-rules/cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
@@ -31,8 +31,8 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     PermitGuidelinesComponent,
-    TreeCuttingDatesComponent,
-    TreeCuttingDatesMinComponent,
+    CuttingDatesComponent,
+    CuttingDatesMinComponent,
     TreeSpeciesComponent,
     ForestFinderComponent,
     ChristmasTreeMapDetailsComponent,
@@ -46,8 +46,8 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     TreeCuttingRulesComponent,
     PermitGuidelinesComponent,
     BuyPermitBarComponent,
-    TreeCuttingDatesComponent,
-    TreeCuttingDatesMinComponent,
+    CuttingDatesComponent,
+    CuttingDatesMinComponent,
     TreeSpeciesComponent,
     ChristmasTreeMapDetailsComponent
   ],
