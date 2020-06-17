@@ -19,6 +19,7 @@ import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
 import { FileUploadService } from './_services/file-upload.service';
+import { MapUrlComponent } from './fields/map-url.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
 import { QuantityComponent } from './fields/quantity.component';
@@ -51,6 +52,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
+    MapUrlComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
     QuantityComponent,
@@ -81,6 +83,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
+    MapUrlComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
     QuantityComponent,
