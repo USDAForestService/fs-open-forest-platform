@@ -4,7 +4,7 @@ export function urlValidator(): ValidatorFn {
   return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val && val.length) {
-      const urlRegex = /^(https?:\/\/)?\S+(\.\S+)+/;
+      const urlRegex = /^(https:?\/\/)?\S+(\.\S+)+/;
       const alphanumericRegex = /\w/;
       const whitespaceRegex = /\s/g;
       const valid = urlRegex.test(val) && alphanumericRegex.test(val) && !whitespaceRegex.test(val);
