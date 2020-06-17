@@ -45,15 +45,12 @@
 
   #sticky-bar-forestname {
     display: none;
+    font-size: 2rem;
     @media (min-width: $nav-width) {
         display: inline-block;
     }
   }
-
-  #sticky-bar-forestname {
-    font-size: 2rem;
-  }
-
+  
   #sticky-bar-desc-container {
     span {
       padding: 2rem;

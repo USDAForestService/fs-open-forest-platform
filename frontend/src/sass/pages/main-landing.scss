@@ -202,6 +202,8 @@ a {
   }
 
   .card-container {
+    display: flex;
+    flex-flow: wrap;
     .card{
       width: 90%;
       min-height: 65vh;
@@ -210,10 +212,6 @@ a {
         margin: 25px auto;
       }
     }
-  }
-  .card-container {
-    display: flex;
-    flex-flow: wrap;
   }
   
   .card {

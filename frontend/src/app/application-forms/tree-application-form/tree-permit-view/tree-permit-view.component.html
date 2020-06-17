@@ -38,7 +38,7 @@
       <div class="usa-width-one-third">
         <dl>
           <dt>Quantity</dt>
-          <dd><b>{{permit.quantity}}</b></dd>
+          <dd><strong>{{permit.quantity}}</strong></dd>
         </dl>
       </div>
       <div class="usa-width-one-third">
@@ -61,23 +61,23 @@
       <table class="tree-confirmation-table">
          <caption>Tree Confirmation Table</caption>
         <tr>
-          <td>Permit number</td>
+          <th scope="col">Permit number</th>
           <td><strong>{{permit.permitNumber | uppercase}}</strong></td>
         </tr>
         <tr>
-          <td>Name</td>
+          <th scope="col">Name</th>
           <td><strong>{{permit.firstName}} {{permit.lastName}}</strong></td>
         </tr>
         <tr>
-          <td>Payment
+          <th scope="col">Payment</th>
           <td><strong>Credit card</strong></td>
         </tr>
         <tr>
-          <td>Transaction date</td>
+          <th scope="col">Transaction date</th>
           <td><strong>{{permit.transactionDate | date: 'shortDate'}}</strong></td>
         </tr>
         <tr>
-          <td>Email</td>
+          <th scope="col">Email</th>
           <td><strong>{{permit.emailAddress}}</strong></td>
         </tr>
       </table>

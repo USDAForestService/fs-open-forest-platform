@@ -279,14 +279,13 @@ describe('TemporaryOutfittersComponent', () => {
   it('should add class if in view', () => {
     const target = document.body;
     const addClassSpy = sinon.spy(component.renderer, 'addClass');
-    const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
     component.elementInView({ target: target , visible: true });
     expect(addClassSpy.called).toBeTruthy();
   });
 
   it('should remove class if in view', () => {
     const target = document.body;
-    const addClassSpy = sinon.spy(component.renderer, 'addClass');
+    
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
     component.elementInView({ target: target, visible: true });
     expect(removeClassSpy.called).toBeTruthy();

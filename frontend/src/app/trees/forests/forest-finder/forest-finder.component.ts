@@ -23,8 +23,8 @@ export class ForestFinderComponent implements OnInit {
     private meta: Meta
   ) {
     this.meta.addTag({
-      name: 'description', content: 'Use Open Forest to purchase\
- a Christmas tree permit with the United States Forest Service.'
+      name: 'description', content: 'Use Open Forest to purchase ' +
+ 'a Christmas tree permit with the United States Forest Service.'
     });
   }
 

@@ -31,7 +31,7 @@ export class PhoneNumberComponent implements OnInit {
   addFormControls() {
     const dayPhone = this.formBuilder.group({
       areaCode: [null, Validators.maxLength(3)],
-      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
+      extension: ['', [Validators.minLength(1), Validators.maxLength(6)]],
       number: [null, Validators.maxLength(4)],
       prefix: [null, Validators.maxLength(3)],
       tenDigit: ['', [Validators.required, phoneNumberMinValidator(), phoneNumberMaxValidator()]]
