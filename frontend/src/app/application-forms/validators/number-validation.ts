@@ -1,14 +1,25 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
-export function numberValidator(): ValidatorFn {
+export function numberValidator(allowDash: boolean = false): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
-    const val = control.value;
-    if (val && val.length) {
-      const numberRegex = /^\d+$/;
-      const valid = numberRegex.test(val);
-      return valid ? null : { numberRequirement: true };
-    } else {
+    if (allowDash) {
+      const val = control.value;
+      if (val && val.length) {
+        const numberRegex = /^[\d -]+$/;
+        const valid = numberRegex.test(val);
+        return valid ? null : { numberDashRequirement: true };
+      } else {
       return null;
+      }
+    } else {
+      const val = control.value;
+      if (val && val.length) {
+        const numberRegex = /^\d+$/;
+        const valid = numberRegex.test(val);
+        return valid ? null : { numberRequirement: true };
+      } else {
+        return null;
+      }
     }
   };
 }
