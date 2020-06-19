@@ -90,7 +90,7 @@
     <app-error-message fieldId="description-of-cleanup-and-restoration-error" name="A description of cleanup and restoration" [control]="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration')"></app-error-message>
 
     <label id="location-description-label" class="usa-input">Location of routes and starting and ending points for the proposed operations. <span class="required-fields-asterisk">*</span></label>
-    <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest.</p>
+    <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest (1000 character limit).</p>
     <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.locationDescription'), 'location-description-label location-description-hint-text', 'location-description-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.locationDescription'))"></textarea>
