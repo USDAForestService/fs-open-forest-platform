@@ -5,7 +5,7 @@ export function numberValidator(allowDash: boolean = false): ValidatorFn {
     if (allowDash) {
       const val = control.value;
       if (val && val.length) {
-        const numberRegex = /^[\d -\/]+$/;
+        const numberRegex = /^[\d-\/]+$/;
         const valid = numberRegex.test(val);
         return valid ? null : { numberDashSlashRequirement: true };
       } else {
