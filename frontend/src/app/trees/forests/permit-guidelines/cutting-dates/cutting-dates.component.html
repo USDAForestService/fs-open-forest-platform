@@ -11,6 +11,11 @@
   </div>
 </div>
 
-<ngx-md *ngIf="forest && forest.content" [data]="forest.content.whenToCutInfo" id="season-dates-markdown"></ngx-md>
+<app-section-heading *ngIf="permitType === 'firewood'" heading="When to cut firewood" id="season-dates" tabIndex="-1"></app-section-heading>
+<p *ngIf="permitType === 'firewood'">Firewood permits are valid through the calendar year. However, <strong>firewood cutting is not allowed at certain times of the year</strong> in parts of the forest.</p>
+<br>
+<p *ngIf="permitType === 'firewood'">See <a>prohibited areas and restrictions</a> for more information.</p>
 
-<button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>
+<ngx-md *ngIf="forest && forest.content && permitType === 'trees'" [data]="forest.content.whenToCutInfo" id="season-dates-markdown"></ngx-md>
+
+<button #staticBuyButton *ngIf="forest.isSeasonOpen && permitType === 'trees'" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>

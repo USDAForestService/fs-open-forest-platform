@@ -10,6 +10,7 @@ import { NgxMdModule } from 'ngx-md';
 })
 export class CuttingDatesComponent implements OnInit {
   @Input() forest: any;
+  @Input() permitType: any;
 
   constructor(public markdown: NgxMdModule) {}
 

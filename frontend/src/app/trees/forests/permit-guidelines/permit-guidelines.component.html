@@ -20,23 +20,38 @@
           <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
         </div>
       </div>
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.introduction"></ngx-md>
+      <ngx-md *ngIf="forest && forest.content && permitType ==='trees'" [data]="forest.content.introduction"></ngx-md>
 
       <!--when to cut-->
-      <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
-      <app-cutting-dates [forest]="forest"></app-cutting-dates>
+      <app-section-heading heading="{{permitType === 'trees' ? 'When to cut your tree' : 'Getting a firewood permit'}}" id="season-dates" tabIndex="-1"></app-section-heading>
+      <app-cutting-dates [permitType]="permitType" [forest]="forest"></app-cutting-dates>
+
+      <!-- firewood costs and buy-->
+      <app-section-heading heading="Cost" *ngIf="permitType === 'firewood'" selector="h3"></app-section-heading>
+      <p *ngIf="permitType === 'firewood'">Firewood permits are $20.00 for <span style="text-decoration: underline">4 cords of wood</span>. All permits are nonrefundable.</p>
+      <app-section-heading heading="Buy a permit" *ngIf="permitType === 'firewood'" selector="h3"></app-section-heading>
+      <p *ngIf="permitType === 'firewood'">You can buy firewood permits online or in-person at one of <span style="text-decoration: underline">our district offices</span>.</p>
+      <button #staticBuyButton *ngIf="permitType === 'firewood'" [routerLink]="['/firewood/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy a firewood permit</button>
 
       <!--where to cut-->
-      <hr class="thick" />
-      <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
+      <hr *ngIf="permitType ==='trees'" class="thick" />
+      <app-section-heading heading="{{permitType === 'trees' ? 'Where to cut your tree' : 'Where to find firewood'}}" id="tree-locations" tabIndex="-1"></app-section-heading>
+      <app-section-heading *ngIf="permitType === 'firewood'" heading="What kind of wood you can collect" selector="h3"></app-section-heading>
+      <p *ngIf="permitType === 'firewood'">All dead and down trees may be gathered. <strong>Live trees may NOT be cut.</strong></p>
+      <p *ngIf="permitType === 'firewood'">Standing dead trees may be cut only if they are within 200 feet of a legal public road.</p>
+      <app-section-heading *ngIf="permitType === 'firewood'" heading="Where you can cut" selector="h3"></app-section-heading>
+      <p *ngIf="permitType === 'firewood'">Cutting and gathering is only allowed on areas open to cutting and gathering on the firewood maps.</p>
+      <p *ngIf="permitType === 'firewood'">You can download a firewood map below, or pick one up at one of <a>our district offices</a>.</p>
+      <app-section-heading *ngIf="permitType === 'firewood'" heading="Download a firewood cutting map" selector="h3"></app-section-heading>
+
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutProhibited"></ngx-md>
+      <hr *ngIf="permitType === 'trees'" class="trees-section-divider">
+      <ngx-md *ngIf="forest && forest.content && permitType === 'trees'" [data]="forest.content.whereToCutProhibited"></ngx-md>
 
       <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
 
       <hr class="trees-section-divider">
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutCuttingAreaMaps"></ngx-md>
+      <ngx-md *ngIf="forest && forest.content && permitType === 'trees'" [data]="forest.content.whereToCutCuttingAreaMaps"></ngx-md>
 
       <!--how to cut-->
       <hr class="thick" />
