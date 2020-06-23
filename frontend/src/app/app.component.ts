@@ -95,8 +95,8 @@ export class AppComponent implements OnInit {
 
   getBrowserName() {
     const  userAgent = navigator.userAgent;
-    let browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    let parsedBrowserInfo = userAgent.match (/(OPR|Edge)\/?\s*(\d+)/i);
+    const browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    const parsedBrowserInfo = userAgent.match (/(OPR|Edge)\/?\s*(\d+)/i);
     this.browserName = browserInfo[1];
       if (parsedBrowserInfo !== null) {
         switch (parsedBrowserInfo[1]) {
