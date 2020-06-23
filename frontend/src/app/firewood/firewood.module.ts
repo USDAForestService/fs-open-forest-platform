@@ -5,6 +5,7 @@ import { ReportResultsComponent } from './admin/report/results/report-results.co
 import { SharedModule } from '../shared/shared.module';
 import { FirewoodGuidelinesComponent } from './forests/firewood-guidelines/firewood-guidelines.component';
 import { FirewoodInfoService } from './_services/firewood-info.service';
+import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/firewood-cutting-dates/firewood-cutting-dates.component';
 import { FeedbackService } from './_services/feedback.service';
 import { TreeCuttingRulesComponent } from './forests/firewood-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { FirewoodForestFinderComponent } from './forests/forest-finder/forest-finder.component';
@@ -25,6 +26,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     AdminSeasonDatesComponent,
     FirewoodGuidelinesComponent,
     FirewoodForestFinderComponent,
+    FirewoodCuttingDatesComponent,
     BuyPermitBarComponent,
     RemovePuncPipe,
   ],
@@ -33,6 +35,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     ReportComponent,
     ReportResultsComponent,
     FirewoodGuidelinesComponent,
+    FirewoodCuttingDatesComponent,
     BuyPermitBarComponent
   ],
   imports: [SharedModule, ApplicationsModule],

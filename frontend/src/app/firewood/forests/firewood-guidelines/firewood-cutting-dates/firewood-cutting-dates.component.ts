@@ -4,11 +4,11 @@ import * as moment from 'moment-timezone';
 import { NgxMdModule } from 'ngx-md';
 
 @Component({
-  selector: 'app-tree-cutting-dates',
-  templateUrl: './tree-cutting-dates.component.html',
+  selector: 'app-firewood-cutting-dates',
+  templateUrl: './firewood-cutting-dates.component.html',
   providers: [FilterPipe]
 })
-export class TreeCuttingDatesComponent implements OnInit {
+export class FirewoodCuttingDatesComponent implements OnInit {
   @Input() forest: any;
 
   constructor(public markdown: NgxMdModule) {}

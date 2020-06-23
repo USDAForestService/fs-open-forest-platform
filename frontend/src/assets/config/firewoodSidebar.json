@@ -2,41 +2,17 @@
   {
     "id": "season-dates",
     "type": "anchor",
-    "title": "When to cut your tree"
+    "title": "Getting a firewood permit"
   },
   {
-    "id": "tree-locations",
-    "title": "Where to cut your tree",
-    "type": "anchor",
-    "sections": [
-      {
-        "id": "tree-locations-prohibited",
-        "title": "Prohibited areas and restrictions"
-      },
-      {
-        "id": "tree-locations-allowed",
-        "title": "Cutting area maps"
-      }
-    ]
+    "id": "firewood-locations",
+    "title": "Where to find firewood",
+    "type": "anchor"
   },
   {
     "id": "cutting-instructions",
     "type": "anchor",
-    "title": "How to cut your tree",
-    "sections": [
-      {
-        "id": "cutting-instructions-when-you-cut",
-        "title": "Measuring your tree"
-      },
-      {
-        "id": "cutting-instructions-helpful",
-        "title": "Helpful cutting tips"
-      },
-      {
-        "id": "cutting-instructions-tree-selection",
-        "title": "Identifying tree species"
-      }
-    ]
+    "title": "How to cut your firewood"
   },
   {
     "id": "trip-planning",
