@@ -55,7 +55,7 @@ describe('FileUploadComponent', () => {
   it('should give an error when file fails to add to queue', () => {
     const some = File;
     let filter = { name: 'fileSize' };
-
+    const uploader = { queue: [] };
     const file = new FileLikeObject(some);
     file.size = 2000;
     component.onWhenAddingFileFailed(file, filter, null);
