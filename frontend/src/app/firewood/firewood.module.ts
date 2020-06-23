@@ -4,7 +4,7 @@ import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../shared/shared.module';
 import { FirewoodGuidelinesComponent } from './forests/firewood-guidelines/firewood-guidelines.component';
-import { ChristmasTreesInfoService } from './_services/christmas-trees-info.service';
+import { FirewoodInfoService } from './_services/firewood-info.service';
 import { FeedbackService } from './_services/feedback.service';
 import { TreeCuttingRulesComponent } from './forests/firewood-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { FirewoodForestFinderComponent } from './forests/forest-finder/forest-finder.component';
@@ -38,7 +38,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
   imports: [SharedModule, ApplicationsModule],
   providers: [
     FeedbackService,
-    ChristmasTreesInfoService,
+    FirewoodInfoService,
     FirewoodAdminService,
     ChristmasTreesApplicationService
   ]

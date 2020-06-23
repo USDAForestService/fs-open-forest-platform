@@ -7,13 +7,13 @@ import {catchError, first, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
-import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
+import { FirewoodInfoService } from '../../_services/firewood-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
 
 @Injectable()
 export class ForestsAdminResolver implements Resolve<any> {
   constructor(
-    private service: ChristmasTreesInfoService,
+    private service: FirewoodInfoService,
     private authenticationService: AuthenticationService,
     private router: Router) {}
 

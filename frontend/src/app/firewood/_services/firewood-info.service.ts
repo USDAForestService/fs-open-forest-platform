@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 import * as moment from 'moment/moment';
 
 @Injectable()
-export class ChristmasTreesInfoService {
+export class FirewoodInfoService {
   private endpoint = environment.apiUrl + 'forests/';
   private CUTTING_AREA_KEYS = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
 

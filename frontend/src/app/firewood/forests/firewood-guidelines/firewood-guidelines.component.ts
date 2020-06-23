@@ -5,7 +5,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { NgxMdService } from 'ngx-md';
-import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
+import { FirewoodInfoService } from '../../_services/firewood-info.service';
 
 @Component({
   selector: 'app-firewood-info',
@@ -23,7 +23,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private christmasTreesInfoService: ChristmasTreesInfoService,
+    private firewoodInfoService: FirewoodInfoService,
     private configService: SidebarConfigService,
     public markdownService: NgxMdService,
     private meta: Meta,
@@ -84,7 +84,7 @@ a Firewood permit with the United States Forest Service on your National Forest 
       if (this.forest) {
         // this.forest = this.setSeasonStatus(this.forest);
         // if (this.forest) {
-        //   this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
+        //   this.firewoodInfoService.updateMarkdownText(this.markdownService, this.forest);
         // }
 
         this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);

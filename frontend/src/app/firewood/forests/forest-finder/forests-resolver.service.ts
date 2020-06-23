@@ -7,11 +7,11 @@ import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
-import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
+import { FirewoodInfoService } from '../../_services/firewood-info.service';
 
 @Injectable()
 export class FirewoodForestsResolver implements Resolve<any> {
-  constructor(private service: ChristmasTreesInfoService, private router: Router) {}
+  constructor(private service: FirewoodInfoService, private router: Router) {}
 
   /**
    * @returns all forests
