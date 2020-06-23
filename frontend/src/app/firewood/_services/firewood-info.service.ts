@@ -26,28 +26,14 @@ export class FirewoodInfoService {
    * @returns forest by id
    */
   getOne(id) {
-    return this.http.get<any>(this.endpoint + id).pipe(mergeMap(forest =>
-      this.getJSON(forest.forestAbbr).pipe(map(forestJSON => {
-        forest.species = forestJSON.treeSpecies;
-        return forest;
-      }))
-    ));
+    return this.http.get(this.endpoint + id);
   }
 
   /**
    * @returns forest by id with markdown content
    */
   getForestWithContent(id) {
-    let content;
-    return this.http.get<any>(this.endpoint + id).pipe(mergeMap(forest =>
-      this.joinMdRequests(forest).pipe(mergeMap(content =>
-        this.getJSON(forest.forestAbbr).pipe(map(forestJSON => {
-          forest.species = forestJSON.treeSpecies;
-          forest.content = this.nameMdArray(content, forest);
-          return forest;
-        }))
-      ))
-    ));
+    return this.http.get(this.endpoint + id);
   }
 
   /**

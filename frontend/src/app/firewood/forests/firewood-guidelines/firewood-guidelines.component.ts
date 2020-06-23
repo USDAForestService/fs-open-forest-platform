@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
-import { NgxMdService } from 'ngx-md';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class FirewoodGuidelinesComponent implements OnInit {
     private titleService: Title,
     private firewoodInfoService: FirewoodInfoService,
     private configService: SidebarConfigService,
-    public markdownService: NgxMdService,
     private meta: Meta,
     public renderer: Renderer2
   ) {
@@ -82,17 +80,9 @@ a Firewood permit with the United States Forest Service on your National Forest 
       this.user = data.user;
       this.forest = data.forest;
       if (this.forest) {
-        // this.forest = this.setSeasonStatus(this.forest);
-        // if (this.forest) {
-        //   this.firewoodInfoService.updateMarkdownText(this.markdownService, this.forest);
-        // }
-
         this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
         this.configService.getJSON('firewood').subscribe(configData => {
           this.sidebarItems = configData;
-          // if (!this.forest.isSeasonOpen) {
-          //   this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
-          // }
         });
       }
     });
