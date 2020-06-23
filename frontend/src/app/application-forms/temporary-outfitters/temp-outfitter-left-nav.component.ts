@@ -64,7 +64,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
       return true;
     }
     if (this.getControlStatus(advertControls.advertisingDescription) === 'ng-valid' &&
-      (this.getControlStatus(advertControls.advertisingURL) !== 'ng-invalid')) {  // as long as url is not bad
+      !(this.getControlStatus(advertControls.advertisingURL) === 'ng-invalid')) {  // as long as url is not bad
         return true;
       }
     return false;
