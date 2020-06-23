@@ -1,0 +1,28 @@
+<div id="christmas-trees-progress-bar-container" role="progressbar" aria-valuetext="">
+  <div class="usa-width-two-thirds vertical-center">
+    <div class="usa-width-one-fourth trees-progress-bar">
+      <div class="trees-progress-bar-img" [ngClass]="{'done': step !== 'find'}">
+        <div class="site-subheading">CHOOSE FOREST</div>
+      </div>
+      <div class="arrow">&nbsp;</div>
+    </div>
+    <div class="usa-width-one-fourth trees-progress-bar">
+      <div class="trees-progress-bar-img" [ngClass]="{'done': step === 'payment' || step === 'print','current': step === 'details'}">
+        <div class="site-subheading">PERMIT DETAILS</div>
+      </div>
+      <div class="arrow" [ngClass]="{'current': step === 'details'}">&nbsp;</div>
+    </div>
+    <div class="usa-width-one-fourth trees-progress-bar">
+      <div class="trees-progress-bar-img" [ngClass]="{'done': step === 'print','current': step === 'payment', 'next': step === 'details'}">
+        <div class="site-subheading">PAYMENT</div>
+      </div>
+      <div class="arrow" [ngClass]="{'next': step !== 'print'}">&nbsp;</div>
+    </div>
+    <div class="usa-width-one-fourth trees-progress-bar">
+      <div class="trees-progress-bar-img" [ngClass]="{'current': step === 'print', 'next': step !== 'print'}">
+        <div class="site-subheading">PRINT PERMIT</div>
+      </div>
+      <div>&nbsp;</div>
+    </div>
+  </div>
+</div>

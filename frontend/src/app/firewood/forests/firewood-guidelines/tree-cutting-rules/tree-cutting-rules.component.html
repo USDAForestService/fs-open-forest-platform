@@ -1,0 +1,33 @@
+<div class="tree-speci margin-bottom-4">
+  <div class="tree-cutting-container usa-grid">
+    <div class="usa-width-two-thirds">
+      <ul>
+        <li>The stump must be {{ forest.stumpHeight}} inches high or less.</li>
+        <li *ngIf="forest.treeHeight > 0">The harvested tree must be {{ forest.treeHeight }} feet or less.</li>
+        <li *ngIf="forest.stumpDiameter > 0">The stump must be {{forest.stumpDiameter}} inches or less in diameter.</li>
+      </ul>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.whenYouCut"></markdown>
+    </div>
+    <div class="usa-width-one-third tree-image-container">
+      <figure>
+        <img src="/assets/img/site-wide/stump-height-sm.jpg" alt="stump height is measured from ground not snow cover" />
+        <figcaption>Allowed stump height is {{forest.stumpHeight}} inches</figcaption>
+      </figure>
+      <ng-container *ngIf="forest.treeHeight > 0">
+        <figure>
+          <img src="/assets/img/site-wide/tree-height-sm.jpg" alt="height is measured from ground not snow cover" />
+          <figcaption>Tree must be less than {{forest.treeHeight}} feet from ground.</figcaption>
+        </figure>
+      </ng-container>
+      <figure>
+        <img src="/assets/img/site-wide/snow-height-sm.jpg" alt="stump in snow" />
+        <figcaption>Snow can be deceiving! Measure from the ground.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/img/site-wide/no-topping.jpg" alt="tree cut in middle" />
+        <figcaption>No tree-topping allowed.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+</div>
