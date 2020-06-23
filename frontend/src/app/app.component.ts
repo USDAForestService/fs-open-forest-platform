@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
   }
 
   getBrowserName() {
-    const  userAgent = navigator.userAgent;
+    const userAgent = navigator.userAgent;
     let browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     let parsedBrowserInfo;
 
@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
       }
     }
     browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [navigator.appName, navigator.appVersion, '-?'];
-    if (( parsedBrowserInfo = userAgent.match(/version\/(\d+)/i)) != null) {
+    if ((parsedBrowserInfo = userAgent.match(/version\/(\d+)/i)) != null) {
       browserInfo.splice(1, 1, parsedBrowserInfo[1]);
     }
      this.browserName = browserInfo[0];
