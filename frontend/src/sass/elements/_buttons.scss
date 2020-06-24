@@ -82,6 +82,28 @@
     }
   }
 
+  .usa-button-outline, .usa-button-red-alt {
+    background-color: $transparent;
+    box-shadow: inset 0 0 0 2px $fs-red;
+    color: $fs-red;
+    &:hover,
+    &:hover:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-red-dark;
+      color: $fs-red-dark;
+    }
+    &:active, &:focus {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-red-darker !important;
+      color: $fs-red-darker;
+    }
+    &:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-red;
+      color: $fs-red;
+    }
+  }
+
   .usa-button-grey {
     background-color: $dark-grey;
     color: $white;
