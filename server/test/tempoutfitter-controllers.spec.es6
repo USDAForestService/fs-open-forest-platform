@@ -349,7 +349,7 @@ describe('tempoutfitter controllers', () => {
           });
       });
 
-      it('should accept a additional-info file and return 201 created', (done) => {
+      it('should accept an additional-info file and return 201 created', (done) => {
         agent
           .post(fileUploadUrl)
           .type('multipart/form-data')

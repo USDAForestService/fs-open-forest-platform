@@ -336,7 +336,7 @@ module.exports = util.getSequelizeConnection().define(
       validate: {
         len: {
           args: [0, 1000],
-          msg: 'tempOutfitterFieldsAdditionalInfoDescription must be less than 255 characters in length'
+          msg: 'tempOutfitterFieldsAdditionalInfoDescription must be less than 1000 characters in length'
         }
       }
     },
