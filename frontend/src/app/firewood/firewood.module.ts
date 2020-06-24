@@ -9,7 +9,7 @@ import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/fir
 import { FeedbackService } from './_services/feedback.service';
 import { FirewoodForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
-import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
+import { FirewoodApplicationService } from './_services/firewood-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { FirewoodAdminService } from './admin/firewood-admin.service';
 import { AdminFeedbackReviewComponent } from './admin/feedback-review/feedback-review.component';
@@ -39,7 +39,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     FeedbackService,
     FirewoodInfoService,
     FirewoodAdminService,
-    ChristmasTreesApplicationService
+    FirewoodApplicationService
   ]
 })
 export class FirewoodModule {}

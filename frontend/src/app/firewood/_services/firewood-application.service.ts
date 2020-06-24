@@ -10,7 +10,7 @@ import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment/moment';
 
 @Injectable()
-export class ChristmasTreesApplicationService {
+export class FirewoodApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees';
   private adminEndpoint = environment.apiUrl + 'christmas-trees/admin';
 

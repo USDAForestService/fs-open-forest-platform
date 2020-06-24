@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
+import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment/moment';
 import { FirewoodAdminService } from '../firewood-admin.service';
@@ -43,7 +43,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   };
 
   constructor(
-    private service: ChristmasTreesApplicationService,
+    private service: FirewoodApplicationService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,

@@ -4,7 +4,7 @@ import * as moment from 'moment-timezone';
 import { NgxMdModule } from 'ngx-md';
 
 @Component({
-  selector: 'app-tree-cutting-dates-min',
+  selector: 'app-cutting-dates-min',
   templateUrl: './tree-cutting-dates-min.component.html',
   providers: [FilterPipe]
 })

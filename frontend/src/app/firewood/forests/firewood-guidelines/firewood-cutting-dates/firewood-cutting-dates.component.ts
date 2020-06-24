@@ -4,7 +4,7 @@ import * as moment from 'moment-timezone';
 import { NgxMdModule } from 'ngx-md';
 
 @Component({
-  selector: 'app-firewood-cutting-dates',
+  selector: 'app-cutting-dates',
   templateUrl: './firewood-cutting-dates.component.html',
   providers: [FilterPipe]
 })
