@@ -11,13 +11,13 @@ import * as moment from 'moment/moment';
 
 @Injectable()
 export class FirewoodApplicationService {
-  private endpoint = environment.apiUrl + 'forests/christmas-trees';
-  private adminEndpoint = environment.apiUrl + 'christmas-trees/admin';
+  private endpoint = environment.apiUrl + 'forests/firewood';
+  private adminEndpoint = environment.apiUrl + 'firewood/admin';
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
   /**
-   * @returns Post Christmas tree application
+   * @returns Post Firewood application
    */
   create(body, multipart = false) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -34,7 +34,7 @@ export class FirewoodApplicationService {
   }
 
   /**
-   * @returns Update Christmas tree application
+   * @returns Update Firewood application
    */
   updatePermit(id, status, token) {
     let params = {};
