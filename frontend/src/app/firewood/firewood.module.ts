@@ -13,7 +13,6 @@ import { ChristmasTreesApplicationService } from './_services/christmas-trees-ap
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { FirewoodAdminService } from './admin/firewood-admin.service';
 import { AdminFeedbackReviewComponent } from './admin/feedback-review/feedback-review.component';
-import { BuyPermitBarComponent } from './forests/firewood-guidelines/tree-buy-permit-bar/buy-permit-bar.component';
 import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     FirewoodGuidelinesComponent,
     FirewoodForestFinderComponent,
     FirewoodCuttingDatesComponent,
-    BuyPermitBarComponent,
     RemovePuncPipe,
   ],
   exports: [
@@ -34,8 +32,7 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     ReportComponent,
     ReportResultsComponent,
     FirewoodGuidelinesComponent,
-    FirewoodCuttingDatesComponent,
-    BuyPermitBarComponent
+    FirewoodCuttingDatesComponent
   ],
   imports: [SharedModule, ApplicationsModule],
   providers: [
