@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { numberValidator } from '../validators/number-validation';
 
 @Component({
   selector: 'app-activity-description',
@@ -43,8 +44,8 @@ export class ActivityDescriptionComponent implements OnInit {
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
       numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator(), Validators.maxLength(255)]],
-      numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator(true)]],
+      partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator(true)]],
       locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
       servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
       audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],

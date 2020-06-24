@@ -23,7 +23,8 @@ const forests = [
           + '"SULPHUR": {"startDate": "2019-11-01 15:00:00Z", "endDate": "2020-01-06 22:30:00Z", "name": "Sulphur"},'
           + '"CANYONLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Canyon Lakes"} }',
     poss_financial_id: '999900004',
-    state: 'Colorado'
+    state: 'Colorado',
+    region: 2
   },
   {
     id: 2,
@@ -45,7 +46,8 @@ const forests = [
     timezone: 'America/Denver',
     cutting_areas: '{}',
     poss_financial_id: '999900005',
-    state: 'Montana'
+    state: 'Montana',
+    region: 1
   },
   {
     id: 3,
@@ -67,7 +69,8 @@ const forests = [
     timezone: 'America/Los_Angeles',
     cutting_areas: '{}',
     poss_financial_id: '999900007',
-    state: 'Oregon'
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 4,
@@ -90,7 +93,8 @@ const forests = [
     timezone: 'America/Denver',
     cutting_areas: '{}',
     poss_financial_id: '999900006',
-    state: 'Wyoming'
+    state: 'Wyoming',
+    region: 2
   },
   {
     id: 5,
@@ -112,7 +116,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900014',
-    state: 'Washington'
+    state: 'Washington',
+    region: 6
   },
   {
     id: 6,
@@ -134,7 +139,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900015',
-    state: 'Oregon'
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 7,
@@ -156,7 +162,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900010',
-    state: 'Washington'
+    state: 'Washington',
+    region: 6
   },
   {
     id: 8,
@@ -178,7 +185,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900008',
-    state: 'Oregon'
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 9,
@@ -200,7 +208,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900012',
-    state: 'Oregon'
+    state: 'Oregon',
+    region: 6
   },
   {
     id: 10,
@@ -222,7 +231,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900009',
-    state: 'Oregon and California'
+    state: 'Oregon and California',
+    region: 6
   },
   {
     id: 11,
@@ -244,7 +254,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900011',
-    state: 'Washington'
+    state: 'Washington',
+    region: 6
   },
   {
     id: 12,
@@ -266,7 +277,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900013',
-    state: 'Oregon and Washington'
+    state: 'Oregon and Washington',
+    region: 6
 
   },
   {
@@ -289,7 +301,8 @@ const forests = [
     timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900016',
-    state: 'Oregon'
+    state: 'Oregon',
+    region: 6
   }
 ];
 

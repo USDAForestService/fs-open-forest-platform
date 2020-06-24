@@ -389,12 +389,24 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
+util.getForestsByRegion = (region, forests) => {
+  const regionForests = [];
+  if (forests) {
+    for (let i = 0; i < forests.length; i += 1) {
+      if (forests[i] && forests[i].region === region) {
+        regionForests.push(forests[i].forestAbbr);
+      }
+    }
+  }
+  return regionForests;
+};
+
 
 /**
  * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
  *
 */
-util.getEauthForests = (approles) => {
+util.getEauthForests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -402,8 +414,10 @@ util.getEauthForests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is related to Open Forest
-    if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+      forests = util.getForestsByRegion(region, forestsData);
+    } else if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -436,7 +450,7 @@ util.getEauthForests = (approles) => {
  * Return an array of POC2 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC2Forests = (approles) => {
+util.getPOC2Forests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -444,8 +458,10 @@ util.getPOC2Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if the role is or POC2 access (POC1 inherits POC2)
-    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+      forests = util.getForestsByRegion(region, forestsData);
+    } else if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -474,7 +490,7 @@ util.getPOC2Forests = (approles) => {
  * Return an array of POC1 forests (short names) from the provided eAuth approles string
  *
 */
-util.getPOC1Forests = (approles) => {
+util.getPOC1Forests = (approles, forestsData) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
   let forests = [];
@@ -482,8 +498,10 @@ util.getPOC1Forests = (approles) => {
 
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
-    // check if a role is or POC1 access
-    if (roles[i].includes('POC1')) {
+    if (roles[i].includes('FS_Open-Forest_R')) {
+      const region = parseInt(roles[i].replace('FS_Open-Forest_R', ''), 10);
+      forests = util.getForestsByRegion(region, forestsData);
+    } else if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -515,10 +533,14 @@ util.getPOC1Forests = (approles) => {
 */
 util.getUserRole = (approles) => {
   let role = 'user';
-  const poc1forests = util.getPOC1Forests(approles);
-  const poc2forests = util.getPOC2Forests(approles);
-  if (poc1forests.length > 0 || poc2forests.length > 0) {
-    role = 'admin';
+  const roles = approles.split('^');
+  for (let i = 0; i < roles.length; i += 1) {
+    if (roles[i].includes('FS_Open-Forest_R')
+    || roles[i].includes('Super')
+    || roles[i].includes('POC1')
+    || roles[i].includes('POC2')) {
+      role = 'admin';
+    }
   }
   return role;
 };
@@ -559,31 +581,28 @@ util.handleErrorResponse = (error, res, method) => {
 * @param {Object} applicationOrPermit - what the permit object is
 */
 util.logControllerAction = (req, controller, applicationOrPermit) => {
-  console.log(req);
-  console.log(controller);
-  console.log(applicationOrPermit);
-  // let eventTime;
-  // if (req.method === 'PUT') {
-  //   eventTime = applicationOrPermit.updatedAt;
-  // } else {
-  //   eventTime = applicationOrPermit.createdAt;
-  // }
-  //
-  // let userID;
-  // let role;
-  // let permitID;
-  // const subPath = controller.split('.');
-  // if (subPath[0] === 'christmasTreePermits') {
-  //   userID = applicationOrPermit.emailAddress;
-  //   role = 'PUBLIC';
-  //   permitID = applicationOrPermit.permitId;
-  // } else {
-  //   userID = req.user.email;
-  //   role = util.getUserRole(req);
-  //   permitID = applicationOrPermit.applicationId;
-  // }
-  //
-  // logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
+  let eventTime;
+  if (req.method === 'PUT') {
+    eventTime = applicationOrPermit.updatedAt;
+  } else {
+    eventTime = applicationOrPermit.createdAt;
+  }
+
+  let userID;
+  let role;
+  let permitID;
+  const subPath = controller.split('.');
+  if (subPath[0] === 'christmasTreePermits') {
+    userID = applicationOrPermit.emailAddress;
+    role = 'PUBLIC';
+    permitID = applicationOrPermit.permitId;
+  } else {
+    // userID = req.user.email;
+    // role = util.getUserRole(req);
+    permitID = applicationOrPermit.applicationId;
+  }
+
+  logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
 };
 
 util.request = request;

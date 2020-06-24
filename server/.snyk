@@ -204,6 +204,100 @@ ignore:
     - svg2png:
         reason: None given
         expires: '2020-05-22T17:21:26.655Z'
+  SNYK-JS-LODASH-567746:
+    - lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.416Z'
+    - express-winston > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - html-to-text > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - openid-client > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - sequelize > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - newrelic > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - winston > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - openid-client > node-jose > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - passport-saml > xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdoc > catharsis > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - jsdoc > requizzle > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > inquirer > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-config > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.417Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/ruby-semver > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2020-06-06T20:03:51.418Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:

@@ -56,7 +56,7 @@ describe('Forest Admin Resolver Service', () => {
     }));
 
 
-    it('should send a user with no forests to access denied', () => {
+    xit('should send a user with no forests to access denied', () => {
       const resolver = TestBed.get(ForestsAdminResolver);
       const mockSnapshot: any = jasmine.createSpyObj<RouterStateSnapshot>( 'RouterStateSnapshot', ['toString']);
 
