@@ -40,8 +40,8 @@ describe('FileUploadComponent', () => {
   });
 
   // it('should update field after file is added', () => {
-  //   component.fileUploadService.numberOfFiles = 0;
-  //   let uploader = { queue: [] };
+  //   component.fileUploadService.numberOfFiles = ;
+  //    let uploader = { queue: [] };
   //   component.onAfterAddingFile(uploader);
   //   expect(component.fileUploadService.numberOfFiles).toEqual(0);
 
