@@ -99,7 +99,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   clickInput(event, status, index) {
-    event.preventDefault();
+    // event.preventDefault();
 
     switch (status) {
       case 'Upload':
