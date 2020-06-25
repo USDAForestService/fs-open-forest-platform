@@ -107,6 +107,9 @@ export class FileUploadComponent implements DoCheck, OnInit {
         this.errorMessage = '';
         this.fileUploadService.addOneFile();
         this.field.patchValue(this.uploader.queue[index]);
+        if (this.uploader.queue.length > 0) {
+          this.onAfterAddingFile(this.uploader);
+        }
         break;
       case 'Replace':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
