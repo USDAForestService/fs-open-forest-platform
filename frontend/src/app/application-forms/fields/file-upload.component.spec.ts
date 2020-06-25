@@ -39,19 +39,6 @@ describe('FileUploadComponent', () => {
     expect(component.fileUploadService.numberOfFiles).toEqual(1);
   });
 
-  it('should update field after file is added', () => {
-    component.fileUploadService.numberOfFiles = 0;
-    let uploader = { queue: [] };
-    component.onAfterAddingFile(uploader);
-    expect(component.fileUploadService.numberOfFiles).toEqual(0);
-
-    uploader = { queue: [{ file: { name: 'test' } }] };
-    component.onAfterAddingFile(uploader);
-    expect(component.errorMessage).toEqual('');
-    expect(component.fileUploadService.numberOfFiles).toEqual(1);
-    expect(component.field.value).toEqual('test');
-  });
-
   it('should give an error when file fails to add to queue', () => {
     const some = File;
     let filter = { name: 'fileSize' };
