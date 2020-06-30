@@ -44,27 +44,31 @@ component.fileUploadService.numberOfFiles = 0;
 let uploader = { queue: [] };
 uploader = { queue: [{ file: { name: 'test' } }] };
 component.clickInput(Event, 'Upload', 0);
-expect(event.preventDefault);
+// expect(event.preventDefault()).toHaveBeenCalled;
+
 expect(component.errorMessage).toEqual('');
 expect(component.fileUploadService.numberOfFiles).toEqual(1);
-// expect(component.field.value).toEqual('test');
+expect(component.field.value).toEqual('test');
 
 uploader = { queue: [{ file: { name: 'test_2' } }] };
 component.clickInput(Event, 'Replace', 0);
+// expect(event.preventDefault()).toHaveBeenCalled;
 expect(component.errorMessage).toEqual('');
 expect(component.fileUploadService.numberOfFiles).toEqual(1);
-// expect(component.field.value).toEqual('test_2');
+expect(component.field.value).toEqual('test_2');
 
 uploader = { queue: [{ file: { name: 'test_3' } }] };
-component.clickInput(Event, 'Upload', 1);
+// component.clickInput(Event, 'Upload', 1);
+expect(event.preventDefault()).toHaveBeenCalled;
 expect(component.errorMessage).toEqual('');
 expect(component.fileUploadService.numberOfFiles).toEqual(2);
-// expect(component.field.value).toEqual('test_3');
+expect(component.field.value).toEqual('test_3');
 
 component.clickInput(Event, 'Delete', 1);
+// expect(event.preventDefault()).toHaveBeenCalled;
 expect(component.errorMessage).toEqual('');
 expect(component.fileUploadService.numberOfFiles).toEqual(1);
-// expect(component.field.value).toEqual('test_2');
+expect(component.field.value).toEqual('test_2');
 });
 
   // it('should update field after file is added', () => {
