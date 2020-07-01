@@ -502,6 +502,10 @@ post{
 		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
 	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple2.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
 	    }
-        }
+        }	
+
+        always {
+      deleteDir() /* clean up our workspace */
+        } 
     }
  }
