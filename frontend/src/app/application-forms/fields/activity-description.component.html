@@ -3,8 +3,8 @@
     <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
 
     <label id="number-of-trips-label" class="usa-input">The anticipated number of trips. <span class="required-fields-asterisk">*</span></label>
-    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of trips anticipated (Note: The use of a dash is permitted to supply a possible range).</span>
-    <input class ="number-input-sizing" id="number-of-trips"  type="text" pattern="[0-9\-]+" maxlength="7" formControlName="numberOfTrips" aria-required="true"
+    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of trips anticipated (Note: The use of a dash or a slash is permitted to supply a possible range).</span>
+    <input class ="number-input-sizing" id="number-of-trips"  type="text" pattern="[0-9\-\/]+" maxlength="7" formControlName="numberOfTrips" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.numberOfTrips'), 'number-of-trips-label', 'number-of-trips-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.numberOfTrips'))"
      />
@@ -12,7 +12,7 @@
 
     <label id="party-size-label" class="usa-input">The anticipated party size. <span class="required-fields-asterisk">*</span></label>
     <p id="party-size-hint-text" class="help-text usa-form-hint">If you are planning multiple trips or are unsure of the exact number of attendees, please provide a range that covers the smallest party size to largest party size. For example, for an operation that could have as little as 5 attendees but as many as 25 attendees, you could enter 5-25.</p>
-    <input class="number-input-sizing" id="party-size"  type="text" pattern="[0-9\-]+" maxlength="7" formControlName="partySize" aria-required="true"
+    <input class="number-input-sizing" id="party-size"  type="text" pattern="[0-9\-\/]+" maxlength="7" formControlName="partySize" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.partySize'), 'party-size-label party-size-hint-text', 'party-size-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.partySize'))"
     />
