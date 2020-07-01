@@ -87,18 +87,8 @@ $search_width: 240px !default;
     color: $font-color--placeholder;
   }
   .esri-search__submit-button,
-  .esri-search__sources-button {
-    cursor: pointer;
-    align-self: flex-end;
-  }
   .esri-search__submit-button {
     border-left: solid 1px $border-color;
-  }
-  .esri-search__sources-button {
-    border-right: solid 1px $border-color;
-  }
-  .esri-search__sources-button--up {
-    display: none;
   }
   .esri-search__clear-button {
     align-self: flex-end;
@@ -134,9 +124,6 @@ $search_width: 240px !default;
     opacity: 1;
     max-height: inherit;
   }
-  .esri-search__sources-button {
-    display: flex;
-  }
   .esri-search--multiple-sources .esri-search__input {
     border-left: 0;
   }
@@ -167,10 +154,6 @@ $search_width: 240px !default;
     .esri-search__submit-button {
       border-left: none;
       border-right: solid 1px $border-color;
-    }
-    .esri-search__sources-button {
-      border-right: none;
-      border-left: solid 1px $border-color;
     }
     .esri-search__container:after {
       animation: looping-progresss-bar-ani $looping-progress-bar-params reverse;
