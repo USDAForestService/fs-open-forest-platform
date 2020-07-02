@@ -90,7 +90,7 @@ describe('tempoutfitter controllers', () => {
         .expect(400, done);
     });
 
-    it('POST should return a 400 status code and 9 errors when the activity description fields are all over 400 characters', (done) => {
+    it('POST should return a 400 status code and 9 errors when the activity description fields are all over 1000 characters', (done) => {
       const permitApplication = tempOutfitterPermitApplicationFactory.create();
       permitApplication.tempOutfitterFields.activityDescriptionFields.audienceDescription = util.getRandomString(1001);
       permitApplication.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration = util.getRandomString(

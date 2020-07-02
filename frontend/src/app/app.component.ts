@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   currentUrl = '/';
   user: any;
   browserName: string;
-  warningMessage: string;
   status = {
     heading: '',
     message: ''
@@ -28,7 +27,6 @@ export class AppComponent implements OnInit {
     public authentication: AuthenticationService,
     public util: UtilService,
     private meta: Meta) {
-    this.warningMessage = '',
     this.meta.addTag(
       { name: 'keywords',
        content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
@@ -43,6 +41,7 @@ export class AppComponent implements OnInit {
         } else {
           window.scrollTo(0, 0);
         }
+
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
           this.setLoggedInMessage(this.authentication.user);
         } else {
@@ -52,45 +51,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
-  getBrowserName() {
-    const  userAgent = navigator.userAgent;
-    let browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    let parsedBrowserInfo;
-
-        if (/trident/i.test(browserInfo[1])) {
-
-          parsedBrowserInfo = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
-
-          return { name: 'IE', version: (parsedBrowserInfo[1] || '') };
-
-        }
-
-    if (browserInfo[1] === 'Chrome') {
-
-        parsedBrowserInfo = userAgent.match (/\bOPR|Edge\/(\d+)/);
-
-        if (parsedBrowserInfo != null)   {
-
-            return { name: 'Opera', version: parsedBrowserInfo[1] };
-
-          }
-
-        }
-
-      browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [navigator.appName, navigator.appVersion, '-?'];
-
-    if (( parsedBrowserInfo = userAgent.match(/version\/(\d+)/i)) != null) {
-
-      browserInfo.splice(1, 1, parsedBrowserInfo[1]);
-
-    }
-
-     this.browserName = browserInfo[0];
-
-     return this.browserName;
-
- }
 
   /**
    *  Set status message
@@ -131,5 +91,29 @@ export class AppComponent implements OnInit {
         return hour < 12 ? 'AM' : 'PM';
       }
     });
-   }
+  }
+
+  getBrowserName() {
+    const  userAgent = navigator.userAgent;
+    const browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    const parsedBrowserInfo = userAgent.match (/(OPR|Edge)\/?\s*(\d+)/i);
+    this.browserName = browserInfo[1];
+      if (parsedBrowserInfo !== null) {
+        switch (parsedBrowserInfo[1]) {
+          case 'OPR': {
+            this.browserName = 'Opera';
+            break;
+          }
+          case 'Edge': {
+            this.browserName = 'Edge';
+            break;
+          }
+          default: {
+            this.browserName = 'notChrome';
+            break;
+          }
+        }
+      }
+    return this.browserName;
+  }
 }

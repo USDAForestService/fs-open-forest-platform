@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import { Router } from '@angular/router';
 
@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['/esri-map.component.scss']
 })
 
-export class EsriMapComponent implements OnInit {
+export class EsriMapComponent implements AfterViewInit {
 
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
   constructor(public router: Router) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     loadModules([
       'esri/Map',
       'esri/views/MapView',
