@@ -52,6 +52,10 @@ export class ErrorMessageComponent {
     return `${this.name} allows numbers only. `;
   }
 
+  numberDashSlashRequirement(errors) {
+    return `${this.name} allows numbers, dashes, and slashes only. `;
+  }
+
   stateRequirement(errors) {
     return `${this.name} requires a valid capitalized state abbreviation. `;
   }
