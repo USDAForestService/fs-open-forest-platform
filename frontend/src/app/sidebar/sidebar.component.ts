@@ -119,7 +119,7 @@ export class SidebarComponent implements OnInit {
       this.forestAdminNavItems = this.treesAdminService.getAdminNavItems(this.user);
     }
     if (this.permitType === 'firewood') {
-      this.forestAdminNavItems = this.firewoodAdminService.getAdminNavItems(this.user)
+      this.forestAdminNavItems = this.firewoodAdminService.getAdminNavItems(this.user);
     }
     this.util.setCurrentSection('');
     this.top = '0px';
