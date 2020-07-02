@@ -38,51 +38,28 @@ describe('FileUploadComponent', () => {
     component.onCompleteItem(null, null, null, null);
     expect(component.fileUploadService.numberOfFiles).toEqual(1);
   });
+  // testing below
+  it('should activate clickInput', async(() => {
+    spyOn(component, 'clickInput');
+    let button = fixture.debugElement.nativeElement.querySelector('.upload-file-btn');
+    button.click();
+    fixture.whenStable().then(() => {
+      expect(component.clickInput).toHaveBeenCalled();
+    })
+  }));
 
-  it('should update field after file is added', () => {
-component.fileUploadService.numberOfFiles = 0;
-let uploader = { queue: [] };
-uploader = { queue: [{ file: { name: 'test' } }] };
-component.clickInput(Event, 'Upload', 0);
-// expect(event.preventDefault()).toHaveBeenCalled;
+  xit('should update field after file is added', () => {
+    component.fileUploadService.numberOfFiles = 0;
+    let uploader = { queue: [] };
+    component.onAfterAddingFile(uploader);
+    expect(component.fileUploadService.numberOfFiles).toEqual(0);
 
-expect(component.errorMessage).toEqual('');
-expect(component.fileUploadService.numberOfFiles).toEqual(1);
-expect(component.field.value).toEqual('test');
-
-uploader = { queue: [{ file: { name: 'test_2' } }] };
-component.clickInput(Event, 'Replace', 0);
-// expect(event.preventDefault()).toHaveBeenCalled;
-expect(component.errorMessage).toEqual('');
-expect(component.fileUploadService.numberOfFiles).toEqual(1);
-expect(component.field.value).toEqual('test_2');
-
-uploader = { queue: [{ file: { name: 'test_3' } }] };
-// component.clickInput(Event, 'Upload', 1);
-expect(event.preventDefault()).toHaveBeenCalled;
-expect(component.errorMessage).toEqual('');
-expect(component.fileUploadService.numberOfFiles).toEqual(2);
-expect(component.field.value).toEqual('test_3');
-
-component.clickInput(Event, 'Delete', 1);
-// expect(event.preventDefault()).toHaveBeenCalled;
-expect(component.errorMessage).toEqual('');
-expect(component.fileUploadService.numberOfFiles).toEqual(1);
-expect(component.field.value).toEqual('test_2');
-});
-
-  // it('should update field after file is added', () => {
-  //   component.fileUploadService.numberOfFiles = 0;
-  //   let uploader = { queue: [] };
-  //   component.onAfterAddingFile(uploader);
-  //   expect(component.fileUploadService.numberOfFiles).toEqual(0);
-
-  //   uploader = { queue: [{ file: { name: 'test' } }] };
-  //   component.onAfterAddingFile(uploader);
-  //   expect(component.errorMessage).toEqual('');
-  //   expect(component.fileUploadService.numberOfFiles).toEqual(1);
-  //   expect(component.field.value).toEqual('test');
-  // });
+    uploader = { queue: [{ file: { item: 'test', filter: 'Upload' } }] };
+    component.onAfterAddingFile(uploader);
+    expect(component.errorMessage).toEqual('');
+    expect(component.fileUploadService.numberOfFiles).toEqual(1);
+    expect(component.field.value).toEqual('test');
+  });
 
   it('should give an error when file fails to add to queue', () => {
     const some = File;
