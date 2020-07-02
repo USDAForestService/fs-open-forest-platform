@@ -19,6 +19,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   @Input() field: FormControl;
   @Input() allowXls: boolean;
   @Input() allowImg: boolean;
+  
 
   allowedMimeType = [
     'application/pdf'
@@ -99,6 +100,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   clickInput(event, status, index) {
+    console.log("Event: ", event)
     event.preventDefault();
 
     switch (status) {
