@@ -6,7 +6,6 @@ import { FirewoodAdminService } from '../firewood/admin/firewood-admin.service';
 import { WindowRef } from '../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
 
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html'
