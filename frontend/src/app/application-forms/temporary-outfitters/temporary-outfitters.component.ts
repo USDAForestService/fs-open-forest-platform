@@ -374,7 +374,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   onSubmit() {
     this.submitted = true;
     this.numberOfFilesToUpload();
+    console.log(this.numberOfFilesToUpload());
     this.checkFileUploadValidity();
+    console.log(this.checkFileUploadValidity());
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
       this.applicationFieldsService.scrollToFirstError();
