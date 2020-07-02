@@ -11,8 +11,9 @@ export class SidebarConfigService {
 
   constructor(private http: HttpClient) {
     let obj;
-    let permitType;
-    this.getJSON(permitType).subscribe(data => (obj = data));
+    let type;
+    type = '';
+    this.getJSON(type).subscribe(data => (obj = data));
   }
 
   /**
