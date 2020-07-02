@@ -57,6 +57,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
         this.field.markAsTouched();
         this.field.updateValueAndValidity();
         this.field.setErrors(null);
+        console.log(this.uploader.queue.length);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, Filter: any, options: any) {
@@ -100,33 +101,29 @@ export class FileUploadComponent implements DoCheck, OnInit {
 
   clickInput(event, status, index) {
     event.preventDefault();
-    let string, numFiles;
 
     switch (status) {
       case 'Upload':
         document.getElementById(`${this.type}`).click();
         this.errorMessage = '';
-        this.fileUploadService.addOneFile();
+        this.uploader.addToQueue;
         this.field.patchValue(this.uploader.queue[index]);
-        numFiles = this.fileUploadService.getNumberOfFiles();
-        console.log(numFiles);
-        if (this.uploader.queue.length > 0) {
-          this.onAfterAddingFile(this.uploader);
-        }
+        this.fileUploadService.addOneFile();
+        this.onAfterAddingFile(this.uploader);
         break;
       case 'Replace':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         document.getElementById(`${this.type}`).click();
         this.errorMessage = '';
+        this.uploader.addToQueue;
         this.field.patchValue(this.uploader.queue[index]);
-        numFiles = this.fileUploadService.getNumberOfFiles();
-        console.log(numFiles);
+        this.onAfterAddingFile(this.uploader);
         break;
       case 'Delete':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         this.errorMessage = '';
-        numFiles = this.fileUploadService.getNumberOfFiles();
-        console.log(numFiles);
+        this.fileUploadService.removeOneFile();
+        this.onAfterAddingFile(this.uploader);
         break;
     }
   }
