@@ -58,7 +58,6 @@ export class FileUploadComponent implements DoCheck, OnInit {
         this.field.markAsTouched();
         this.field.updateValueAndValidity();
         this.field.setErrors(null);
-        console.log(this.uploader.queue.length);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, Filter: any, options: any) {
