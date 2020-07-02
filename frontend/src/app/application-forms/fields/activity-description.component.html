@@ -3,8 +3,8 @@
     <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
 
     <label id="number-of-trips-label" class="usa-input">The anticipated number of trips. <span class="required-fields-asterisk">*</span></label>
-    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of trips anticipated (Note: The use of a dash is permitted to supply a possible range).</span>
-    <input class ="number-input-sizing" id="number-of-trips"  type="text" pattern="[0-9\-]+" maxlength="7" formControlName="numberOfTrips" aria-required="true"
+    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of trips anticipated (Note: The use of a dash or a slash is permitted to supply a possible range).</span>
+    <input class ="number-input-sizing" id="number-of-trips"  type="text" pattern="[0-9\-\/]+" maxlength="7" formControlName="numberOfTrips" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.numberOfTrips'), 'number-of-trips-label', 'number-of-trips-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.numberOfTrips'))"
      />
@@ -12,7 +12,7 @@
 
     <label id="party-size-label" class="usa-input">The anticipated party size. <span class="required-fields-asterisk">*</span></label>
     <p id="party-size-hint-text" class="help-text usa-form-hint">If you are planning multiple trips or are unsure of the exact number of attendees, please provide a range that covers the smallest party size to largest party size. For example, for an operation that could have as little as 5 attendees but as many as 25 attendees, you could enter 5-25.</p>
-    <input class="number-input-sizing" id="party-size"  type="text" pattern="[0-9\-]+" maxlength="7" formControlName="partySize" aria-required="true"
+    <input class="number-input-sizing" id="party-size"  type="text" pattern="[0-9\-\/]+" maxlength="7" formControlName="partySize" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.partySize'), 'party-size-label party-size-hint-text', 'party-size-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.partySize'))"
     />
@@ -26,6 +26,7 @@
     <app-error-message fieldId="services-provided-error" name="A list of services provided" [control]="parentForm.get('activityDescriptionFields.servicesProvided')"></app-error-message>
 
     <label id="audience-description-label" class="usa-input" for="audience-description">Description of your client base or audience. <span class="required-fields-asterisk">*</span></label>
+    <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide an overview of your client base (1000 character limit).</p>
     <textarea id="audience-description" type="text" formControlName="audienceDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.audienceDescription'), 'audience-description-label', 'audience-description-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.audienceDescription'))"></textarea>
@@ -82,13 +83,14 @@
     </ng-container>
 
     <label id="description-of-cleanup-and-restoration-label" class="usa-input">Description of cleanup and restoration during and after the proposed operations. <span class="required-fields-asterisk">*</span></label>
+    <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide a brief description of your plan for cleanup and restoration after your event or trip is complete (1000 character limit).</p>
     <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'), 'description-of-cleanup-and-restoration-label', 'description-of-cleanup-and-restoration-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'))"></textarea>
     <app-error-message fieldId="description-of-cleanup-and-restoration-error" name="A description of cleanup and restoration" [control]="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration')"></app-error-message>
 
     <label id="location-description-label" class="usa-input">Location of routes and starting and ending points for the proposed operations. <span class="required-fields-asterisk">*</span></label>
-    <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest.</p>
+    <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest (1000 character limit).</p>
     <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.locationDescription'), 'location-description-label location-description-hint-text', 'location-description-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.locationDescription'))"></textarea>
