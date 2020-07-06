@@ -4,7 +4,6 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FileUploadComponent } from './file-upload.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-
 import { FileLikeObject, FileUploadModule } from 'ng2-file-upload';
 
 describe('FileUploadComponent', () => {
