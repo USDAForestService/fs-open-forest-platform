@@ -19,7 +19,6 @@ export class FileUploadComponent implements DoCheck, OnInit {
   @Input() field: FormControl;
   @Input() allowXls: boolean;
   @Input() allowImg: boolean;
-  
 
   allowedMimeType = [
     'application/pdf'
@@ -57,6 +56,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   onAfterAddingFile(uploader) {
         this.field.markAsTouched();
         this.field.updateValueAndValidity();
+        this.errorMessage = '';
         this.field.setErrors(null);
   }
 
@@ -106,7 +106,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
     switch (status) {
       case 'Upload':
         document.getElementById(`${this.type}`).click();
-        this.errorMessage = '';
+        // this.errorMessage = '';
         this.uploader.addToQueue;
         this.field.patchValue(this.uploader.queue[index]);
         this.fileUploadService.addOneFile();
@@ -115,14 +115,15 @@ export class FileUploadComponent implements DoCheck, OnInit {
       case 'Replace':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         document.getElementById(`${this.type}`).click();
-        this.errorMessage = '';
+        // this.errorMessage = '';
         this.uploader.addToQueue;
+        this.fileUploadService.addOneFile();
         this.field.patchValue(this.uploader.queue[index]);
         this.onAfterAddingFile(this.uploader);
         break;
       case 'Delete':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
-        this.errorMessage = '';
+        // this.errorMessage = '';
         this.fileUploadService.removeOneFile();
         this.onAfterAddingFile(this.uploader);
         break;
