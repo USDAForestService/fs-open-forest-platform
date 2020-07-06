@@ -41,11 +41,11 @@ describe('FileUploadComponent', () => {
   // testing below
   it('should activate clickInput', async(() => {
     spyOn(component, 'clickInput');
-    let button = fixture.debugElement.nativeElement.querySelector('.upload-file-btn');
+    const button = fixture.debugElement.nativeElement.querySelector('.upload-file-btn');
     button.click();
     fixture.whenStable().then(() => {
       expect(component.clickInput).toHaveBeenCalled();
-    })
+    });
   }));
 
   xit('should update field after file is added', () => {
