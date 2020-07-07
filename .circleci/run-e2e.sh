@@ -1,6 +1,6 @@
 export NODE_ENV=test
 
-SUITE="xmas"
+SUITE=""
 
 PARAMS=""
 if [ -n "$SUITE" ]
