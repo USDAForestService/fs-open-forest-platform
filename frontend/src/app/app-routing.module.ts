@@ -5,7 +5,6 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
-import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { FirewoodForestResolver } from './firewood/forests/firewood-guidelines/forest-resolver.service';
@@ -24,8 +23,6 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { FirewoodGuidelinesComponent } from './firewood/forests/firewood-guidelines/firewood-guidelines.component';
-import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
-import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
@@ -48,13 +45,6 @@ const appRoutes: Routes = [
   {
     path: '',
     component: MainLandingComponent
-  }, {
-    path: 'ChristmasTreePermit',
-    component: DummyComponent,
-    data: {
-      breadcrumbs: true,
-      text: 'Home'
-    }
   },
 
   {
@@ -347,58 +337,6 @@ const appRoutes: Routes = [
           {
             path: '',
             component: FirewoodGuidelinesComponent
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    path: 'christmas-trees/forests',
-    data: {
-      breadcrumbs: true,
-      text: 'Christmas tree permits',
-      title: 'Christmas tree permits | U.S. Forest Service Open Forest',
-      showAdmin: true
-    },
-    resolve: {
-      user: UserResolver
-    },
-    children: [
-      {
-        path: '',
-        component: ForestFinderComponent,
-        resolve: {
-          forests: ForestsResolver
-        }
-      },
-      {
-        path: ':id',
-        resolve: {
-          forest: ForestResolver
-        },
-        data: {
-          breadcrumbs: true,
-          text: '{{forest.forestName}}'
-        },
-        children: [
-          {
-            path: '',
-            component: TreeGuidelinesComponent
-          },
-          {
-            path: 'applications',
-            data: { breadcrumbs: 'Buy a permit' },
-            children: [
-              {
-                path: '',
-                component: TreeApplicationFormComponent
-              }
-            ]
-          },
-          {
-            path: 'maps/:mapId',
-            component: ChristmasTreeMapDetailsComponent
           }
         ]
       }

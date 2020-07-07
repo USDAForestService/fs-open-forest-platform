@@ -3,7 +3,6 @@ import { ApplicationsModule } from '../application-forms/applications.module';
 import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../shared/shared.module';
-import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeCuttingDatesMinComponent } from './forests/tree-guidelines/tree-cutting-dates-min/tree-cutting-dates-min.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
@@ -17,7 +16,6 @@ import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.com
 import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { AdminFeedbackReviewComponent } from './admin/feedback-review/feedback-review.component';
-import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit-bar/buy-permit-bar.component';
 import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.component';
 
@@ -30,12 +28,10 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     AdminFeedbackReviewComponent,
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
-    TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
     TreeCuttingDatesMinComponent,
     TreeSpeciesComponent,
     ForestFinderComponent,
-    ChristmasTreeMapDetailsComponent,
     BuyPermitBarComponent,
     RemovePuncPipe,
   ],
@@ -44,12 +40,10 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     ReportComponent,
     ReportResultsComponent,
     TreeCuttingRulesComponent,
-    TreeGuidelinesComponent,
     BuyPermitBarComponent,
     TreeCuttingDatesComponent,
     TreeCuttingDatesMinComponent,
-    TreeSpeciesComponent,
-    ChristmasTreeMapDetailsComponent
+    TreeSpeciesComponent
   ],
   imports: [SharedModule, ApplicationsModule],
   providers: [
