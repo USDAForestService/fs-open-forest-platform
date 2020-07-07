@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     private meta: Meta) {
     this.meta.addTag(
       { name: 'keywords',
-       content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
+       content: 'Forest Service, permitting, permits, national forest, national forests'
       });
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
