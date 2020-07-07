@@ -5,7 +5,6 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
-import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
@@ -398,32 +397,12 @@ const appRoutes: Routes = [
             ]
           },
           {
-            // cancel route
-            path: 'applications/:permitId',
-            component: TreeApplicationFormComponent,
-            resolve: {
-              permit: ChristmasTreePermitResolver
-            },
-            data: { breadcrumbs: 'Buy a permit' }
-          },
-          {
             path: 'maps/:mapId',
             component: ChristmasTreeMapDetailsComponent
           }
         ]
       }
     ]
-  },
-  {
-    path: 'christmas-trees/forests/:id/applications/permits/:permitId',
-    component: TreePermitViewComponent,
-    resolve: {
-      permit: ChristmasTreePermitResolver
-    },
-    data: {
-      breadcrumbs: PermitBreadcrumbsResolver,
-      showAdmin: true
-    }
   },
   {
     path: 'mock-pay-gov',
