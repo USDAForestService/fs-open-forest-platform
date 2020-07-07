@@ -51,6 +51,6 @@ export class ReportResultsComponent implements OnChanges {
       });
     }
 
-    const ng2csv = new Angular2Csv(orderedPermits, 'Christmas Trees Permits Report', options);
+    const ng2csv = new Angular2Csv(orderedPermits, 'Firewood Permits Report', options);
   }
 }

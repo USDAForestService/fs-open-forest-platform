@@ -3,7 +3,6 @@
   <h2 *ngIf="!result.parameters" id="permit-report-title">Report generated for {{ result.permits[1].permitNumber }}</h2>
 
   <h3 *ngIf="result.parameters" id="report-permit-total">Number of permits sold: {{result.numberOfPermits }}</h3>
-  <h3 *ngIf="result.parameters" id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
   <h3 *ngIf="result.parameters" id="report-total">Total: ${{result.sumOfCost}}</h3>
 
   <table id="report-table" *ngIf="permits">
