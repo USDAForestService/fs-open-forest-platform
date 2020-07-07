@@ -5,8 +5,6 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
-import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
-import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { FirewoodForestResolver } from './firewood/forests/firewood-guidelines/forest-resolver.service';
 import { FirewoodForestsResolver } from './firewood/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -65,7 +63,7 @@ const appRoutes: Routes = [
       {
       path: ':id',
       resolve: {
-        forest: ForestResolver
+        forest: FirewoodForestResolver
       },
       data: {
         breadcrumbs: true,
@@ -216,61 +214,6 @@ const appRoutes: Routes = [
   },
     // end of admin applications and children routes
 
-      // start of admin trees and children routes
-  {
-    path: 'christmas-trees/admin',
-    canActivateChild: [AdminAccessControlService],
-    data: {
-      admin: true,
-      showAdmin: true,
-      displayLogin: true,
-    },
-    resolve: {
-      user: UserResolver,
-      forests: ForestsAdminResolver
-    },
-    children: [
-      {
-        path: '',
-        redirectTo: 'reports',
-        pathMatch: 'full'
-      },
-      {
-        path: 'reports',
-        component: ReportComponent,
-        data: {
-          title: 'Christmas trees permits report | U.S. Forest Service Open Forest',
-          breadcrumbs: 'Christmas trees permits report',
-        }
-      },
-      {
-        path: 'season-dates',
-        component: AdminSeasonDatesComponent,
-        data: {
-          title: 'Christmas trees permits season dates admin | U.S. Forest Service Open Forest',
-          breadcrumbs: 'Christmas trees permits season dates',
-        }
-      },
-      {
-        path: 'district-dates',
-        component: AdminDistrictDatesComponent,
-        data: {
-          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Open Forest',
-          breadcrumbs: 'Christmas trees permits Ranger District dates',
-        }
-      },
-      {
-        path: 'feedback-review',
-        component: AdminFeedbackReviewComponent,
-        data: {
-          title: 'Christmas trees feedback',
-          breadcrumbs: 'Christmas trees feedback'
-        }
-      }
-    ]
-  },
-  // end of admin trees and children routes
-
   // start of user applications and children routes
   {
     path: 'special-use/user/applications',
@@ -345,7 +288,7 @@ const appRoutes: Routes = [
   {
     path: 'mock-pay-gov',
     component: LandingPageComponent,
-    data: { title: 'Complete your Christmas Tree permit transaction' }
+    data: { title: 'Complete your permit transaction' }
   },
   {
     path: 'feedback',
@@ -367,6 +310,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [FirewoodForestsResolver, FirewoodForestResolver, ForestResolver, ForestsResolver, ForestsAdminResolver]
+  providers: [FirewoodForestsResolver, FirewoodForestResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
