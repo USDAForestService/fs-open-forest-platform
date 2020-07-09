@@ -303,6 +303,29 @@ const forests = [
     poss_financial_id: '999900016',
     state: 'Oregon',
     region: 6
+  },
+  {
+    id: 14,
+    forest_name: 'Idaho Panhandle National Forest',
+    forest_url: 'https://www.fs.usda.gov/ipnf/',
+    tree_height: 12,
+    stump_height: 6,
+    stump_diameter: 0,
+    start_date: '2019-11-18T08:00:00Z',
+    end_date: '2019-12-25T08:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '',
+    description: 'Idaho Panhandle | Idaho',
+    forest_abbr: 'ipnf',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Idaho',
+    timezone: 'America/Boise',
+    cutting_areas: '{}',
+    poss_financial_id: '',
+    state: 'Idaho',
+    region: 6
   }
 ];
 
