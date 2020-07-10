@@ -13,11 +13,12 @@ const forests = [
     wood_cost: 5,
     timezone: 'America/Boise',
     cutting_areas: '{}',
-    contact: '{}',
     map_links: '{}',
+    contact:
+    '{ "Idaho Panhandle Supervisors Office": {"address": "3815 Schreiber Way", "citystate": "Coeur d AudioListener, ID", "phone": "(208) 765-7223"},',
     poss_financial_id: '',
     state: 'Idaho',
-    permit_type: 'Fuel Wood',
+    permit_type: 'fuel',
     region: 6
   }
 ];

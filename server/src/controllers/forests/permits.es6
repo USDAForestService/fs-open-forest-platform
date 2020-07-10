@@ -95,7 +95,7 @@ fsForestsPermits.getOnePermit = async (req, res) => {
  * @param {Object} res - http response
  */
 fsForestsPermits.printPermit = (req, res) => {
-    forestsDb.fsForestsPermits
+  forestsDb.fsForestsPermits
     .findOne({
       where: {
         permitId: req.params.id
