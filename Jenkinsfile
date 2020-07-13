@@ -16,8 +16,7 @@ pipeline {
 	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
-        SONAR_PROJECT_NAME = "fs-openforest-platform"
-    
+        SONAR_PROJECT_NAME = "fs-openforest-platform"    
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
