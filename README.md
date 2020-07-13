@@ -1,15 +1,14 @@
 ﻿[![FS Open Forest](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 
 _Master_
-[![CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master)
+[![Jenkins](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master/.svg?style=shield)](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master/)
 
 Vulnerability Scans
-Frontend: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
+SonarQube: [![Known Vulnerabilities](https://sca.fedgovcloud.us/dashboard?branch=dev&id=fs-openforest-platform/badge.svg?style=shield)](https://sca.fedgovcloud.us/dashboard?branch=dev&id=fs-openforest-platform)
 
-Server: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
 
 _Staging:_
-[![Staging CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev.svg?style=svg)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev)
+[![Staging Jenkins](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging/.svg?style=svg)](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging/)
 
 
 # U.S. Forest Service Permit Platform
@@ -323,16 +322,16 @@ This task should be removed prior to launch.
 
 ### Continuous Integration, Continuous Deployment
 
-[Circleci 2.0](/docs/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/docs/christmas-trees/process/circle-checks.md](/docs/christmas-trees/process/circle-checks.md)
+[Jenkins 2.235.1] is used for continuous integration/deployment. The configuration file for jenkinsfile are found at (https://github.com/USDAForestService/fs-open-forest-platform/blob/dev/Jenkinsfile). 
 
-The circleci configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
+The Jenkins configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
-Deployment to a staging server is configured to run on the `dev` branch only.
+Deployment to a dev server is configured to run on the `dev` branch.
+Deployment to a staging server is configured to run on the `staging` branch.
 
-#### Snyk
+#### Sonarqube
 
-Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This
-file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at server start-up.
+Check the new bugs and new vulnerability by scanning the code in dev,staging and master branch in each CICD deployment.
 
 ### Cloud.gov
 
