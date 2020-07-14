@@ -133,7 +133,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
-        60
+        30
       );
     }
   }

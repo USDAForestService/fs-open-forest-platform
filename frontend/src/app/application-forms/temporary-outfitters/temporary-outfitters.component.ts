@@ -158,13 +158,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
     const orgName = this.applicationForm.get('applicantInfo.organizationName');
     this.applicationFieldsService.updateValidators(gse, true, 255);
-    this.applicationFieldsService.updateValidators(orgName, true, 60);
+    this.applicationFieldsService.updateValidators(orgName, true, 30);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
-        this.applicationFieldsService.updateValidators(orgName, false, 60);
+        this.applicationFieldsService.updateValidators(orgName, false, 30);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
