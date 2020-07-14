@@ -136,7 +136,11 @@ input.ng-touched.invaliddate,
     }
 
   .file-name {
+    display: block;
     max-width: 25rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .file-upload-buttons {
