@@ -1,0 +1,27 @@
+[
+  {
+    "id": "season-dates",
+    "type": "anchor",
+    "title": "Getting a firewood permit"
+  },
+  {
+    "id": "firewood-locations",
+    "title": "Where to find firewood",
+    "type": "anchor"
+  },
+  {
+    "id": "cutting-instructions",
+    "type": "anchor",
+    "title": "How to cut your firewood"
+  },
+  {
+    "id": "trip-planning",
+    "type": "anchor",
+    "title": "How to plan your trip"
+  },
+  {
+    "id": "contact-information",
+    "type": "anchor",
+    "title": "Contact us"
+  }
+]
