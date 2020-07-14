@@ -39,11 +39,11 @@ describe('FileUploadComponent', () => {
   });
   // testing below
   it('should activate clickInput', async(() => {
-    spyOn(component, 'clickInput');
+    spyOn(component, 'FileUploadDeleteHandler');
     const button = fixture.debugElement.nativeElement.querySelector('.upload-file-btn');
     button.click();
     fixture.whenStable().then(() => {
-      expect(component.clickInput).toHaveBeenCalled();
+      expect(component.FileUploadDeleteHandler).toHaveBeenCalled();
     });
   }));
 

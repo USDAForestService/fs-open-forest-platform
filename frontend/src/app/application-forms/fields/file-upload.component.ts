@@ -125,7 +125,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
           }
           that.field.patchValue(that.uploader.queue[index]);
           that.onAfterAddingFile(that.uploader);
-        }
+        };
         break;
       case 'Delete':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
