@@ -95,7 +95,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(30)]],
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
