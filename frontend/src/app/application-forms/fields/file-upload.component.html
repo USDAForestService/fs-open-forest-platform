@@ -4,23 +4,22 @@
       <div class="upload-item">
         <div id="{{type}}-file-name" class="file-name" *ngIf="uploader.queue[0] || field.value">{{uploader.queue[i].file.name}}</div>
         <div class="file-upload-buttons">
-          <button (click)="clickInput($event, 'Delete', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-red-alt usa-delete-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Delete</button>
-          <button (click)="clickInput($event, 'Replace', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-secondary-alt usa-replace-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Replace</button>
+          <button (click)="FileUploadDeleteHandler($event, 'Delete', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-red-alt usa-delete-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Delete</button>
+          <button (click)="FileUploadDeleteHandler($event, 'Replace', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-secondary-alt usa-replace-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Replace</button>
         </div>
       </div>
     </ng-template>
   </div>
 
-  <button (click)="clickInput($event,'Upload', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button upload-file-btn" aria-live="polite" [attr.aria-required]="required ? 'true' : null">
+  <button (click)="FileUploadDeleteHandler($event,'Upload', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button upload-file-btn" aria-live="polite" [attr.aria-required]="required ? 'true' : null">
     <span id="{{type}}-choose-file" *ngIf="!uploader.queue[0]">Upload file</span>
-    <span id="{{type}}-choose-file" *ngIf="uploader.queue[0]">Upload  Another</span>
+    <span id="{{type}}-choose-file" *ngIf="uploader.queue[0]">Upload Another</span>
   </button>
   <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000"
     [attr.aria-labelledby]="errorMessage ? type + '-error' : type + '-label'"
     [attr.aria-invalid]="errorMessage ? 'true' : 'false'"
   />
   <div *ngIf="!uploader.queue[0]">No file selected.</div>
-
 
   <span *ngIf="errorMessage" id="{{type}}-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
 </div>
