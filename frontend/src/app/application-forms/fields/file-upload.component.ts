@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { FileLikeObject, FileUploader } from 'ng2-file-upload';
+import { FileLikeObject, FileUploader, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -99,7 +99,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
     }
   }
 
-  clickInput(event, status, index) {
+  FileUploadDeleteHandler(event, status, index) {
     event.preventDefault();
 
     switch (status) {
@@ -107,14 +107,25 @@ export class FileUploadComponent implements DoCheck, OnInit {
         document.getElementById(`${this.type}`).click();
         this.field.patchValue(this.uploader.queue[index]);
         this.fileUploadService.addOneFile();
-        this.onAfterAddingFile(this.uploader);
         break;
       case 'Replace':
+        const that = this;
+        let fileAlreadyExists = false;
+        const originalFileItem = this.uploader.queue[index];
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         document.getElementById(`${this.type}`).click();
-        this.fileUploadService.addOneFile();
-        this.field.patchValue(this.uploader.queue[index]);
-        this.onAfterAddingFile(this.uploader);
+        this.uploader.onAfterAddingFile = function (fileItem) {
+          for (let i = 0; i < that.uploader.queue.length - 1; i++) {
+            if (that.uploader.queue[i].file.name === fileItem.file.name) {
+              fileAlreadyExists = true;
+            }
+          }
+          if (fileAlreadyExists) {
+            that.uploader.queue[index] = originalFileItem;
+          }
+          that.field.patchValue(that.uploader.queue[index]);
+          that.onAfterAddingFile(that.uploader);
+        };
         break;
       case 'Delete':
         this.uploader.removeFromQueue(this.uploader.queue[index]);
