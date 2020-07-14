@@ -4,7 +4,6 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { FileUploadComponent } from './file-upload.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-
 import { FileLikeObject, FileUploadModule } from 'ng2-file-upload';
 
 describe('FileUploadComponent', () => {
@@ -40,11 +39,11 @@ describe('FileUploadComponent', () => {
   });
   // testing below
   it('should activate clickInput', async(() => {
-    spyOn(component, 'clickInput');
+    spyOn(component, 'FileUploadDeleteHandler');
     const button = fixture.debugElement.nativeElement.querySelector('.upload-file-btn');
     button.click();
     fixture.whenStable().then(() => {
-      expect(component.clickInput).toHaveBeenCalled();
+      expect(component.FileUploadDeleteHandler).toHaveBeenCalled();
     });
   }));
 
