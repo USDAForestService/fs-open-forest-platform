@@ -83,7 +83,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(30)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
         primaryFirstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
@@ -133,7 +133,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
-        60
+        30
       );
     }
   }
