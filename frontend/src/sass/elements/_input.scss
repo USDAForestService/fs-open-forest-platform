@@ -69,11 +69,6 @@ label, span, .character-limit-hint{
   margin-right: 1.5rem;
 }
 
-// .number-input-wrapper {
-//   display: flex;
-//   flex-direction: row;
-// }
-
 input.number-input-sizing {
   width: 9rem;
 }
@@ -178,4 +173,8 @@ input[disabled] {
   font-size: 17px;
   font-weight: bold;
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+#organization-name-hint-text {
+  margin-top: 0rem;
 }
