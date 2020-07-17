@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChristmasTreesInfoService } from '../trees/_services/christmas-trees-info.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,14 +12,10 @@ export class ProductsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private christmasTreesInfoService: ChristmasTreesInfoService,
   ) {
   }
 
   ngOnInit() {
-    this.christmasTreesInfoService.getAll().subscribe(res => {
-      this.forests = res;
-    });
   }
 
   goToForest(forest) {
@@ -30,4 +25,3 @@ export class ProductsComponent implements OnInit {
     }
   }
 }
-

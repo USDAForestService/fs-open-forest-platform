@@ -13,9 +13,6 @@
     <div id="skip-nav-target" tabindex="-1" class="usa-width-one-whole">
       <app-section-heading heading="This Forest's Products" id="forest-list" tabIndex="-1"></app-section-heading>
       <div class="tree-flex" id="tree-background">
-        <div class="small-col">
-          <app-cutting-dates-min class="seas-dates" [forest]="forest"></app-cutting-dates-min>
-        </div>
         <div class="big-col">
           <h2>Christmas Trees</h2>
           <p>{{forest.forestName}} allows you to purchase a Christmas tree permit online with Open Forest</p>
@@ -38,9 +35,6 @@
     <div class="usa-width-one-half">
       <app-section-heading heading="This Forest's Products" id="forest-list" tabIndex="-1"></app-section-heading>
       <div class="tree-flex">
-        <div class="small-col">
-          <app-cutting-dates-min class="seas-dates" [forest]="forest"></app-cutting-dates-min>
-        </div>
         <div class="big-col">
           <h2>Christmas Trees</h2>
           <p>{{forest.forestName}} allows you to purchase a Christmas tree permit online with Open Forest</p>
@@ -86,7 +80,7 @@
       <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
       <p>Please contact us through the {{forest.forestName}} local ranger district offices and public services centers with any questions</p>
     </div>
-    
+
     <ngx-md class="contact-table" *ngIf="forest && forest.content" [data]="forest.content.forestContact"></ngx-md>
     <div class="diff">
       <h2 class="diff-head">
@@ -102,7 +96,3 @@
   </div>
   <!-- end of map placeholder -->
 </section>
-
-
-
-

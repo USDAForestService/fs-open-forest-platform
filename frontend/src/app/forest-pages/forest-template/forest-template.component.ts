@@ -3,7 +3,6 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { NgxMdService } from 'ngx-md';
-import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 
 @Component({
   selector: 'app-forest-template',
@@ -22,7 +21,6 @@ export class ForestTemplateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private christmasTreesInfoService: ChristmasTreesInfoService,
     public markdownService: NgxMdService,
     private meta: Meta,
     public renderer: Renderer2
@@ -81,7 +79,6 @@ permits with the United States Forest Service on your National Forest with Open 
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
         if (this.forest) {
-          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
           console.log(this.forest);
         }
         if (this.forest.forestAbbr === 'mbs') {

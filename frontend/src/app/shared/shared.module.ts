@@ -19,7 +19,6 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { SpinnerModule } from 'angular2-spinner/dist';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
-import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tree-progress-bar/christmas-tree-progress-bar.component';
 import { DatexPipe } from '../_pipes/datex.pipe';
 
 @NgModule({
@@ -28,7 +27,6 @@ import { DatexPipe } from '../_pipes/datex.pipe';
     AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
-    ChristmasTreeProgressBarComponent,
     DatexPipe,
     ErrorMessageComponent,
     TrackScrollDirective,
@@ -46,7 +44,6 @@ import { DatexPipe } from '../_pipes/datex.pipe';
     AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
-    ChristmasTreeProgressBarComponent,
     DatexPipe,
     ErrorMessageComponent,
     FilterPipe,

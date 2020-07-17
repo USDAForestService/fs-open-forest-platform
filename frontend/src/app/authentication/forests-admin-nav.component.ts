@@ -1,5 +1,4 @@
 import { Component, DoCheck, HostListener, Inject, Input, OnInit } from '@angular/core';
-import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
 import { WindowRef } from '../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
 
@@ -19,7 +18,6 @@ export class ForestAdminNavComponent implements OnInit, DoCheck {
 
   constructor (
     @Inject(DOCUMENT) private doc: Document,
-    private adminService: ChristmasTreesAdminService,
     private winRef: WindowRef
   ) {}
 
@@ -44,7 +42,7 @@ export class ForestAdminNavComponent implements OnInit, DoCheck {
    * Get admin navigation links
    */
   ngOnInit() {
-    this.forestAdminNavItems = this.adminService.getAdminNavItems(this.user);
+    this.forestAdminNavItems = []
     this.track(new Event('scroll'));
   }
 

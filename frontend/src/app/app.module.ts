@@ -34,7 +34,6 @@ import { AlertComponent } from './alert/alert.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
-import { TreesModule } from './trees/trees.module';
 import { FirewoodModule } from './firewood/firewood.module';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
@@ -87,7 +86,7 @@ import { EsriMapComponent } from './esri-map/esri-map.component';
     MapComponent,
     EsriMapComponent
   ],
-  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule, FirewoodModule],
+  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, FirewoodModule],
   providers: [
     AlertService,
     ApplicationService,

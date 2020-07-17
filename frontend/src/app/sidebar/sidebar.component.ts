@@ -1,7 +1,6 @@
 import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 import { Router } from '@angular/router';
-import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
 import { FirewoodAdminService } from '../firewood/admin/firewood-admin.service';
 import { WindowRef } from '../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
@@ -30,7 +29,6 @@ export class SidebarComponent implements OnInit {
     @Inject(DOCUMENT) private doc: Document,
     public util: UtilService,
     private router: Router,
-    private treesAdminService: ChristmasTreesAdminService,
     private firewoodAdminService: FirewoodAdminService,
     private winRef: WindowRef
   ) {}
@@ -114,9 +112,6 @@ export class SidebarComponent implements OnInit {
    */
   ngOnInit() {
     this.route = this.router.url.split('#')[0];
-    if (this.permitType === 'trees') {
-      this.forestAdminNavItems = this.treesAdminService.getAdminNavItems(this.user);
-    }
     if (this.permitType === 'firewood') {
       this.forestAdminNavItems = this.firewoodAdminService.getAdminNavItems(this.user);
     }

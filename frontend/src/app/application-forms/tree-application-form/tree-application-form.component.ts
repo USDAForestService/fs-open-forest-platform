@@ -7,9 +7,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
 import { NgxMdService } from 'ngx-md';
@@ -40,9 +38,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private titleService: Title,
     public formBuilder: FormBuilder,
     public markdownService: NgxMdService,
-    public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private christmasTreesInfoService: ChristmasTreesInfoService,
     public util: UtilService,
     private winRef: WindowRef,
     private meta: Meta
@@ -125,7 +121,7 @@ export class TreeApplicationFormComponent implements OnInit {
    */
   checkSeasonStartDate(forest) {
     if (forest && moment(forest.startDate).isAfter(moment())) {
-      this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
+      this.router.navigate(['/firewood/forests/', forest.forestAbbr]);
     }
   }
 
@@ -134,16 +130,10 @@ export class TreeApplicationFormComponent implements OnInit {
   */
   handleData(isCancel) {
 
-    this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
-
     this.checkSeasonStartDate(this.forest);
 
     // cancel any permits coming here that are still initiated and not yet completed
     if (this.permit && isCancel && this.permit.status === 'Initiated') {
-      this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
-        this.permit = updated;
-        this.showCancelAlert = true;
-      });
     }
 
     this.titleService.setTitle(
@@ -213,11 +203,11 @@ export class TreeApplicationFormComponent implements OnInit {
       const routeOptions = { fragment: 'rules' };
       if (this.permit) {
         this.router.navigate(
-          [`/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
+          [`/firewood/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
           routeOptions
         );
       } else {
-        this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
+        this.router.navigate([`/firewood/forests/${this.forest.forestAbbr}/applications`], routeOptions);
       }
     } else {
       this.applicationFieldsService.scrollToFirstError();
@@ -253,19 +243,6 @@ export class TreeApplicationFormComponent implements OnInit {
       aggregator[key] = this.applicationForm.value[key];
       return aggregator;
     }, {});
-    this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
-      (response: any) => {
-        this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-      },
-      (error: any) => {
-        this.showRules = false;
-        window.location.hash = '';
-        this.apiErrors = error;
-        this.submitted = false;
-        this.applicationRulesForm.get('acceptRules').setValue(false);
-        this.winRef.getNativeWindow().scroll(0, 0);
-      }
-    );
   }
 
   /**

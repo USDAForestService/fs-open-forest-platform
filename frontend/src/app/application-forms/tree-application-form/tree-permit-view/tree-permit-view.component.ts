@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
@@ -21,7 +20,6 @@ export class TreePermitViewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private christmasTreesApplicationService: ChristmasTreesApplicationService,
     private titleService: Title,
     private sanitizer: DomSanitizer,
     private winRef: WindowRef,
@@ -44,12 +42,6 @@ export class TreePermitViewComponent implements OnInit {
         this.processError(data.permit.error, data.permit.error.permit);
       } else {
         if (data.permit.status === 'Initiated') {
-          this.christmasTreesApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe(updated => {
-            this.setPageData(updated);
-          },
-          error => {
-            this.processError(error[0], error[0].permit);
-          });
         } else {
           this.setPageData(data.permit);
         }
@@ -87,14 +79,6 @@ export class TreePermitViewComponent implements OnInit {
 
     const includeRules = this.includeRules;
 
-    this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
-      let content = response[0]['result'];
-      if (includeRules) {
-        content += response[1]['result'];
-      }
-      this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => this.permitPopup(includeRules, popupWin), 0);
-    });
   }
 
   /**

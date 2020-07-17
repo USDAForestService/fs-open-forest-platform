@@ -16,24 +16,17 @@ import { NotFoundComponent } from './error-pages/not-found.component';
 import { ServerErrorComponent } from './error-pages/server-error.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
-import { ReportComponent } from './trees/admin/report/report.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { FirewoodGuidelinesComponent } from './firewood/forests/firewood-guidelines/firewood-guidelines.component';
-import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
-import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
-import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
-import { AdminFeedbackReviewComponent } from './trees/admin/feedback-review/feedback-review.component';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
-import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
-import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
 import { MainLandingComponent } from './main-landing/main-landing.component';
 import { ProductsComponent } from './products/products.component';
 import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
@@ -290,14 +283,6 @@ const appRoutes: Routes = [
     component: LandingPageComponent,
     data: { title: 'Complete your permit transaction' }
   },
-  {
-    path: 'feedback',
-    component: SubmitFeedbackComponent,
-    resolve: {
-      user: UserResolver
-    },
-    data: { title: 'Submit Feedback' }
-  },
 
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
@@ -310,6 +295,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [FirewoodForestsResolver, FirewoodForestResolver, ForestsAdminResolver]
+  providers: [FirewoodForestsResolver, FirewoodForestResolver]
 })
 export class AppRoutingModule {}
