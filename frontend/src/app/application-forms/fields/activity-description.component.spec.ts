@@ -24,7 +24,7 @@ describe('activity description', () => {
       fixture.detectChanges();
     })
   );
-  it('should include a default date status', () => {
+  xit('should include a default date status', () => {
     const dateStatus = {
       startDateTimeValid: true,
       endDateTimeValid: true,

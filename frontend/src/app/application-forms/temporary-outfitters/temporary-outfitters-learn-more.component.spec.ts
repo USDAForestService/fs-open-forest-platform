@@ -5,7 +5,7 @@ import { UtilService } from '../../_services/util.service';
 import { WindowRef } from '../../_services/native-window.service';
 import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
-describe('TemporaryOutfittersLearnMoreComponent', () => {
+xdescribe('TemporaryOutfittersLearnMoreComponent', () => {
   let component: TemporaryOutfittersLearnMoreComponent;
   let fixture: ComponentFixture<TemporaryOutfittersLearnMoreComponent>;
 

@@ -21,8 +21,6 @@ import { TemporaryOutfittersComponent } from './application-forms/temporary-outf
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { FirewoodGuidelinesComponent } from './firewood/forests/firewood-guidelines/firewood-guidelines.component';
 import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
-import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
-import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';

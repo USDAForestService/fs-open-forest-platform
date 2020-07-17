@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
 import { FilterPipe } from '../_pipes/filter.pipe';
-import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+import { FirewoodAdminService } from '../firewood/admin/firewood-admin.service';
 import { WindowRef } from '../_services/native-window.service';
 
 class MockUtilService {
@@ -41,7 +41,7 @@ xdescribe('SidebarComponent', () => {
         providers: [
           WindowRef,
           { provide: UtilService, useClass: MockUtilService },
-          ChristmasTreesAdminService
+          FirewoodAdminService
         ],
         imports: [RouterTestingModule],
         schemas: [NO_ERRORS_SCHEMA]

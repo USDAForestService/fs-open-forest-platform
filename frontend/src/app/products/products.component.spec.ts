@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChristmasTreesInfoService } from '../trees/_services/christmas-trees-info.service';
+import { FirewoodInfoService } from '../firewood/_services/firewood-info.service';
 import { ProductsComponent } from './products.component';
 
 describe('ProductsComponent', () => {
@@ -9,7 +9,7 @@ describe('ProductsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProductsComponent ],
-      providers: [ChristmasTreesInfoService],
+      providers: [FirewoodInfoService],
     })
     .compileComponents();
   }));
