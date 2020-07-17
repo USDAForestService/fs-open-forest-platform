@@ -35,7 +35,10 @@ import { ForestTemplateComponent } from './forest-pages/forest-template/forest-t
 const appRoutes: Routes = [
   {
     path: '',
-    component: MainLandingComponent
+    component: MainLandingComponent,
+    resolve: {
+      forests: FirewoodForestsResolver
+    }
   },
 
   {
