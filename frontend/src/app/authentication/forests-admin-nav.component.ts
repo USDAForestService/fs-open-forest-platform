@@ -42,7 +42,7 @@ export class ForestAdminNavComponent implements OnInit, DoCheck {
    * Get admin navigation links
    */
   ngOnInit() {
-    this.forestAdminNavItems = []
+    this.forestAdminNavItems = [];
     this.track(new Event('scroll'));
   }
 
