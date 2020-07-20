@@ -109,17 +109,11 @@ export class FileUploadComponent implements DoCheck, OnInit {
       console.log('This was focused');
   }
 
-  // onBlurMethod(){
-  //   if (this.checkForBlur === true){
-  //     console.log('This was blurred');
-  //     let options = {
-  //       root: document.querySelector('usa-file-input'),
-  //       rootMargin: '0px',
-  //       threshold: 1.0      };
-  //     let observer = new IntersectionObserver(this.onElementInViewport(options, observer), options);
-  //     observer.observe(document.getElementById(`${this.type}-choose-file`));
-  //   }
-  // }
+  onBlurMethod(){
+    if (this.checkForBlur === true){
+      console.log('this has been blurred');
+    }
+  }
 
   FileUploadDeleteHandler(event, status, index) {
     event.preventDefault();
@@ -129,27 +123,27 @@ export class FileUploadComponent implements DoCheck, OnInit {
 
     switch (status) {
       case 'Upload':
-        // if (this.wasFileDeleted === true) {
-        //   this.uploader.queue[0] = this.deletedFile;
-        //   this.deletedFile = null;
-        //   this.wasFileDeleted = false;
-        //   this.FileUploadDeleteHandler(event, 'Upload', 1);
-        // } else {
+        if (this.wasFileDeleted === true) {
+          this.uploader.queue[0] = this.deletedFile;
+          this.deletedFile = null;
+          this.wasFileDeleted = false;
+          this.FileUploadDeleteHandler(event, 'Upload', 1);
+        } else {
           document.getElementById(`${this.type}`).click();
-        //   this.uploader.onAfterAddingFile = function (fileItem) {
-        //     if (that.uploader.queue.length > 1) {
-        //       bool = false;
-        //       that.uploader.removeFromQueue(that.uploader.queue[0]);
-        //     }
-        //     else if (bool === true) {
-        //       bool = false;
-        //       that.wasFileDeleted = true;
-        //       that.deletedFile = that.uploader.queue[0];
-        //       that.uploader.removeFromQueue(that.uploader.queue[0]);
-        //       console.log(that.deletedFile.file.name);
-        //     }
-        //   };
-        // }
+          this.uploader.onAfterAddingFile = function (fileItem) {
+            if (that.uploader.queue.length > 1) {
+              bool = false;
+              that.uploader.removeFromQueue(that.uploader.queue[0]);
+            }
+            else if (bool === true) {
+              bool = false;
+              that.wasFileDeleted = true;
+              that.deletedFile = that.uploader.queue[0];
+              that.uploader.removeFromQueue(that.uploader.queue[0]);
+              console.log(that.deletedFile.file.name);
+            }
+          };
+        }
         this.field.patchValue(this.uploader.queue[index]);
         this.fileUploadService.addOneFile();
         break;
