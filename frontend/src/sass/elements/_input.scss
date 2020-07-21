@@ -118,6 +118,11 @@ input.ng-touched.invaliddate,
     border: solid 3px $fs-red;
   }
 
+  .ng-hide-queue {
+    display: none;
+    visibility: hidden;
+  }
+
   .upload-queue {
     display: flex;
     flex-direction: column;

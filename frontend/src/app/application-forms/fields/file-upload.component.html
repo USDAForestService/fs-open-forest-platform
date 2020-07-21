@@ -2,6 +2,7 @@
   <div class="upload-queue" *ngIf="uploader.queue[0] || field.value">
     <ng-template class="file-item" ngFor let-item [ngForOf]="uploader.queue" let-i="index" [ngForTrackBy]="trackByFn">
       <div class="upload-item">
+        <!-- <div id="{{type}}-file-name" class="file-name" *ngIf="uploader.queue[0] || field.value">{{uploader.queue[i].file.name}}</div> -->
         <div id="{{type}}-file-name" class="file-name" *ngIf="uploader.queue[0] || field.value">{{uploader.queue[i].file.name}}</div>
         <div class="file-upload-buttons">
           <button (click)="FileUploadDeleteHandler($event, 'Delete', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-red-alt usa-delete-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Delete</button>

@@ -31,8 +31,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   index: null;
   deletedFile: FileItem;
   wasFileDeleted: boolean;
-  checkForBlur: boolean;
-  checkForFocus: boolean;
+  hideUploaderQueue: boolean;
 
   constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
     this.uploader = new FileUploader({
@@ -110,8 +109,10 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   onBlurMethod(){
-    if (this.checkForBlur === true){
-      console.log('this has been blurred');
+    if (this.wasFileDeleted === true){
+      window.onfocus = function() {
+        console.log('In Focus');
+      }
     }
   }
 
@@ -123,36 +124,29 @@ export class FileUploadComponent implements DoCheck, OnInit {
 
     switch (status) {
       case 'Upload':
-        if (this.wasFileDeleted === true) {
-          this.uploader.queue[0] = this.deletedFile;
-          this.deletedFile = null;
-          this.wasFileDeleted = false;
-          this.FileUploadDeleteHandler(event, 'Upload', 1);
-        } else {
+        // if (this.wasFileDeleted === true) {
+        //   this.uploader.queue[0] = this.deletedFile;
+        //   this.FileUploadDeleteHandler(event, 'Replace', 0);
+        //   this.deletedFile = null;
+        //   this.wasFileDeleted = false;
+        //   console.log(this.uploader.queue.length);
+        //   window.onblur = function() {
+        //     window.onfocus =  function() {
+        //       console.log('Is inFocus');
+        //     }
+        //   }
+        // }
+        // else {
           document.getElementById(`${this.type}`).click();
-          this.uploader.onAfterAddingFile = function (fileItem) {
-            if (that.uploader.queue.length > 1) {
-              bool = false;
-              that.uploader.removeFromQueue(that.uploader.queue[0]);
-            }
-            else if (bool === true) {
-              bool = false;
-              that.wasFileDeleted = true;
-              that.deletedFile = that.uploader.queue[0];
-              that.uploader.removeFromQueue(that.uploader.queue[0]);
-              console.log(that.deletedFile.file.name);
-            }
-          };
-        }
-        this.field.patchValue(this.uploader.queue[index]);
-        this.fileUploadService.addOneFile();
+        // }
+        // this.field.patchValue(this.uploader.queue[index]);
         break;
       case 'Replace':
         let fileAlreadyExists = false;
         const originalFileItem = this.uploader.queue[index];
         if (this.uploader.queue.length > 1) {
-        this.uploader.removeFromQueue(this.uploader.queue[index]);
-        document.getElementById(`${this.type}`).click();
+          this.uploader.removeFromQueue(this.uploader.queue[index]);
+          document.getElementById(`${this.type}`).click();
           this.uploader.onAfterAddingFile = function (fileItem) {
             for (let i = 0; i < that.uploader.queue.length - 1; i++) {
               if (that.uploader.queue[i].file.name === fileItem.file.name) {
@@ -161,6 +155,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
             }
             if (fileAlreadyExists) {
               that.uploader.queue[index] = originalFileItem;
+              this.queueCount = this.queueCount + this.queueCount;
             }
           };
         } else {
@@ -175,17 +170,15 @@ export class FileUploadComponent implements DoCheck, OnInit {
         this.onAfterAddingFile(this.uploader);
         break;
       case 'Delete':
-        if (this.uploader.queue.length > 1) {
-          this.uploader.removeFromQueue(this.uploader.queue[index]);
-        } else {
-          this.checkForBlur = true;
-          this.wasFileDeleted = true;
-          this.deletedFile = this.uploader.queue[index];
-          this.uploader.removeFromQueue(this.uploader.queue[index]);
-          console.log(this.deletedFile.file.name);
-        }
-        this.fileUploadService.removeOneFile();
-        this.onAfterAddingFile(this.uploader);
+        // if (this.uploader.queue.length > 1) {
+        this.uploader.removeFromQueue(this.uploader.queue[index]);
+        index = 0;
+        // } else {
+        //   this.wasFileDeleted = true;
+        //   this.deletedFile = this.uploader.queue[index];
+        //   this.uploader.removeFromQueue(this.uploader.queue[index]);
+        //   console.log(this.deletedFile.file.name);
+        // }
         break;
     }
   }
