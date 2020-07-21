@@ -6,15 +6,7 @@
       <div id="forest-finder-form">
         <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest)" autocomplete="off">
           <label for="forest-finder-select">Choose your forest <span>(required)</span></label>
-          <select
-           required
-           #forestFinder
-           role="listbox"
-           (click)="showForestSelectError = false"
-           [(ngModel)]="selectedForest"
-           id="forest-finder-select"
-           name="forestFinderSelect"
-          >
+          <select required #forestFinderrole="listbox" (click)="showForestSelectError = false" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
             <option value="" disabled selected>Select a forest</option>
             <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
           </select>
