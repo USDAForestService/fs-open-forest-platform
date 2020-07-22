@@ -159,6 +159,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
     if (this.uploader.queue.length > 1) {
       this.uploader.removeFromQueue(this.uploader.queue[index]);
       } else {
+        this.wasFileDeleted = true;
         this.deletedFile = this.uploader.queue[index];
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         console.log(this.deletedFile.file.name);
