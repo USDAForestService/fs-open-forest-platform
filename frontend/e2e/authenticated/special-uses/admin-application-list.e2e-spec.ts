@@ -7,7 +7,7 @@ const page = new AdminApplicationList();
 const noncommercial = new NoncommercialGroupForm();
 const applicationForm = new NoncommercialApplicationForm();
 
-xdescribe('Apply for a ', () => {
+describe('Apply for a ', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
 
