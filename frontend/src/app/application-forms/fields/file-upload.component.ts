@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit, EventEmitter } from '@angular/core';
 import { FileLikeObject, FileUploader, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
@@ -116,72 +116,70 @@ export class FileUploadComponent implements DoCheck, OnInit {
     }
   }
 
-  FileUploadDeleteHandler(event, status, index) {
+  UploadFile(event) {
     event.preventDefault();
-    // let deletedFile = null;
-    const that = this;
-    let bool = false;
+    document.getElementById(`${this.type}`).click();
+    // this.uploader.addToQueue(event[0]);
+  }
 
+  ReplaceFile(event, status, index) {
+    event.preventDefault();
+    const that = this;
+
+    let fileAlreadyExists = false;
+    const originalFileItem = this.uploader.queue[index];
+    if (this.uploader.queue.length > 1) {
+      this.uploader.removeFromQueue(this.uploader.queue[index]);
+      document.getElementById(`${this.type}`).click();
+      this.uploader.onAfterAddingFile = function (fileItem) {
+        for (let i = 0; i < that.uploader.queue.length - 1; i++) {
+          if (that.uploader.queue[i].file.name === fileItem.file.name) {
+            fileAlreadyExists = true;
+          }
+        }
+        if (fileAlreadyExists) {
+          that.uploader.queue[index] = originalFileItem;
+          this.queueCount = this.queueCount + this.queueCount;
+        }
+      };
+    } else {
+      document.getElementById(`${this.type}`).click();
+      this.uploader.onAfterAddingFile = function (fileItem) {
+        if (that.uploader.queue.length > 1) {
+          that.uploader.removeFromQueue(that.uploader.queue[0]);
+        }
+      };
+    }
+    this.field.patchValue(this.uploader.queue[index]);
+    this.onAfterAddingFile(this.uploader);
+  }
+
+  DeleteFile(event, status, index) {
+    event.preventDefault();
+    if (this.uploader.queue.length > 1) {
+      this.uploader.removeFromQueue(this.uploader.queue[index]);
+      } else {
+        this.deletedFile = this.uploader.queue[index];
+        this.uploader.removeFromQueue(this.uploader.queue[index]);
+        console.log(this.deletedFile.file.name);
+      }
+  }
+
+  FileUploadHandler(event, status, index) {
     switch (status) {
       case 'Upload':
-        // if (this.wasFileDeleted === true) {
-        //   this.uploader.queue[0] = this.deletedFile;
-        //   this.FileUploadDeleteHandler(event, 'Replace', 0);
-        //   this.deletedFile = null;
-        //   this.wasFileDeleted = false;
-        //   console.log(this.uploader.queue.length);
-        //   window.onblur = function() {
-        //     window.onfocus =  function() {
-        //       console.log('Is inFocus');
-        //     }
-        //   }
-        // }
-        // else {
-          document.getElementById(`${this.type}`).click();
-        // }
-        // this.field.patchValue(this.uploader.queue[index]);
+          this.UploadFile( event);
         break;
       case 'Replace':
-        let fileAlreadyExists = false;
-        const originalFileItem = this.uploader.queue[index];
-        if (this.uploader.queue.length > 1) {
-          this.uploader.removeFromQueue(this.uploader.queue[index]);
-          document.getElementById(`${this.type}`).click();
-          this.uploader.onAfterAddingFile = function (fileItem) {
-            for (let i = 0; i < that.uploader.queue.length - 1; i++) {
-              if (that.uploader.queue[i].file.name === fileItem.file.name) {
-                fileAlreadyExists = true;
-              }
-            }
-            if (fileAlreadyExists) {
-              that.uploader.queue[index] = originalFileItem;
-              this.queueCount = this.queueCount + this.queueCount;
-            }
-          };
-        } else {
-          document.getElementById(`${this.type}`).click();
-          this.uploader.onAfterAddingFile = function (fileItem) {
-            if (that.uploader.queue.length > 1) {
-              that.uploader.removeFromQueue(that.uploader.queue[0]);
-            }
-          };
-        }
-        this.field.patchValue(this.uploader.queue[index]);
-        this.onAfterAddingFile(this.uploader);
+        this.ReplaceFile(event, status, index);
         break;
       case 'Delete':
-        // if (this.uploader.queue.length > 1) {
-        this.uploader.removeFromQueue(this.uploader.queue[index]);
-        index = 0;
-        // } else {
-        //   this.wasFileDeleted = true;
-        //   this.deletedFile = this.uploader.queue[index];
-        //   this.uploader.removeFromQueue(this.uploader.queue[index]);
-        //   console.log(this.deletedFile.file.name);
-        // }
+        this.DeleteFile(event, status, index);
         break;
     }
   }
+
+
 
   ngDoCheck() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
