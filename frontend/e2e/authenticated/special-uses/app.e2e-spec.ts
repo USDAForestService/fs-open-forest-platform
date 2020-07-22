@@ -33,7 +33,7 @@ describe('frontend App', () => {
       element(by.id('us-forest-service-logo')).click();
     });
 
-    it('should have ctas to apply for different permits', () => {
+    xit('should have ctas to apply for different permits', () => {
       page.navigateTo();
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
