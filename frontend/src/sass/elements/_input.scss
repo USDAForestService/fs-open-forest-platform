@@ -119,8 +119,9 @@ input.ng-touched.invaliddate,
   }
 
   .ng-hide-queue {
-    display: none;
-    visibility: hidden;
+    // display: none;
+    // visibility: hidden;
+    background-color: red;
   }
 
   .upload-queue {

@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
 import { Button } from 'protractor';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-file-upload-field',
@@ -32,6 +33,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   deletedFile: FileItem;
   wasFileDeleted: boolean;
   hideUploaderQueue: boolean;
+  showQueue: boolean;
 
   constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
     this.uploader = new FileUploader({
@@ -47,6 +49,8 @@ export class FileUploadComponent implements DoCheck, OnInit {
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) =>
       this.onErrorItem(item, response, status, headers);
       this.wasFileDeleted = false;
+    this.hideUploaderQueue = false;
+    this.deletedFile = null;
   }
 
   onErrorItem(item, response, status, headers) {
@@ -108,21 +112,27 @@ export class FileUploadComponent implements DoCheck, OnInit {
       console.log('This was focused');
   }
 
-  onBlurMethod(){
-    if (this.wasFileDeleted === true){
-      window.onfocus = function() {
-        console.log('In Focus');
-      }
+  UploadFile(event) {
+    event.preventDefault();
+    const that = this;
+
+    if (this.wasFileDeleted === true) {
+        this.uploader.queue[0] = this.deletedFile;
+        this.ReplaceFile(event, 0);
+        window.onblur = function (){
+          window.onfocus = function (){
+            that.hideUploaderQueue = false;
+          }
+        }
+        this.deletedFile = null;
+        this.wasFileDeleted = false;
+        }
+    else {
+        document.getElementById(`${this.type}`).click();
     }
   }
 
-  UploadFile(event) {
-    event.preventDefault();
-    document.getElementById(`${this.type}`).click();
-    // this.uploader.addToQueue(event[0]);
-  }
-
-  ReplaceFile(event, status, index) {
+  ReplaceFile(event, index) {
     event.preventDefault();
     const that = this;
 
@@ -139,7 +149,8 @@ export class FileUploadComponent implements DoCheck, OnInit {
         }
         if (fileAlreadyExists) {
           that.uploader.queue[index] = originalFileItem;
-          this.queueCount = this.queueCount + this.queueCount;
+          console.log(that.uploader.queue[index].file.name);
+          console.log(that.hideUploaderQueue);
         }
       };
     } else {
@@ -148,21 +159,26 @@ export class FileUploadComponent implements DoCheck, OnInit {
         if (that.uploader.queue.length > 1) {
           that.uploader.removeFromQueue(that.uploader.queue[0]);
         }
+        that.hideUploaderQueue = false;
       };
     }
     this.field.patchValue(this.uploader.queue[index]);
     this.onAfterAddingFile(this.uploader);
   }
 
-  DeleteFile(event, status, index) {
+  DeleteFile(event, index) {
     event.preventDefault();
     if (this.uploader.queue.length > 1) {
+      console.dir(this.uploader.queue[index]);
       this.uploader.removeFromQueue(this.uploader.queue[index]);
       } else {
+        console.dir(this.uploader.queue[index]);
         this.wasFileDeleted = true;
         this.deletedFile = this.uploader.queue[index];
+        console.dir(this.deletedFile);
         this.uploader.removeFromQueue(this.uploader.queue[index]);
-        console.log(this.deletedFile.file.name);
+        this.hideUploaderQueue = true;
+        // console.log(this.deletedFile.file.name);
       }
   }
 
@@ -172,10 +188,10 @@ export class FileUploadComponent implements DoCheck, OnInit {
           this.UploadFile( event);
         break;
       case 'Replace':
-        this.ReplaceFile(event, status, index);
+        this.ReplaceFile(event, index);
         break;
       case 'Delete':
-        this.DeleteFile(event, status, index);
+        this.DeleteFile(event, index);
         break;
     }
   }

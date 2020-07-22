@@ -1,8 +1,9 @@
 <div id="{{type}}-upload-component" class="usa-file-input" [ngClass]="{'ng-valid': uploader.queue[0], 'ng-untouched': !uploader.queue[0], 'ng-invalid': errorMessage, 'required': required}">
+  <div *ngIf="hideUploaderQueue === false">
   <div class="upload-queue" *ngIf="uploader.queue[0] || field.value">
+  <!-- <div class="upload-queue" *ngIf="uploader.queue[0] || field.value" [ngStyle]="{'background-color': hideUploaderQueue === true? 'red' : 'transparent' }"> -->
     <ng-template class="file-item" ngFor let-item [ngForOf]="uploader.queue" let-i="index" [ngForTrackBy]="trackByFn">
       <div class="upload-item">
-        <!-- <div id="{{type}}-file-name" class="file-name" *ngIf="uploader.queue[0] || field.value">{{uploader.queue[i].file.name}}</div> -->
         <div id="{{type}}-file-name" class="file-name" *ngIf="uploader.queue[0] || field.value">{{uploader.queue[i].file.name}}</div>
         <div class="file-upload-buttons">
           <button (click)="FileUploadHandler($event, 'Delete', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button usa-button-red-alt usa-delete-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null">Delete</button>
@@ -11,11 +12,11 @@
       </div>
     </ng-template>
   </div>
-
+</div>
   <!-- <button (click)="FileUploadHandler($event,'Upload', i)" (blur)="onBlurMethod()" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button upload-file-btn" id="{{type}}-upload-button" aria-live="polite" [attr.aria-required]="required ? 'true' : null"> -->
   <button (click)="FileUploadHandler($event,'Upload', i)" [attr.aria-label]="!field.value ? 'click here to upload a file for ' + name: 'click here to replace file for ' + name" class="usa-button upload-file-btn" aria-live="polite" [attr.aria-required]="required ? 'true' : null">
-    <span id="{{type}}-choose-file" *ngIf="!uploader.queue[0]">Upload file</span>
-    <span id="{{type}}-choose-file" *ngIf="uploader.queue[0]">Upload Another</span>
+    <span id="{{type}}-choose-file" *ngIf="!uploader.queue[0] || hideUploaderQueue === true">Upload file</span>
+    <span id="{{type}}-choose-file" *ngIf="uploader.queue[0] && hideUploaderQueue !== true">Upload Another</span>
   </button>
   <input name="{{type}}"  type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000"
     [attr.aria-labelledby]="errorMessage ? type + '-error' : type + '-label'"
