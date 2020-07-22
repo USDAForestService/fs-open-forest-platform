@@ -78,7 +78,7 @@
   },
   "scripts": {
     "copy-frontend-assets": "./copy-frontend-assets.sh",
-    "coverage": "nyc --check-coverage --lines 70 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
+    "coverage": "nyc --check-coverage --lines 60 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
     "dropdb": "sequelize db:drop",
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
