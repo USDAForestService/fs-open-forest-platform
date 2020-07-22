@@ -15,6 +15,7 @@ describe('Apply for a ', () => {
 
     loginPublic();
 
+    noncommercial.navigateTo();
     expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/special-use/applications/noncommercial-group-use/new');
     applicationForm.createApplication();
   });
@@ -22,6 +23,7 @@ describe('Apply for a ', () => {
   beforeAll(() => {
     page.navigateTo();
     loginAdmin();
+    page.navigateTo();
   });
 
   it('should display forest name', () => {
