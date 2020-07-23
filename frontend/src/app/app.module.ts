@@ -51,6 +51,7 @@ import { ForestTemplateComponent } from './forest-pages/forest-template/forest-t
 import { ProductsComponent } from './products/products.component';
 import { MapComponent } from './map/map.component';
 import { EsriMapComponent } from './esri-map/esri-map.component';
+import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { EsriMapComponent } from './esri-map/esri-map.component';
     ForestTemplateComponent,
     ProductsComponent,
     MapComponent,
+    FirewoodForestFinderComponent,
     EsriMapComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule, FirewoodModule],
