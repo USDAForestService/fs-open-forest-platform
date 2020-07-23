@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit, EventEmitter } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { FileLikeObject, FileUploader, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
