@@ -10,6 +10,7 @@ import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { FirewoodForestResolver } from './firewood/forests/firewood-guidelines/forest-resolver.service';
+import { FSForestResolver } from './firewood/forests/firewood-guidelines/fs-forest-resolver.service';
 import { FirewoodForestsResolver } from './firewood/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './intake-home/home.component';
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
     path: '',
     component: MainLandingComponent,
     resolve: {
-      forests: FirewoodForestResolver
+      forests: FSForestResolver
     }
   }, {
     path: 'ChristmasTreePermit',
@@ -453,6 +454,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [FirewoodForestsResolver, FirewoodForestResolver, ForestResolver, ForestsResolver, ForestsAdminResolver]
+  providers: [FirewoodForestsResolver, FirewoodForestResolver, FSForestResolver, ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}

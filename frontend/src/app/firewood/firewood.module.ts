@@ -7,7 +7,6 @@ import { FirewoodGuidelinesComponent } from './forests/firewood-guidelines/firew
 import { FirewoodInfoService } from './_services/firewood-info.service';
 import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/firewood-cutting-dates/firewood-cutting-dates.component';
 import { FeedbackService } from './_services/feedback.service';
-import { FirewoodForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { FirewoodApplicationService } from './_services/firewood-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
