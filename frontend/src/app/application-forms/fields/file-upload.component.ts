@@ -4,8 +4,6 @@ import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-import { Button } from 'protractor';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-file-upload-field',
