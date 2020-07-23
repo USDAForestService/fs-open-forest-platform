@@ -99,6 +99,30 @@
         "description": "Retrieve forests for christmas tree harvesting"
       }
     }, 
+    "/fsforests": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Forests not found"
+          }
+        }, 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "forests"
+        ], 
+        "summary": "Retrieve forests inside of open forest", 
+        "description": "Retrieve forests inside of open forest"
+      }
+    }, 
     "/permits/applications/special-uses/noncommercial/{id}": {
       "put": {
         "responses": {

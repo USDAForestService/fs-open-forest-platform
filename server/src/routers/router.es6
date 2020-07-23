@@ -7,6 +7,7 @@ const express = require('express');
 const middleware = require('../services/middleware.es6');
 const authRouter = require('./auth.es6');
 const christmasTreeRouter = require('./christmasTree.es6');
+const forests = require('./forests.es6');
 const christmasTreeAdminRouter = require('./christmasTreeAdmin.es6');
 const specialUseRouter = require('./specialuse.es6');
 const feedbackRouter = require('./feedback.es6');
@@ -30,6 +31,7 @@ router.use((_req, res, next) => {
 router.use('/auth', middleware.setCorsHeaders, authRouter);
 router.use('/permits/applications/special-uses', middleware.setCorsHeaders, middleware.checkPermissions, specialUseRouter);
 router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
+router.use('/fsforests', middleware.setCorsHeaders, forests);
 router.use('/christmas-trees/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
 router.use('/admin/special-uses', middleware.setCorsHeaders, middleware.checkAdminPermissions, specialUseRouter);
 router.use('/feedback', middleware.setCorsHeaders, feedbackRouter);
