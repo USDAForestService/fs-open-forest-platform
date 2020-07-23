@@ -33,7 +33,6 @@ export class FileUploadComponent implements DoCheck, OnInit {
   deletedFile: FileItem;
   wasFileDeleted: boolean;
   hideUploaderQueue: boolean;
-  showQueue: boolean;
 
   constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
     this.uploader = new FileUploader({
@@ -112,6 +111,22 @@ export class FileUploadComponent implements DoCheck, OnInit {
       console.log('This was focused');
   }
 
+  FileUploadHandler(event, status, index) {
+    switch (status) {
+      case 'Upload':
+          this.UploadFile(event);
+        break;
+
+      case 'Replace':
+        this.ReplaceFile(event, index);
+        break;
+
+      case 'Delete':
+        this.DeleteFile(event, index);
+        break;
+    }
+  }
+
   UploadFile(event) {
     event.preventDefault();
     const that = this;
@@ -119,8 +134,8 @@ export class FileUploadComponent implements DoCheck, OnInit {
     if (this.wasFileDeleted === true) {
         this.uploader.queue[0] = this.deletedFile;
         this.ReplaceFile(event, 0);
-        window.onblur = function (){
-          window.onfocus = function (){
+        window.onblur = function () {
+          window.onfocus = function () {
             that.hideUploaderQueue = false;
           }
         }
@@ -149,8 +164,6 @@ export class FileUploadComponent implements DoCheck, OnInit {
         }
         if (fileAlreadyExists) {
           that.uploader.queue[index] = originalFileItem;
-          console.log(that.uploader.queue[index].file.name);
-          console.log(that.hideUploaderQueue);
         }
       };
     } else {
@@ -169,34 +182,14 @@ export class FileUploadComponent implements DoCheck, OnInit {
   DeleteFile(event, index) {
     event.preventDefault();
     if (this.uploader.queue.length > 1) {
-      console.dir(this.uploader.queue[index]);
       this.uploader.removeFromQueue(this.uploader.queue[index]);
       } else {
-        console.dir(this.uploader.queue[index]);
         this.wasFileDeleted = true;
         this.deletedFile = this.uploader.queue[index];
-        console.dir(this.deletedFile);
         this.uploader.removeFromQueue(this.uploader.queue[index]);
         this.hideUploaderQueue = true;
-        // console.log(this.deletedFile.file.name);
       }
   }
-
-  FileUploadHandler(event, status, index) {
-    switch (status) {
-      case 'Upload':
-          this.UploadFile( event);
-        break;
-      case 'Replace':
-        this.ReplaceFile(event, index);
-        break;
-      case 'Delete':
-        this.DeleteFile(event, index);
-        break;
-    }
-  }
-
-
 
   ngDoCheck() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
