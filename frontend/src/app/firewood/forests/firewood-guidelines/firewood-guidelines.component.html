@@ -13,6 +13,9 @@
       <h1>Firewood permit information</h1>
       <p>With a firewood permit, you can cut and collect firewood from the {{forest.forestName}}.</p>
 
+      {{forest | json}}
+
+
       <!-- getting a firewood permit -->
       <app-section-heading heading="Getting a firewood permit" id="season-dates" tabIndex="-1"></app-section-heading>
       <app-cutting-dates [forest]="forest"></app-cutting-dates>

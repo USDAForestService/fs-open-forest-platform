@@ -23,7 +23,6 @@ import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.comp
     AdminFeedbackReviewComponent,
     AdminSeasonDatesComponent,
     FirewoodGuidelinesComponent,
-    FirewoodForestFinderComponent,
     FirewoodCuttingDatesComponent,
     RemovePuncPipe,
   ],

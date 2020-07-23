@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FirewoodInfoService {
-  private endpoint = environment.apiUrl + 'forests/';
+  private endpoint = environment.apiUrl + 'fsforests/';
 
   constructor(private http: HttpClient) {}
 
