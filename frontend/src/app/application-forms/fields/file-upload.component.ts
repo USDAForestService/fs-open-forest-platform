@@ -135,13 +135,12 @@ export class FileUploadComponent implements DoCheck, OnInit {
         window.onblur = function () {
           window.onfocus = function () {
             that.hideUploaderQueue = false;
-          }
-        }
-        this.deletedFile = null;
-        this.wasFileDeleted = false;
-        }
-    else {
-        document.getElementById(`${this.type}`).click();
+          };
+        };
+      this.deletedFile = null;
+      this.wasFileDeleted = false;
+    } else {
+      document.getElementById(`${this.type}`).click();
     }
   }
 
