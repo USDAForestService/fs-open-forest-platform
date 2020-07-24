@@ -63,11 +63,31 @@ const forests = [
       poss_financial_id: '',
       state: 'Georgia',
       permit_type: 'fuel',
-      region: 6
+      region: 8
+    },
+    {
+      id: 4,
+      forest_name: 'George Washignton & Jefferson National Forest',
+      forest_url: 'https://www.fs.usda.gov/gwj',
+      start_date: '2020-01-01T08:00:00Z',
+      end_date: '2021-12-31T08:59:59Z',
+      created: 'now()',
+      updated: 'now()',
+      org_structure_code: '',
+      description: 'George Washington & Jefferson | Virginia',
+      forest_abbr: 'gwj',
+      wood_cost: 5,
+      timezone: 'America/Detroit',
+      cutting_areas: '{}',
+      map_links: '{}',
+      contact:
+      '',
+      poss_financial_id: '',
+      state: 'Virginia',
+      permit_type: 'fuel',
+      region: 8
     }
   ];
-  
-  
   module.exports = {
     up(queryInterface) {
       return queryInterface.bulkInsert('fsForests', forests);

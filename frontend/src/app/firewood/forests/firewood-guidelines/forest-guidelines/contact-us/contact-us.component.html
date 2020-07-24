@@ -1,7 +1,64 @@
 <app-section-heading heading="Contact us" id="contact-information" tabIndex="-1"></app-section-heading>
-<h3>District Office 1</h3>
-<textarea name="office1" rows="6" cols="80"></textarea>
-<h3>District Office 2</h3>
-<textarea name="office2" rows="6" cols="80"></textarea>
-<h3>District Office 3</h3>
-<textarea name="office3" rows="6" cols="80"></textarea>
+<!-- ipnf block -->
+<div *ngIf="(forest.forestAbbr) == 'ipnf'">
+    <h3>District Office 1</h3>
+    <textarea name="office1" rows="6" cols="80"></textarea>
+    <h3>District Office 2</h3>
+    <textarea name="office2" rows="6" cols="80"></textarea>
+    <h3>District Office 3</h3>
+    <textarea name="office3" rows="6" cols="80"></textarea>
+</div>
+
+<!-- conf block -->
+<div class="firewood-contact" *ngIf="(forest.forestAbbr) == 'conf'">
+    <div class="firewood-contact-row">
+        <div id="contact-us">
+            <h5 class="firewood-contact-name">Forest Supervisor's Office</h5>
+            <p class="firewood-contact-address-phone">
+                1755 Cleveland Highway<br> 
+                Gainesville, GA 30501<br>
+                (770) 297-3000
+            </p>
+        </div>
+        <div id="contact-us">
+            <h5 class="firewood-contact-name">Blue Ridge District</h5>
+            <p class="firewood-contact-address-phone">
+                2041 Highway 515 West<br> 
+                Blairsville, GA 30512<br>
+                (706) 745-6928
+            </p>
+        </div>
+    </div>
+
+    <div class="firewood-contact-row">
+        <div id="contact-us">
+            <h5 class="firewood-contact-name">Chattaooga River Ranger District</h5>
+            <p class="firewood-contact-address-phone">
+                9975 Highway 441S<br> 
+                Lakemont, GA 30552<br>
+                (706) 754-6221
+            </p>
+        </div>
+
+        <div id="contact-us">
+            <h5 class="firewood-contact-name">Conasauga District</h5>
+            <p class="firewood-contact-address-phone">
+                3941 Highway 76<br> 
+                Chatsworth, GA 30705<br>
+                (706) 695-6736
+            </p>
+        </div>
+    </div>
+
+    <div class="firewood-contact-row">
+        <div id="contact-us">
+            <h5 class="firewood-contact-name">Oconee District</h5>
+            <p class="firewood-contact-address-phone">
+                1199 Madison Road<br> 
+                Eatonton, GA 31024<br>
+                (540) 962-2214
+            </p>
+        </div>
+    </div>
+
+</div>
