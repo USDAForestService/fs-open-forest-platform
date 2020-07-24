@@ -1,21 +1,35 @@
 <app-section-heading heading="Where to find firewood" id="firewood-locations" tabIndex="-1"></app-section-heading>
 <h3>What kind of wood you can collect</h3>
-<p>All dead and down trees may be gathered.
-  <strong>Live trees may NOT be cut.</strong>
-</p>
-<p>Standing dead trees may be cut only if they are within 200 feet of a legal public road.</p>
-<h3>Where you can cut</h3>
-<p>Cutting and gather is only allowed on areas open to cutting and gathering on the firewood maps.</p>
-<p>You can download a firemap below, or pick one up at one of <a>our district offices</a>.</p>
-<!-- download a map -->
-<h3>Download a firewood cutting map</h3>
-<!-- maps -->
-<h3>Prohibited areas and restrictions</h3>
-<ul>
-  <li>No cutting or gathering of dead and/or down wood will occur within 200 feet of any lake,
-     pond, stream, or river within 200 feet of any recreation area.
-   </li>
-  <li>Live tree may NOT be cut.</li>
-  <li>Standing dead trees may be cut only if they are within 200 feet of a legal public road.</li>
-  <li>No gathering or harvesting of any dead trees identified by having pain marks at breast height and stump height or dead trees which have directional, trail, den tree, Animal Inn or land survey signs attached.</li>
-</ul>
+
+<!-- ipnf block -->
+<div *ngIf="(forest.forestAbbr)=='ipnf'">
+  <p>All dead and down trees may be gathered.
+    <strong>Live trees may NOT be cut.</strong>
+  </p>
+  <p>Standing dead trees may be cut unless are</p>
+  <ul>
+    <li>Larch trees which may still be alive. Check the ground to see if needles have recently fallen. Check to see if the bark inside is tight. If it is, the tree is probably alive.</li>
+    <li>Cedar trees. This wood is unsuitable for firewood.</li>
+    <li>Pacific yew.</li>
+    <li>Wildlife trees. Standing and down dead trees provide a source of food, nests, perches, and protective cover for many birds and mammals in the forest.
+       Please don't cut trees with paint marks or signs, broken tops, trunk holes or visible nests.
+    </li>
+  </ul>
+  <h3>Where you can cut</h3>
+  <p>Cutting and gather is only allowed on areas open to cutting and gathering on the firewood maps.</p>
+  <p>You can download a firemap below, or pick one up at one of <a>our district offices</a>.</p>
+  <!-- download a map -->
+  <h3>Download a firewood cutting map</h3>
+  <!-- maps -->
+  <h3>Prohibited areas and restrictions</h3>
+  <ul>
+    <li>No cutting or gathering of dead and/or down wood will occur within 200 feet of any lake,
+       pond, stream, or river within 200 feet of any recreation area.
+     </li>
+    <li>Live tree may NOT be cut.</li>
+    <li>Standing dead trees may be cut only if they are within 200 feet of a legal public road.</li>
+    <li>No gathering or harvesting of any dead trees identified by having pain marks at breast height and stump height or dead trees which have directional, trail, den tree, Animal Inn or land survey signs attached.</li>
+  </ul>
+</div>
+
+
