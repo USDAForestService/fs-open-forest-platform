@@ -42,6 +42,28 @@ const forests = [
       state: 'Montana',
       permit_type: 'fuel',
       region: 6
+    },
+    {
+      id: 3,
+      forest_name: 'Chattahoochee-Oconee National Forest',
+      forest_url: 'https://www.fs.usda.gov/conf',
+      start_date: '2020-01-01T08:00:00Z',
+      end_date: '2021-12-31T08:59:59Z',
+      created: 'now()',
+      updated: 'now()',
+      org_structure_code: '',
+      description: 'Chattahoochee-Oconee | Georgia',
+      forest_abbr: 'conf',
+      wood_cost: 5,
+      timezone: 'America/Detroit',
+      cutting_areas: '{}',
+      map_links: '{}',
+      contact:
+      '',
+      poss_financial_id: '',
+      state: 'Georgia',
+      permit_type: 'fuel',
+      region: 6
     }
   ];
   
