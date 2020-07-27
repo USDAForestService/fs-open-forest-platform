@@ -5,15 +5,25 @@
   <h3>Cost</h3>
   <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong>Limit of 12 cords per household per year. All permits are nonrefundable.
   <h3>Buy a permit</h3>
-  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+  <p>You can buy firewood permits online or in-person at one of <a href="#prohibited">our district offices</a>.</p>
 </div>
 
 <div *ngIf="(forest.forestAbbr) == 'conf'">
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid through the calendar year. <strong>However, firewood gathering is not allowed at certain times of the year</strong> in parts of the forest.</p>
-  <p>See <a>prohibited areas and restrictions</a> for more information.</p>
+  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
   <h3>Cost</h3>
   <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong> All permits are nonrefundable.
+  <h3>Buy a permit</h3>
+  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+</div>
+
+<div *ngIf="(forest.forestAbbr) == 'gwj'">
+  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
+  <p>Firewood permits are valid through the calendar year.</p>
+  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
+  <h3>Cost</h3>
+  <p>Firewood permits cost <strong>$20.00 for 6 cords of wood</strong>. All permits are nonrefundable</p>
   <h3>Buy a permit</h3>
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
 </div>

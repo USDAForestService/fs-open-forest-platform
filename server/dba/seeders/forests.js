@@ -67,7 +67,7 @@ const forests = [
     },
     {
       id: 4,
-      forest_name: 'George Washignton & Jefferson National Forest',
+      forest_name: 'George Washington & Jefferson National Forest',
       forest_url: 'https://www.fs.usda.gov/gwj',
       start_date: '2020-01-01T08:00:00Z',
       end_date: '2021-12-31T08:59:59Z',
