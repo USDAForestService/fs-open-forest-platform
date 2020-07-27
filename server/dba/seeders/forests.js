@@ -67,7 +67,6 @@ const forests = [
   }
 ];
 
-
 module.exports = {
   up(queryInterface) {
     return queryInterface.bulkInsert('fsForests', forests);
