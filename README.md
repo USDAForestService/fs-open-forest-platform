@@ -425,10 +425,11 @@ The site’s architecture is not optimized to support users purchasing more than
 #### Scaling to include more Forests: Form controls to help users choose from a greater number of options
 The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
 
-- [Landing page](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/forests)
-- [Generate a report*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/reports)
-- [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/district-dates)
-- [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/season-dates)
+- [Landing page](https://open-forest-staging.app.cloud.gov/)
+- [Generate a report*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/reports)
+- [Change cutting area dates*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/district-dates)
+- [Change season dates*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/season-dates)
+- [Special use*](https://open-forest-staging.app.cloud.gov/special-use/admin/applications)
 
 **This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.*
 
