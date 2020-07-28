@@ -86,7 +86,7 @@ const forests = [
       state: 'Virginia',
       permit_type: 'fuel',
       region: 8
-    }
+    },
     {
       id: 5,
       forest_name: 'Shoshone National Forest',
