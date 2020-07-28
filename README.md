@@ -1,15 +1,15 @@
 ﻿[![FS Open Forest](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 
 _Master_
-[![Jenkins](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master)
+[![Jenkins]](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master)
 
 Vulnerability Scans
-Frontend: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
+Frontend: [![Known Vulnerabilities]](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Afrontend)
 
-Server: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
+Server: [![Known Vulnerabilities]](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Aserver)
 
 _Staging:_
-[![Staging CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev.svg?style=svg)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev)
+[![Staging Jenkins]](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging)
 
 
 # U.S. Forest Service Permit Platform
@@ -323,16 +323,16 @@ This task should be removed prior to launch.
 
 ### Continuous Integration, Continuous Deployment
 
-[Circleci 2.0](/docs/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/docs/christmas-trees/process/circle-checks.md](/docs/christmas-trees/process/circle-checks.md)
+[Jenkins 2.235.1] is used for continuous integration/deployment. The configuration file for jenkinsfile are found at [https://github.com/USDAForestService/fs-open-forest-platform/blob/dev/Jenkinsfile]. 
 
-The circleci configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
+The jenkins configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
-Deployment to a staging server is configured to run on the `dev` branch only.
+* Deployment to a dev server is configured to run on the `dev` branch only
+* Deployment to a staging server is configured to run on the `staging` branch only.
 
-#### Snyk
+#### Sonarqube
 
-Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This
-file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at server start-up.
+Check the bugs and vulnerability under frontend and server for OpenForest platform by [sonarqube](https://sca.fedgovcloud.us/dashboard?id=fs-openforest-platform#). This file is managed by the each deployment and scans the new code and protects the code from any bugs and vulnerability for cybersecurity.
 
 ### Cloud.gov
 
@@ -396,6 +396,11 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 ### Logs
 This application uses Winston library to format logs as JSON to the [cloud.gov Kibana](https://logs.fr.cloud.gov/) instance. The centralized logger is within the `server/src/services/logger.es6` file. For route requests, the [expressWinston](https://www.npmjs.com/package/express-winston) library is used. For server controller actions the `server/src/services/util.es6:logControllerAction` should be used.
 
+### Splunk
+This application uses our internal splunk that connected to cloud.gov services  [cloud.gov Splunk](https://splunk.fs.usda.gov:8000/) instance.
+
+Only production logs are configured to send the logs to splunk services.
+
 #### Logging SMTP errors
 
 SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_SMTP_ERROR`. A monitoring service, such as New Relic, can be configured to create alerts when an error with `NODE_MAILER_SMTP_ERROR` is logged.
@@ -418,14 +423,12 @@ The server dependency is JSDOM is currently a fork to pass security vulnerabilit
 The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting.
 
 #### Scaling to include more Forests: Form controls to help users choose from a greater number of options
-The site was built to accommodate four pilot Forests and special use. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
+The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
 
-- [Landing page](https://open-forest-staging.app.cloud.gov/)
-- [Generate a report*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/reports)
-- [Change cutting area dates*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/district-dates)
-- [Change season dates*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/season-dates)
-- [Change season dates*](https://open-forest-staging.app.cloud.gov/christmas-trees/admin/season-dates)
-- [Special use permit*](https://open-forest-staging.app.cloud.gov/special-use/admin/applications)
+- [Landing page](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/forests)
+- [Generate a report*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/reports)
+- [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/district-dates)
+- [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/season-dates)
 
 **This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.*
 
