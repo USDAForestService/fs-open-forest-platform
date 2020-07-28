@@ -1,15 +1,15 @@
 ﻿[![FS Open Forest](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 
 _Master_
-[![Jenkins](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master.svg?style=shield)](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master)
+[![Jenkins]](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/master)
 
 Vulnerability Scans
-Frontend: [![Known Vulnerabilities](https://sca.fedgovcloud.us/code?id=fs-openforest-platform/badge.svg?targetFile=fs-openforest-platform%3Afrontend)](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Afrontend)
+Frontend: [![Known Vulnerabilities]](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Afrontend)
 
-Server: [![Known Vulnerabilities](https://sca.fedgovcloud.us/code?id=fs-openforest-platform/badge.svg?targetFile=fs-openforest-platform%3Aserver)](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Aserver)
+Server: [![Known Vulnerabilities]](https://sca.fedgovcloud.us/code?id=fs-openforest-platform&selected=fs-openforest-platform%3Aserver)
 
 _Staging:_
-[![Staging Jenkins](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging.svg?style=svg)](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging)
+[![Staging Jenkins]](https://jenkins.fs.usda.gov/job/fs-open-forest-platform/job/staging)
 
 
 # U.S. Forest Service Permit Platform
@@ -327,8 +327,8 @@ This task should be removed prior to launch.
 
 The jenkins configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
-Deployment to a dev server is configured to run on the `dev` branch only
-Deployment to a staging server is configured to run on the `staging` branch only.
+* Deployment to a dev server is configured to run on the `dev` branch only
+* Deployment to a staging server is configured to run on the `staging` branch only.
 
 #### Sonarqube
 
