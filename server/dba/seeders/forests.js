@@ -97,7 +97,7 @@ const forests = [
       updated: 'now()',
       org_structure_code: '',
       description: 'Shoshone | Wyoming',
-      forest_abbr: 'gwj',
+      forest_abbr: 'shoshone',
       wood_cost: 5,
       timezone: 'America/Boise',
       cutting_areas: '{}',
