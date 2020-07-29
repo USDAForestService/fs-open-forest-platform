@@ -9,9 +9,9 @@ import { alphanumericValidator } from '../../../application-forms/validators/alp
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
 import { lessThanOrEqualValidator } from '../../../application-forms/validators/less-than-or-equal-validation';
-// import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
-// import { ApplicationFieldsService } from '../_services/firewood-application.service';
-// import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
+import { FirewoodInfoService } from '../../_services/firewood-info.service';
+import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
+import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
 
@@ -26,7 +26,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
   application: any;
   applicationForm: FormGroup;
   applicationRulesForm: FormGroup;
-  maxNumberOfTrees: number;
   costPerTree: number;
   apiErrors: any;
   showRules = false;
@@ -35,21 +34,21 @@ export class BuyFirewoodPermitComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location,
-    // private router: Router,
-    // private titleService: Title,
+    private titleService: Title,
     public formBuilder: FormBuilder,
     // public markdownService: NgxMdService,
-    // public applicationService: ChristmasTreesApplicationService,
-    // public applicationFieldsService: ApplicationFieldsService,
-    // private christmasTreesInfoService: ChristmasTreesInfoService,
+    public firewoodInfoService: FirewoodInfoService,
+    public applicationService: FirewoodApplicationService,
+    public applicationFieldsService: ApplicationFieldsService,
     public util: UtilService,
     private winRef: WindowRef,
     private meta: Meta
   ) {
     this.meta.addTag({
-      name: 'description', content: `Purchase a Christmas tree permit with the\
- United States Forest Service on your National Forest.`
+      name: 'description',
+      content: `Purchase a Firewood permit with the United States Forest Service on your National Forest.`
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl(),
@@ -66,27 +65,26 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Update total cost when quantity changes
    */
   quantityChange(value) {
-    // this.applicationForm.get('quantity').setValidators([
-    //   Validators.required,
-    //   lessThanOrEqualValidator(this.maxNumberOfTrees, 1)
-    // ]);
-    // if (!this.applicationForm.get('quantity').errors) {
-    //   this.updateTotalCost();
-    // } else {
-    //   this.applicationForm.get('totalCost').setValue(0);
-    // }
+    this.applicationForm.get('quantity').setValidators([
+      Validators.required,
+      lessThanOrEqualValidator(4, 1)
+    ]);
+    if (!this.applicationForm.get('quantity').errors) {
+      this.updateTotalCost();
+    } else {
+      this.applicationForm.get('totalCost').setValue(0);
+    }
   }
 
   /**
    * @returns application form
    */
-  getApplicationForm(formBuilder, maxNumTrees) {
+  getApplicationForm(formBuilder, maxCords) {
     return formBuilder.group({
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
       orgStructureCode: ['', [Validators.required]],
-      treeCost: [''],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
@@ -95,8 +93,8 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
-      quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
+      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -106,14 +104,11 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Get application form and set default values
    */
   createForm(forest, formBuilder) {
-    this.applicationForm = this.getApplicationForm(formBuilder, forest.maxNumTrees);
+    this.applicationForm = this.getApplicationForm(formBuilder, 4);
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
     this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
-    this.costPerTree = forest.treeCost;
-    this.applicationForm.get('treeCost').setValue(this.costPerTree);
-    this.maxNumberOfTrees = forest.maxNumTrees;
     this.applicationRulesForm = formBuilder.group({ acceptRules: [false, [Validators.required]] });
 
     if (this.permit) {
@@ -139,22 +134,22 @@ export class BuyFirewoodPermitComponent implements OnInit {
   */
   handleData(isCancel) {
 
-    // this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
-    //
-    // this.checkSeasonStartDate(this.forest);
-    //
-    // // cancel any permits coming here that are still initiated and not yet completed
-    // if (this.permit && isCancel && this.permit.status === 'Initiated') {
-    //   // this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
-    //   //   this.permit = updated;
-    //   //   this.showCancelAlert = true;
-    //   // });
-    // }
-    //
-    // this.titleService.setTitle(
-    //   'Buy a Christmas tree permit | ' + this.forest.forestName + ' | U.S. Forest Service Open Forest'
-    // );
-    // this.createForm(this.forest, this.formBuilder);
+    // this.firewoodInfoService.updateMarkdownText(this.markdownService, this.forest);
+
+    this.checkSeasonStartDate(this.forest);
+
+    // cancel any permits coming here that are still initiated and not yet completed
+    if (this.permit && isCancel && this.permit.status === 'Initiated') {
+      this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
+        this.permit = updated;
+        this.showCancelAlert = true;
+      });
+    }
+
+    this.titleService.setTitle(
+      'Buy a Firewood permit | ' + this.forest.forestName + ' | U.S. Forest Service Open Forest'
+    );
+    this.createForm(this.forest, this.formBuilder);
 
   }
 
@@ -185,8 +180,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       if (data.forest) {
         this.forest = data.forest;
         this.permit = data.permit;
-        // this.handleData(isCancel);
-        this.createForm(this.forest, this.formBuilder)
+        this.handleData(isCancel);
       }
     });
   }
@@ -195,12 +189,12 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Submit application if valid, if not valid, scroll to first error
    */
   onSubmit() {
-    // this.applicationFieldsService.touchAllFields(this.applicationRulesForm);
-    // if (this.applicationRulesForm.valid) {
-    //   this.createApplication();
-    // } else {
-    //   this.applicationFieldsService.scrollToFirstError();
-    // }
+    this.applicationFieldsService.touchAllFields(this.applicationRulesForm);
+    if (this.applicationRulesForm.valid) {
+      this.createApplication();
+    } else {
+      this.applicationFieldsService.scrollToFirstError();
+    }
   }
 
   /**
@@ -209,25 +203,25 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * If errors, scroll to error
    */
   showRulesForm() {
-    // this.submitted = true;
-    // this.showCancelAlert = false;
-    // this.apiErrors = null;
-    // // this.applicationFieldsService.touchAllFields(this.applicationForm);
-    // if (this.applicationForm.valid) {
-    //   this.showRules = true;
-    //   this.winRef.getNativeWindow().scroll(0, 200);
-    //   const routeOptions = { fragment: 'rules' };
-    //   if (this.permit) {
-    //     this.router.navigate(
-    //       [`/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
-    //       routeOptions
-    //     );
-    //   } else {
-    //     this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
-    //   }
-    // } else {
-    //   // this.applicationFieldsService.scrollToFirstError();
-    // }
+    this.submitted = true;
+    this.showCancelAlert = false;
+    this.apiErrors = null;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
+    if (this.applicationForm.valid) {
+      this.showRules = true;
+      this.winRef.getNativeWindow().scroll(0, 200);
+      const routeOptions = { fragment: 'rules' };
+      if (this.permit) {
+        this.router.navigate(
+          [`/firewood/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
+          routeOptions
+        );
+      } else {
+        this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
+      }
+    } else {
+      this.applicationFieldsService.scrollToFirstError();
+    }
   }
 
   /**
@@ -249,29 +243,29 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
-    // const paramsWhitelist = [
-    //   'forestId', 'firstName', 'lastName', 'emailAddress', 'quantity'
-    // ];
-    //
-    // const formValuesToSend = Object.keys(this.applicationForm.value)
-    // .filter((key) => paramsWhitelist.includes(key))
-    // .reduce((aggregator, key) => {
-    //   aggregator[key] = this.applicationForm.value[key];
-    //   return aggregator;
-    // }, {});
-    // // this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
-    // //   (response: any) => {
-    // //     this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-    // //   },
-    // //   (error: any) => {
-    // //     this.showRules = false;
-    // //     window.location.hash = '';
-    // //     this.apiErrors = error;
-    // //     this.submitted = false;
-    // //     this.applicationRulesForm.get('acceptRules').setValue(false);
-    // //     this.winRef.getNativeWindow().scroll(0, 0);
-    // //   }
-    // // );
+    const paramsWhitelist = [
+      'forestId', 'firstName', 'lastName', 'emailAddress', 'quantity'
+    ];
+
+    const formValuesToSend = Object.keys(this.applicationForm.value)
+    .filter((key) => paramsWhitelist.includes(key))
+    .reduce((aggregator, key) => {
+      aggregator[key] = this.applicationForm.value[key];
+      return aggregator;
+    }, {});
+    this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
+      (response: any) => {
+        this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+      },
+      (error: any) => {
+        this.showRules = false;
+        window.location.hash = '';
+        this.apiErrors = error;
+        this.submitted = false;
+        this.applicationRulesForm.get('acceptRules').setValue(false);
+        this.winRef.getNativeWindow().scroll(0, 0);
+      }
+    );
   }
 
   /**

@@ -47,7 +47,7 @@ import { ContactUsComponent } from './forests/firewood-guidelines/forest-guideli
     FeedbackService,
     FirewoodInfoService,
     FirewoodAdminService,
-    FirewoodApplicationService
+    FirewoodApplicationService,
   ]
 })
 export class FirewoodModule {}
