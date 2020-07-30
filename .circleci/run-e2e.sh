@@ -1,6 +1,6 @@
 export NODE_ENV=test
 
-SUITE="unauthenticated"
+SUITE="xmas"
 
 PARAMS=""
 if [ -n "$SUITE" ]
