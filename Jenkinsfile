@@ -435,7 +435,6 @@ post{
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 cd server
                 npm run dropdb
-
               	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
 	         rm -f ${WORKSPACE}/pipeline.properties
@@ -474,7 +473,6 @@ post{
                 export DATABASE_URL="${DB_URL}${currentdate}"
                 cd server
                 npm run dropdb
-
               	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
 	        	 rm -f ${WORKSPACE}/pipeline.properties
