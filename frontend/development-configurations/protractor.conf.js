@@ -55,7 +55,7 @@ exports.config = {
   suites: {
     'docker-smoke-test': '../e2e/unauthenticated/**/*spec.ts',
     'su': '../e2e/authenticated/special-uses/**/*spec.ts',
-    'unauthenticated': '../e2e/unauthenticated/**/*spec.ts'
+    'unauthenticated': '../e2e/unauthenticated/**/*spec.ts',
 	'xmas': '../e2e/authenticated/christmas-trees/**/*spec.ts'
   },
   chromeDriver: !isDocker && process.env['OPEN_FOREST_CHROME_DRIVER'],
