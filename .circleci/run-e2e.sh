@@ -1,6 +1,6 @@
 export NODE_ENV=test
 
-SUITE="su"
+SUITE="unauthenticated"
 
 PARAMS=""
 if [ -n "$SUITE" ]
