@@ -17,7 +17,7 @@ Please note if fully resolves the issue per the acceptance criteria: Y/N
 - [ ] Feature branch is starts with the issue number
 - [ ] Is connected to its original issue via zenhub 👇
 - [ ] Tests have been updated 
-- [ ] All tests are passing and meet coverage, linting, and accessibility requirements. And no security vulnerabilities ⚫️(Circle)
+- [ ] All tests are passing and meet coverage, linting, and accessibility requirements. And no security vulnerabilities ⚫️(Sonarqube)
 - [ ] Server actions captured by logs (manual)
 - [ ] Documentation / readme.md updated (manual)
 - [ ] API docs updated if need (manual)
