@@ -19,9 +19,6 @@ if (isDocker) {
   chromeOptions = { args: ['--headless', '--window-size=800x600'] };
 }
 
-console.log(chromeOptions);
-console.log(isDocker);
-
 exports.config = {
   allScriptsTimeout: 11000,
   specs: ['../e2e/**/*spec.ts'],
