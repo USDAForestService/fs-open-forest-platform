@@ -11,7 +11,6 @@ export class ContactUsComponent implements OnInit {
   id: any;
   isSeasonOpen = true;
 
-
   constructor(
     private route: ActivatedRoute,
     // private firewoodInfoService: FirewoodInfoService,
@@ -27,4 +26,3 @@ export class ContactUsComponent implements OnInit {
     });
   }
 }
-

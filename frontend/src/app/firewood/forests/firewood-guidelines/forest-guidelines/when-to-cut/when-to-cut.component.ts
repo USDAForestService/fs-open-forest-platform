@@ -10,7 +10,6 @@ export class WhenToCutComponent implements OnInit {
   id: any;
   isSeasonOpen = true;
 
-
   constructor(
     private route: ActivatedRoute,
     // private firewoodInfoService: FirewoodInfoService,
