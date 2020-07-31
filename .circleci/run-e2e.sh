@@ -1,6 +1,6 @@
 export NODE_ENV=test
 
-SUITE=""
+SUITE="su"
 
 PARAMS=""
 if [ -n "$SUITE" ]
