@@ -7,7 +7,7 @@
     <h1 id="skip-nav-target" tabindex="-1">
       <span>Buy a firewood permit</span>
     </h1>
-
+    <div [hidden]="showRules">
     <h2 *ngIf="forest">You are purchasing a...</h2>
 
     <div class="buy-firewood-box">
@@ -31,13 +31,13 @@
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
-      <div>
         <fieldset>
           <legend>Permit details</legend>
-          <label id="number-of-cords" class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
+          <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
+          <input class="number-of-cords" type="text" formControlName="quantity"/>
           <p>Each cord is $5. Minimum of 4 cords.
             <select class="usa-input-inline" id="number-of-cords" formControlName="numberOfCords" aria-required="true">
-              <option selected="selected" [value]="hour">4</option>
+              <option selected="selected" [value]="hour"></option>
             </select>
           <p>
             <strong>Total cost for firewood permit: $0</strong>
@@ -64,8 +64,8 @@
         <p class="usa-form-hint">
           You can also buy a permit offline by visiting a Ranger District office.
         </p>
-      </div>
-    </form>
 
+    </form>
+  </div>
   </div>
 </section>
