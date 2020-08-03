@@ -3,9 +3,10 @@ import { ApplicationsModule } from '../application-forms/applications.module';
 import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../shared/shared.module';
+import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/firewood-cutting-dates/firewood-cutting-dates.component';
 import { FirewoodGuidelinesComponent } from './forests/firewood-guidelines/firewood-guidelines.component';
 import { FirewoodInfoService } from './_services/firewood-info.service';
-import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/firewood-cutting-dates/firewood-cutting-dates.component';
+import { FirewoodPermitRulesComponent } from './forests/firewood-rules/firewood-permit-rules.component';
 import { FeedbackService } from './_services/feedback.service';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { FirewoodApplicationService } from './_services/firewood-application.service';
@@ -26,8 +27,9 @@ import { ContactUsComponent } from './forests/firewood-guidelines/forest-guideli
     ReportResultsComponent,
     AdminFeedbackReviewComponent,
     AdminSeasonDatesComponent,
-    FirewoodGuidelinesComponent,
     FirewoodCuttingDatesComponent,
+    FirewoodGuidelinesComponent,
+    FirewoodPermitRulesComponent,
     RemovePuncPipe,
     WhenToCutComponent,
     WhereToFindComponent,
@@ -39,8 +41,9 @@ import { ContactUsComponent } from './forests/firewood-guidelines/forest-guideli
     SubmitFeedbackComponent,
     ReportComponent,
     ReportResultsComponent,
+    FirewoodCuttingDatesComponent,
     FirewoodGuidelinesComponent,
-    FirewoodCuttingDatesComponent
+    FirewoodPermitRulesComponent
   ],
   imports: [SharedModule, ApplicationsModule],
   providers: [
