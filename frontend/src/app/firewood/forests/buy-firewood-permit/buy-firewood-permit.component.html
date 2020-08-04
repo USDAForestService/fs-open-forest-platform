@@ -67,23 +67,39 @@
       </form>
     </div>
 
-    <div class='tree-application-rules-container' *ngIf="showRules">
-      <p>
-        Christmas trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
-        rules and conditions may result in a fine.
-      </p>
-      <div class="trees-application-rules" >
-        <div id="permit-rules-container usa-grid">
-          <app-firewood-permit-rules [forest]="forest"></app-firewood-permit-rules>
-        </div>
-        <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate>
-          <div class="trees-applications-rules-checkbox-container">
-            <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-            <label id='accept-rules-label' for="accept-rules"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
-            <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
+    <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
+      <div class='tree-application-rules-container' *ngIf="showRules">
+        <p>
+          Trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
+          rules and conditions may result in a fine.
+        </p>
+        <div class="trees-application-rules" >
+          <div id="permit-rules-container usa-grid">
+            <app-firewood-permit-rules [forest]="forest"></app-firewood-permit-rules>
           </div>
-        </form>
+          <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate>
+            <div class="trees-applications-rules-checkbox-container">
+              <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+              <label id='accept-rules-label' for="accept-rules"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that I have read, understand, and agree to the Firewood cutting rules and guidelines.</label>
+              <app-error-message fieldId="accept-rules-error" name="To purchase a firewood permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
+            </div>
+          </form>
+        </div>
+
+        <p class="usa-form-hint">
+          A copy of these rules and guidelines will be sent with your permit to the email address you have provided. You can print these rules and guidelines and your permit after you make your purchase.
+        </p>
+
+        <p class="usa-form-hint">
+          We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
+        </p>
+        <p class="usa-form-hint">
+          All permits are non-refundable.
+        </p>
+
+        <button id="submit-application" class="usa-button-primary usa-button-big" type="submit">Continue to Checkout</button>
+        
       </div>
-    </div>
+    </form>
   </div>
 </section>
