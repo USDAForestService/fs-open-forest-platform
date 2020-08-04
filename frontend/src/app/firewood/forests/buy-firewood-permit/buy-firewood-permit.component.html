@@ -7,7 +7,7 @@
     <h1 id="skip-nav-target" tabindex="-1">
       <span>Buy a firewood permit</span>
     </h1>
-      <div *ngIf="!showRules">
+      <div *ngIf="showRules">
       <h2 *ngIf="forest">You are purchasing a...</h2>
 
       <div class="buy-firewood-box">
@@ -67,8 +67,21 @@
       </form>
     </div>
 
-    <div *ngIf="!showRules">
-      <app-firewood-permit-rules [forest]="forest"></app-firewood-permit-rules>
+    <div class='tree-application-rules-container' *ngIf="!showRules">
+      <p>
+        Christmas trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
+        rules and conditions may result in a fine.
+      </p>
+      <div class="trees-application-rules" >
+        <div id="permit-rules-container usa-grid">
+          <app-firewood-permit-rules [forest]="forest"></app-firewood-permit-rules>
+        </div>
+        <div class="trees-applications-rules-checkbox-container">
+          <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+          <label id='accept-rules-label' for="accept-rules"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
+          <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
+        </div>
+      </div>
     </div>
   </div>
 </section>
