@@ -18,25 +18,5 @@ export class FirewoodPermitRulesComponent implements OnInit {
 
 // Selects the correct forest to display rules for
 
-  ngOnInit() {
-    switch(this.forest.forestAbbr) {
-      case 'ipnf':
-        this.showDefaultRules = false;
-        break;
-      case 'flathead':
-        this.showDefaultRules = false;
-        break;
-      case 'conf':
-        this.showDefaultRules = false;
-        break;
-      case 'gwj':
-        this.showDefaultRules = false;
-        break;
-      case 'shoshone':
-        this.showDefaultRules = false;
-        break;
-      default:
-        this.showDefaultRules = true;
-    }
-  }
+  ngOnInit() {}
 }

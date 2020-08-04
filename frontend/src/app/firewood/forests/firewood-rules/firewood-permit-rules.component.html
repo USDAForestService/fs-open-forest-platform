@@ -1,42 +1,4 @@
 <div class="usa-grid">
-    <!--#region default block-->
-   <div firwood-rules-list *ngIf="showDefaultRules === true">
-   <!-- <div firwood-rules-list *ngIf="(forest.forestAbbr)!=='ipnf' || (forest.forestAbbr)!=='flathead' || (forest.forestAbbr)!=='conf' ||(forest.forestAbbr)!=='gwj' || (forest.forestAbbr)!=='shoshone' || (forest.forestAbbr)!=='mthood'"> -->
-     <!-- <div firwood-rules-list *ngIf="(forest.forestAbbr)!=='ipnf' || 'flathead' || 'conf' || 'gwj' || 'shoshone' || 'mthood'"> -->
-     <h3>Your Permit Here</h3>
-     <ul>
-       <li>Must be in your possession while cutting and transporting firewood. Copies are not allowed.</li>
-       <li>Is for personal use only and not for commercial purposes.</li>
-       <li>Requires the permit holder to be present at time of cutting and transport.</li>
-       <li>Must be printed to be valid and cannot be stored on a mobile device.</li>
-       <li>Is non-transferable, non-replaceable, non-refundable.</li>
-       <li>Is only valid for use on the National Forest listed on the permit.</li>
-       <li>Expires at midnight of the expiration date on the permit or when the purchased quantity of firewood have been gathered, whichever comes first.</li>
-       <li>Cannot be reused or duplicated.</li>
-       <li>Cannot be used to remove more products than the permit holder has purchased.</li>
-     </ul>
-     <h3>Firewood cutting</h3>
-     <ul>
-       <li>The permittee is authorized to park a motor vehicle within 300 feet of roads shown open to motorized vehicles on the current Shoshone Motor Vehicle Use Map for the purpose of cutting firewood, when it can be done without damage to resources. If you have any questions, refer to the Motor Vehicle Use Map or contact a ranger district office in Lander, Dubois, or Cody.</li>
-       <li>Obey all seasonal road and area closures as signed.</li>
-       <li>Permittee parking shall not block traffic or impede fire or emergency vehicle.</li>
-       <li>The maximum limit is 10 cords per household per year.</li>
-       <li>The maximum piece length for firewood removal is eight (8) feet.</li>
-       <li>Live and dead burl trees may NOT be cut.</li>
-       <li>All dead and down trees may be gathered. A dead tree is one with no green needles. Disease or beetle-killed trees must be all brown or red-needled to be considered dead.</li>
-       <li>No gathering or harvest of any dead trees identified by having paint marks, signs or tags on them.</li>
-     </ul>
-     <h3>Cutting is prohibited within:</h3>
-     <ul>
-       <li>Private or State of Wyoming land in-holdings.</li>
-       <li>Wilderness and research natural areas.</li>
-       <li>Timber sale areas posted with No Firewood Cutting signs.</li>
-       <li>300 feet of campgrounds, lodges, resorts, recreation areas, work centers, or ranger stations.</li>
-       <li>Other areas posted Closed to Firewood Cutting. </li>
-     </ul>
-   </div>
-   <!--#endregion -->
-   
    <!--#region ipnf block-->
    <div firwood-rules-list *ngIf="(forest.forestAbbr)==='ipnf'">
      <h3>Your Permit</h3>
@@ -77,7 +39,7 @@
      <ul>
        <li>Motorized vehicles are not allowed off existing roads that are open to the public, unless otherwise specified on this permit.Permittee parking shall not block traffic or impede fire or emergency vehicles.</li>
        <li>Six feet is the maximum length piece that may be removed under the firewood program without written approval.</li>
-       <li>Live trees may NOT be cut. From 11/1 to 5/31 Larch Trees cannot be cut unless they are dead, with loose buckskin bark.</li>
+       <li><mark>Live trees may NOT be cut.</mark> From 11/1 to 5/31 Larch Trees cannot be cut unless they are dead, with loose buckskin bark.</li>
        <li>All dead and down trees may be gathered.</li>
        <li>Standing dead trees may be cut only if they are within 200 feet of a legal public road.</li>
        <li>No gathering or harvest of any dead trees identified by having paint marks at breast height and stump height or dead trees which have directional, trail, den tree, Animal Inn or land survey signs attached.</li>
