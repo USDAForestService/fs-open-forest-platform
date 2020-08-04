@@ -98,8 +98,10 @@
         </p>
 
         <button id="submit-application" class="usa-button-primary usa-button-big" type="submit">Continue to Checkout</button>
-        
+
       </div>
     </form>
+
+    <p *ngIf="forest">Return to the <a [routerLink]="'/firewood/forests/' + forest.forestAbbr">{{forest.forestName}} Firewood tree permit information</a> page.</p>
   </div>
 </section>
