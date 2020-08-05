@@ -206,15 +206,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
       console.log("isValid");
       this.showRules = true;
       this.winRef.getNativeWindow().scroll(0, 200);
-      const routeOptions = { fragment: 'rules' };
-      // if (this.permit) {
-      //   this.router.navigate(
-      //     [`/firewood/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
-      //     routeOptions
-      //   );
-      // } else {
-      //   this.router.navigate([`/firewood/forests/${this.forest.forestAbbr}/applications`], routeOptions);
-      // }
     } else {
       this.applicationFieldsService.scrollToFirstError();
       console.log("notValid");
