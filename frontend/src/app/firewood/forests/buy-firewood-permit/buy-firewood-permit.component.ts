@@ -203,13 +203,10 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.apiErrors = null;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {
-      console.log("isValid");
       this.showRules = true;
       this.winRef.getNativeWindow().scroll(0, 200);
     } else {
       this.applicationFieldsService.scrollToFirstError();
-      console.log("notValid");
-      console.dir(this.applicationForm);
     }
   }
 
