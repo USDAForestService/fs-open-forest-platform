@@ -24,7 +24,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
   submitted = false;
   application: any;
   applicationForm: FormGroup;
-  applicationRulesForm: FormGroup;
   costPerTree: number;
   apiErrors: any;
   showRules = false;
@@ -53,9 +52,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
       numberOfCords: new FormControl(),
       firstName: new FormControl(),
       lastName: new FormControl()
-    });
-    this.applicationRulesForm = new FormGroup({
-      acceptRules: new FormControl()
     });
   }
 
@@ -104,7 +100,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
-    this.applicationRulesForm = formBuilder.group({ acceptRules: [false, [Validators.required]] });
 
     if (this.permit) {
       this.rePopulateForm();
@@ -181,18 +176,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
   }
 
   /**
-   * Submit application if valid, if not valid, scroll to first error
-   */
-  onSubmit() {
-    this.applicationFieldsService.touchAllFields(this.applicationRulesForm);
-    if (this.applicationRulesForm.valid) {
-      this.createApplication();
-    } else {
-      this.applicationFieldsService.scrollToFirstError();
-    }
-  }
-
-  /**
    * If form is submitted, show rules
    * If permit already exists, redirect to permit view page
    * If errors, scroll to error
@@ -219,7 +202,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
     this.applicationForm.get('numberOfCords').setValue(this.permit.numberOfCords);
     this.applicationForm.get('acceptPII').setValue(false);
-    this.applicationRulesForm.get('acceptRules').setValue(false);
     this.quantityChange(this.permit.numberOfCords);
     this.showRules = false;
   }
@@ -248,7 +230,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
         window.location.hash = '';
         this.apiErrors = error;
         this.submitted = false;
-        this.applicationRulesForm.get('acceptRules').setValue(false);
         this.winRef.getNativeWindow().scroll(0, 0);
       }
     );
