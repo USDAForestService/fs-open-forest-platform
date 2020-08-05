@@ -19,7 +19,7 @@ const forests = [
       poss_financial_id: '',
       state: 'Idaho',
       permit_type: 'fuel',
-      region: 6
+      region: 1
     },
     {
       id: 2,
@@ -41,7 +41,7 @@ const forests = [
       poss_financial_id: '',
       state: 'Montana',
       permit_type: 'fuel',
-      region: 6
+      region: 1
     },
     {
       id: 3,
@@ -76,7 +76,7 @@ const forests = [
       org_structure_code: '',
       description: 'George Washington & Jefferson | Virginia',
       forest_abbr: 'gwj',
-      wood_cost: 5,
+      wood_cost: 6,
       timezone: 'America/Detroit',
       cutting_areas: '{}',
       map_links: '{}',
@@ -86,6 +86,50 @@ const forests = [
       state: 'Virginia',
       permit_type: 'fuel',
       region: 8
+    },
+    {
+      id: 5,
+      forest_name: 'Shoshone National Forest',
+      forest_url: 'https://www.fs.usda.gov/shoshone',
+      start_date: '2020-01-01T08:00:00Z',
+      end_date: '2021-12-31T08:59:59Z',
+      created: 'now()',
+      updated: 'now()',
+      org_structure_code: '',
+      description: 'Shoshone | Wyoming',
+      forest_abbr: 'shoshone',
+      wood_cost: 7.5,
+      timezone: 'America/Boise',
+      cutting_areas: '{}',
+      map_links: '{}',
+      contact:
+      '',
+      poss_financial_id: '',
+      state: 'Wyoming',
+      permit_type: 'fuel',
+      region: 2
+    },
+    {
+      id: 5,
+      forest_name: 'Hiawatha National Forest',
+      forest_url: 'https://www.fs.usda.gov/hiawatha',
+      start_date: '2020-01-01T08:00:00Z',
+      end_date: '2021-12-31T08:59:59Z',
+      created: 'now()',
+      updated: 'now()',
+      org_structure_code: '',
+      description: 'Hiawatha | Michigan',
+      forest_abbr: 'Hiawatha',
+      wood_cost: 5,
+      timezone: 'America/Detroit',
+      cutting_areas: '{}',
+      map_links: '{}',
+      contact:
+      '',
+      poss_financial_id: '',
+      state: 'Michigan',
+      permit_type: 'fuel',
+      region: 9
     }
   ];
   module.exports = {
