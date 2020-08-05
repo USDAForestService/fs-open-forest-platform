@@ -36,3 +36,13 @@
   <h3>Buy a permit</h3>
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
 </div>
+
+<div *ngIf="(forest.forestAbbr) == 'shoshone'">
+  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
+  <p>Firewood permits are valid through the calendar year.</p>
+  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
+  <h3>Cost</h3>
+  <p>Firewood permits cost <strong>$7.50 per cord</strong>. with a <strong>3 cord ($22.50) minimum purchase</strong>. Limit of 10 cords per household per year. All permits are nonrefundable and nontransferable.</p>
+  <h3>Buy a permit</h3>
+  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+</div>
