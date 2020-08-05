@@ -66,11 +66,7 @@
       </form>
     </div>
 
-    <div class='tree-application-rules-container' *ngIf="!showRules">
-      <p>
-        Trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
-        rules and conditions may result in a fine.
-      </p>
+    <div class='tree-application-rules-container' *ngIf="showRules">
       <app-firewood-permit-rules [firstName]="applicationForm.controls.firstName.value" [lastName]="applicationForm.controls.lastName.value" [numberOfCords]="applicationForm.controls.numberOfCords.value" [emailAddress]="applicationForm.controls.emailAddress.value" [forest]="forest"></app-firewood-permit-rules>
     </div>
   </div>
