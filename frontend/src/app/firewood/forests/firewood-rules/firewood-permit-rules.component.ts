@@ -32,13 +32,13 @@ export class FirewoodPermitRulesComponent implements OnInit {
   }
 
   createApplication() {
-    let data = {
+    const data = {
       forestId: this.forest.id,
       firstName: this.firstName,
       lastName: this.lastName,
       emailAddress: this.emailAddress,
       quantity: this.numberOfCords
-    }
+    };
 
     if (this.applicationRulesForm.valid) {
       this.applicationService.create(JSON.stringify(data)).subscribe((response: any) => {
