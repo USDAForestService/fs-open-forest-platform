@@ -133,6 +133,27 @@
         }
      }
     }
+
+    .firewood-contact-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 55rem;
+    }
+
+    .firewood-contact-item {
+        width: 25rem;
+    }
+
+    .firewood-contact-name {
+        margin-bottom: 0rem;
+    }
+    .firewood-contact-address-phone {
+        line-height: 1.3;
+        margin-top: 0rem;
+    }
+
+
 @media screen and (min-width: $large-screen) {
     #forest-template{
         .small-col{
