@@ -49,6 +49,13 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
         min: 0
       }
     },
+    woodCost: {
+      type: DataTypes.DOUBLE,
+      field: 'wood_cost',
+      validate: {
+        min: 0
+      }
+    },
     status: {
       type: DataTypes.STRING(50),
       field: 'status'
