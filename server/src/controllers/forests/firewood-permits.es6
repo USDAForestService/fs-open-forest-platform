@@ -3,8 +3,10 @@
 /**
  * @module controllers/forests/firewood-permits
  */
+
 const logger = require('../../services/logger.es6');
-const firewoodModel = require('../../models/firewood-permits.es6');
+// const firewoodModel = sequelize.import('../../models/firewood-permits.es6');
+const fwp = require('../../models/firewood-permits.es6');
 const forestsDb = require('../../models/forests.es6');
 // const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
 const forestService = require('../../services/forest.service.es6');
@@ -35,7 +37,7 @@ const formatPermitError = permit => ({
  * @param {Object} res - http response
  */
 firewoodPermits.create = async (req, res) => {
-  util.logControllerAction(req, 'firewoodPermits.create', req.body);
+  util.logControllerAction(req, 'fwp.create', req.body);
 
   const application = req.body;
   const query = { where: { id: application.forestId } };
@@ -60,7 +62,7 @@ firewoodPermits.create = async (req, res) => {
  * @param {Object} res - http response
  */
 firewoodPermits.getOnePermit = async (req, res) => {
-  util.logControllerAction(req, 'firewoodPermits.getOnePermit', { id: req.params.id });
+  util.logControllerAction(req, 'fwp.getOnePermit', { id: req.params.id });
 
   const query = {
     where: { permitId: req.params.id },
@@ -137,7 +139,7 @@ firewoodPermits.getOnePermit = async (req, res) => {
  * @param {Object} res - http response
  */
 firewoodPermits.updatePermitApplication = async (req, res) => {
-  util.logControllerAction(req, 'firewoodPermits.updatePermitApplication', req.body);
+  util.logControllerAction(req, 'fwp.updatePermitApplication', req.body);
 
   const { permitId, status: requestedStatus } = req.body;
 

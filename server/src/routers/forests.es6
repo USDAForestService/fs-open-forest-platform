@@ -20,7 +20,7 @@ router.get('/firewood-permits/:id', firewoodController.getOnePermit);
 
 router.post('/firewood-permits', firewoodController.create);
 
-router.put('/firewood-permits/:id', firewoodController.updatePermitApplication)
+router.put('/firewood-permits/:id', firewoodController.updatePermitApplication);
 
 /**
  * Firewood module routes
