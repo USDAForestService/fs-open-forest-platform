@@ -57,7 +57,8 @@ firewoodPermitService.permitResult = permit => ({
 
 firewoodPermitService.createPermitTransaction = async (application, forest) => {
   const transformed = firewoodPermitService.translatePermitFromClientToDatabase(application, forest);
-  const permit = await firewoodModel.create(transformed);
+  console.log(transformed);
+  const permit = firewoodModel.create(transformed);
 
   let paygovToken;
 
