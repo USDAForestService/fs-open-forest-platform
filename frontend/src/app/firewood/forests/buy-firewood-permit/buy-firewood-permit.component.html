@@ -7,7 +7,7 @@
     <h1 id="skip-nav-target" tabindex="-1">
       <span>Buy a firewood permit</span>
     </h1>
-      <div *ngIf="showRules">
+      <div *ngIf="!showRules">
       <h2 *ngIf="forest">You are purchasing a...</h2>
 
       <div class="buy-firewood-box">
@@ -66,7 +66,7 @@
       </form>
     </div>
 
-    <div class='tree-application-rules-container' *ngIf="!showRules">
+    <div class='tree-application-rules-container' *ngIf="showRules">
       <app-firewood-permit-rules [firstName]="applicationForm.controls.firstName.value" [lastName]="applicationForm.controls.lastName.value" [numberOfCords]="applicationForm.controls.numberOfCords.value" [emailAddress]="applicationForm.controls.emailAddress.value" [forest]="forest"></app-firewood-permit-rules>
     </div>
   </div>
