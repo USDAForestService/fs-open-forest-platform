@@ -1,5 +1,3 @@
-
-
 const Sequelize = require('sequelize');
 const util = require('../services/util.es6');
 

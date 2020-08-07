@@ -1,11 +1,13 @@
+  
 /* eslint-disable consistent-return */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /**
  * @module controllers/forests/firewood-permits
  */
-
 const logger = require('../../services/logger.es6');
+const firewoodModel = require('../../models/firewood-permits.es6');
 const forestsDb = require('../../models/forests.es6');
+// const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
 const forestService = require('../../services/forest.service.es6');
 const firewoodPermitService = require('../../services/firewood-permit-service.es6');
 const util = require('../../services/util.es6');
@@ -67,7 +69,7 @@ firewoodPermits.getOnePermit = async (req, res) => {
   };
 
   try {
-    const permit = await forestsDb.firewoodPermits.findOne(query);
+    const permit = await firewoodModel.findOne(query);
 
     if (!permit) {
       return res.status(404).send();

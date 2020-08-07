@@ -4,6 +4,7 @@ const uuid = require('uuid/v4');
 const zpad = require('zpad');
 
 const email = require('../email/email-util.es6');
+const forestDb = require('../models/forests.es6');
 const firewoodModel = require('../models/firewood-permits.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const paygov = require('./paygov');
@@ -57,8 +58,7 @@ firewoodPermitService.permitResult = permit => ({
 
 firewoodPermitService.createPermitTransaction = async (application, forest) => {
   const transformed = firewoodPermitService.translatePermitFromClientToDatabase(application, forest);
-  console.log(transformed);
-  const permit = firewoodModel.create(transformed);
+  const permit = await forestDb.firewoodPermits.create(transformed);
 
   let paygovToken;
 
