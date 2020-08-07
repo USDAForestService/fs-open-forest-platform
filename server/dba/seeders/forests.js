@@ -119,7 +119,7 @@ const forests = [
       updated: 'now()',
       org_structure_code: '',
       description: 'Hiawatha | Michigan',
-      forest_abbr: 'Hiawatha',
+      forest_abbr: 'hiawatha',
       wood_cost: 5,
       timezone: 'America/Detroit',
       cutting_areas: '{}',
