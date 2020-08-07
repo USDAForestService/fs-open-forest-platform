@@ -5,7 +5,6 @@ const zpad = require('zpad');
 
 const email = require('../email/email-util.es6');
 const forestDb = require('../models/forests.es6');
-const firewoodModel = require('../models/firewood-permits.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const paygov = require('./paygov');
 const permitSvgService = require('./christmas-trees-permit-svg-util.es6');
