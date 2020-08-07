@@ -6,6 +6,7 @@ applications:
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 256M
   instances: 2
+  disk_quota: 2G
   services:
     - eauth-service-provider
     - intake-client-service
