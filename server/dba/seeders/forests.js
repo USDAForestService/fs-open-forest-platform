@@ -134,7 +134,7 @@ const forests = [
     {
       id: 7,
       forest_name: 'Grand Mesa Uncompahgre and Gunnison National Forests',
-      forest_url: 'https://www.fs.usda.gov/hiawatha',
+      forest_url: 'https://www.fs.usda.gov/gmug',
       start_date: '2020-01-01T08:00:00Z',
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
