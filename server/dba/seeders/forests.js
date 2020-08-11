@@ -55,7 +55,7 @@ const forests = [
       description: 'Chattahoochee-Oconee | Georgia',
       forest_abbr: 'conf',
       wood_cost: 5,
-      timezone: 'America/Detroit',
+      timezone: 'America/New York City',
       cutting_areas: '{}',
       map_links: '{}',
       contact:
@@ -76,8 +76,8 @@ const forests = [
       org_structure_code: '',
       description: 'George Washington & Jefferson | Virginia',
       forest_abbr: 'gwj',
-      wood_cost: 6,
-      timezone: 'America/Detroit',
+      wood_cost: 5,
+      timezone: 'America/New York City',
       cutting_areas: '{}',
       map_links: '{}',
       contact:
