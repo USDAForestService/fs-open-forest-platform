@@ -130,6 +130,28 @@ const forests = [
       state: 'Michigan',
       permit_type: 'fuel',
       region: 9
+    },
+    {
+      id: 7,
+      forest_name: 'Grand Mesa Uncompahgre and Gunnison National Forests',
+      forest_url: 'https://www.fs.usda.gov/hiawatha',
+      start_date: '2020-01-01T08:00:00Z',
+      end_date: '2021-12-31T08:59:59Z',
+      created: 'now()',
+      updated: 'now()',
+      org_structure_code: '',
+      description: 'Grand Mesa Uncompahgre and Gunnison | Colorado',
+      forest_abbr: 'gmug',
+      wood_cost: 5,
+      timezone: 'America/Boise',
+      cutting_areas: '{}',
+      map_links: '{}',
+      contact:
+      '',
+      poss_financial_id: '',
+      state: 'Colorado',
+      permit_type: 'fuel',
+      region: 2
     }
   ];
   module.exports = {
