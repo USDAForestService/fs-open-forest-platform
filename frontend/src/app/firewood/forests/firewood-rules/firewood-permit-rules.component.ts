@@ -31,8 +31,30 @@ export class FirewoodPermitRulesComponent implements OnInit {
   ngOnInit() {
   }
 
+  // submitFeedback() {
+  //   const feedback = {
+  //     forests: this.forests,
+  //     message: this.message
+  //   };
+
+  //   // validate fields
+  //   if (this.message) {
+  //     const status = {
+  //       message: 'Thank you for sharing your feedback.<br>For help or technical questions, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov.</a>',
+  //       header: ''
+  //     };
+  //     // create feedback entry
+  //     this.service.create(feedback).subscribe(data => {
+  //       // show success message
+  //       localStorage.setItem('status', JSON.stringify(status));
+  //       const redirectUrl = localStorage.getItem('feedbackRedirect');
+  //       this.router.navigate([redirectUrl]);
+  //     });
+  //   }
+  // }
+
   createApplication() {
-    const data = {
+    const fsApplication = {
       forestId: this.forest.id,
       firstName: this.firstName,
       lastName: this.lastName,
@@ -40,13 +62,17 @@ export class FirewoodPermitRulesComponent implements OnInit {
       quantity: this.numberOfCords
     };
 
-    if (this.applicationRulesForm.valid) {
-      this.applicationService.create(JSON.stringify(data)).subscribe((response: any) => {
-        this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-      }, (error: any) => {
-        window.location.hash = '';
-        this.applicationRulesForm.get('acceptRules').setValue(false);
-        this.winRef.getNativeWindow().scroll(0, 0);
+    if (fsApplication) {
+      const status = {
+        message: 'Thank you for sharing your feedback.<br>For help or technical questions, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov.</a>',
+        header: ''
+      };
+      // create feedback entry
+      this.service.create(feedback).subscribe(data => {
+        // show success message
+        localStorage.setItem('status', JSON.stringify(status));
+        const redirectUrl = localStorage.getItem('feedbackRedirect');
+        this.router.navigate([redirectUrl]);
       });
     }
   }
