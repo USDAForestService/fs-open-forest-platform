@@ -4,7 +4,6 @@ const express = require('express');
 const uuid = require('uuid/v4');
 
 const util = require('../services/util.es6');
-// const treesDb = require('../models/trees-db.es6');
 const forestsDb = require('../models/forests.es6');
 const middleware = require('../services/middleware.es6');
 const paygov = require('../services/paygov');

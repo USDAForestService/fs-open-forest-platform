@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
-import { NgxMdService } from 'ngx-md';
 import { alphanumericValidator } from '../../../application-forms/validators/alphanumeric-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
@@ -37,7 +36,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
     private location: Location,
     private titleService: Title,
     public formBuilder: FormBuilder,
-    // public markdownService: NgxMdService,
     public firewoodInfoService: FirewoodInfoService,
     public applicationService: FirewoodApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
@@ -104,7 +102,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
-    // this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
 
     if (this.permit) {
       this.rePopulateForm();
@@ -128,9 +125,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
   * handle the data of an existing application
   */
   handleData(isCancel) {
-
-    // this.firewoodInfoService.updateMarkdownText(this.markdownService, this.forest);
-
     this.checkSeasonStartDate(this.forest);
 
     // cancel any permits coming here that are still initiated and not yet completed

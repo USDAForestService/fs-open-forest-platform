@@ -54,7 +54,6 @@ firewoodPermitService.permitResult = permit => ({
   }
 });
 
-
 firewoodPermitService.createPermitTransaction = async (application, forest) => {
   const transformed = firewoodPermitService.translatePermitFromClientToDatabase(application, forest);
   const permit = await forestDb.firewoodPermits.create(transformed);
