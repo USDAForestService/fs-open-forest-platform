@@ -8,7 +8,6 @@
   <p>You can buy firewood permits online or in-person at one of <a href="#prohibited">our district offices</a>.</p>
 </div>
 
-<!-- flathead block -->
 <div *ngIf="(forest.forestAbbr) === 'flathead'">
   <h3>When to cut firewood</h3>
   <p>Firewood permits are valid through the calendar year. However, <strong>firewood cutting is not allowed at certain times of the year</strong> in parts of the forest.
@@ -18,7 +17,6 @@
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
 </div>
 
-<!-- conf block -->
 <div *ngIf="(forest.forestAbbr) == 'conf'">
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid through the calendar year. <strong>However, firewood gathering is not allowed at certain times of the year</strong> in parts of the forest.</p>
@@ -29,37 +27,12 @@
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
   </div>
 
-<!-- gwj block -->
 <div *ngIf="(forest.forestAbbr) == 'gwj'">
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid through the calendar year.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
   <h3>Cost</h3>
   <p>Firewood permits cost <strong>$20.00 for 6 cords of wood</strong>. All permits are nonrefundable</p>
-  <h3>Buy a permit</h3>
-  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
-</div>
-
-<!-- shoshone block -->
-<div *ngIf="(forest.forestAbbr) == 'shoshone'">
-  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
-  <p>Firewood permits are valid through the calendar year.</p>
-  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
-  <h3>Cost</h3>
-  <p>Firewood permits cost <strong>$7.50 per cord</strong>. with a <strong>3 cord ($22.50) minimum purchase</strong>. Limit of 10 cords per household per year. All permits are nonrefundable and nontransferable.</p>
-  <h3>Buy a permit</h3>
-  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
-</div>
-
-<!-- Hiawatha block -->
-<div *ngIf="(forest.forestAbbr) == 'hiawatha'">
-  <h3>When are permits available?</h3>
-  <p>Firewood permits can be purchased at any time throughout the year.</p>
-  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
-  <p>Firewood permits are valid from one year from point of issuance.</p>
-  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
-  <h3>Cost</h3>
-  <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong> All permits are nonrefundable.</p>
   <h3>Buy a permit</h3>
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
 </div>

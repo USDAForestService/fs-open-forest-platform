@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
+import { NgxMdService } from 'ngx-md';
 import { alphanumericValidator } from '../../../application-forms/validators/alphanumeric-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
@@ -36,6 +37,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     private location: Location,
     private titleService: Title,
     public formBuilder: FormBuilder,
+    // public markdownService: NgxMdService,
     public firewoodInfoService: FirewoodInfoService,
     public applicationService: FirewoodApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
@@ -78,6 +80,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
+      // orgStructureCode: ['', [Validators.required]],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
@@ -87,6 +90,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
         ), Validators.maxLength(255)]
       ],
       numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
+      // quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -100,6 +104,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
+    // this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
 
     if (this.permit) {
       this.rePopulateForm();
@@ -188,6 +193,15 @@ export class BuyFirewoodPermitComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.showRules = true;
       this.winRef.getNativeWindow().scroll(0, 200);
+      // const routeOptions = { fragment: 'rules' };
+      // if (this.permit) {
+      //   this.router.navigate(
+      //     [`/firewood/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
+      //     routeOptions
+      //   );
+      // } else {
+      //   this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
+      // }
     } else {
       this.applicationFieldsService.scrollToFirstError();
     }
