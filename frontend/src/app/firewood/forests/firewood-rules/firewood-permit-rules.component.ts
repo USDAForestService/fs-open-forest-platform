@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterPipe } from '../../../_pipes/filter.pipe';
+import { FeedbackService } from '../../_services/feedback.service';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { WindowRef } from '../../../_services/native-window.service';
 
 @Component({
@@ -21,6 +23,8 @@ export class FirewoodPermitRulesComponent implements OnInit {
   constructor(
     private firewoodInfoService: FirewoodInfoService,
     private applicationService: FirewoodApplicationService,
+    private service: FeedbackService,
+    private router: Router,
     private winRef: WindowRef
   ) {
     this.applicationRulesForm = new FormGroup({
@@ -68,7 +72,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
         header: ''
       };
       // create feedback entry
-      this.service.create(feedback).subscribe(data => {
+      this.service.create(fsApplication).subscribe(data => {
         // show success message
         localStorage.setItem('status', JSON.stringify(status));
         const redirectUrl = localStorage.getItem('feedbackRedirect');
