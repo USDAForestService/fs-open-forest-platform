@@ -22,20 +22,17 @@ export class FeedbackService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     let newFeedbackEntry = {
-      totalCost: body.totalCost,
       emailAddress: body.emailAddress,
       firstName: body.firstName,
-      woodCost: body.totalCost/body.quantity,
       lastName: body.lastName,
       forestId: body.forestId,
-      quantity: body.numberOfCords
     };
 
     const options = {
       headers: headers
     };
 
-    return this.http.post(this.endpoint + "create", newFeedbackEntry, options);
+    return this.http.post(this.endpoint, newFeedbackEntry, options);
   }
 
   // get all feedback
