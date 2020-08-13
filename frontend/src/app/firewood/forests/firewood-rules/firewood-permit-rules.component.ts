@@ -18,6 +18,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
   @Input() lastName: any;
   @Input() numberOfCords: any;
   @Input() emailAddress: any;
+  @Input() totalCost: any;
   applicationRulesForm: FormGroup;
 
   constructor(
@@ -63,7 +64,8 @@ export class FirewoodPermitRulesComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       emailAddress: this.emailAddress,
-      quantity: this.numberOfCords
+      quantity: this.numberOfCords,
+      totalCost: this.totalCost
     };
 
     if (fsApplication) {

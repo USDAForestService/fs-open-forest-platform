@@ -9,10 +9,11 @@ import {catchError} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import * as moment from 'moment/moment';
 import { UtilService } from '../../_services/util.service';
+import { QuantityComponent } from 'app/application-forms/fields/quantity.component';
 
 @Injectable()
 export class FeedbackService {
-  private endpoint = environment.apiUrl + 'feedback/';
+  private endpoint = environment.apiUrl + 'fsforests/firewood-permits/';
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
@@ -21,15 +22,20 @@ export class FeedbackService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     let newFeedbackEntry = {
-      message: body.message,
-      forests: body.forests
+      totalCost: body.totalCost,
+      emailAddress: body.emailAddress,
+      firstName: body.firstName,
+      woodCost: body.totalCost/body.quantity,
+      lastName: body.lastName,
+      forestId: body.forestId,
+      quantity: body.numberOfCords
     };
 
     const options = {
       headers: headers
     };
 
-    return this.http.post(this.endpoint + 'create', newFeedbackEntry, options);
+    return this.http.post(this.endpoint + "create", newFeedbackEntry, options);
   }
 
   // get all feedback

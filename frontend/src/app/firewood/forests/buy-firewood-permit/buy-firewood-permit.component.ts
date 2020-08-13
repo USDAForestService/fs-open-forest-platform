@@ -90,7 +90,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
         ), Validators.maxLength(255)]
       ],
       numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
-      // quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -104,7 +103,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
-    // this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
+    this.applicationForm.get('totalCost').setValue(20);
 
     if (this.permit) {
       this.rePopulateForm();
@@ -226,7 +225,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
    */
   createApplication() {
     const paramsWhitelist = [
-      'forestId', 'firstName', 'lastName', 'emailAddress', 'numberOfCords'
+      'forestId', 'firstName', 'lastName', 'emailAddress', 'numberOfCords', 'woodCost'
     ];
 
     const formValuesToSend = Object.keys(this.applicationForm.value)
