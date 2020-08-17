@@ -1,8 +1,10 @@
+
   <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate>
   <p>
     Trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
     rules and conditions may result in a fine.
   </p>
+<div class="usa-grid">
   <div class="trees-application-rules">
     <div id="permit-rules-container usa-grid">
       <!--#region ipnf block-->
@@ -281,3 +283,18 @@
         <p class="usa-form-hint">
           All permits are non-refundable.
         </p>
+
+    </div>
+  </div>
+
+</div>
+
+<form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate>
+  <div class="trees-applications-rules-checkbox-container">
+    <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+    <label id='accept-rules-label' for="accept-rules"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
+    <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
+  </div>
+  <button id="submit-application" class="usa-button-primary usa-button-big" (click)="createApplication()" type="submit">Continue to Checkout</button>
+</form>
+

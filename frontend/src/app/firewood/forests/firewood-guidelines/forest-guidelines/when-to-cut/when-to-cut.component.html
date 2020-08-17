@@ -1,3 +1,4 @@
+<!-- Idaho Panhandle block -->
 <div *ngIf="(forest.forestAbbr) == 'ipnf'">
   <h3>When to cut firewood</h3>
   <p>Firewood permits are valid through December 31, 2020.</p>
@@ -57,6 +58,19 @@
   <p>Firewood permits can be purchased at any time throughout the year.</p>
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid from one year from point of issuance.</p>
+  <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
+  <h3>Cost</h3>
+  <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong> All permits are nonrefundable.</p>
+  <h3>Buy a permit</h3>
+  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+</div>
+
+<!-- GMUG block -->
+<div *ngIf="(forest.forestAbbr) == 'gmug'">
+  <h3>When are permits available?</h3>
+  <p>Firewood permits can be purchased at any time throughout the year.</p>
+  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
+  <p>Firewood permits are valid through December 31, 2020.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
   <h3>Cost</h3>
   <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong> All permits are nonrefundable.</p>

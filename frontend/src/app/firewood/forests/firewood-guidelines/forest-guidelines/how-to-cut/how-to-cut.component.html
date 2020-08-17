@@ -1,4 +1,5 @@
 <app-section-heading heading="How to cut your firewood" id="cutting-instructions" tabIndex="-1"></app-section-heading>
+
 <!-- ipnf block -->
 <div *ngIf="(forest.forestAbbr) == 'ipnf'">
   <h3>Equipment you'll need</h3>
@@ -41,6 +42,21 @@
   <p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
 </div>
 
+<!-- GMUG block -->
+<div *ngIf="(forest.forestAbbr)=='GMUG'">
+  <h3>What to expect</h3>
+  <p>The permit must be in the Permittee's possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
+  <p>Any wood larger than seven (7) inches in diameter at either end must be cut in six (6) foot lengths of less.</p>
+  <p>Cut all stumps to less than eight (8) inches high and remove all material larger than three (3) inches in diameter.</p>
+  <p>Reduce slash to 24 inch height maximum. <strong>DO NOT</strong> block or leave slash on roads, shoulders or in ditches.</p>
+  <p><strong>DO NOT</strong> damage vegetation, riparian areas, the forest floor, or roadbed surfaces. Use of heavy equipment (such as tractors, bulldozers, skidders, etc) is prohibited. DO NOT drive off roads in areas closed to motorized travel and <strong>DO NOT</strong> drive on closed roads. Note that the weather conditions may cause roads to be closed.</p>
+  <p>Permittee shall remove trash and litter resulting from Permittee's activities.</p>
+  <p>Permittee shall prevent and suppress forest fires, pay the United States for any unnecessary damage resulting from Permittee's activities, and repair all damage to roads, trails, fences, ditches, and telephone lines resulting from Permittee's activities under this permit.</p>
+
+  <h3>Using your firewood</h3>
+  <p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
+</div>
+
 <h3>Tagging your load</h3>
 <p>Before hauling wood out of the forest, you will need to fill out a load tag and attach it
   to the back of your vehicle. The load tag helps law enforcement see that you have a valid
@@ -65,6 +81,9 @@
   <li>Punch out the date</li>
   <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
 </ul>
+
+<h3>Using your firewood</h3>
+<p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
 
 <!-- ipnf block -->
 <div *ngIf="(forest.forestAbbr) == 'ipnf'">
@@ -119,3 +138,11 @@
   <h3>Using your firewood</h3>
   <p>Help prevent the spread of invasive pests and pathogens. Please make an effort to burn your firewood locally.</p>
 </div>
+
+<!-- GMUG block -->
+<div *ngIf="(forest.forestAbbr)=='gmug'">
+  <h3>Equipment you'll need</h3>
+  <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
+  <p>Chainsaws must be equipped with an approved spark arrestor device properly installed, maintained, and in effective working order.</p>
+</div>
+
