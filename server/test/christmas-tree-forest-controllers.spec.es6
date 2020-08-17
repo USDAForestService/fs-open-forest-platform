@@ -6,7 +6,7 @@ const { createForest, destroyAll } = require('./data/db-helper.es6');
 
 const { expect } = chai;
 
-describe('christmas tree controller forest tests', () => {
+xdescribe('christmas tree controller forest tests', () => {
   let forest;
 
   before(async () => {

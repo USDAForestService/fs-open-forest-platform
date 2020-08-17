@@ -123,9 +123,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
   * handle the data of an existing application
   */
   handleData(isCancel) {
-
-    // this.firewoodInfoService.updateMarkdownText(this.markdownService, this.forest);
-
     this.checkSeasonStartDate(this.forest);
 
     // cancel any permits coming here that are still initiated and not yet completed
