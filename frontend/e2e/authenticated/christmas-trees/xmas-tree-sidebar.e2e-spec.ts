@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Xmas sidebar page', () => {
+xdescribe('Xmas sidebar page', () => {
   let page: TreesSidebarPage;
 
   beforeEach(() => {
@@ -13,23 +13,23 @@ describe('Xmas sidebar page', () => {
     page.navigateTo('mthood'); // 3 is mt hood, 4 is shoshone etc.
   });
 
-  it('should have a sidebar', () => {
+  xit('should have a sidebar', () => {
     expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeTruthy();
   });
 
-  it('should have a cutting section link', () => {
+  xit('should have a cutting section link', () => {
     expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual('How to cut your tree');
   });
 
-  it('should have a locations link', () => {
+  xit('should have a locations link', () => {
     expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
   });
 
-  it('should have a plan your trip link', () => {
+  xit('should have a plan your trip link', () => {
     expect<any>(element(by.id('trip-planning-link')).getText()).toEqual('How to plan your trip');
   });
 
-  it('should go to plan your trip section if link is clicked', () => {
+  xit('should go to plan your trip section if link is clicked', () => {
     element(by.id('trip-planning-link')).click();
     expect<any>(
       browser.driver
@@ -39,7 +39,7 @@ describe('Xmas sidebar page', () => {
     ).toEqual('trip-planning-link');
   });
 
-  it('should have a menu button and hide sidebar nav when resized to mobile', () => {
+  xit('should have a menu button and hide sidebar nav when resized to mobile', () => {
     browser.driver
       .manage()
       .window()
@@ -49,7 +49,7 @@ describe('Xmas sidebar page', () => {
     expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeFalsy();
   });
 
-  it('should open menu if menu button is clicked', () => {
+  xit('should open menu if menu button is clicked', () => {
     browser.driver
       .manage()
       .window()
