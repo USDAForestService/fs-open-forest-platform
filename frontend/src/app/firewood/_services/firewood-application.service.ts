@@ -11,7 +11,7 @@ import * as moment from 'moment/moment';
 
 @Injectable()
 export class FirewoodApplicationService {
-  private endpoint = environment.apiUrl + 'forests/firewood';
+  private endpoint = environment.apiUrl + 'fsforests/firewood-permits';
   private adminEndpoint = environment.apiUrl + 'firewood/admin';
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
@@ -30,7 +30,7 @@ export class FirewoodApplicationService {
       headers: headers
     };
 
-    return this.http.post(`${this.endpoint}/permits`, body, options).pipe(catchError(this.util.handleError));
+    return this.http.post(`${this.endpoint}`, body, options).pipe(catchError(this.util.handleError));
   }
 
   /**

@@ -16,9 +16,14 @@
   }
 }
 
+.tree-application-rules-container {
+  max-width: 46rem;
+}
+
 .trees-application-rules {
   border: 1px solid #000000;
   background-color: white;
+  max-width: 45rem;
   h3 {
     img {
       width: 75px;

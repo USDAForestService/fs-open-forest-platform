@@ -549,6 +549,80 @@
         "description": "Creates a new christmas-tree application"
       }
     }, 
+    "/fsforests/firewood-permits": {
+      "put": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "200": {
+            "description": "Successful Update"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A firewood permit application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/firewoodPermit"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "firewood"
+        ], 
+        "summary": "Updates a firewood permit application", 
+        "operationId": "update", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Updates firewood permit application"
+      }, 
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non firewood application object", 
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/firewoodPermit"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "firewood"
+        ], 
+        "summary": "Creates a new firewood application", 
+        "operationId": "createFirewoodPermit", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Creates a new firewood application"
+      }
+    }, 
     "/christmas-trees/admin/permits/{permitId}": {
       "get": {
         "responses": {
@@ -787,6 +861,33 @@
           "type": "string"
         }, 
         "treeCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "lastName": {
+          "type": "string"
+        }, 
+        "forestId": {
+          "type": "integer"
+        }, 
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    }, 
+    "firewoodPermit": {
+      "properties": {
+        "totalCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "emailAddress": {
+          "type": "string"
+        }, 
+        "firstName": {
+          "type": "string"
+        }, 
+        "woodCost": {
           "type": "number", 
           "format": "double"
         }, 

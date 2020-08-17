@@ -1,0 +1,78 @@
+<section id="application" class="usa-section">
+  <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h2 *ngIf="forest">{{forest.forestName}}</h2>
+
+    <h1 id="skip-nav-target" tabindex="-1">
+      <span>Buy a firewood permit</span>
+    </h1>
+      <div *ngIf="!showRules">
+      <h2 *ngIf="forest">You are purchasing a...</h2>
+
+      <div class="buy-firewood-box">
+        <div class="box-top">
+          <h2>2019 Personal-use Firewood permit</h2>
+          <h3>For the {{forest.forestName}}</h3>
+          <h3 class="not-bold">Expires Hardcoded, Date</h3>
+        </div>
+        <div class="box-bottom">
+          <ul>
+            <li><strong>Permits are non refundable</strong></li>
+            <li>
+              <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+              If you do not have access to a printer, you can purchase your permit in-person from a district office.
+            </li>
+            <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+      <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
+          <fieldset>
+            <legend>Permit details</legend>
+            <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
+            <input class="number-of-cords" type="text" formControlName="numberOfCords"/>
+            <!-- <p>Each cord is $5. Minimum of 4 cords.
+              <select class="usa-input-inline" id="number-of-cords" formControlName="numberOfCords" aria-required="true">
+                <option selected="selected" [value]="4">4</option>
+              </select>
+            <p> -->
+              <!-- <strong>Total cost for firewood permit: $0</strong>
+            </p> -->
+            <legend>Permit holder information</legend>
+            <label class="usa-input">Permit holder first name <span class="required-fields-asterisk">*</span></label>
+            <input class="primary-permit-holder-first-name" type="text" formControlName="firstName"/>
+            <label class="usa-input">Permit holder last name <span class="required-fields-asterisk">*</span></label>
+            <input class="primary-permit-holder-last-name" type="text" formControlName="lastName"/>
+            <app-address id="person-primary-address" [parentForm]="applicationForm" formName="primaryAddress" type="primary-permit-holder"></app-address>
+            <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
+            <app-email-confirmation [applicantInfo]="applicationForm" hintText="Please verify your email address"></app-email-confirmation>
+            <div class="trees-applications-pii-accept-checkbox-container">
+              <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
+              <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+              information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
+              <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, consenting to our collection of your name and email"
+                [control]="applicationForm.controls.acceptPII"></app-error-message>
+            </div>
+          </fieldset>
+
+          <button id="application-next" class="usa-button-primary usa-button-big" type="submit">Next</button>
+
+          <p class="usa-form-hint">
+            You can also buy a permit offline by visiting a Ranger District office.
+          </p>
+      </form>
+    </div>
+
+    <div class='tree-application-rules-container' *ngIf="showRules">
+      <p>
+        Christmas trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
+        rules and conditions may result in a fine.
+      </p>
+      <app-firewood-permit-rules [firstName]="applicationForm.controls.firstName.value" [lastName]="applicationForm.controls.lastName.value" [numberOfCords]="applicationForm.controls.numberOfCords.value" [emailAddress]="applicationForm.controls.emailAddress.value" [forest]="forest"></app-firewood-permit-rules>
+    </div>
+  </div>
+</section>
