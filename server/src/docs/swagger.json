@@ -656,6 +656,23 @@
         "description": "Retrieve details of a completed christmas tree permit"
       }
     }, 
+    "/nrm-service": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Not found"
+          }
+        }, 
+        "summary": "Retrieve nrm details", 
+        "description": "Retrieve details of nrm service"
+      }
+    }, 
     "/christmas-trees/admin/permits/{forestId}/{startDate}/{endDate}": {
       "get": {
         "responses": {
