@@ -17,7 +17,6 @@ const nrmService = {};
  */
 nrmService.getEntries = (req, res) => {
   nrmModal.findAll({
-    attributes: ['message']
   }).then((results) => {
     if (results) {
       res.status(200).json(results);

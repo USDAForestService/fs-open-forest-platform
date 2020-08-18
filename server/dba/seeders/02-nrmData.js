@@ -8,9 +8,9 @@ const data = [
 ];
 module.exports = {
   up(queryInterface) {
-    return queryInterface.bulkInsert('nrmService', data);
+    return queryInterface.bulkInsert('nrmEntries', data);
   },
   down(queryInterface) {
-    return queryInterface.bulkDelete('nrmService');
+    return queryInterface.bulkDelete('nrmEntries');
   }
 };

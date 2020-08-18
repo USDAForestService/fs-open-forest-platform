@@ -10,7 +10,7 @@ const Sequelize = require('sequelize');
 const util = require('../services/util.es6');
 
 module.exports = util.getSequelizeConnection().define(
-  'nrmService',
+  'nrmEntries',
   {
     message: { type: Sequelize.STRING, field: 'message' },
     createdAt: {

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('nrmService', {
+    return queryInterface.createTable('nrmEntries', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, field: 'id' },
       message: { type: Sequelize.STRING, field: 'message' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
@@ -10,6 +10,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('nrmService');
+    return queryInterface.dropTable('nrmEntries');
   }
 };
