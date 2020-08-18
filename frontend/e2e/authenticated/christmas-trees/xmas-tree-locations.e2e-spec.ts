@@ -1,10 +1,10 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Xmas tree  - Where to Find Your Tree page', () => {
+xdescribe('Xmas tree  - Where to Find Your Tree page', () => {
   let page: TreesSidebarPage;
 
-  describe('Mt Hood', () => {
+  xdescribe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -18,13 +18,13 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
 
-    it('should have a where to find a tree section link', () => {
+    xit('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
   });
 
-  describe('Shoshone', () => {
+  xdescribe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -38,13 +38,13 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
 
-    it('should have a where to find a tree section link', () => {
+    xit('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
   });
 
-  describe('Arapaho/Roosevelt', () => {
+  xdescribe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -58,13 +58,13 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
 
-    it('should have a where to find a tree section link', () => {
+    xit('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
    });
 
-  describe('Flathead', () => {
+  xdescribe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -78,7 +78,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
 
-    it('should have a where to find a tree section link', () => {
+    xit('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 

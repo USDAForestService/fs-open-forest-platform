@@ -78,7 +78,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
-      // orgStructureCode: ['', [Validators.required]],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
@@ -88,7 +87,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
         ), Validators.maxLength(255)]
       ],
       numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
-      // quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -187,15 +185,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.showRules = true;
       this.winRef.getNativeWindow().scroll(0, 200);
-      // const routeOptions = { fragment: 'rules' };
-      // if (this.permit) {
-      //   this.router.navigate(
-      //     [`/firewood/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
-      //     routeOptions
-      //   );
-      // } else {
-      //   this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
-      // }
     } else {
       this.applicationFieldsService.scrollToFirstError();
     }

@@ -1,10 +1,10 @@
 import { TreesForestFinderPage, TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Xmas tree  - Find a forest', () => {
+xdescribe('Xmas tree  - Find a forest', () => {
   let page: TreesForestFinderPage;
 
-  describe('text search', () => {
+  xdescribe('text search', () => {
     beforeEach(() => {
       page = new TreesForestFinderPage();
       browser.driver
@@ -15,11 +15,11 @@ describe('Xmas tree  - Find a forest', () => {
       browser.sleep(1900);
     });
 
-    it('should appear on the page', () => {
+    xit('should appear on the page', () => {
       expect<any>(element(by.id('forest-finder-select')).isPresent()).toBeTruthy();
     });
 
-    it('should let the user enter a forest name and navigate to that forest', () => {
+    xit('should let the user enter a forest name and navigate to that forest', () => {
       element(by.id('forest-finder-select')).sendKeys('shoshone');
       browser.sleep(960);
       element(by.id('forest-finder-submit')).click();
