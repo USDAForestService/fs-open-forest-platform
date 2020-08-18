@@ -10,8 +10,8 @@
     </div>
 
     <h1 id="skip-nav-target" tabindex="-1">
-      <span [hidden]="!showRules">Buy a Christmas tree permit</span>
-      <span [hidden]="showRules">Christmas tree cutting rules</span>
+      <span [hidden]="showRules">Buy a Christmas tree permit</span>
+      <span [hidden]="!showRules">Christmas tree cutting rules</span>
     </h1>
 
     <h2 *ngIf="forest">{{forest.forestName}}</h2>
@@ -19,7 +19,7 @@
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
-      <div [hidden]="!showRules">
+      <div [hidden]="showRules">
         <p>
           Christmas trees cost ${{costPerTree}} each, and a household is allowed to cut up to {{maxNumberOfTrees}} trees.
           All permits are non-refundable.
@@ -69,7 +69,7 @@
       </div>
     </form>
     <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
-      <div id='tree-application-rules-container' [hidden]="showRules">
+      <div id='tree-application-rules-container' [hidden]="!showRules">
         <p>
           Christmas trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
           rules and conditions may result in a fine.
