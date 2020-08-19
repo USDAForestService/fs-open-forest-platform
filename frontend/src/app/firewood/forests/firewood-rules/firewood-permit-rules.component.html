@@ -1,8 +1,9 @@
 
-  <p>
-    Trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
-    rules and conditions may result in a fine.
-  </p>
+<form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
+<p>
+  Trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
+  rules and conditions may result in a fine.
+</p>
 <div class="usa-grid">
   <div class="trees-application-rules">
     <div id="permit-rules-container usa-grid">
@@ -280,3 +281,4 @@
           All permits are non-refundable.
         </p>
 </div>
+</form>
