@@ -22,7 +22,7 @@ module.exports = {
       lastName: { type: Sequelize.STRING, field: 'last_name' },
       emailAddress: { type: Sequelize.STRING, allowNull: false, field: 'email_address' },
       woodCost: { type: Sequelize.NUMERIC(8, 2), field: 'wood_cost' },
-      quantity: { type: Sequelize.INTEGER, allowNull: false, field: 'quantity' },
+      numberOfCords: { type: Sequelize.INTEGER, allowNull: false, field: 'number_of_cords' },
       totalCost: { type: Sequelize.NUMERIC(10, 2), allowNull: false, field: 'total_cost' },
       status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', allowNull: false, field: 'status' },
       permitExpireDate: { type: Sequelize.DATE, field: 'permit_expire_date' },

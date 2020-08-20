@@ -35,12 +35,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING,
       field: 'email_address'
     },
-    quantity: {
+    numberOfCords: {
       type: DataTypes.INTEGER,
-      field: 'quantity',
-      validate: {
-        min: 0
-      }
+      field: 'number_of_cords',
+      allowNull: false
     },
     totalCost: {
       type: DataTypes.DOUBLE,
