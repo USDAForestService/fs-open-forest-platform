@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING,
       field: 'email_address'
     },
-    numberOfCords: {
+    quantity: {
       type: DataTypes.INTEGER,
-      field: 'number_of_cords',
+      field: 'quantity',
       allowNull: false
     },
     totalCost: {

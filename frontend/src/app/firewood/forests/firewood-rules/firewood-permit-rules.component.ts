@@ -37,7 +37,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       emailAddress: this.emailAddress,
-      numberOfCords: this.numberOfCords
+      quantity: this.numberOfCords
     };
 
     if (this.applicationRulesForm.valid) {
