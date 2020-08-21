@@ -6,7 +6,7 @@
  */
 
 const logger = require('../services/logger.es6');
-const nrmModal = require('../models/nrm-service.es6');
+const nrmModel = require('../models/nrm-service.es6');
 
 const nrmService = {};
 
@@ -16,7 +16,7 @@ const nrmService = {};
  * @param {Object} res - http response
  */
 nrmService.getEntries = (req, res) => {
-  nrmModal.findAll({
+  nrmModel.findAll({
   }).then((results) => {
     if (results) {
       res.status(200).json(results);
