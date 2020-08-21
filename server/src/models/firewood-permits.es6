@@ -38,9 +38,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     quantity: {
       type: DataTypes.INTEGER,
       field: 'quantity',
-      validate: {
-        min: 0
-      }
+      allowNull: false
     },
     totalCost: {
       type: DataTypes.DOUBLE,
