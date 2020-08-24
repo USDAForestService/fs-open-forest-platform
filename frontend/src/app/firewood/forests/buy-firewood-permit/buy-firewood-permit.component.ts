@@ -80,6 +80,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       forestAbbr: [''],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
+      orgStructureCode: ['', [Validators.required]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
       emailAddressConfirmation: [
         '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
@@ -99,6 +100,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     this.applicationForm = this.getApplicationForm(formBuilder, 4);
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
+    this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
 
     if (this.permit) {
