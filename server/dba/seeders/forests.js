@@ -7,7 +7,7 @@ const forests = [
       end_date: '2019-12-25T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-01-04',
       description: 'Idaho Panhandle | Idaho',
       forest_abbr: 'ipnf',
       wood_cost: 5,
@@ -16,7 +16,7 @@ const forests = [
       map_links: '{}',
       contact:
       '{ "Idaho Panhandle Supervisors Office": {"address": "3815 Schreiber Way", "citystate": "Coeur d AudioListener, ID", "phone": "(208) 765-7223"},',
-      poss_financial_id: '',
+      poss_financial_id: '999900018',
       state: 'Idaho',
       permit_type: 'fuel',
       region: 1
@@ -29,7 +29,7 @@ const forests = [
       end_date: '2021-03-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-01-10',
       description: 'Flathead | Montana',
       forest_abbr: 'flathead',
       wood_cost: 5,
@@ -38,7 +38,7 @@ const forests = [
       map_links: '{}',
       contact:
       '{ "Flathead Supervisors Office / Tally Lake Ranger District": {"address": "650 Wolfpack Way", "citystate": "Kalispell, Montana", "phone": "(406) 758-5204"},',
-      poss_financial_id: '',
+      poss_financial_id: '999900019',
       state: 'Montana',
       permit_type: 'fuel',
       region: 1
@@ -51,7 +51,7 @@ const forests = [
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-08-03',
       description: 'Chattahoochee-Oconee | Georgia',
       forest_abbr: 'conf',
       wood_cost: 5,
@@ -60,7 +60,7 @@ const forests = [
       map_links: '{}',
       contact:
       '',
-      poss_financial_id: '',
+      poss_financial_id: '999900021',
       state: 'Georgia',
       permit_type: 'fuel',
       region: 8
@@ -73,7 +73,7 @@ const forests = [
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-08-08',
       description: 'George Washington & Jefferson | Virginia',
       forest_abbr: 'gwj',
       wood_cost: 5,
@@ -82,7 +82,7 @@ const forests = [
       map_links: '{}',
       contact:
       '',
-      poss_financial_id: '',
+      poss_financial_id: '999900020',
       state: 'Virginia',
       permit_type: 'fuel',
       region: 8
@@ -95,7 +95,7 @@ const forests = [
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-02-14',
       description: 'Shoshone | Wyoming',
       forest_abbr: 'shoshone',
       wood_cost: 7.5,
@@ -104,7 +104,7 @@ const forests = [
       map_links: '{}',
       contact:
       '',
-      poss_financial_id: '',
+      poss_financial_id: '999900023',
       state: 'Wyoming',
       permit_type: 'fuel',
       region: 2
@@ -117,7 +117,7 @@ const forests = [
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-09-10',
       description: 'Hiawatha | Michigan',
       forest_abbr: 'hiawatha',
       wood_cost: 5,
@@ -126,7 +126,7 @@ const forests = [
       map_links: '{}',
       contact:
       '',
-      poss_financial_id: '',
+      poss_financial_id: '999900022',
       state: 'Michigan',
       permit_type: 'fuel',
       region: 9
@@ -139,7 +139,7 @@ const forests = [
       end_date: '2021-12-31T08:59:59Z',
       created: 'now()',
       updated: 'now()',
-      org_structure_code: '',
+      org_structure_code: '11-02-04',
       description: 'Grand Mesa Uncompahgre and Gunnison | Colorado',
       forest_abbr: 'gmug',
       wood_cost: 5,
@@ -148,7 +148,7 @@ const forests = [
       map_links: '{}',
       contact:
       '',
-      poss_financial_id: '',
+      poss_financial_id: '999900024',
       state: 'Colorado',
       permit_type: 'fuel',
       region: 2
