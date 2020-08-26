@@ -1,0 +1,93 @@
+<section id="application-view" class="usa-section usa-grid">
+  <app-breadcrumbs></app-breadcrumbs>
+  <app-tree-progress-bar step="print"></app-tree-progress-bar>
+  <div>
+    <div>
+      <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Firewood permit confirmation</h1>
+    </div>
+
+    <div class="confirmation-details-container margin-top-2">
+      <p>Your firewood permit has been purchased.</p>
+      <p>Your permit, load tags and required documents have been sent to <strong>email@address.com</strong>. If for some reason this email address is incorrect, please print the documents now.</p>
+      <p><strong>You will need to have your permit, load tags and required documents when collecting firewood for your permit to be valid.</strong> Your load tag instructions for how to fill it out and attach it to your load.</p>
+    </div>
+
+    <div class="required-documents">
+      <h2>Required documents</h2>
+      <ul>
+        <li>Your Permit</li>
+        <li>Your load tags</li>
+        <li>Cutting map</li>
+      </ul>
+      <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
+      <label for="includeRules">Include a copy of the firewood cutting regulations</label>
+      <button id="tree-print-permit" class="usa-button-primary usa-button-big" type="button" [disabled]="isPermitExpired" (click)="printPermit()">
+        Print now
+      </button>
+    </div>
+
+    <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container clear margin-top-2">
+      <div *ngIf="isPermitExpired" class="usa-alert usa-alert-error permit-expiration-warning">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3>
+        </div>
+      </div>
+      <h2 class="usa-heading">Order summary</h2>
+      <hr class="header-divider">
+      <div class="firewood-order-detail usa-width-one-third">
+        <dl>
+          <dt><strong>Description</strong></dt>
+          <dd>{{forest.forestName}} Firewood Permit(s)</dd>
+        </dl>
+      </div>
+      <div class="firewood-order-detail usa-width-one-third">
+        <dl>
+          <dt><strong>Quantity</strong></dt>
+          <dd>4</dd>
+          <!-- <dd>{{permit.quantity}}</dd> -->
+        </dl>
+      </div>
+    </div>
+
+    <div id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
+      <h2 class="usa-heading">Order details</h2>
+      <hr class="header-divider">
+      <table class="tree-confirmation-table">
+        <tr class="firewood-order-detail">
+          <td><strong>Permit number:</strong></td>
+          <td>234</td>
+          <!-- <td>{{permit.permitNumber | uppercase}}</td> -->
+        </tr>
+        <tr class="firewood-order-detail">
+          <td><strong>Name:</strong></td>
+          <td>Firstname Lastname</td>
+          <!-- <td>{{permit.firstName}} {{permit.lastName}}</td> -->
+        </tr>
+        <tr class="firewood-order-detail">
+          <td><strong>Payment:</strong></td>
+          <td>$20</td>
+          <!-- <td>${{permit.totalCost}}</td> -->
+        </tr>
+        <tr class="firewood-order-detail">
+          <td><strong>Transaction method:</strong></td>
+          <td>Credit card</td>
+        </tr>
+        <tr class="firewood-order-detail">
+          <td><strong>Transaction date:</strong></td>
+          <td>1/2/30</td>
+          <!-- <td>{{permit.transactionDate | date: 'shortDate'}}</td> -->
+        </tr>
+      </table>
+    </div>
+
+    <div id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
+      <h2 class="usa-heading">Additional information</h2>
+      <hr class="header-divider">
+      <p>Your permit, load tag and required documents were emailed to you at <strong>email@address.com.</strong></p>
+      <!-- <h3>Your permit and the Christmas tree cutting rules and guidelines were emailed to you at {{permit.emailAddress}}.</h3> -->
+      <p>Return to the <a [routerLink]="'/firewood/forests/' + forest.forestAbbr">{{forest.forestName}} Firewood permit website.</a></p>
+      <!-- <p *ngIf="forest">Return to the <a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit website.</a></p> -->
+    </div>
+  </div>
+
+</section>

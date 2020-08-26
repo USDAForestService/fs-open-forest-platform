@@ -70,7 +70,7 @@ paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
   }
   return `${
     vcapConstants.INTAKE_CLIENT_BASE_URL
-  }/christmas-trees/forests/${forestAbbr}/applications${completeRoute}/${permitId}?${cancelQuery}t=${token}`;
+  }/firewood/forests/${forestAbbr}/permits/${permitId}?${cancelQuery}t=${token}`;
 };
 
 /**

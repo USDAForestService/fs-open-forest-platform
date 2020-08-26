@@ -53,6 +53,7 @@ import { MapComponent } from './map/map.component';
 import { EsriMapComponent } from './esri-map/esri-map.component';
 import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
 import { BuyFirewoodPermitComponent } from './firewood/forests/buy-firewood-permit/buy-firewood-permit.component';
+import { OrderConfirmationComponent } from './firewood/forests/order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { BuyFirewoodPermitComponent } from './firewood/forests/buy-firewood-perm
     MapComponent,
     EsriMapComponent,
     FirewoodForestFinderComponent,
-    BuyFirewoodPermitComponent
+    BuyFirewoodPermitComponent,
+    OrderConfirmationComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule, FirewoodModule],
   providers: [
