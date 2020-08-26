@@ -1,0 +1,14 @@
+<div class="usa-grid" id="forest-cutting-dates-container">
+  <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-dates">
+    <h3 id="cutting-season-dates-heading">
+      <img class="float-left icon season-dates-icon" alt="season-dates" src="/assets/img/site-wide/season-dates-icon.svg">
+      Season dates
+    </h3>
+    <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">
+      {{forest.startDate | datex: 'MMM D, YYYY' }} - {{forest.endDate | datex: 'MMM D, YYYY'}}
+    </div>
+    <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
+  </div>
+</div>
+
+<button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/firewood/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>

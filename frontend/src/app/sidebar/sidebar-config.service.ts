@@ -6,17 +6,27 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SidebarConfigService {
-  SIDEBAR_CONFIG_FILE_URL = 'assets/config/christmasTreesSidebar.json';
+  TREES_SIDEBAR_CONFIG_FILE_URL = 'assets/config/christmasTreesSidebar.json';
+  FIREWOOD_SIDEBAR_CONFIG_FILE_URL = 'assets/config/firewoodSidebar.json';
 
   constructor(private http: HttpClient) {
     let obj;
-    this.getJSON().subscribe(data => (obj = data));
+    let type;
+    type = '';
+    this.getJSON(type).subscribe(data => (obj = data));
   }
 
   /**
    * @returns sidebar config json
    */
-  public getJSON(): Observable<any> {
-    return this.http.get(this.SIDEBAR_CONFIG_FILE_URL);
+  public getJSON(type): Observable<any> {
+    let config = '';
+    if (type === 'trees') {
+      config = this.TREES_SIDEBAR_CONFIG_FILE_URL;
+    }
+    if (type === 'firewood') {
+      config = this.FIREWOOD_SIDEBAR_CONFIG_FILE_URL;
+    }
+    return this.http.get(config);
   }
 }

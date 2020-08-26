@@ -14,7 +14,7 @@ var screenshotReporter = new HtmlScreenshotReporter({
 let chromeOptions = {};
 
 if (isDocker) {
-  chromeOptions = { args: ['--headless', 'no-sandbox', '--window-size=800x600'] };
+  chromeOptions = { args: ['--headless', 'no-sandbox', '--disable-dev-shm-usage','--window-size=800x600'] };
 } else if (process.env['HEADLESS'] === 'true') {
   chromeOptions = { args: ['--headless', '--window-size=800x600'] };
 }
@@ -55,8 +55,8 @@ exports.config = {
   suites: {
     'docker-smoke-test': '../e2e/unauthenticated/**/*spec.ts',
     'su': '../e2e/authenticated/special-uses/**/*spec.ts',
-    'xmas': '../e2e/authenticated/christmas-trees/**/*spec.ts',
-    'unauthenticated': '../e2e/unauthenticated/**/*spec.ts'
+    'unauthenticated': '../e2e/unauthenticated/**/*spec.ts',
+	'xmas': '../e2e/authenticated/christmas-trees/**/*spec.ts'
   },
   chromeDriver: !isDocker && process.env['OPEN_FOREST_CHROME_DRIVER'],
 };

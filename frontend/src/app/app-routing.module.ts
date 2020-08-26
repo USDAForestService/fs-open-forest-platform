@@ -9,6 +9,9 @@ import { ChristmasTreePermitResolver } from './application-forms/tree-applicatio
 import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
+import { FirewoodForestResolver } from './firewood/forests/firewood-guidelines/forest-resolver.service';
+import { FSForestResolver } from './firewood/forests/firewood-guidelines/fs-forest-resolver.service';
+import { FirewoodForestsResolver } from './firewood/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './intake-home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
@@ -22,9 +25,12 @@ import { ReportComponent } from './trees/admin/report/report.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
+import { FirewoodGuidelinesComponent } from './firewood/forests/firewood-guidelines/firewood-guidelines.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
 import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
+import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
+import { BuyFirewoodPermitComponent } from './firewood/forests/buy-firewood-permit/buy-firewood-permit.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
@@ -44,7 +50,10 @@ import { ForestTemplateComponent } from './forest-pages/forest-template/forest-t
 const appRoutes: Routes = [
   {
     path: '',
-    component: MainLandingComponent
+    component: MainLandingComponent,
+    resolve: {
+      forests: FSForestResolver
+    }
   }, {
     path: 'ChristmasTreePermit',
     component: DummyComponent,
@@ -311,6 +320,55 @@ const appRoutes: Routes = [
   },
   // end of user applications and children routes
 
+  // firewood routes
+  {
+    path: 'firewood/forests',
+    data: {
+      breadcrumbs: true,
+      text: 'Firewood permits',
+      title: 'Firewood permits | U.S. Forest Service Open Forest',
+      showAdmin: false
+    },
+    resolve: {
+      user: UserResolver
+    },
+    children: [
+      {
+        path: '',
+        component: FirewoodForestFinderComponent,
+        resolve: {
+          forests: FirewoodForestsResolver
+        }
+      },
+      {
+        path: ':id',
+        resolve: {
+          forest: FirewoodForestResolver
+        },
+        data: {
+          breadcrumbs: true,
+          text: '{{forest.forestName}}'
+        },
+        children: [
+          {
+            path: '',
+            component: FirewoodGuidelinesComponent
+          },
+          {
+            path: 'buy',
+            data: { breadcrumbs: 'Buy a permit' },
+            children: [
+              {
+                path: '',
+                component: BuyFirewoodPermitComponent
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
   {
     path: 'christmas-trees/forests',
     data: {
@@ -407,7 +465,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
+  providers: [FirewoodForestsResolver, FirewoodForestResolver, FSForestResolver, ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
-

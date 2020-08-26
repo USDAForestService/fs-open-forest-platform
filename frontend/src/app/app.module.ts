@@ -35,6 +35,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
 import { TreesModule } from './trees/trees.module';
+import { FirewoodModule } from './firewood/firewood.module';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
@@ -50,6 +51,8 @@ import { ForestTemplateComponent } from './forest-pages/forest-template/forest-t
 import { ProductsComponent } from './products/products.component';
 import { MapComponent } from './map/map.component';
 import { EsriMapComponent } from './esri-map/esri-map.component';
+import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
+import { BuyFirewoodPermitComponent } from './firewood/forests/buy-firewood-permit/buy-firewood-permit.component';
 
 @NgModule({
   declarations: [
@@ -84,9 +87,11 @@ import { EsriMapComponent } from './esri-map/esri-map.component';
     ForestTemplateComponent,
     ProductsComponent,
     MapComponent,
-    EsriMapComponent
+    EsriMapComponent,
+    FirewoodForestFinderComponent,
+    BuyFirewoodPermitComponent
   ],
-  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
+  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule, FirewoodModule],
   providers: [
     AlertService,
     ApplicationService,

@@ -1,10 +1,10 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Christmas tree  - When to Cut Your Tree page', () => {
+xdescribe('Christmas tree  - When to Cut Your Tree page', () => {
   let page: TreesSidebarPage;
 
-  describe('Mt Hood', () => {
+  xdescribe('Mt Hood', () => {
     beforeAll(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -17,25 +17,25 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.sleep(800);
     });
 
-    it('should have a when to cut section link in the sidebar', () => {
+    xit('should have a when to cut section link in the sidebar', () => {
       expect<any>(page.cuttingDatesSectionLink().isPresent()).toBeTruthy();
       page.cuttingDatesSectionLink().click();
     });
 
-    it('should have a when to cut section in the guidelines', () => {
+    xit('should have a when to cut section in the guidelines', () => {
       expect<any>(page.cuttingDatesSection().isPresent()).toBeTruthy();
     });
 
-    it('should have a season dates heading', () => {
+    xit('should have a season dates heading', () => {
       expect<any>(element(by.id('cutting-season-dates-heading')).isPresent()).toBeTruthy();
     });
 
-    it('should display a season start and end date for the overall forest', () => {
+    xit('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
   });
 
-  describe('Shoshone', () => {
+  xdescribe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -48,25 +48,25 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.sleep(800);
     });
 
-    it('should have a when to cut section link in the sidebar', () => {
+    xit('should have a when to cut section link in the sidebar', () => {
       expect<any>(page.cuttingDatesSectionLink().isPresent()).toBeTruthy();
       page.cuttingDatesSectionLink().click();
     });
 
-    it('should have a when to cut section in the guidelines', () => {
+    xit('should have a when to cut section in the guidelines', () => {
       expect<any>(page.cuttingDatesSection().isPresent()).toBeTruthy();
     });
 
-    it('should have a season dates heading', () => {
+    xit('should have a season dates heading', () => {
       expect<any>(element(by.id('cutting-season-dates-heading')).isPresent()).toBeTruthy();
     });
 
-    it('should display a season start and end date for the overall forest', () => {
+    xit('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
   });
 
-  describe('Flathead', () => {
+  xdescribe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -79,25 +79,25 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.sleep(800);
     });
 
-    it('should have a when to cut section link in the sidebar', () => {
+    xit('should have a when to cut section link in the sidebar', () => {
       expect<any>(page.cuttingDatesSectionLink().isPresent()).toBeTruthy();
       page.cuttingDatesSectionLink().click();
     });
 
-    it('should have a when to cut section in the guidelines', () => {
+    xit('should have a when to cut section in the guidelines', () => {
       expect<any>(page.cuttingDatesSection().isPresent()).toBeTruthy();
     });
 
-    it('should have a season dates heading', () => {
+    xit('should have a season dates heading', () => {
       expect<any>(element(by.id('cutting-season-dates-heading')).isPresent()).toBeTruthy();
     });
 
-    it('should display a season start and end date for the overall forest', () => {
+    xit('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
   });
 
-  describe('Arapaho/Roosevelt', () => {
+  xdescribe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -110,20 +110,20 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.sleep(800);
     });
 
-    it('should have a when to cut section link in the sidebar', () => {
+    xit('should have a when to cut section link in the sidebar', () => {
       expect<any>(page.cuttingDatesSectionLink().isPresent()).toBeTruthy();
       page.cuttingDatesSectionLink().click();
     });
 
-    it('should have a when to cut section in the guidelines', () => {
+    xit('should have a when to cut section in the guidelines', () => {
       expect<any>(page.cuttingDatesSection().isPresent()).toBeTruthy();
     });
 
-    it('should have a season dates heading', () => {
+    xit('should have a season dates heading', () => {
       expect<any>(element(by.id('cutting-season-dates-heading')).isPresent()).toBeTruthy();
     });
 
-    it('should display a season start and end date for the overall forest', () => {
+    xit('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
   });

@@ -4,7 +4,7 @@ import { TreesAdminDistrictDatesPage } from './xmas-tree-admin-district-dates.po
 
 const page = new TreesAdminDistrictDatesPage();
 
-describe('Xmas tree - Update District Dates', () => {
+xdescribe('Xmas tree - Update District Dates', () => {
   // describe('District Dates admin page', () => {
   //   beforeAll(() => {
   //     browser.driver.manage().deleteAllCookies();
