@@ -51,7 +51,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       acceptPII: new FormControl(),
       numberOfCords: new FormControl(),
       firstName: new FormControl(),
-      lastName: new FormControl()
+      lastName: new FormControl(),
     });
   }
 
