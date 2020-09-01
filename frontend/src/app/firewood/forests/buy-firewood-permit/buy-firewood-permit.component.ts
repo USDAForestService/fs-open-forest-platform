@@ -5,6 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
 import { alphanumericValidator } from '../../../application-forms/validators/alphanumeric-validation';
+import { cordQuantityValidator } from '../../../application-forms/validators/cord-quantity-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
 import { lessThanOrEqualValidator } from '../../../application-forms/validators/less-than-or-equal-validation';
@@ -87,7 +88,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
+      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords), cordQuantityValidator()]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
