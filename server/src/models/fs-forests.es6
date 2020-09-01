@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       }
     },
     maxCords: {
-      type: DataTypes.SRING(50),
+      type: DataTypes.STRING(50),
       field: 'max_cords',
       validate: {
         min: 0
