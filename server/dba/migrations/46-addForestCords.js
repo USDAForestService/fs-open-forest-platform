@@ -10,12 +10,12 @@ let operations = [
 {
 operation: 'add',
 field: 'min_cords',
-type: Sequelize.STRING(10)
+type: Sequelize.INTEGER
 },
 {
 operation: 'add',
 field: 'max_cords',
-type: Sequelize.STRING(10)
+type: Sequelize.INTEGER
 },
 ];
 

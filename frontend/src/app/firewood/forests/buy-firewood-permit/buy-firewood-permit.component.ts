@@ -88,7 +88,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords), cordQuantityValidator()]],
+      numberOfCords: ['', [Validators.required, cordQuantityValidator(this.forest.minCords, this.forest.maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
