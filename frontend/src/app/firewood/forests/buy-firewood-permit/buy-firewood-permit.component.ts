@@ -103,7 +103,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Get application form and set default values
    */
   createForm(forest, formBuilder) {
-    this.applicationForm = this.getApplicationForm(formBuilder, 4);
+    this.applicationForm = this.getApplicationForm(formBuilder);
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
