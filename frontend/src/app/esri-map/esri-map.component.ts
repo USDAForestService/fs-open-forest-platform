@@ -60,10 +60,10 @@ export class EsriMapComponent implements AfterViewInit {
         function checkForest (feature) {
           let fwfRoute;
           let fwf;
-          var mbsForest = 'Mt. Baker-Snoqualmie National Forest';
-          var common = feature.graphic.attributes.COMMONNAME;
-          var route = document.location.origin;
-          var fuelwoodForest = [
+          const mbsForest = 'Mt. Baker-Snoqualmie National Forest';
+          const common = feature.graphic.attributes.COMMONNAME;
+          const route = document.location.origin;
+          const fuelwoodForest = [
             {fname: 'Idaho Panhandle National Forests', fshort: 'ipnf'},
             {fname: 'Flathead National Forest', fshort: 'flathead'},
             {fname: 'Chattahoochee-Oconee National Forest', fshort: 'conf'},
@@ -72,17 +72,17 @@ export class EsriMapComponent implements AfterViewInit {
             {fname: 'Hiawatha National Forest', fshort: 'hiawatha'},
             {fname: 'Grand Mesa Uncompahgre & Gunnison National Forest', fshort: 'gmug'},
           ];
-          for (var i = 0; i < fuelwoodForest.length; i++) {
+          for (let i = 0; i < fuelwoodForest.length; i++) {
             if (common === fuelwoodForest[i].fname) {
               fwf = fuelwoodForest[i].fname;
-              fwfRoute = fuelwoodForest[i].fshort
+              fwfRoute = fuelwoodForest[i].fshort;
             }
           }
-          if (common === fwf){
+          if (common === fwf) {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
             `<h3 class='show-white'>Available Permits</h3>` +
-            `<h3><a href='` + route + `/firewood/forests/` + fwfRoute + `'>Fuelwood Permits</a></h3>` 
+            `<h3><a href='` + route + `/firewood/forests/` + fwfRoute + `'>Fuelwood Permits</a></h3>`;
           } else if (common === mbsForest) {
             return `<p>The {COMMONNAME} is part of {ADMINFORESTNAME}</p>` +
             `<p>For more information about this forest please visit <a href={URL}>{URL}</a>` +
