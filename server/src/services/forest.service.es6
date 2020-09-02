@@ -30,7 +30,7 @@ forestService.translateForestFromDatabaseToClient = (input) => {
     startDate: startDate.format('YYYY-MM-DD HH:mm:ss'),
     endDate: endDate.format('YYYY-MM-DD HH:mm:ss'),
     treeCost: input.treeCost,
-    woodCost: input.woodCost,
+    woodCost: woodCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
     timezone: input.timezone,
