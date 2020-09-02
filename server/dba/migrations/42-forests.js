@@ -15,7 +15,7 @@ module.exports = {
       endDate: { type: Sequelize.DATE, field: 'end_date' },
       contact: { type: Sequelize.STRING(500), field: 'contact' },
       mapLinks: { type: Sequelize.STRING(500), field: 'map_links' },
-      woodCost: { type: Sequelize.NUMERIC(8, 2), field: 'wood_cost' },
+      woodCost: { type: Sequelize.DOUBLE, field: 'wood_cost' },
       cuttingAreas: { type: Sequelize.STRING(500), field: 'cutting_areas' },
       possId: { type: Sequelize.STRING(50), field: 'poss_financial_id' },
       state: { type: Sequelize.STRING(50), field: 'state' },

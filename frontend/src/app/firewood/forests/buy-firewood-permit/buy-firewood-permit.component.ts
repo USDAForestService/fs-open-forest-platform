@@ -58,16 +58,22 @@ export class BuyFirewoodPermitComponent implements OnInit {
   /**
    * Update total cost when quantity changes
    */
-  quantityChange(value) {
+  quantityChange(userInput) {
+    const minCords = this.forest.minCords;
+    const maxCords = this.forest.maxCords;
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
-      cordQuantityValidator(12,4)
+      cordQuantityValidator(maxCords, minCords)
     ]);
-    if (!this.applicationForm.get('numberOfCords').errors) {
-      this.updateTotalCost();
-    } else {
-      this.applicationForm.get('totalCost').setValue(0);
-    }
+    this.applicationForm.get('numerOfCords').valueChanges.subscribe(res => {
+      this.forest.totalCost = this.applicationForm.get('numberOfCords').value *
+      this.forest.woodCost;
+    });
+    // if (!this.applicationForm.get('numberOfCords').errors) {
+    //   this.updateTotalCost();
+    // } else {
+    //   this.applicationForm.get('totalCost').setValue(0);
+    // }
   }
 
   /**
