@@ -35,8 +35,10 @@
             <legend>Permit details</legend>
             <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
             <p>Each cord is $5. Minimum of 4 cords.</p>
-            <input class="usa-input-inline" id="number-of-cords" type="text" formControlName="numberOfCords"/>
+            <input id="number-of-cords" type="number" formControlName="numberOfCords"/>
+            <app-error-message fieldId="number-of-cords-error" name="Number of Cords" [control]="applicantInfo.controls.primaryFirstName"></app-error-message>
             <strong>Total cost for firewood permit: $0 </strong>
+            <p>{{ forest.minCords }}
 
             <legend>Permit holder information</legend>
             <label class="usa-input">Permit holder first name <span class="required-fields-asterisk">*</span></label>

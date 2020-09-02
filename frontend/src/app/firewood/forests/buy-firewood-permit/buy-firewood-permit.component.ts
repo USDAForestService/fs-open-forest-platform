@@ -8,7 +8,6 @@ import { alphanumericValidator } from '../../../application-forms/validators/alp
 import { cordQuantityValidator } from '../../../application-forms/validators/cord-quantity-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
-import { lessThanOrEqualValidator } from '../../../application-forms/validators/less-than-or-equal-validation';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
@@ -62,7 +61,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   quantityChange(value) {
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
-      lessThanOrEqualValidator(4, 1)
+      cordQuantityValidator(12,4)
     ]);
     if (!this.applicationForm.get('numberOfCords').errors) {
       this.updateTotalCost();
@@ -74,7 +73,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   /**
    * @returns application form
    */
-  getApplicationForm(formBuilder, maxCords) {
+  getApplicationForm(formBuilder) {
     return formBuilder.group({
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
@@ -88,7 +87,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['', [Validators.required, cordQuantityValidator(this.forest.minCords, this.forest.maxCords)]],
+      numberOfCords: ['',[Validators.required, cordQuantityValidator(this.forest.minCords, this.forest.maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
