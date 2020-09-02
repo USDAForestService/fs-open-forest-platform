@@ -1,11 +1,9 @@
 /* import the required JSAPI css */
-// @import 'https://js.arcgis.com/4.10/esri/css/main.css';
-@import 'https://js.arcgis.com/4.10/esri/themes/dark-green/main.css';
+@import 'https://js.arcgis.com/4.10/esri/css/main.css';
 // @import '../../../node_modules/arcgis-js-api/themes/dark/main.scss';
 .esri-view {
   height: 650px;
 }
-
 
 $search_width: 240px !default;
 
