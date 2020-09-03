@@ -5,7 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
 import { alphanumericValidator } from '../../../application-forms/validators/alphanumeric-validation';
-import { cordQuantityValidator } from '../../../application-forms/validators/cord-quantity-validation';
+import { lessThanOrEqualValidator } from '../../../application-forms/validators/less-than-or-equal-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
@@ -65,7 +65,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     const maxCords = this.forest.maxCords;
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
-      cordQuantityValidator(maxCords, minCords)
+      lessThanOrEqualValidator(maxCords, minCords)
     ]);
 
     this.totalCost = userInput * this.forest.woodCost;
@@ -93,7 +93,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['',[Validators.required, cordQuantityValidator(this.forest.minCords, this.forest.maxCords)]],
+      numberOfCords: ['',[Validators.required, lessThanOrEqualValidator(this.forest.minCords, this.forest.maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
