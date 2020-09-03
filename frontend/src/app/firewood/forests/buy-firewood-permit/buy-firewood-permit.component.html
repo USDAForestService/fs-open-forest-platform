@@ -10,12 +10,50 @@
       <div *ngIf="!showRules">
       <h2 *ngIf="forest">You are purchasing a...</h2>
 
-      <div class="buy-firewood-box">
-        <div class="box-top">
+<!-- inpf block -->
+<div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'ipnf'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Jan 1, 2020 - Dec 31, 2020</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
 
-          <h2>2019 Personal-use Firewood permit</h2>
+<!-- flathead block -->
+<div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'flathead'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Expires 6 months after the date of purchase.</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- conf block -->
+      <div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'conf'">
+        <div class="box-top">
+          <h2>2020 Personal-use Firewood permit</h2>
           <h3>For the {{forest.forestName}}</h3>
-          <h3 class="not-bold">Expires Hardcoded, Date</h3>
+          <h3 class="not-bold">Expires 6 months after the date of purchase.</h3>
         </div>
         <div class="box-bottom">
           <ul>
@@ -28,6 +66,82 @@
           </ul>
         </div>
       </div>
+
+<!-- gwj block -->
+<div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'gwj'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Expires 12 months after the date of purchase. No extensions granted.</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- shoshone block -->
+<div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'shoshone'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Expires December 31, 2020.</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- hiawatha block -->
+<div class="buy-firewood-box" *ngIf="(forest.forestAbbr) == 'hiawatha'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Expires December 31, 2020.</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- GMUG block -->
+<div class="buy-firewood-box"  *ngIf="(forest.forestAbbr) == 'GMUG'">
+  <div class="box-top">
+    <h2>2020 Personal-use Firewood permit</h2>
+    <h3>For the {{forest.forestName}}</h3>
+    <h3 class="not-bold">Expires December 31, 2020</h3>
+  </div>
+  <div class="box-bottom">
+    <ul>
+      <li><strong>Permits are non refundable</strong></li>
+      <li>
+        <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
+        If you do not have access to a printer, you can purchase your permit in-person from a district office.
+      </li>
+      <li><strong>This permit is not intended for commercial firewood operations.</strong></li>
+    </ul>
+  </div>
+</div>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -67,7 +181,7 @@
 
     <div class='tree-application-rules-container' *ngIf="showRules">
       <p>
-        Christmas trees may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
+        Firewood may be taken from the {{forest.forestName}} under the below rules and guidelines. Failure to follow these
         rules and conditions may result in a fine.
       </p>
       <app-firewood-permit-rules [firstName]="applicationForm.controls.firstName.value" [lastName]="applicationForm.controls.lastName.value" [numberOfCords]="applicationForm.controls.numberOfCords.value" [emailAddress]="applicationForm.controls.emailAddress.value" [forest]="forest"></app-firewood-permit-rules>
