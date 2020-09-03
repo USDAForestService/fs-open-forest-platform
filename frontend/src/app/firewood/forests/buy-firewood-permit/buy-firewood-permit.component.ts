@@ -29,6 +29,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   showRules = false;
   jwtToken: string;
   showCancelAlert = false;
+  totalCost: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +62,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   quantityChange(userInput) {
     const minCords = this.forest.minCords;
     const maxCords = this.forest.maxCords;
+    this.totalCost = this.forest.woodCost;
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
       cordQuantityValidator(maxCords, minCords)
@@ -152,6 +154,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Get data from route resolver
    */
   ngOnInit() {
+    this.totalCost
     this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
 
     this.location.subscribe(locationChange => {
