@@ -54,6 +54,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       firstName: new FormControl(),
       lastName: new FormControl(),
     });
+    this.totalCost = 0.00;
   }
 
   /**
@@ -62,20 +63,17 @@ export class BuyFirewoodPermitComponent implements OnInit {
   quantityChange(userInput) {
     const minCords = this.forest.minCords;
     const maxCords = this.forest.maxCords;
-    this.totalCost = this.forest.woodCost;
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
       cordQuantityValidator(maxCords, minCords)
     ]);
-    this.applicationForm.get('numerOfCords').valueChanges.subscribe(res => {
-      this.forest.totalCost = this.applicationForm.get('numberOfCords').value *
-      this.forest.woodCost;
-    });
-    // if (!this.applicationForm.get('numberOfCords').errors) {
-    //   this.updateTotalCost();
-    // } else {
-    //   this.applicationForm.get('totalCost').setValue(0);
-    // }
+
+    this.totalCost = userInput * this.forest.woodCost;
+    if (!this.applicationForm.get('numberOfCords').errors) {
+      this.updateTotalCost();
+    } else {
+      this.applicationForm.get('totalCost').setValue(this.totalCost);
+    }
   }
 
   /**
