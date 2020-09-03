@@ -36,7 +36,8 @@ forestService.translateForestFromDatabaseToClient = (input) => {
     state: input.state,
     region: input.region,
     minCords: input.minCords,
-    maxCords: input.maxCords
+    maxCords: input.maxCords,
+    woodCost: input.woodCost
   };
 };
 
