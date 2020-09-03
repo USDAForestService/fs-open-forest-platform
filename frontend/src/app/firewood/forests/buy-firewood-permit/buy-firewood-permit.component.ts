@@ -93,7 +93,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['',[Validators.required, lessThanOrEqualValidator(this.forest.minCords, this.forest.maxCords)]],
+      numberOfCords: ['', [Validators.required, lessThanOrEqualValidator(this.forest.minCords, this.forest.maxCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -152,7 +152,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Get data from route resolver
    */
   ngOnInit() {
-    this.totalCost
     this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
 
     this.location.subscribe(locationChange => {
