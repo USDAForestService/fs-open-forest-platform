@@ -67,13 +67,8 @@ export class BuyFirewoodPermitComponent implements OnInit {
       Validators.required,
       lessThanOrEqualValidator(maxCords, minCords)
     ]);
-
     this.totalCost = userInput * this.forest.woodCost;
-    if (!this.applicationForm.get('numberOfCords').errors) {
-      this.updateTotalCost();
-    } else {
-      this.applicationForm.get('totalCost').setValue(this.totalCost);
-    }
+    this.applicationForm.get('totalCost').setValue(this.totalCost);
   }
 
   /**
@@ -238,17 +233,5 @@ export class BuyFirewoodPermitComponent implements OnInit {
         this.winRef.getNativeWindow().scroll(0, 0);
       }
     );
-  }
-
-  /**
-   * Calculate total cost based on quantity
-   */
-  updateTotalCost() {
-    const quantity = this.applicationForm.get('numberOfCords').value;
-    if (!isNaN(parseInt(quantity, 10))) {
-      this.applicationForm.get('totalCost').setValue(parseInt(quantity, 10) * this.costPerTree);
-    } else {
-      this.applicationForm.get('totalCost').setValue(0);
-    }
   }
 }
