@@ -287,11 +287,11 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   npm install
                   cd ../server
                   
-		   npm cache verify
+		#   npm cache verify
 		   npm config rm proxy
 		   npm config rm https-proxy
-	    	   npm config set registry http://registry.npmjs.org/
-	    	   npm config set strict-ssl false                    
+	    	   npm config set registry https://registry.npmjs.org/
+	   # 	   npm config set strict-ssl false                    
                    npm i -D webdriver-manager
                    rm -rf node_modules
                    npm install
