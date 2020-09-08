@@ -8,8 +8,8 @@
 
     <div class="confirmation-details-container margin-top-2">
       <p>Your firewood permit has been purchased.</p>
-      <p>Your permit, load tags and required documents have been sent to <strong>email@address.com</strong>. If for some reason this email address is incorrect, please print the documents now.</p>
-      <p><strong>You will need to have your permit, load tags and required documents when collecting firewood for your permit to be valid.</strong> Your load tag instructions for how to fill it out and attach it to your load.</p>
+      <p>Your permit, load tags and required documents have been sent to <strong>email@address.com</strong>. If for some reason this email address is incorrect, please print your documents now.</p>
+      <p><strong>You will need to have your permit, load tags and required documents with you when collecting firewood for your permit to be valid.</strong> Your load tags will have instructions for how to fill it out and attach it to your load.</p>
     </div>
 
     <div class="required-documents">
@@ -24,12 +24,13 @@
       <button id="tree-print-permit" class="usa-button-primary usa-button-big" type="button" [disabled]="isPermitExpired" (click)="printPermit()">
         Print now
       </button>
+      <p>These documents have also been emailed to <strong>email@address.com</strong></p>
     </div>
 
     <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container clear margin-top-2">
       <div *ngIf="isPermitExpired" class="usa-alert usa-alert-error permit-expiration-warning">
         <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3>
+          <!-- <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3> -->
         </div>
       </div>
       <h2 class="usa-heading">Order summary</h2>
