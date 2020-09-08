@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { WindowRef } from '../../../_services/native-window.service';
   templateUrl: './buy-firewood-permit.component.html'
 })
 export class BuyFirewoodPermitComponent implements OnInit {
+  @Input() applicantInfo: FormGroup;
   forest: any;
   permit: any;
   submitted = false;
@@ -79,8 +80,8 @@ export class BuyFirewoodPermitComponent implements OnInit {
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
-      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
-      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
+      firstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
+      lastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
       orgStructureCode: ['', [Validators.required]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
       emailAddressConfirmation: [
