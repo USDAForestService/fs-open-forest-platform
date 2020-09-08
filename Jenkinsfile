@@ -287,6 +287,7 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   npm install
                   cd ../server
                   
+		   npm cache verify
 		   npm config rm proxy
 		   npm config rm https-proxy
 	    	   npm config set registry http://registry.npmjs.org/
