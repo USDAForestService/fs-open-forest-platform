@@ -209,7 +209,7 @@ stage('run-sonarqube'){
       '''
 	def scannerhome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQube') {
-          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.branch.name=$GIT_BRANCH -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
+          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.branch.name=$GIT_BRANCH -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
       	  //sh 'rm -rf sonarqubereports'
           //sh 'mkdir sonarqubereports'
   	  //sh 'sleep 30'
@@ -287,10 +287,11 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   npm install
                   cd ../server
                   
+		#   npm cache verify
 		   npm config rm proxy
 		   npm config rm https-proxy
-	    	   npm config set registry http://registry.npmjs.org/
-	    	   npm config set strict-ssl false                    
+	    	   npm config set registry https://registry.npmjs.org/
+	   # 	   npm config set strict-ssl false                    
                    npm i -D webdriver-manager
                    rm -rf node_modules
                    npm install
