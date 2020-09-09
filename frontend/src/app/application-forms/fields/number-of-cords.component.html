@@ -1,0 +1,10 @@
+<ng-container [formGroup]="applicantInfo">
+    <label class="usa-input" for='number-of-cords' id="email-label">Number of Cords<span class="required-fields-asterisk">*</span></label>
+    <span id="number-of-cords-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
+    <input id="number-of-cords" type="numberOfCords" formControlName="numberOfCords" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.numberOfCords, 'number-of-cords-label number-of-cords-hint-text', 'number-of-cords-error')"
+      [attr.aria-invalid]="afs.hasError(applicantInfo.controls.numberOfCords)"
+    />
+    <app-error-message fieldId="number-of-cords-error" name="Number of Cords" [control]="applicantInfo.controls.numberOfCords"></app-error-message>
+  </ng-container>
+  
