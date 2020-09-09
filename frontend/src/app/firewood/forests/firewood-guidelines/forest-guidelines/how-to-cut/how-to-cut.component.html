@@ -1,4 +1,4 @@
-<app-section-heading heading="How to cut your firewood" id="cutting-instructions" tabIndex="-1"></app-section-heading>
+<app-section-heading heading="How to gather your firewood" id="cutting-instructions" tabIndex="-1"></app-section-heading>
 
 <!-- ipnf block -->
 <div *ngIf="(forest.forestAbbr) == 'ipnf'">
@@ -8,7 +8,10 @@
   <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
   <p>A shovel and a bucket are mandatory when traveling through or on National Forest lands during fire season.</p>
   <h3>What to expect</h3>
-  <p>The permit must be in the Permittee's possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
+  <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills. </p>
+  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
+  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
+  <p>The permit must be in your possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
 </div>
 
 <!-- flathead block -->
@@ -18,46 +21,60 @@
   <p>Chainsaws must be equipped with an approved spark arrester screen.</p>
   <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
   <h3>What to expect</h3>
-  <p>Dead trees are dangerous to fall. Make sure you are experienced with yourfalling equipment and skills.</p>
+  <p>Dead trees are dangerous to fall. Make sure you are experienced with your falling equipment and skills.</p>
   <p>Drive safely and be alert for winter driving conditions. Your vehicle should be equipped with 4-wheel drive, snow tires, chains, and a shovel during the winter season.</p>
   <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return</p>
   <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
   <p>Park in areas so that traffic can get by safely and do not block gates.</p>
-  <h3>Using your Firewood</h3>
-  <p>Gathering of campwood is allowed without a permit as long as the wood is burned at your camp. A permit is required to transport any unused firewood home.</p>
+  <p>Drive safely and be alert for winter driving conditions. Your vehicle should be equipped with 4-wheel drive, snow tires, chains, and a shovel during the winter season.</p>
+  <p>The maximum piece length for firewood removal is six (6) feet.</p>
 </div>
 
-<!-- shoshone block -->
-<div *ngIf="(forest.forestAbbr)=='shoshone'">
-  <h3>What to expect</h3>
-  <p>The permit must be in your possession while cutting and transporting the firewood.</p>
-  <p>The person purchasing the permit (permittee) or a member of the permittee's immediate family must be present when cutting, gathering, and transporting firewood.</p>
-  <p>Stumps shall be cut flat and less than 12 inches above the ground.</p>
-  <p>Limbs, tops, and other debris will be removed from roads, ditches, streams, lakes and scattered to a depth of less than 24 inches high on the surrounding landscape.</p>
-  <p>Chainsaws must be in good repair and equipped with a spark arrester with a 0.023 screen.</p>
-  <p>The maximum length of wood removed must be less than 8 feet in length on logs that are 7 inches or larger in diameter. The 7-inch diameter is measured on the large end of the log.</p>
-  <p>Skidding of logs with any motorized vehicle is prohibited as multiple trips causes ruts, 2 tracks ruts and bare soil resulting in channeling water that erodes soil and causes compaction that further erodes soil.</p>
+<!-- conf block -->
+<div *ngIf="(forest.forestAbbr)=='conf'">
+  <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills. </p>
+  <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return.</p>
+  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
+  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
+  <p>How much wood can be gathered? 4 cords/$20 minimum purchase.</p>
+  <p>Firewood is commonly measured in cords. A standard cord is the amount of lightly stacked wood 4 feet wide by 4 feet high by 8 feet long.</p>
+  <p>Always wear proper clothing with PPE and safely operate equipment.</p>
+</div>
 
-  <h3>Using your firewood</h3>
-  <p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
+<!-- gwj block -->
+<div *ngIf="(forest.forestAbbr)=='gwj'">
+  <h3>Equipment</h3>
+  <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
+  <p>Chainsaws must be equipped with an approved spark arrestor screen.</p>
+  <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
+  <p>A shovel and a bucket are mandatory when traveling through or on National Forest lands during fire season.</p>
+  <h3>What to expect</h3>
+  <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills.</p>
+  <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return.</p>
+  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
+  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
+  <p>You are permitted to gather SIX cords of wood.</p>
+  <p>The permit must be in your possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
 </div>
 
 <!-- GMUG block -->
 <div *ngIf="(forest.forestAbbr)=='GMUG'">
+  <h3>Equipment</h3>
+  <p>Chainsaws must be in good repair and equipped with a spark arrester with a 0.023 screen.</p>
   <h3>What to expect</h3>
-  <p>The permit must be in the Permittee's possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
-  <p>Any wood larger than seven (7) inches in diameter at either end must be cut in six (6) foot lengths of less.</p>
-  <p>Cut all stumps to less than eight (8) inches high and remove all material larger than three (3) inches in diameter.</p>
-  <p>Reduce slash to 24 inch height maximum. <strong>DO NOT</strong> block or leave slash on roads, shoulders or in ditches.</p>
-  <p><strong>DO NOT</strong> damage vegetation, riparian areas, the forest floor, or roadbed surfaces. Use of heavy equipment (such as tractors, bulldozers, skidders, etc) is prohibited. DO NOT drive off roads in areas closed to motorized travel and <strong>DO NOT</strong> drive on closed roads. Note that the weather conditions may cause roads to be closed.</p>
-  <p>Permittee shall remove trash and litter resulting from Permittee's activities.</p>
-  <p>Permittee shall prevent and suppress forest fires, pay the United States for any unnecessary damage resulting from Permittee's activities, and repair all damage to roads, trails, fences, ditches, and telephone lines resulting from Permittee's activities under this permit.</p>
-
+  <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills.</p>
+  <p>Before you go, check the weather forecast and always let someone know where you will be and when you are expected to return.</p>
+  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
+  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
+  <p>The permit must be in the your possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
+  <p>Stumps shall be cut flat and less than 8 inches above the ground.</p>
+  <p>The maximum piece length for firewood removal that is larger than seven (7) inches in diameter at either end is six (6) feet.</p>
+  <p>DO NOT damage vegetation, riparian areas, the forest floor, or roadbed surfaces. Use of heavy equipment (such as tractors, bulldozers, skidders, etc) is prohibited. DO NOT drive off roads in areas closed to motorized travel and DO NOT drive on closed roads. Note that the weather conditions may cause roads to be closed.</p>
   <h3>Using your firewood</h3>
   <p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
 </div>
 
-<h3>Tagging your load</h3>
+<!-- <h3>Tagging your load</h3>
 <p>Before hauling wood out of the forest, you will need to fill out a load tag and attach it
   to the back of your vehicle. The load tag helps law enforcement see that you have a valid
   permit and have collected your wood legally.
@@ -80,37 +97,7 @@
   <li>Punch out the month</li>
   <li>Punch out the date</li>
   <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
-</ul>
-
-<h3>Using your firewood</h3>
-<p>For home uses only. Firewood gathered using this permit is not for commercial resale.</p>
-
-<!-- ipnf block -->
-<div *ngIf="(forest.forestAbbr) == 'ipnf'">
-  <h3>Equipment you'll need</h3>
-  <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
-  <p>Chainsaws must be equipped with an approved spark arrestor screen.</p>
-  <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
-  <p>A shovel and a bucket are mandatory when traveling through or on National Forest lands during fire season.</p>
-  <h3>What to expect</h3>
-  <p>The permit must be in the Permittee's possession while harvesting and transporting products. Copies are not allowed and the permit is nontransferable.</p>
-</div>
-
-<!-- flathead block -->
-<div *ngIf="(forest.forestAbbr)=='flathead'">
-  <h3>Equipment you'll need during the Proclaimed Fire Season</h3>
-  <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
-  <p>Chainsaws must be equipped with an approved spark arrester screen.</p>
-  <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
-  <h3>What to expect</h3>
-  <p>Dead trees are dangerous to fall. Make sure you are experienced with yourfalling equipment and skills.</p>
-  <p>Drive safely and be alert for winter driving conditions. Your vehicle should be equipped with 4-wheel drive, snow tires, chains, and a shovel during the winter season.</p>
-  <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return</p>
-  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
-  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
-  <h3>Using your Firewood</h3>
-  <p>Gathering of campwood is allowed without a permit as long as the wood is burned at your camp. A permit is required to transport any unused firewood home.</p>
-</div>
+</ul> -->
 
 <!-- shoshone block -->
 <div *ngIf="(forest.forestAbbr)=='shoshone'">
@@ -131,18 +118,13 @@
 <div *ngIf="(forest.forestAbbr)=='hiawatha'">
   <h3>Equipment you'll need</h3>
   <p>The use of portable sawmill equipment, large capacity hydraulic boom loaders and large capacity truck/trailer combinations are prohibited.</p>
-  <p>The use of equipment to move firewood out to a road such as tractors, rubber-tired skidders, ATV's/OHV's or similar vehicles is Prohibited.</p>
+  <p>The use of equipment to move firewood out to a road such as tractors, rubber-tired skidders, ATV's/OHV's or similar vehicles is prohibited.</p>
   <h3>What to expect</h3>
-  <p>All Firewood products MUST be no longer than 3 feet (36") in length.</p>
-  <p>All roads and trails are to be kept free of brush and limbs.</p>
+  <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills.</p>
+  <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return.</p>
+  <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
+  <p>Park in areas so that traffic can get by safely and do not block gates.</p>
+  <p>The maximum piece length for firewood removal is three (3) feet (36").</p>
   <h3>Using your firewood</h3>
   <p>Help prevent the spread of invasive pests and pathogens. Please make an effort to burn your firewood locally.</p>
 </div>
-
-<!-- GMUG block -->
-<div *ngIf="(forest.forestAbbr)=='gmug'">
-  <h3>Equipment you'll need</h3>
-  <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
-  <p>Chainsaws must be equipped with an approved spark arrestor device properly installed, maintained, and in effective working order.</p>
-</div>
-
