@@ -61,16 +61,8 @@ paygov.createToken = (permitId) => {
  */
 paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
   const token = paygov.createToken(permitId);
-
-  let cancelQuery = '';
-  let completeRoute = '/permits';
-  if (isCancelUrl) {
-    cancelQuery = 'cancel=true&';
-    completeRoute = '';
-  }
-  return `${
-    vcapConstants.INTAKE_CLIENT_BASE_URL
-  }/christmas-trees/forests/${forestAbbr}/applications${completeRoute}/${permitId}?${cancelQuery}t=${token}`;
+  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}/firewood/forests/${forestAbbr}
+    /permits/${permitId}?${isCancelUrl ? 'cancel=true&' : ''}t=${token}`;
 };
 
 /**
