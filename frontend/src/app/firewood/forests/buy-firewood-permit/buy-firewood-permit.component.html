@@ -148,13 +148,8 @@
       <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
           <fieldset>
             <legend>Permit details</legend>
-            <app-numer-of-cords [applicantInfo]="applicationForm" hintText="Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords."></app-numer-of-cords>
-            <!-- <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
-            <span class="help-text usa-form-hint">Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords.</span>
-            <input id="number-of-cords" type="number" formControlName="numberOfCords" (onkeyup)="quantityChange($event)" [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.numberOfCords, 'email-label email-hint-text', 'email-error')"
-            [attr.aria-invalid]="afs.hasError(applicantInfo.controls.numberOfCords)"/> -->
-            <span>Total cost for firewood permit: ${{totalCost}} </span>
-            <!--<app-error-message fieldId="number-of-cords-error" name="Number Of Cords" [control]="applicantInfo.controls.numberOfCords"></app-error-message> -->
+            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords."></app-numer-of-cords>
+            <label class="margin-top-2">Total cost for firewood permit: ${{totalCost}} </label>
 
             <legend class="firewood-permit-holder-legend">Permit holder information</legend>
             <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm" formName="primaryAddress" name="Permit holder"></app-permit-holder-name>
