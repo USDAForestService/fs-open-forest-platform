@@ -149,12 +149,12 @@
           <fieldset>
             <legend>Permit details</legend>
             <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
-            <p>Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords.</p>
+            <span class="help-text usa-form-hint">Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords.</span>
             <input id="number-of-cords" type="number" formControlName="numberOfCords" (onkeyup)="quantityChange($event)"/>
        
-            <strong>Total cost for firewood permit: ${{totalCost}} </strong>
+            <span>Total cost for firewood permit: ${{totalCost}} </span>
 
-            <legend>Permit holder information</legend>
+            <legend class="firewood-permit-holder-legend">Permit holder information</legend>
             <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm" formName="primaryAddress" name="Permit holder"></app-permit-holder-name>
             <app-address id="person-primary-address" [parentForm]="applicationForm" formName="primaryAddress" type="primary-permit-holder"></app-address>
             <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
