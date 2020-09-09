@@ -35,6 +35,6 @@ describe('ForestFinderComponent', () => {
 
   it('should show trees has moved', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Christmas Trees has moved')
-  })
+    expect(compiled.querySelector('h1').textContent).toContain('Christmas Trees has moved');
+  });
 });
