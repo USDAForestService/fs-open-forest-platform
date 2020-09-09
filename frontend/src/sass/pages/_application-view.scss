@@ -36,10 +36,12 @@
       box-sizing: border-box;
       max-width: 280px;
     }
+
     #reason-for-action {
       position: relative;
+
       .close-reason-for-action {
-        background-image: url(/assets/img/site-wide/close-black.svg);
+        background-image: url("/assets/img/site-wide/close-black.svg");
         background-size: cover;
         cursor: pointer;
         height: 45px;
@@ -49,6 +51,7 @@
         right: 18px;
         width: 45px;
       }
+
       label {
         text-align: left;
         padding-top: 3em;
@@ -56,18 +59,21 @@
           padding-top: 2em;
         }
       }
+
       #reason-for-return {
         height: 10vh !important;
         max-height: 10vh !important;
         max-width: 100% !important;
         width: 100% !important;
       }
+
       .reason-for-action-buttons {
         float: right;
         margin: 1em 0;
       }
     }
   }
+
   .revision-history {
     tbody {
       td {
@@ -77,18 +83,21 @@
       }
     }
   }
+
   #desktop-revision-history {
     display: none;
     @media (min-width: $large-screen) {
       display: block;
     }
   }
+
   #mobile-revision-history {
     display: block;
     @media (min-width: $large-screen) {
       display: none;
     }
   }
+
   .confirmation-details-container {
     h2 {
       margin-top: 2rem;
@@ -98,16 +107,20 @@
     dd {
       margin-left: 0;
     }
+
     button#tree-print-permit {
       margin-bottom: 2rem;
     }
+
     #printing-instructions {
       padding-top: 2rem;
     }
     padding-bottom: 1rem;
+
     .usa-alert {
       background-position: 1rem 1.2rem;
     }
+
     label {
       max-width: 60rem;
     }
@@ -115,6 +128,7 @@
 
   .tree-confirmation-table {
     margin: 0 0 1rem;
+
     td {
       background-color: $fs-tan;
       border: 0;
@@ -124,7 +138,7 @@
 }
 
 .electronic-signature-success {
-  background: url(/assets/img/site-wide/checkmark.svg) no-repeat;
+  background: url("/assets/img/site-wide/checkmark.svg") no-repeat;
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -135,23 +149,39 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-
   @media (max-width: 600px) {
-     position: unset;
-     display: flex;
-     flex-direction: column;
-     align-items: unset;
-   }
+    position: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+  }
 }
 
-  .phone-extension-wrapper {
-    position: absolute;
-    top: 2.2rem;
-    left: 30rem;
+.phone-extension-wrapper {
+  position: absolute;
+  top: 2.2rem;
+  left: 30rem;
+  @media (max-width: 600px) {
+    position: unset;
+    top: unset;
+    left: unset;
+  }
+}
 
-    @media (max-width: 600px) {
-      position: unset;
-      top: unset;
-      left: unset;
+.required-documents {
+  background: white;
+  border: 1px solid black;
+  padding: 0 35px 35px;
+}
+
+.firewood-order-detail {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  dl {
+    margin-left: 10px;
+    dt {
+      margin-bottom: 10px;
     }
   }
+}
