@@ -1,23 +1,19 @@
-import { FormControl, ValidatorFn } from '@angular/forms';
-import { min } from 'rxjs/operators';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export function lessThanOrEqualValidator(num, minNum = -99999): ValidatorFn {
-  return (control: FormControl): { [key: string]: any } => {
+  return (control: AbstractControl): { [key: string]: any } => {
     const val = control.value;
-    if (val) {
-      const phoneNumberRegex = /^(\d+)$/;
-      const valid = phoneNumberRegex.test(val);
+    const numberRegex = /^(\d+)$/;
+    const valid = numberRegex.test(val);
+
+    if (valid && val <= num) {
       if (val < minNum) {
         return { lessThanOrEqualFail: { number: num, minNumber: minNum } };
-      }
-      if (val > num) {
-        return { lessThanOrEqualFail: { number: num, minNumber: minNum } };
-      }
-      if (!valid) {
-        return { numberRequirement: true };
+      } else {
+        return null;
       }
     } else {
-      return { required: true };
+      return { lessThanOrEqualFail: { number: num, minNumber: minNum } };
     }
   };
 }
