@@ -1,7 +1,6 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
-import { min } from 'rxjs/operators';
 
-export function lessThanOrEqualValidator(num, minNum = -99999): ValidatorFn {
+export function numberOfCordsValidator(num, minNum = -99999): ValidatorFn {
   return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val) {
