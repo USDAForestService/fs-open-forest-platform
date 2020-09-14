@@ -12,7 +12,7 @@ const forests = [
       forest_abbr: 'ipnf',
       wood_cost: 5.00,
       min_cords: 4,
-      max_cords: 2,
+      max_cords: 12,
       timezone: 'America/Boise',
       cutting_areas: '{}',
       map_links: '{}',

@@ -4,8 +4,8 @@ export function numberOfCordsValidator(num, minNum = -99999): ValidatorFn {
   return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val) {
-      const phoneNumberRegex = /^(\d+)$/;
-      const valid = phoneNumberRegex.test(val);
+      const numberRegex = /^(\d+)$/;
+      const valid = numberRegex.test(val);
       if (val < minNum) {
         return { lessThanOrEqualFail: { number: num, minNumber: minNum } };
       }
