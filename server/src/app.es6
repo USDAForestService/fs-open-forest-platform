@@ -59,12 +59,10 @@ app.use(
     name: 'session',
     keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
     maxAge: 3600000, // 1 hour
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      domain,
-      sameSite: 'none'
-    }
+    secure: true,
+    httpOnly: true,
+    domain,
+    sameSite: 'none'
   })
 );
 
