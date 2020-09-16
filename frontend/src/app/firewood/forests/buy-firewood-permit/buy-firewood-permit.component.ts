@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
 import { alphanumericValidator } from '../../../application-forms/validators/alphanumeric-validation';
+import { numberOfCordsValidator } from '../../../application-forms/validators/number-of-cords-validation';
 import { currencyValidator } from '../../../application-forms/validators/currency-validation';
 import { emailConfirmationValidator } from '../../../application-forms/validators/email-confirmation-validation';
-import { lessThanOrEqualValidator } from '../../../application-forms/validators/less-than-or-equal-validation';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
@@ -19,6 +19,7 @@ import { WindowRef } from '../../../_services/native-window.service';
   templateUrl: './buy-firewood-permit.component.html'
 })
 export class BuyFirewoodPermitComponent implements OnInit {
+  @Input() applicantInfo: FormGroup;
   forest: any;
   permit: any;
   submitted = false;
@@ -29,6 +30,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   showRules = false;
   jwtToken: string;
   showCancelAlert = false;
+  totalCost: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,35 +53,35 @@ export class BuyFirewoodPermitComponent implements OnInit {
       acceptPII: new FormControl(),
       numberOfCords: new FormControl(),
       firstName: new FormControl(),
-      lastName: new FormControl()
+      lastName: new FormControl(),
     });
+    this.totalCost = 0.00;
   }
 
   /**
    * Update total cost when quantity changes
    */
-  quantityChange(value) {
+  quantityChange(userInput) {
+    const minCords = this.forest.minCords;
+    const maxCords = this.forest.maxCords;
     this.applicationForm.get('numberOfCords').setValidators([
       Validators.required,
-      lessThanOrEqualValidator(4, 1)
+      numberOfCordsValidator(maxCords, minCords)
     ]);
-    if (!this.applicationForm.get('numberOfCords').errors) {
-      this.updateTotalCost();
-    } else {
-      this.applicationForm.get('totalCost').setValue(0);
-    }
+    this.totalCost = userInput * this.forest.woodCost;
+    this.applicationForm.get('totalCost').setValue(this.totalCost);
   }
 
   /**
    * @returns application form
    */
-  getApplicationForm(formBuilder, maxCords) {
+  getApplicationForm(formBuilder) {
     return formBuilder.group({
       acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
-      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
-      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
+      firstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
+      lastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
       orgStructureCode: ['', [Validators.required]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
       emailAddressConfirmation: [
@@ -87,7 +89,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
           '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
         ), Validators.maxLength(255)]
       ],
-      numberOfCords: ['', [Validators.required, Validators.min(1), Validators.max(maxCords)]],
+      numberOfCords: ['', [Validators.required, numberOfCordsValidator(this.forest.maxCords, this.forest.minCords)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     },
     {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
@@ -97,7 +99,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * Get application form and set default values
    */
   createForm(forest, formBuilder) {
-    this.applicationForm = this.getApplicationForm(formBuilder, 4);
+    this.applicationForm = this.getApplicationForm(formBuilder);
     this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
@@ -232,17 +234,5 @@ export class BuyFirewoodPermitComponent implements OnInit {
         this.winRef.getNativeWindow().scroll(0, 0);
       }
     );
-  }
-
-  /**
-   * Calculate total cost based on quantity
-   */
-  updateTotalCost() {
-    const quantity = this.applicationForm.get('numberOfCords').value;
-    if (!isNaN(parseInt(quantity, 10))) {
-      this.applicationForm.get('totalCost').setValue(parseInt(quantity, 10) * this.costPerTree);
-    } else {
-      this.applicationForm.get('totalCost').setValue(0);
-    }
   }
 }

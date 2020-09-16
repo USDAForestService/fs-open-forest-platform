@@ -21,7 +21,7 @@ module.exports = {
       firstName: { type: Sequelize.STRING, field: 'first_name' },
       lastName: { type: Sequelize.STRING, field: 'last_name' },
       emailAddress: { type: Sequelize.STRING, allowNull: false, field: 'email_address' },
-      woodCost: { type: Sequelize.NUMERIC(8, 2), field: 'wood_cost' },
+      woodCost: { type: Sequelize.NUMERIC(10, 2), field: 'wood_cost' },
       quantity: { type: Sequelize.INTEGER, allowNull: false, field: 'quantity' },
       totalCost: { type: Sequelize.NUMERIC(10, 2), allowNull: false, field: 'total_cost' },
       status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', allowNull: false, field: 'status' },

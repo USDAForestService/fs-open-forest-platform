@@ -50,6 +50,20 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
         min: 0
       }
     },
+    minCords: {
+      type: DataTypes.INTEGER,
+      field: 'min_cords',
+      validate: {
+        min: 0
+      }
+    },
+    maxCords: {
+      type: DataTypes.INTEGER,
+      field: 'max_cords',
+      validate: {
+        min: 0
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'created',
