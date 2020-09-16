@@ -136,7 +136,7 @@ xdescribe('PermitApplicationViewComponent', () => {
       component.handleUpdateResponse('Rejected');
       expect(alertSpy.calledThrice).toBeTruthy();
       component.handleUpdateResponse('Cancelled');
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['admin/applications']);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['special-use/admin/applications']);
     })
   );
 

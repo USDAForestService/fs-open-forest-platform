@@ -90,14 +90,17 @@ app-permit-application-list .usa-alert {
 }
 
 .application-status-toggle-wrapper {
-  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 28rem;
   margin: 1em auto;
   width: 100%;
   label {
     display: inline-block;
     margin-top: 1.5rem;
     margin-right: 1%;
-    width: 20%;
+    width: 100%;
     font-weight: normal;
   }
   select {

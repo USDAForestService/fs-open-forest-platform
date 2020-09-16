@@ -4,28 +4,30 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Update District And Area Dates</h1>
 
-    <div id="district-updated-alert-container" tabindex="-1">
+    <div *ngIf="forests && forests.length > 0" id="district-updated-alert-container" tabindex="-1">
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
       <div id="district-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info" role="alert" aria-label="info">
         <div class="usa-alert-body">
           <p class="usa-alert-text">{{ updateStatus }}
             <br/>
-            <a routerLink="/christmas-trees/forests/{{forest.forestAbbr}}">Click here to view the updated information.</a>
+            <a *ngIf="forests && forest && forests.length > 0" routerLink="/christmas-trees/forests/{{forest.forestAbbr}}">Click here to view the updated information.</a>
           </p>
         </div>
       </div>
     </div>
 
-    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
+    <form *ngIf="forests && forests.length > 0" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
       <div>
         <fieldset class="usa-form-group">
           <legend class="fs-datetime-legend">
             To update individual area dates and times, please select a forest.
           </legend>
-          <ng-container *ngFor="let forest of forests; let i = index">
-            <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
-            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          <ng-container *ngIf="forests && forests.length > 0">
+            <ng-container *ngFor="let forest of forests; let i = index">
+              <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
+              <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+            </ng-container>
           </ng-container>
         </fieldset>
 
@@ -55,6 +57,13 @@
         </div>
       </div>
     </form>
+
+    <div *ngIf="!forests || forests.length === 0">
+      <fieldset class="usa-form-group">
+        <legend>usa-form-group</legend>
+        <p>The forests you have access to do not have specific cutting areas. Please check with your forest administrator.</p>
+      </fieldset>
+    </div>
 
   </div>
 </section>

@@ -53,9 +53,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a noncommercial group\
- use permit on the Mount Baker Snoqualmie\
- National Forest with Open Forest.'
+      content: 'Apply for a Non-Commercial Group Use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -85,7 +83,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(30)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
         primaryFirstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
@@ -135,7 +133,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
-        60
+        30
       );
     }
   }
@@ -211,7 +209,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
       .subscribe(
         (persistedApplication: any) => {
-          this.router.navigate([`mbs/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+          this.router.navigate([`special-use/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
         },
         (e: any) => {
           this.apiErrors = e;

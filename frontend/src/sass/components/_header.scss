@@ -1,5 +1,6 @@
 .usa-header {
   background: $fs-tan;
+  border-bottom: none;
   .usa-logo {
     float: none;
     .fs-branding {
@@ -142,4 +143,16 @@
 .header-divider {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.browser-validation-main-content {
+  @media (min-width: 319px) {
+    margin-top: 18rem;
+  }
+  @media (min-width: 365px) {
+    margin-top: 11rem;
+  }
+  @media (min-width: 1020px) {
+    margin-top: unset;
+  }
 }

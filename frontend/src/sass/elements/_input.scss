@@ -31,6 +31,10 @@ label {
   font-weight: 700;
 }
 
+span, .character-limit-hint{
+  font-weight: 500;
+}
+
 .form-directions {
   margin-bottom: 3em;
 }
@@ -63,6 +67,10 @@ label {
   clear: none;
   float: left;
   margin-right: 1.5rem;
+}
+
+input.number-input-sizing {
+  width: 9rem;
 }
 
 input.ng-valid.ng-touched,
@@ -165,4 +173,8 @@ input[disabled] {
   font-size: 17px;
   font-weight: bold;
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+#organization-name-hint-text {
+  margin-top: 0rem;
 }

@@ -99,6 +99,30 @@
         "description": "Retrieve forests for christmas tree harvesting"
       }
     }, 
+    "/fsforests": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Forests not found"
+          }
+        }, 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "forests"
+        ], 
+        "summary": "Retrieve forests inside of open forest", 
+        "description": "Retrieve forests inside of open forest"
+      }
+    }, 
     "/permits/applications/special-uses/noncommercial/{id}": {
       "put": {
         "responses": {
@@ -313,7 +337,7 @@
         "description": "Retrieve existing christmas tree permit using the permit id"
       }
     }, 
-    "/admin/christmas-trees/forests/{forestId}": {
+    "/christmas-trees/admin/forests/{forestId}": {
       "put": {
         "responses": {
           "200": {
@@ -525,7 +549,7 @@
         "description": "Creates a new christmas-tree application"
       }
     }, 
-    "/admin/christmas-trees/permits/{permitId}": {
+    "/christmas-trees/admin/permits/{permitId}": {
       "get": {
         "responses": {
           "200": {
@@ -558,7 +582,7 @@
         "description": "Retrieve details of a completed christmas tree permit"
       }
     }, 
-    "/admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}": {
+    "/christmas-trees/admin/permits/{forestId}/{startDate}/{endDate}": {
       "get": {
         "responses": {
           "200": {

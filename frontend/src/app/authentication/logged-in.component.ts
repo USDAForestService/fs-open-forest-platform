@@ -11,7 +11,7 @@ export class LoggedInComponent implements OnInit {
 
   /**
    * Redirect to the requesting url after login.
-   * Redirect to /admin/applications if admin user and no requesting url
+   * Redirect to /special-use/admin/applications if admin user and no requesting url
    * Redirect to homepage if no requesting url and are typical user
    */
   ngOnInit() {
@@ -21,7 +21,7 @@ export class LoggedInComponent implements OnInit {
         localStorage.removeItem('requestingUrl');
         return this.router.navigate([requestingUrl]);
       } else if (user && user.role === 'admin') {
-        this.router.navigate(['/admin/applications']);
+        this.router.navigate(['/special-use/admin/applications']);
       } else {
         this.router.navigate(['/']);
       }

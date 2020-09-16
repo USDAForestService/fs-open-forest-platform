@@ -8,7 +8,7 @@
     <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a noncommercial group use permit with Open Forest.</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-Commercial Group Use permit with Open Forest.</h2>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -48,7 +48,7 @@
               <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
               <app-address id="organization-address" [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
             </div>
-            <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number"></app-phone-number>
+            <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number (10 digits. No special characters.)"></app-phone-number>
             <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
             <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
             <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
@@ -128,14 +128,14 @@
           </label>
           <app-error-message
             fieldId="accept-rules-error"
-            name="To purchase a noncommercial permit, consenting to our collection of your name and email"
+            name="To purchase a Non-Commercial Group Use permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII">
           </app-error-message>
         </div>
 
         <!-- action buttons -->
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
+        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/special-use/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
         <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save Edits & Submit</button>
 
       </form>

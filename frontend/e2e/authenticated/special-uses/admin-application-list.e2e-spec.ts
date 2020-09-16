@@ -15,7 +15,7 @@ xdescribe('Apply for a ', () => {
 
     loginPublic();
 
-    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/mbs/applications/noncommercial-group-use/new');
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/special-use/applications/noncommercial-group-use/new');
     applicationForm.createApplication();
   });
 
@@ -25,7 +25,7 @@ xdescribe('Apply for a ', () => {
   });
 
   it('should display forest name', () => {
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mt. Baker-Snoqualmie National Forest');
   });
 
   it('should display header links for authenticated user', () => {

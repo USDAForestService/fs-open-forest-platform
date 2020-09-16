@@ -1,0 +1,48 @@
+<section id="forest-finder-intro" class="products-main">
+  <div class="usa-grid">
+    <div class="products-main-callout">
+      <h1 id="skip-nav-target" tabindex="-1">PRODUCTS & PERMITS</h1>
+    </div>
+  </div>
+</section>
+
+<section class="usa-section" id="product-section">
+  <div class="usa-grid">
+      <h2 id="skip-nav-target" tabindex="-1">Product Types</h2>
+      <p>View a list of available products per forest</p>
+      <div class="product-status-toggle-wrapper">
+        <label for="product-status-toggle">Filter</label>
+        <select class="usa-input-inline" id="product-status-toggle" (change)="productStatusChange($event)">
+          <option value="christmas-trees" selected>Christmas Trees</option>
+        </select>
+      </div>
+  
+      <table id="products-table" *ngIf="forests">
+        <caption>Products Table</caption>
+        <thead>
+          <tr>
+            <th id="ProductsTable_Forest">Forest</th>
+            <th id="ProductsTable_State">State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let forest of forests">
+            <td class="link-out" (click)="goToForest(forest)"><span>{{forest.forestName}}</span></td>
+            <td><span>{{forest.state}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="every-kid-in-a-park" class="usa-section usa-section-tan-dark">
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+        <div>
+          <img class="every-kid-img" alt="Every kid outdoors" role="img" src="/assets/img/site-wide/eko.png">
+          Fourth graders may be eligible to receive a free Christmas tree permit. Please visit the <a href="https://everykidoutdoors.gov/">Every Kid Outdoors</a> 
+          website or contact your <a href="https://www.fs.fed.us/">local forest service office</a> for details.
+        </div>
+      </div>
+    </div>
+  </section>

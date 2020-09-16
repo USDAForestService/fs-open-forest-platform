@@ -27,22 +27,10 @@ export class NoncommercialFieldsComponent implements OnInit {
   ngOnInit() {
     this.formName = 'noncommercialFields';
     this[this.formName] = this.formBuilder.group({
-      activityDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+      activityDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
       locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      numberParticipants: [
-        '',
-        [
-          Validators.required,
-          alphanumericValidator(),
-          Validators.minLength(1),
-          Validators.maxLength(255),
-          numberValidator()
-        ]
-      ],
-      numberSpectators: [
-        '',
-        [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator()]
-      ]
+      numberParticipants: ['', [Validators.required, alphanumericValidator(), Validators.minLength(1), Validators.maxLength(255), numberValidator(true)]],
+      numberSpectators: ['',	[Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator(true)]]
     },
     {
       validator: this.validatePermitNeeded
@@ -58,7 +46,8 @@ export class NoncommercialFieldsComponent implements OnInit {
     const numberParticipants = group.controls.numberParticipants;
     const totalAttendees = numberSpectators.value + numberParticipants.value;
 
-    if (isNumeric(numberParticipants.value) && isNumeric(numberSpectators.value) && totalAttendees < 75) {
+    if (isNumeric(numberSpectators.value) &&
+    totalAttendees < 75) {
       return { notEnoughAttendees: true };
     }
     return null;

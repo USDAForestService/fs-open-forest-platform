@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   apiurl = environment.apiUrl;
   currentUrl = '/';
   user: any;
+  browserName: string;
   status = {
     heading: '',
     message: ''
@@ -90,5 +91,29 @@ export class AppComponent implements OnInit {
         return hour < 12 ? 'AM' : 'PM';
       }
     });
+  }
+
+  getBrowserName() {
+    const  userAgent = navigator.userAgent;
+    const browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    const parsedBrowserInfo = userAgent.match (/(OPR|Edge)\/?\s*(\d+)/i);
+    this.browserName = browserInfo[1];
+      if (parsedBrowserInfo !== null) {
+        switch (parsedBrowserInfo[1]) {
+          case 'OPR': {
+            this.browserName = 'Opera';
+            break;
+          }
+          case 'Edge': {
+            this.browserName = 'Edge';
+            break;
+          }
+          default: {
+            this.browserName = 'notChrome';
+            break;
+          }
+        }
+      }
+    return this.browserName;
   }
 }

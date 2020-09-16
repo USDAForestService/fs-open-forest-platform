@@ -62,8 +62,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   ) {
 
     this.meta.addTag({
-      name: 'description', content: 'Apply for a temporary outffitter\
- and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
+      name: 'description',
+      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -95,7 +95,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(30)]],
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
@@ -114,7 +114,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
-        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(1000)]],
         experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
       })
     });
@@ -158,13 +158,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
     const orgName = this.applicationForm.get('applicantInfo.organizationName');
     this.applicationFieldsService.updateValidators(gse, true, 255);
-    this.applicationFieldsService.updateValidators(orgName, true, 60);
+    this.applicationFieldsService.updateValidators(orgName, true, 30);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
-        this.applicationFieldsService.updateValidators(orgName, false, 60);
+        this.applicationFieldsService.updateValidators(orgName, false, 30);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
@@ -411,7 +411,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.application.status = 'Submitted';
         this.applicationService.update(this.application, 'temp-outfitter').subscribe(
           (data: any) => {
-            this.router.navigate([`mbs/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+            this.router.navigate([`special-use/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
           },
           (e: any) => {
             this.apiErrors = e;

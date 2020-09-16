@@ -1,0 +1,247 @@
+#home {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  ul {
+    padding-top: 0px;
+  }
+}
+
+.usa-ico{
+  color: $fs-green;
+}
+
+.usa-target {
+  text-align: center;
+  padding-top: 39px;
+  padding-bottom: 39px;
+}
+
+.tree-card{
+  background-image: url(/assets/img/site-wide/tree-card.png);
+}
+
+.mushroom-card{
+  background-image: url(/assets/img/site-wide/mushroom-card.png);
+}
+
+.huckleberry-card{
+  background-image: url(/assets/img/site-wide/huckleberry-card.png);
+}
+
+.firewood-card{
+  background-image: url(/assets/img/site-wide/firewood-card.png);
+}
+
+a {
+  text-decoration: none;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  // remove this later
+.map-grid {
+  background: url(/assets/img/site-wide/map_place.png);
+  background-size: cover;
+  min-height: 65vh;
+  text-align: center;
+  width: 100%;
+}
+  
+.mbs-section {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  .mbs-image-container {
+    position: relative;
+    margin: 0px 10px;
+    min-height: 45vh;
+    width: 100%;
+    &.left-image {
+      background-image: url(/assets/img/site-wide/mbs-left-big.png);
+      background-size: cover;
+    }
+    &.right-image {
+      background-image: url(/assets/img/site-wide/mbs-right-big.png);
+      background-size: cover;
+      margin-top: 25px;
+    }
+    .mbs-image-hero {
+      font-weight: bold;
+      position: absolute;
+      bottom: 25px;
+      height: 230px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 25px;
+      width: calc(100% - 50px);
+      text-align: left;
+      left: 50%;
+      transform: translateX(-50%);
+      h3 {
+        margin-top: 10px;
+        color: #005400;
+        margin-left: 10px;
+      }
+      .link-text {
+        cursor: pointer;
+      }
+      .ul {
+        padding-top: 0px;
+      }
+      .hero-icon {
+        position: absolute;
+        top: -50px;
+        left: 25px;
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 50%
+        );
+        .usa-ico{
+            top: 10px;
+            position: relative;
+        }
+        .fa-users{
+          left: 20px;
+          font-size: 3em;
+        }
+        .fa-hiking{
+            left: 25px;
+            font-size: 3.5em;
+        }
+      }
+    }
+  }
+}
+
+#help-pick-background{
+  background-color: $fs-tan-dark;
+  padding: 20px;
+  margin-top: 40px;
+  color: $dark-blue-grey;
+  .small-col-left{
+    display: none;
+  }
+}
+#fs-background{
+  padding: 20px;
+  color: $dark-blue-grey;
+}
+
+.card-container{
+  width: 100%;
+  margin: 0 auto;
+  padding: .5em 0;
+  .card{
+    background-size: cover;
+    width: 100%;
+    background-color: white;
+    min-height: 25vh;
+    .description{
+      background-color: rgba($color: white, $alpha: 0.8);
+      padding: 7px;
+      min-height: 25%;
+      width: 80%;
+      margin: 15px auto;
+      h3 {
+        margin-top: .5em;
+        color: $fs-green;
+      }
+      p {
+        margin: 0px;
+        color: $fs-brown;
+      }
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .left-align{
+    text-align: left;
+  }
+  .help-pick-flex{
+    .small-col-left{
+      display: unset;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .small-col{
+      width: 20%;
+      justify-content: space-around;
+      .usa-ico{
+        font-size: 4em;
+      }
+    }
+    .big-col{
+        width: 70%;
+        justify-content: space-around;
+        h2 {
+          margin-top: 0px;
+        }
+    }  
+  }
+
+  #help-pick-background{
+    padding: 20px 100px;
+    .small-col-left{
+      display: unset;
+    }
+  }
+
+  #fs-background{
+    padding: 20px 100px;
+    .big-col{
+        width: 70%;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    flex-flow: wrap;
+    .card{
+      width: 90%;
+      min-height: 65vh;
+      .description{
+        width: 90%;
+        margin: 25px auto;
+      }
+    }
+  }
+  
+  .card {
+    flex: 1 0 48%;
+    margin: 1%;
+  }
+  .mbs-section {
+    min-height: 85vh;
+    .mbs-image-container {
+      flex: 1 0 48%;
+      .mbs-image-hero {
+        h3 {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1001px) {
+  .card {
+      flex: 1 0 22%;
+  }
+  .mbs-image-container {
+      flex: 1 0 48%;
+      &.right-image {
+        margin-top: 0px !important;
+      }
+  }
+  .card:last-of-type {
+      flex-grow: 0;
+  }
+}
