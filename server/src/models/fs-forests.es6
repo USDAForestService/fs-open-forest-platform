@@ -88,6 +88,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING(50),
       field: 'state'
     },
+    stateFips: {
+      type: DataTypes.STRING(10),
+      field: 'state_fips'
+    },
     region: {
       type: DataTypes.INTEGER,
       field: 'region'
