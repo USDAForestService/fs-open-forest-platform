@@ -63,7 +63,6 @@ app.use(
     httpOnly: true,
     domain,
     sameSite: 'none'
-    }
   })
 );
 
