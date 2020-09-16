@@ -4,8 +4,8 @@ import { TreesAdminDatesPage } from './xmas-tree-admin-dates.po';
 
 const page = new TreesAdminDatesPage();
 
-describe('Xmas tree - Update Season Dates', () => {
-  describe('Season dates admin page', () => {
+xdescribe('Xmas tree - Update Season Dates', () => {
+  xdescribe('Season dates admin page', () => {
     beforeAll(() => {
       browser.driver.manage().deleteAllCookies();
       browser.driver.manage().window().setSize(1400, 900);
@@ -17,28 +17,28 @@ describe('Xmas tree - Update Season Dates', () => {
       expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/christmas-trees/admin/season-dates');
     });
 
-    describe('basic elements', () => {
-      it('should display a start date', () => {
+    xdescribe('basic elements', () => {
+      xit('should display a start date', () => {
         expect<any>(page.startMonthInput().isPresent()).toBeTruthy();
         expect<any>(page.startDayInput().isPresent()).toBeTruthy();
         expect<any>(page.startYearInput().isPresent()).toBeTruthy();
       });
 
-      it('should display an end date', () => {
+      xit('should display an end date', () => {
         expect<any>(page.endMonthInput().isPresent()).toBeTruthy();
         expect<any>(page.endDayInput().isPresent()).toBeTruthy();
         expect<any>(page.endYearInput().isPresent()).toBeTruthy();
       });
     });
 
-    describe('forest select', () => {
-      it('should allow the user to select a forest', () => {
+    xdescribe('forest select', () => {
+      xit('should allow the user to select a forest', () => {
         element(by.id('3-button-label')).click();
         element(by.id('update-dates')).click();
 
       });
 
-      it('should clear the errors after a forest is selected', () => {
+      xit('should clear the errors after a forest is selected', () => {
         expect<any>(page.startMonthError().isPresent()).toBeFalsy();
         expect<any>(page.startDayError().isPresent()).toBeFalsy();
         expect<any>(page.startYearError().isPresent()).toBeFalsy();
@@ -47,7 +47,7 @@ describe('Xmas tree - Update Season Dates', () => {
         expect<any>(page.endYearError().isPresent()).toBeFalsy();
       });
 
-      it('should show date invalid errors if dates are invalid', () => {
+      xit('should show date invalid errors if dates are invalid', () => {
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('13');
         page.startMonthInput().sendKeys(protractor.Key.TAB);
@@ -65,7 +65,7 @@ describe('Xmas tree - Update Season Dates', () => {
         expect<any>(page.startDayError().isPresent()).toBeFalsy();
       });
 
-      it('should display error if start date is after end date', () => {
+      xit('should display error if start date is after end date', () => {
         page.startYearInput().clear();
         page.startYearInput().sendKeys('2040');
         expect<any>(page.startDateTimeError().getText()).toEqual(

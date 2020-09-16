@@ -4,7 +4,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 describe('Christmas tree  - Contact Us', () => {
   let page: TreesSidebarPage;
 
-  describe('Mt Hood', () => {
+  xdescribe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -15,18 +15,18 @@ describe('Christmas tree  - Contact Us', () => {
       browser.sleep(800);
     });
 
-    it('should have a contact us section link in the sidebar', () => {
+    xit('should have a contact us section link in the sidebar', () => {
       expect<any>(page.contactUsSectionLink().isPresent()).toBeTruthy();
       page.contactUsSectionLink().click();
       browser.sleep(800);
     });
 
-    it('should have a contact us section in the guidelines', () => {
+    xit('should have a contact us section in the guidelines', () => {
       expect<any>(page.contactUsSection().isPresent()).toBeTruthy();
     });
   });
 
-  describe('Arapaho', () => {
+  xdescribe('Arapaho', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -37,18 +37,18 @@ describe('Christmas tree  - Contact Us', () => {
       browser.sleep(800);
     });
 
-    it('should have a contact us section link in the sidebar', () => {
+    xit('should have a contact us section link in the sidebar', () => {
       expect<any>(page.contactUsSectionLink().isPresent()).toBeTruthy();
       page.contactUsSectionLink().click();
       browser.sleep(800);
     });
 
-    it('should have a contact us section in the guidelines', () => {
+    xit('should have a contact us section in the guidelines', () => {
       expect<any>(page.contactUsSection().isPresent()).toBeTruthy();
     });
 
   });
-  describe('Shoshone', () => {
+  xdescribe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -59,18 +59,18 @@ describe('Christmas tree  - Contact Us', () => {
       browser.sleep(800);
     });
 
-    it('should have a contact us section link in the sidebar', () => {
+    xit('should have a contact us section link in the sidebar', () => {
       expect<any>(page.contactUsSectionLink().isPresent()).toBeTruthy();
       page.contactUsSectionLink().click();
       browser.sleep(800);
     });
 
-    it('should have a contact us section in the guidelines', () => {
+    xit('should have a contact us section in the guidelines', () => {
       expect<any>(page.contactUsSection().isPresent()).toBeTruthy();
     });
 
   });
-  describe('Flathead', () => {
+  xdescribe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -81,13 +81,13 @@ describe('Christmas tree  - Contact Us', () => {
       browser.sleep(800);
     });
 
-    it('should have a contact us section link in the sidebar', () => {
+    xit('should have a contact us section link in the sidebar', () => {
       expect<any>(page.contactUsSectionLink().isPresent()).toBeTruthy();
       page.contactUsSectionLink().click();
       browser.sleep(800);
     });
 
-    it('should have a contact us section in the guidelines', () => {
+    xit('should have a contact us section in the guidelines', () => {
       expect<any>(page.contactUsSection().isPresent()).toBeTruthy();
     });
 

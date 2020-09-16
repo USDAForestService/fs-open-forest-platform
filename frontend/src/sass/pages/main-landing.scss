@@ -32,9 +32,6 @@
   background-image: url(/assets/img/site-wide/firewood-card.png);
 }
 
-a {
-  text-decoration: none;
-}
 .header {
   display: flex;
   align-items: center;
@@ -122,7 +119,6 @@ a {
 #help-pick-background{
   background-color: $fs-tan-dark;
   padding: 20px;
-  margin-top: 40px;
   color: $dark-blue-grey;
   .small-col-left{
     display: none;
@@ -188,7 +184,7 @@ a {
   }
 
   #help-pick-background{
-    padding: 20px 100px;
+    padding: 50px 150px;
     .small-col-left{
       display: unset;
     }

@@ -549,6 +549,80 @@
         "description": "Creates a new christmas-tree application"
       }
     }, 
+    "/fsforests/firewood-permits": {
+      "put": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "200": {
+            "description": "Successful Update"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A firewood permit application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/firewoodPermit"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "firewood"
+        ], 
+        "summary": "Updates a firewood permit application", 
+        "operationId": "update", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Updates firewood permit application"
+      }, 
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non firewood application object", 
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/firewoodPermit"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "firewood"
+        ], 
+        "summary": "Creates a new firewood application", 
+        "operationId": "createFirewoodPermit", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Creates a new firewood application"
+      }
+    }, 
     "/christmas-trees/admin/permits/{permitId}": {
       "get": {
         "responses": {
@@ -580,6 +654,46 @@
         ], 
         "summary": "Retrieve details of a completed christmas tree permit", 
         "description": "Retrieve details of a completed christmas tree permit"
+      }
+    }, 
+    "/nrm-service": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Not found"
+          }
+        }, 
+        "summary": "Retrieve nrm details", 
+        "description": "Retrieve details of nrm service",
+        "tags": [
+          "general"
+        ]
+      }
+    }, 
+    "/feedback": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Not found"
+          }
+        }, 
+        "summary": "Retrieve customer feedback", 
+        "description": "Retrieve details of customer feedback",
+        "tags": [
+          "general"
+        ]
       }
     }, 
     "/christmas-trees/admin/permits/{forestId}/{startDate}/{endDate}": {
@@ -787,6 +901,33 @@
           "type": "string"
         }, 
         "treeCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "lastName": {
+          "type": "string"
+        }, 
+        "forestId": {
+          "type": "integer"
+        }, 
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    }, 
+    "firewoodPermit": {
+      "properties": {
+        "totalCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "emailAddress": {
+          "type": "string"
+        }, 
+        "firstName": {
+          "type": "string"
+        }, 
+        "woodCost": {
           "type": "number", 
           "format": "double"
         }, 

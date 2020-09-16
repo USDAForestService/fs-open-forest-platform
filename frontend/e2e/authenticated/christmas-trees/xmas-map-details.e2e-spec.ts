@@ -1,11 +1,11 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Map details page', () => {
+xdescribe('Map details page', () => {
   let page: TreesSidebarPage;
   // const redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
 
-  describe('ARP', () => {
+  xdescribe('ARP', () => {
     beforeAll(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -33,53 +33,53 @@ describe('Map details page', () => {
     //   expect<any>(redLink.getText()).toEqual('Red Feather Lakes Cutting Area map description');
     // });
 
-    describe('red feather lakes map description', () => {
+    xdescribe('red feather lakes map description', () => {
       beforeAll(() => {
         browser.get('christmas-trees/forests/arp/maps/red-feather-lakes');
         browser.sleep(500);
       });
 
-      it('should contain the map image', () => {
+      xit('should contain the map image', () => {
         expect<any>(element(by.id('map-image'))).toBeTruthy();
       });
 
-      it('should contain the map description', () => {
+      xit('should contain the map description', () => {
         expect<any>(element(by.id('map-description'))).toBeTruthy();
       });
     });
 
-    describe('sulphur district map description', () => {
+    xdescribe('sulphur district map description', () => {
       beforeAll(() => {
         browser.get('christmas-trees/forests/arp/maps/sulphur');
         browser.sleep(500);
       });
 
-      it('should contain the map image', () => {
+      xit('should contain the map image', () => {
         expect<any>(element(by.id('map-image'))).toBeTruthy();
       });
 
-      it('should contain the map description', () => {
+      xit('should contain the map description', () => {
         expect<any>(element(by.id('map-description'))).toBeTruthy();
       });
     });
 
-    describe('elk creek map description', () => {
+    xdescribe('elk creek map description', () => {
       beforeAll(() => {
         browser.get('christmas-trees/forests/arp/maps/elk-creek');
         browser.sleep(500);
       });
 
-      it('should contain the map image', () => {
+      xit('should contain the map image', () => {
         expect<any>(element(by.id('map-image'))).toBeTruthy();
       });
 
-      it('should contain the map description', () => {
+      xit('should contain the map description', () => {
         expect<any>(element(by.id('map-description'))).toBeTruthy();
       });
     });
   });
 
-  describe('Mt Hood', () => {
+  xdescribe('Mt Hood', () => {
     beforeAll(() => {
       page = new TreesSidebarPage();
       browser.driver
@@ -102,32 +102,32 @@ describe('Map details page', () => {
     //   expect<any>(zigzagLink.getText()).toEqual('Zigzag Ranger District map description');
     // });
 
-    describe('clackamas map description', () => {
+    xdescribe('clackamas map description', () => {
       beforeAll(() => {
         browser.get('christmas-trees/forests/mthood/maps/clackamas');
         browser.sleep(500);
       });
 
-      it('should contain the map image', () => {
+      xit('should contain the map image', () => {
         expect<any>(element(by.id('map-image'))).toBeTruthy();
       });
 
-      it('should contain the map description', () => {
+      xit('should contain the map description', () => {
         expect<any>(element(by.id('map-description'))).toBeTruthy();
       });
     });
 
-    describe('clackamas map description', () => {
+    xdescribe('clackamas map description', () => {
       beforeAll(() => {
         browser.get('christmas-trees/forests/mthood/maps/zigzag');
         browser.sleep(500);
       });
 
-      it('should contain the map image', () => {
+      xit('should contain the map image', () => {
         expect<any>(element(by.id('map-image'))).toBeTruthy();
       });
 
-      it('should contain the map description', () => {
+      xit('should contain the map description', () => {
         expect<any>(element(by.id('map-description'))).toBeTruthy();
       });
     });

@@ -4,7 +4,7 @@ const express = require('express');
 const uuid = require('uuid/v4');
 
 const util = require('../services/util.es6');
-const treesDb = require('../models/trees-db.es6');
+const forestsDb = require('../models/forests.es6');
 const middleware = require('../services/middleware.es6');
 const paygov = require('../services/paygov');
 const templates = require('./pay-gov-templates.es6');
@@ -106,14 +106,14 @@ mockPayGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req,
 });
 
 mockPayGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
-  treesDb.christmasTreesPermits
+  forestsDb.firewoodPermits
     .findOne({
       where: {
         paygovToken: req.query.token
       },
       include: [
         {
-          model: treesDb.christmasTreesForests
+          model: forestsDb.fsForests
         }
       ]
     })

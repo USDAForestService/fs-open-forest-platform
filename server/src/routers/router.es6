@@ -11,6 +11,7 @@ const forests = require('./forests.es6');
 const christmasTreeAdminRouter = require('./christmasTreeAdmin.es6');
 const specialUseRouter = require('./specialuse.es6');
 const feedbackRouter = require('./feedback.es6');
+const nrmRouter = require('./nrm.es6');
 
 const router = express.Router();
 
@@ -35,5 +36,6 @@ router.use('/fsforests', middleware.setCorsHeaders, forests);
 router.use('/christmas-trees/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
 router.use('/admin/special-uses', middleware.setCorsHeaders, middleware.checkAdminPermissions, specialUseRouter);
 router.use('/feedback', middleware.setCorsHeaders, feedbackRouter);
+router.use('/nrm-service', middleware.setCorsHeaders, nrmRouter);
 
 module.exports = router;

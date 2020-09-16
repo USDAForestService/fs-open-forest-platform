@@ -30,6 +30,8 @@ import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-gu
 import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { FirewoodForestFinderComponent } from './firewood/forests/forest-finder/forest-finder.component';
+import { BuyFirewoodPermitComponent } from './firewood/forests/buy-firewood-permit/buy-firewood-permit.component';
+import { OrderConfirmationComponent } from './firewood/forests/order-confirmation/order-confirmation.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
@@ -352,6 +354,26 @@ const appRoutes: Routes = [
           {
             path: '',
             component: FirewoodGuidelinesComponent
+          },
+          {
+            path: 'buy',
+            data: { breadcrumbs: 'Buy a permit' },
+            children: [
+              {
+                path: '',
+                component: BuyFirewoodPermitComponent
+              }
+            ]
+          },
+          {
+            path: 'permits/:permitId',
+            data: { breadcrumbs: 'Buy a permit' },
+            children: [
+              {
+                path: '',
+                component: OrderConfirmationComponent
+              }
+            ]
           }
         ]
       }
