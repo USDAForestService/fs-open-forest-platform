@@ -5,6 +5,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
+import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 
 @Component({
   selector: 'app-firewood-info',
@@ -23,6 +24,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title,
     private firewoodInfoService: FirewoodInfoService,
+    private firewoodApplicationService: FirewoodApplicationService,
     private configService: SidebarConfigService,
     private meta: Meta,
     public renderer: Renderer2
@@ -65,6 +67,20 @@ a Firewood permit with the United States Forest Service on your National Forest 
       )}.`;
     }
     return forest;
+  }
+
+  printPDF = () => {
+    console.log('printPDF()')
+    let data = {
+      permit_id: '12321',
+      permit_cost: 5
+    }
+    // let pdf = this.firewoodApplicationService.getPDF(data)
+    // console.dir(pdf)
+    this.firewoodApplicationService.getPDF(data.permit_id, data).subscribe(updated => {
+      console.log('got something')
+      console.dir(updated)
+    });
   }
 
   /**

@@ -56,6 +56,12 @@ export class FirewoodApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
+  getPDF(id, data) {
+    console.dir(data)
+    return this.http.get(`${this.endpoint}/${id}/save`, data)
+    // return this.http.get(`${this.endpoint}/pdf`, data)
+  }
+
   /**
    * @returns Printable permit, with or without the rules
    */

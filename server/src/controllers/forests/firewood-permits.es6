@@ -130,6 +130,11 @@ firewoodPermits.getOnePermit = async (req, res) => {
 //     });
 // };
 
+firewoodPermits.getPDF = async (req, res) => {
+  console.dir(req.params)
+  res.send({pdf: true})
+}
+
 /**
  * @function updatePermitApplication - API function to update permit
  * @param {Object} req - http request
