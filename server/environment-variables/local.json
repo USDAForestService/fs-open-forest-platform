@@ -49,7 +49,7 @@
     "name": "smtp-service",
     "credentials": {
       "admins": [
-        "bdavidson@cynerge.com"
+        "bdavidson@cynerge.com",
         "mtlaney@gmail.com"
       ],
       "security": [
