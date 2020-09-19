@@ -56,10 +56,8 @@ export class FirewoodApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
-  getPDF(id, data) {
-    console.dir(data)
-    return this.http.get(`${this.endpoint}/${id}/save`, data)
-    // return this.http.get(`${this.endpoint}/pdf`, data)
+  emailPDF(data) {
+    return this.http.post(`${this.endpoint}/${data.permit_id}/email`, data)
   }
 
   /**

@@ -156,6 +156,17 @@ firewoodPermitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText)
   return email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
 
+firewoodPermitService.emailPDF = (data) => {
+  console.log("hello")
+  const attachments = [{
+    filename: 'permit.pdf',
+    content: Buffer.from(data.permitHTML, 'utf-8'),
+    contentType: 'application/pdf'
+  }]
+  data.attachments = attachments
+  return email.sendPermit(data);
+}
+
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
  * @param {date} permitExpireDate - expiration date

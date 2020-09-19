@@ -22,6 +22,7 @@
       <button #staticBuyButton [routerLink]="['/firewood/forests/', forest.forestAbbr, 'buy']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>
 
       <span (click)="printPDF()">Print PDF</span>
+      <span (click)="emailPDF()">Email PDF</span>
 
       <!-- where to find firewood -->
       <app-where-to-find></app-where-to-find>
