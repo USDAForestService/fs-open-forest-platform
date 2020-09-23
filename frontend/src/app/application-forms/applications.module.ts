@@ -21,6 +21,7 @@ import { FileUploadComponent } from './fields/file-upload.component';
 import { FileUploadService } from './_services/file-upload.service';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
+import { NumberOfCordsComponent } from './fields/number-of-cords.component';
 import { QuantityComponent } from './fields/quantity.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
@@ -53,6 +54,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
+    NumberOfCordsComponent,
     QuantityComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
@@ -83,6 +85,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
+    NumberOfCordsComponent,
     QuantityComponent,
     OrganizationNameComponent,
     OrgTypeComponent,

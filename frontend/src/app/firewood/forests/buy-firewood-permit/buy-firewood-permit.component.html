@@ -146,21 +146,13 @@
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
       <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
-        <fieldset>
-          <legend>Permit details</legend>
-          <label class="usa-input">Number of cords <span class="required-fields-asterisk"> *</span></label>
-          <p>Each cord is $5. Minimum of 4 cords.
-            <select class="usa-input-inline" id="number-of-cords" formControlName="numberOfCords" aria-required="true">
-              <option selected="selected" [value]="4">4</option>
-            </select>
-            <p>
-              <strong>Total cost for firewood permit: $0</strong>
-            </p>
-            <legend>Permit holder information</legend>
-            <label class="usa-input">Permit holder first name <span class="required-fields-asterisk">*</span></label>
-            <input class="primary-permit-holder-first-name" type="text" formControlName="firstName" />
-            <label class="usa-input">Permit holder last name <span class="required-fields-asterisk">*</span></label>
-            <input class="primary-permit-holder-last-name" type="text" formControlName="lastName" />
+          <fieldset>
+            <legend>Permit details</legend>
+            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords."></app-numer-of-cords>
+            <label class="margin-top-2">Total cost for firewood permit: ${{totalCost}} </label>
+
+            <legend class="firewood-permit-holder-legend">Permit holder information</legend>
+            <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm" formName="primaryAddress" name="Permit holder"></app-permit-holder-name>
             <app-address id="person-primary-address" [parentForm]="applicationForm" formName="primaryAddress" type="primary-permit-holder"></app-address>
             <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
             <app-email-confirmation [applicantInfo]="applicationForm" hintText="Please verify your email address"></app-email-confirmation>
