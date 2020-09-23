@@ -60,9 +60,7 @@ paygov.createToken = (permitId) => {
  * @return {Promise} - Promise that resolves to a success URL for payGov
  */
 paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
-  const token = paygov.createToken(permitId);
-  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}/firewood/forests/${forestAbbr}
-    /permits/${permitId}?${isCancelUrl ? 'cancel=true&' : ''}t=${token}`;
+  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}`;
 };
 
 /**
