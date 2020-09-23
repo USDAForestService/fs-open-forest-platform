@@ -1,6 +1,7 @@
 const forests = [
     {
       id: 1,
+      forest_code: '04',
       forest_name: 'Idaho Panhandle National Forest',
       forest_url: 'https://www.fs.usda.gov/ipnf/',
       start_date: '2019-11-18T08:00:00Z',
@@ -21,10 +22,12 @@ const forests = [
       poss_financial_id: '999900018',
       state: 'Idaho',
       permit_type: 'fuel',
+      region_name: 'Northern',
       region: 1
     },
     {
       id: 2,
+      forest_code: '10',
       forest_name: 'Flathead National Forest',
       forest_url: 'https://www.fs.usda.gov/flathead/',
       start_date: '2020-04-01T08:00:00Z',
@@ -45,10 +48,12 @@ const forests = [
       poss_financial_id: '999900019',
       state: 'Montana',
       permit_type: 'fuel',
+      region_name: 'Northern',
       region: 1
     },
     {
       id: 3,
+      forest_code: '03',
       forest_name: 'Chattahoochee-Oconee National Forest',
       forest_url: 'https://www.fs.usda.gov/conf',
       start_date: '2020-01-01T08:00:00Z',
@@ -69,10 +74,12 @@ const forests = [
       poss_financial_id: '999900021',
       state: 'Georgia',
       permit_type: 'fuel',
+      region_name: 'Southern',
       region: 8
     },
     {
       id: 4,
+      forest_code: '08',
       forest_name: 'George Washington & Jefferson National Forest',
       forest_url: 'https://www.fs.usda.gov/gwj',
       start_date: '2020-01-01T08:00:00Z',
@@ -93,10 +100,12 @@ const forests = [
       poss_financial_id: '999900020',
       state: 'Virginia',
       permit_type: 'fuel',
+      region_name: 'Southern',
       region: 8
     },
     {
       id: 5,
+      forest_code: '14',
       forest_name: 'Shoshone National Forest',
       forest_url: 'https://www.fs.usda.gov/shoshone',
       start_date: '2020-01-01T08:00:00Z',
@@ -117,10 +126,12 @@ const forests = [
       poss_financial_id: '999900023',
       state: 'Wyoming',
       permit_type: 'fuel',
+      region_name: 'Rocky Mountain',
       region: 2
     },
     {
       id: 6,
+      forest_code: '10',
       forest_name: 'Hiawatha National Forest',
       forest_url: 'https://www.fs.usda.gov/hiawatha',
       start_date: '2020-01-01T08:00:00Z',
@@ -141,10 +152,12 @@ const forests = [
       poss_financial_id: '999900022',
       state: 'Michigan',
       permit_type: 'fuel',
+      region_name: 'Eastern',
       region: 9
     },
     {
       id: 7,
+      forest_code: '04',
       forest_name: 'Grand Mesa Uncompahgre & Gunnison National Forest',
       forest_url: 'https://www.fs.usda.gov/gmug',
       start_date: '2020-01-01T08:00:00Z',
@@ -165,6 +178,7 @@ const forests = [
       poss_financial_id: '999900024',
       state: 'Colorado',
       permit_type: 'fuel',
+      region_name: 'Rocky Mountain',
       region: 2
     }
   ];

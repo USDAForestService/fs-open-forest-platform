@@ -38,6 +38,8 @@ forestService.translateForestFromDatabaseToClient = (input) => {
     maxCords: input.maxCords,
     woodCost: input.woodCost,
     stateFips: input.stateFips,
+    regionName: input.regionName,
+    forestCode: input.forestCode,
     region: input.region
   };
 };
