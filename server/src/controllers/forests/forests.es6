@@ -18,7 +18,7 @@ fsForests.getForests = (req, res) => {
   forestsDb.fsForests
     .findAll({
       attributes: ['id', 'forestName', 'forestNameShort', 'forestUrl', 'description', 'forestAbbr', 'startDate', 'endDate',
-        'contact', 'mapLinks', 'woodCost', 'state', 'region', 'permitType', 'minCords', 'maxCords'],
+        'contact', 'mapLinks', 'woodCost', 'state', 'region', 'permitType', 'minCords', 'maxCords', 'districts'],
       order: [['id', 'ASC']]
     })
     .then((results) => {

@@ -34,6 +34,7 @@ export class FirewoodForestFinderComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+      console.log(this.forests);
 
       // sort forests alphabetically
       this.forests.sort(function(a, b) {
