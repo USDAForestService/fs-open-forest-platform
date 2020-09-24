@@ -57,7 +57,7 @@ export class FirewoodApplicationService {
   }
 
   emailPDF(data) {
-    return this.http.post(`${this.endpoint}/${data.permit_id}/email`, data)
+    return this.http.post(`${this.endpoint}/${data.permit_id}/email`, data);
   }
 
   /**

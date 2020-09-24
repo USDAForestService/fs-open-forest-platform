@@ -157,15 +157,14 @@ firewoodPermitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText)
 };
 
 firewoodPermitService.emailPDF = (data) => {
-  console.log("hello")
-  const attachments = [{
+  const emailData = data;
+  emailData.attachments = [{
     filename: 'permit.pdf',
-    content: Buffer.from(data.permitHTML, 'utf-8'),
+    content: Buffer.from(emailData.permitHTML, 'utf-8'),
     contentType: 'application/pdf'
-  }]
-  data.attachments = attachments
-  return email.sendPermit(data);
-}
+  }];
+  return email.sendPermit(emailData);
+};
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future

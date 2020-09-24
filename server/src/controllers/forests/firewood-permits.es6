@@ -84,19 +84,18 @@ firewoodPermits.getOnePermit = async (req, res) => {
 };
 
 firewoodPermits.emailPDF = async (req, res) => {
-  let data = req.body
-  let permit = {
-    emailAddress: data.email_address,
-    permitNumber: data.permit_id,
-    permitHTML: data.permit_html
-  }
+  const permit = {
+    emailAddress: req.body.email_address,
+    permitNumber: req.body.permit_id,
+    permitHTML: req.body.permit_html
+  };
   try {
     const permitResponse = await firewoodPermitService.emailPDF(permit);
     return res.status(200).send(permitResponse);
   } catch (error) {
     return res.status(400).send(formatPermitError(error));
   }
-}
+};
 
 /**
  * @function updatePermitApplication - API function to update permit

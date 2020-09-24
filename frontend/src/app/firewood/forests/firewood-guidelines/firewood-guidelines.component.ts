@@ -10,12 +10,12 @@ import { WindowRef } from '../../../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
 
 // temporary dummy permit data
-let dummy = {
+const dummy = {
   emailAddress: 'bdavidson@cynerge.com',
   name: 'Bobby McPermits',
   permit_id: '13Ac32af2-234z2A',
   expiration_date: '01/31/2012'
-}
+};
 
 @Component({
   selector: 'app-firewood-info',
@@ -52,19 +52,19 @@ export class FirewoodGuidelinesComponent implements OnInit {
 
   emailPDF = () => {
     // use dummy data for now
-    let email_data = {
+    const email_data = {
       email_address: dummy.emailAddress,
       permit_id: dummy.permit_id,
       permit_html: this.generatePermitHTML(dummy)
-    }
+    };
     this.firewoodApplicationService.emailPDF(email_data).subscribe(updated => {
-      console.dir(updated)
+      console.dir(updated);
     });
   }
 
   printPDF = () => {
     // use dummy data for now
-    let permit = this.generatePermitHTML(dummy)
+    const permit = this.generatePermitHTML(dummy);
     const popupWin = this.nativeWindow.open('FirewoodPermit', '_blank', 'top=0,left=0,height=auto,width=auto');
 
     popupWin.document.open();
@@ -76,7 +76,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
   }
 
   generatePermitHTML = (data) => {
-    let permitTemplate = `
+    const permitTemplate = `
     <html>
       <head>
         <title></title>
@@ -653,8 +653,8 @@ export class FirewoodGuidelinesComponent implements OnInit {
       </div>
       </body>
     </html>
-    `
-    return permitTemplate
+    `;
+    return permitTemplate;
   }
 
   /**

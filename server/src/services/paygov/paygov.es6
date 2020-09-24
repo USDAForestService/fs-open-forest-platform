@@ -59,9 +59,7 @@ paygov.createToken = (permitId) => {
  * @param {Boolean} isCancelUrl - whether to include the cancel query
  * @return {Promise} - Promise that resolves to a success URL for payGov
  */
-paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
-  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}`;
-};
+paygov.returnUrl = () => `${vcapConstants.INTAKE_CLIENT_BASE_URL}`;
 
 /**
  * @function getXmlStartCollection - Generate XML from the template to use for getting pay.gov transaction token.

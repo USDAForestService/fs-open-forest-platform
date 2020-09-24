@@ -101,11 +101,11 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
 };
 
 emailUtil.sendPermit = (data) => {
-  console.log('emailUtil sending this data: ')
+  console.log('emailUtil sending this data: ');
   const mailOptions = {
-    from: `Forest Service - OpenForest`,
+    from: 'Forest Service - OpenForest',
     to: data.emailAddress,
-    subject: `Firewood Permit`,
+    subject: 'Firewood Permit',
     attachments: data.attachments,
     text: `
       Your firewood permit is the file attached to this email.
@@ -122,8 +122,7 @@ emailUtil.sendPermit = (data) => {
     } else {
       console.log('Snyk report successfully sent');
     }
-  })
-
-}
+  });
+};
 
 module.exports = emailUtil;
