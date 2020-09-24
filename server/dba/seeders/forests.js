@@ -213,6 +213,14 @@ const forests = [
     map_links: '{}',
     contact: '',
     poss_financial_id: '999900024',
+    districts:
+    '{'
+    + '"GRAND VALLEY": {"code": "02", "name": "Grand Valley"},'
+    + '"NORWOOD": {"code": "05", "name": "Norwood"},'
+    + '"OURAY": {"code": "06", "name": "Ouray"},'
+    + '"GUNNISON": {"code": "07", "name": "Gunnison"},'
+    + '"PAONIA": {"code": "08", "name": "Paonia"}'
+    + '}',
     state: 'Colorado',
     permit_type: 'fuel',
     region: 2
