@@ -51,6 +51,14 @@ const forests = [
     contact:
     '{ "Flathead Supervisors Office / Tally Lake Ranger District": {"address": "650 Wolfpack Way", "citystate": "Kalispell, Montana", "phone": "(406) 758-5204"},',
     poss_financial_id: '999900019',
+    districts:
+    '{'
+    + '"SWAN LAKE": {"code": "01", "name": "Swan Lake"},'
+    + '"SPOTTED BEAR": {"code": "04", "name": "Spotted Bear"},'
+    + '"HUNGRY HORSE": {"code": "06", "name": "Hungry Horse"},'
+    + '"GLACIER VIEW": {"code": "07", "name": "Glacier View"},'
+    + '"TALLY LAKE": {"code": "08", "name": "Tally Lake"}'
+    + '}',
     state: 'Montana',
     permit_type: 'fuel',
     region: 1
