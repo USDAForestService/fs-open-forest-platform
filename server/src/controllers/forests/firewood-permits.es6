@@ -83,52 +83,19 @@ firewoodPermits.getOnePermit = async (req, res) => {
   }
 };
 
-/**
- * @function printPermit - API function to get permit svg or rules html
- * @param {Object} req - http request
- * @param {Object} res - http response
- */
-// christmasTreePermits.printPermit = (req, res) => {
-//   treesDb.christmasTreesPermits
-//     .findOne({
-//       where: {
-//         permitId: req.params.id
-//       },
-//       include: [
-//         {
-//           model: treesDb.christmasTreesForests
-//         }
-//       ]
-//     })
-//     .then((permit) => {
-//       util.logControllerAction(req, 'christmasTreePermits.printPermit', permit);
-//       if (permit.status === 'Completed') {
-//         if (!firewoodPermitService.checkPermitValid(permit.permitExpireDate)) {
-//           res.status(404).send();
-//         } else if (!req.query.rules || req.query.permit === 'true') {
-//           permitSvgService.generatePermitSvg(permit).then((permitSvg) => {
-//             res.status(200).json({
-//               result: permitSvg
-//             });
-//           });
-//         } else if (req.query.rules === 'true') {
-//           permitSvgService.generateRulesHtml(false, permit).then((rulesHtml) => {
-//             res.status(200).json({
-//               result: rulesHtml
-//             });
-//           });
-//         } else {
-//           res.status(404).send();
-//         }
-//       } else {
-//         res.status(404).send();
-//       }
-//     })
-//     .catch((error) => {
-//       logger.error(error);
-//       res.status(404).send();
-//     });
-// };
+firewoodPermits.emailPDF = async (req, res) => {
+  const permit = {
+    emailAddress: req.body.email_address,
+    permitNumber: req.body.permit_id,
+    permitHTML: req.body.permit_html
+  };
+  try {
+    const permitResponse = await firewoodPermitService.emailPDF(permit);
+    return res.status(200).send(permitResponse);
+  } catch (error) {
+    return res.status(400).send(formatPermitError(error));
+  }
+};
 
 /**
  * @function updatePermitApplication - API function to update permit

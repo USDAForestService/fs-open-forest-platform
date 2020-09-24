@@ -149,11 +149,11 @@ describe('ErrorMessageComponent', () => {
 
     form.get('maxNumber').setValue('5');
     expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
-      'Test must have a value less than or equal to 4 and greater than or equal to -99999. '
+      'Test must have a value greater than or equal to -99999 and less than or equal to 4. '
     );
     form.get('maxNumber').setValue('test');
     expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
-      'Test must have a value less than or equal to 4 and greater than or equal to -99999. '
+      'Test must have a value greater than or equal to -99999 and less than or equal to 4. '
     );
     form.get('maxNumber').setValue('4');
     expect(component.parseErrors(form.get('maxNumber').errors)).toBeFalsy();

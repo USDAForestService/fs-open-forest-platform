@@ -50,6 +50,20 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
         min: 0
       }
     },
+    minCords: {
+      type: DataTypes.INTEGER,
+      field: 'min_cords',
+      validate: {
+        min: 0
+      }
+    },
+    maxCords: {
+      type: DataTypes.INTEGER,
+      field: 'max_cords',
+      validate: {
+        min: 0
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'created',
@@ -87,6 +101,18 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     state: {
       type: DataTypes.STRING(50),
       field: 'state'
+    },
+    stateFips: {
+      type: DataTypes.STRING(10),
+      field: 'state_fips'
+    },
+    forestCode: {
+      type: DataTypes.STRING(10),
+      field: 'forest_code'
+    },
+    regionName: {
+      type: DataTypes.STRING(50),
+      field: 'region_name'
     },
     region: {
       type: DataTypes.INTEGER,

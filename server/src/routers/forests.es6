@@ -22,8 +22,11 @@ router.post('/firewood-permits', firewoodController.create);
 
 router.put('/firewood-permits/:id', firewoodController.updatePermitApplication);
 
+router.post('/firewood-permits/:id/email', firewoodController.emailPDF);
+
 /**
  * Firewood module routes
  * @exports routers/forests
  */
+
 module.exports = router;

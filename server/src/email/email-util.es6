@@ -100,4 +100,29 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
   return emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
 };
 
+emailUtil.sendPermit = (data) => {
+  console.log('emailUtil sending this data: ');
+  const mailOptions = {
+    from: 'Forest Service - OpenForest',
+    to: data.emailAddress,
+    subject: 'Firewood Permit',
+    attachments: data.attachments,
+    text: `
+      Your firewood permit is the file attached to this email.
+
+      Please do not reply to this message.
+      This email message was sent from a notification-only address that cannot accept incoming email.
+    `
+  };
+
+  return emailUtil.transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      console.error('NODE_MAILER_SMTP_ERROR: ', error);
+      process.exit(1);
+    } else {
+      console.log('Snyk report successfully sent');
+    }
+  });
+};
+
 module.exports = emailUtil;
