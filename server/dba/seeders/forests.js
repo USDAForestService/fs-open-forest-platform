@@ -182,6 +182,14 @@ const forests = [
     contact:
     '',
     poss_financial_id: '999900022',
+    districts:
+    '{'
+    + '"RAPID RIVER": {"code": "01", "name": "Rapid River"},'
+    + '"MANISTIQUE": {"code": "02", "name": "Manistique"},'
+    + '"MUNISING": {"code": "03", "name": "Munising"},'
+    + '"SAULT STE MARIE": {"code": "04", "name": "Sault Ste Marie"},'
+    + '"ST IGNACE": {"code": "05", "name": "St Ignace"}'
+    + '}',
     state: 'Michigan',
     permit_type: 'fuel',
     region: 9
