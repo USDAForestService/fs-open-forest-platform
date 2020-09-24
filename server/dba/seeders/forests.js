@@ -88,7 +88,7 @@ const forests = [
     + '"CONASUAGA": {"code": "01", "name": "Conasuaga"},'
     + '"BLUE RIDGE": {"code": "04", "name": "Blue Ridge"},'
     + '"CHATTOOGA RIVER": {"code": "06", "name": "Chattooga River"},'
-    + '"OCONEE": {"code": "08", "name": "OCONEE"}'
+    + '"OCONEE": {"code": "08", "name": "Oconee"}'
     + '}',
     state: 'Georgia',
     permit_type: 'fuel',
@@ -114,6 +114,18 @@ const forests = [
     contact:
     '',
     poss_financial_id: '999900020',
+    districts:
+    '{'
+    + '"NORTH RIVER": {"code": "02", "name": "North River"},'
+    + '"JAMES RIVER": {"code": "03", "name": "James River"},'
+    + '"LEE": {"code": "04", "name": "Lee"},'
+    + '"WARM SPRINGS": {"code": "06", "name": "Warm Springs"},'
+    + '"EASTERN DIVIDE": {"code": "11", "name": "Eastern Divide"},'
+    + '"CLINCH": {"code": "12", "name": "Clinch"},'
+    + '"GLENWOOD-PEDLAR": {"code": "13", "name": "Glenwood-Pedlar"},'
+    + '"MT ROGERS NRA": {"code": "14", "name": "Mt Rogers Nra"},'
+    + '"NEW CASTLE": {"code": "15", "name": "New Castle"}'
+    + '}',
     state: 'Virginia',
     permit_type: 'fuel',
     region: 8
