@@ -150,6 +150,14 @@ const forests = [
     contact:
     '',
     poss_financial_id: '999900023',
+    districts:
+    '{'
+    + '"CLARKS FORK": {"code": "01", "name": "Clarks Fork"},'
+    + '"GREYBULL": {"code": "02", "name": "Greybull"},'
+    + '"WASHAKIE": {"code": "03", "name": "Washakie"},'
+    + '"WAPITI": {"code": "04", "name": "Wapiti"},'
+    + '"WIND RIVER": {"code": "05", "name": "Wind River"}'
+    + '}',
     state: 'Wyoming',
     permit_type: 'fuel',
     region: 2
