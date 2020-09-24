@@ -49,11 +49,11 @@
     "name": "smtp-service",
     "credentials": {
       "admins": [
-        "david.corwin@gsa.gov",
+        "bdavidson@cynerge.com",
         "mtlaney@gmail.com"
       ],
       "security": [
-        "david.corwin@gsa.gov"
+        "bdavidson@cynerge.com"
       ],
       "smtp_server": "smtp.sendgrid.net",
       "username": "do_not_reply_openforest@example.com"
