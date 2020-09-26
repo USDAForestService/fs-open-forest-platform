@@ -100,8 +100,7 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
   return emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
 };
 
-emailUtil.sendPermit = (data) => {
-  console.log('emailUtil sending this data: ');
+emailUtil.sendPermit = async (data) => {
   const mailOptions = {
     from: 'Forest Service - OpenForest',
     to: data.emailAddress,
@@ -115,14 +114,10 @@ emailUtil.sendPermit = (data) => {
     `
   };
 
-  return emailUtil.transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.error('NODE_MAILER_SMTP_ERROR: ', error);
-      process.exit(1);
-    } else {
-      console.log('Snyk report successfully sent');
-    }
-  });
-};
+  let emailResponse = await emailUtil.transporter.sendMail(mailOptions)
+  console.dir(emailResponse)
+  return emailResponse
+
+}
 
 module.exports = emailUtil;

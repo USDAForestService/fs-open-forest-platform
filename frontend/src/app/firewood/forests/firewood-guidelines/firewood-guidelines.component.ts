@@ -52,12 +52,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
 
   emailPDF = () => {
     // use dummy data for now
-    const email_data = {
-      email_address: dummy.emailAddress,
-      permit_id: dummy.permit_id,
-      permit_html: this.generatePermitHTML(dummy)
-    };
-    this.firewoodApplicationService.emailPDF(email_data).subscribe(updated => {
+    this.firewoodApplicationService.emailPDF(dummy).subscribe(updated => {
       console.dir(updated);
     });
   }

@@ -67,7 +67,7 @@ firewoodPermits.getOnePermit = async (req, res) => {
   };
 
   try {
-    const permit = await firewoodModel.findOne(query);
+    const permit = await forestsDb.fsForests.findOne(query);
 
     if (!permit) {
       return res.status(404).send();
@@ -84,16 +84,11 @@ firewoodPermits.getOnePermit = async (req, res) => {
 };
 
 firewoodPermits.emailPDF = async (req, res) => {
-  const permit = {
-    emailAddress: req.body.email_address,
-    permitNumber: req.body.permit_id,
-    permitHTML: req.body.permit_html
-  };
+  const permit = req.body
   try {
-    const permitResponse = await firewoodPermitService.emailPDF(permit);
-    return res.status(200).send(permitResponse);
+    return res.status(200).send(firewoodPermitService.emailPDF(permit));
   } catch (error) {
-    return res.status(400).send(formatPermitError(error));
+    return res.status(400).send(error);
   }
 };
 
