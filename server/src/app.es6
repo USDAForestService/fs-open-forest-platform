@@ -58,9 +58,12 @@ const domain = vcapConstants.BASE_URL.replace(/https?:\/\//i, '');
 app.use(session({
   name: 'session',
   keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
-  sameSite: 'none',
-  maxAge: 36000,
-  domain
+  cookie: {
+    sameSite: 'none',
+    maxAge: 3600000,
+    secure: true,
+    domain
+  }
 }));
 
 // eslint-disable-next-line prefer-arrow-callback
