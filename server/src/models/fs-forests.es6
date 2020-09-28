@@ -64,6 +64,13 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
         min: 0
       }
     },
+    minCost: {
+      type: DataTypes.DOUBLE,
+      field: 'min_cost',
+      validate: {
+        min: 0
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'created',
