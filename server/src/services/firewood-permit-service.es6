@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 const htmlToText = require('html-to-text');
 const moment = require('moment-timezone');
 const uuid = require('uuid/v4');
@@ -158,30 +158,31 @@ firewoodPermitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText)
 };
 
 firewoodPermitService.emailPDF = async (data) => {
-  // create a headless browser
-  const browser = await puppeteer.launch({ headless: true });
-
-  // create new page in browser
-  const page = await browser.newPage();
-
-  // generate the HTML and set it as the page content
-  await page.setContent(firewoodPermitService.generatePermitHTML(data));
-
-  await page.pdf({ printBackground: true, path: 'permit.pdf' });
-
-  // todo: pdf file on the server needs to be deleted after this
-  const emailData = data;
-  emailData.html = firewoodPermitService.generatePermitHTML(data);
-  emailData.attachments = [{
-    filename: 'permit.pdf',
-    path: 'permit.pdf',
-    contentType: 'application/pdf'
-  }];
-
-  // end the headless browser session
-  await browser.close();
-
-  return email.sendPermit(emailData);
+  return data;
+  // // create a headless browser
+  // const browser = await puppeteer.launch({ headless: true });
+  //
+  // // create new page in browser
+  // const page = await browser.newPage();
+  //
+  // // generate the HTML and set it as the page content
+  // await page.setContent(firewoodPermitService.generatePermitHTML(data));
+  //
+  // await page.pdf({ printBackground: true, path: 'permit.pdf' });
+  //
+  // // todo: pdf file on the server needs to be deleted after this
+  // const emailData = data;
+  // emailData.html = firewoodPermitService.generatePermitHTML(data);
+  // emailData.attachments = [{
+  //   filename: 'permit.pdf',
+  //   path: 'permit.pdf',
+  //   contentType: 'application/pdf'
+  // }];
+  //
+  // // end the headless browser session
+  // await browser.close();
+  //
+  // return email.sendPermit(emailData);
 };
 
 firewoodPermitService.generatePermitHTML = (data) => {
