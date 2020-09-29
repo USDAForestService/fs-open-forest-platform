@@ -158,31 +158,30 @@ firewoodPermitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText)
 };
 
 firewoodPermitService.emailPDF = async (data) => {
-
   // create a headless browser
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({ headless: true });
 
   // create new page in browser
   const page = await browser.newPage();
 
   // generate the HTML and set it as the page content
-  await page.setContent(firewoodPermitService.generatePermitHTML(data))
+  await page.setContent(firewoodPermitService.generatePermitHTML(data));
 
-  await page.pdf({ printBackground: true, path: 'permit.pdf'});
+  await page.pdf({ printBackground: true, path: 'permit.pdf' });
 
   // todo: pdf file on the server needs to be deleted after this
-  let emailData = data
-  emailData.html = firewoodPermitService.generatePermitHTML(data)
+  const emailData = data;
+  emailData.html = firewoodPermitService.generatePermitHTML(data);
   emailData.attachments = [{
     filename: 'permit.pdf',
     path: 'permit.pdf',
     contentType: 'application/pdf'
-  }]
+  }];
 
   // end the headless browser session
   await browser.close();
 
-  return email.sendPermit(emailData)
+  return email.sendPermit(emailData);
 };
 
 firewoodPermitService.generatePermitHTML = (data) => {
@@ -461,7 +460,9 @@ firewoodPermitService.generatePermitHTML = (data) => {
             <div class="big-cell four-twelfths no-border-right">FS Ranger District/BLM Field Office:</div>
           </div>
           <div class="permit-row">
-            <div class="header-cell five-twelfths no-border-top border-left border-right">Permittee's Name and Complete Address:</div>
+            <div class="header-cell five-twelfths no-border-top border-left border-right">
+              Permittee's Name and Complete Address:
+            </div>
             <div class="header-cell two-twelfths no-border-top border-left">Permit No.</div>
             <div class="header-cell two-twelfths no-border-top border-left border-right">Preparation Date</div>
             <div class="header-cell three-twelfths no-border-top no-border-left border-right">Payment Method</div>
@@ -999,7 +1000,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
   </html>
   `;
   return permitTemplate;
-}
+};
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
