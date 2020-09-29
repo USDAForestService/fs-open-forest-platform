@@ -53,7 +53,7 @@ export class FirewoodApplicationService {
     if (token) {
       params = { params: new HttpParams().set('t', token) };
     }
-    return this.http.get(`${this.endpoint}/permits/${id}`, params).pipe(catchError(this.util.handleError));
+    return this.http.get(`${this.endpoint}/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
   emailPDF(data) {
