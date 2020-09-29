@@ -10,7 +10,7 @@ module.exports = {
             {
                 operation: 'add',
                 field: 'min_cost',
-                type: Sequelize.INTEGER
+                type: Sequelize.DOUBLE
             }
         ];
 
