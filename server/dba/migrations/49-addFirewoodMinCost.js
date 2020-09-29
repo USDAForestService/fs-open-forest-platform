@@ -2,7 +2,7 @@
 
 let doTransaction = require('./modules/transaction');
 
-const TABLE_NAME = 'firewoodPermits';
+const TABLE_NAME = 'fsForests';
 
 module.exports = {
     up: function(queryInterface, Sequelize) {
