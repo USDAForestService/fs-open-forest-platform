@@ -11,6 +11,7 @@
     "braces": "^3.0.0",
     "cookie": "^0.4.1",
     "cookie-session": "^1.4.0",
+    "cookies": "^0.8.0",
     "cors": "^2.8.5",
     "crypto-random-string": "^1.0.0",
     "express": "4.16.0",

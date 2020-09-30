@@ -54,19 +54,17 @@ app.use(expressLogger.Error);
 
 /**  Cookies for session management. */
 const domain = vcapConstants.BASE_URL.replace(/https?:\/\//i, '');
-app.use(
-  session({
-    name: 'session',
-    keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
-    maxAge: 3600000, // 1 hour
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      domain,
-      sameSite: 'none'
-    }
-  })
-);
+
+app.use(session({
+  name: 'session',
+  keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
+  cookie: {
+    sameSite: 'none',
+    maxAge: 3600000,
+    secure: true,
+    domain
+  }
+}));
 
 // eslint-disable-next-line prefer-arrow-callback
 app.get('*', function refresh(req, res, next) {
