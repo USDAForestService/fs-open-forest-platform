@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING,
       field: 'org_structure_code'
     },
+    districts: {
+      type: DataTypes.JSONB,
+      field: 'districts'
+    },
     woodCost: {
       type: DataTypes.DOUBLE,
       field: 'wood_cost',
