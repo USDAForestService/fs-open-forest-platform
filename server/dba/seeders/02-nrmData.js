@@ -1,5 +1,6 @@
 const data = [
   {
+    id: 1,
     permit_cn: 'OF48303820',
     region_code: '01',
     region_name: 'Northern',
