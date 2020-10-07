@@ -63,7 +63,7 @@ export class FirewoodApplicationService {
       withCredentials: true,
       headers: headers
     };
-    let emailResponse = await this.http.post(`${this.endpoint}/${data.permitId}/email`, data, options).pipe(catchError(this.util.handleError));
+    let emailResponse = this.http.post(`${this.endpoint}/${data.permitId}/email`, data, options).pipe(catchError(this.util.handleError));
     console.log('service got response')
     console.dir(emailResponse)
     return emailResponse
