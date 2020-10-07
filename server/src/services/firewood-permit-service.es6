@@ -1,4 +1,4 @@
-// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');
 const htmlToText = require('html-to-text');
 const moment = require('moment-timezone');
 const uuid = require('uuid/v4');
@@ -181,7 +181,9 @@ firewoodPermitService.emailPDF = async (data) => {
   // end the headless browser session
   await browser.close();
 
-  return email.sendPermit(emailData);
+  let sentData = await email.sendPermit(emailData);
+
+  return sentData
 };
 
 firewoodPermitService.generatePermitHTML = (data) => {
@@ -858,7 +860,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
           </div>
         </div>
         <div class="permit-number-box">
-          Permit No.: ${data.permit_id}
+          Permit No.: ${data.permit_number}
         </div>
         <div class="product-designation header-cell">
           GENERAL CONDITIONS

@@ -68,8 +68,10 @@ export class OrderConfirmationComponent implements OnInit {
     });
   }
 
-  emailPDF = () => {
-    this.firewoodApplicationService.emailPDF(this.permit);
+  emailPDF = async () => {
+    let emailResponse = await this.firewoodApplicationService.emailPDF(this.permit);
+    console.log('got response')
+    console.dir(emailResponse)
   }
 
   printPDF = () => {
