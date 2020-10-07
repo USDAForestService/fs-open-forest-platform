@@ -80,6 +80,85 @@ export class FirewoodGuidelinesComponent implements OnInit {
 
   }
 
+  printLoadTag = () => {
+    // use dummy data for now
+    const loadTags = this.generateLoadTagsHTML(dummy);
+    const popupWin = this.nativeWindow.open('FirewoodLoadTags', '_blank', 'top=0,left=0,height=auto,width=auto');
+
+    popupWin.document.open();
+
+    popupWin.document.write(loadTags);
+
+    popupWin.document.close();
+
+  }
+
+  generateLoadTagsHTML = (data) => {
+    const loadTagsTemplate = `
+    <html>
+      <head>
+        <title></title>
+        <link href="/assets/css/load-tags.css" rel="stylesheet" type="text/css">
+      </head>
+      <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">
+      <div id="loadTags" class="load-tags">
+
+          <div class="section section-one">
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+          </div>
+          <div class="section section-two">
+            <div>month</div>
+            <div>day</div>
+          </div>
+          <div class="section section-three">
+            <div>month</div>
+            <div>day</div>
+          </div>
+          <div class="section section-four">
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+            <div class="wavy-text">
+              2021202120212021202120212021202120212021
+            </div>
+          </div>
+
+      </div>
+      </body>
+    </html>
+    `;
+    return loadTagsTemplate;
+  }
+
   generatePermitHTML = (data) => {
     const permitTemplate = `
     <html>
