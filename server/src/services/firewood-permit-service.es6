@@ -157,61 +157,32 @@ firewoodPermitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText)
   return email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
 
-// firewoodPermitService.emailPDF = async (data) => {
-//   // create a headless browser
-//   const browser = await puppeteer.launch({ headless: true });
-//
-//   // create new page in browser
-//   const page = await browser.newPage();
-//
-//   // generate the HTML and set it as the page content
-//   await page.setContent(firewoodPermitService.generatePermitHTML(data));
-//
-//   await page.pdf({ printBackground: true, path: 'permit.pdf' });
-//
-//   // todo: pdf file on the server needs to be deleted after this
-//   const emailData = data;
-//   emailData.html = firewoodPermitService.generatePermitHTML(data);
-//   emailData.attachments = [{
-//     filename: 'permit.pdf',
-//     path: 'permit.pdf',
-//     contentType: 'application/pdf'
-//   }];
-//
-//   // end the headless browser session
-//   await browser.close();
-//
-//   return email.sendPermit(emailData);
-// };
+firewoodPermitService.emailPDF = async (data) => {
+  // create a headless browser
+  const browser = await puppeteer.launch({ headless: true });
 
-firewoodPermitService.emailPDF = async data => data;
+  // create new page in browser
+  const page = await browser.newPage();
 
-// firewoodPermitService.emailPDF = async (data) => {
-//   // create a headless browser
-//   const browser = await puppeteer.launch({ headless: true });
-//
-//   // create new page in browser
-//   const page = await browser.newPage();
-//
-//   // generate the HTML and set it as the page content
-//   await page.setContent(firewoodPermitService.generatePermitHTML(data));
-//
-//   await page.pdf({ printBackground: true, path: 'permit.pdf' });
-//
-//   // todo: pdf file on the server needs to be deleted after this
-//   const emailData = data;
-//   emailData.html = firewoodPermitService.generatePermitHTML(data);
-//   emailData.attachments = [{
-//     filename: 'permit.pdf',
-//     path: 'permit.pdf',
-//     contentType: 'application/pdf'
-//   }];
-//
-//   // end the headless browser session
-//   await browser.close();
-//
-//   return email.sendPermit(emailData);
-// };
+  // generate the HTML and set it as the page content
+  await page.setContent(firewoodPermitService.generatePermitHTML(data));
+
+  await page.pdf({ printBackground: true, path: 'permit.pdf' });
+
+  // todo: pdf file on the server needs to be deleted after this
+  const emailData = data;
+  emailData.html = firewoodPermitService.generatePermitHTML(data);
+  emailData.attachments = [{
+    filename: 'permit.pdf',
+    path: 'permit.pdf',
+    contentType: 'application/pdf'
+  }];
+
+  // end the headless browser session
+  await browser.close();
+
+  return email.sendPermit(emailData);
+};
 
 firewoodPermitService.generatePermitHTML = (data) => {
   const permitTemplate = `
