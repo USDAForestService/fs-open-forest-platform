@@ -21,6 +21,7 @@ const forests = [
       '{ "Idaho Panhandle Supervisors Office": {"address": "3815 Schreiber Way", "citystate": "Coeur d AudioListener, ID", "phone": "(208) 765-7223"},',
       poss_financial_id: '999900018',
       state: 'Idaho',
+      state_fips: 16,
       permit_type: 'fuel',
       region_name: 'Northern',
       region: 1
@@ -47,6 +48,7 @@ const forests = [
       '{ "Flathead Supervisors Office / Tally Lake Ranger District": {"address": "650 Wolfpack Way", "citystate": "Kalispell, Montana", "phone": "(406) 758-5204"},',
       poss_financial_id: '999900019',
       state: 'Montana',
+      state_fips: 30,
       permit_type: 'fuel',
       region_name: 'Northern',
       region: 1
@@ -73,6 +75,7 @@ const forests = [
       '',
       poss_financial_id: '999900021',
       state: 'Georgia',
+      state_fips: 13,
       permit_type: 'fuel',
       region_name: 'Southern',
       region: 8
@@ -99,6 +102,7 @@ const forests = [
       '',
       poss_financial_id: '999900020',
       state: 'Virginia',
+      state_fips: 51,
       permit_type: 'fuel',
       region_name: 'Southern',
       region: 8
@@ -125,6 +129,7 @@ const forests = [
       '',
       poss_financial_id: '999900023',
       state: 'Wyoming',
+      state_fips: 56,
       permit_type: 'fuel',
       region_name: 'Rocky Mountain',
       region: 2
@@ -151,6 +156,7 @@ const forests = [
       '',
       poss_financial_id: '999900022',
       state: 'Michigan',
+      state_fips: 26,
       permit_type: 'fuel',
       region_name: 'Eastern',
       region: 9
@@ -177,6 +183,7 @@ const forests = [
       '',
       poss_financial_id: '999900024',
       state: 'Colorado',
+      state_fips: 8,
       permit_type: 'fuel',
       region_name: 'Rocky Mountain',
       region: 2
