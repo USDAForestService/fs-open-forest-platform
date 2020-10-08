@@ -48,7 +48,7 @@ export class OrderConfirmationComponent implements OnInit {
 
     let isCancel = false;
     this.route.queryParams.forEach((params: Params) => {
-      if (params.cancel)  {
+      if (params.cancel) {
         isCancel = true;
       }
 
@@ -63,7 +63,7 @@ export class OrderConfirmationComponent implements OnInit {
       }
       if (data.permit) {
         this.permit = data.permit;
-        this.firewoodApplicationService.emailPDF(data.permit);
+        this.firewoodApplicationService.emailPDF(data.permit).subscribe();
       }
     });
   }

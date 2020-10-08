@@ -56,26 +56,14 @@ export class FirewoodApplicationService {
     return this.http.get(`${this.endpoint}/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
-  async emailPDF(data) {
+  emailPDF(data) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const options = {
-      withCredentials: true,
       headers: headers
     };
-    let emailResponse = this.http.post(`${this.endpoint}/${data.permitId}/email`, data, options).pipe(catchError(this.util.handleError));
-    console.log('service got response')
-    console.dir(emailResponse)
-    return emailResponse
-    // try {
-    //   let emailData = await this.http.post('digs');
-    //   console.log('service got the data:')
-    //   console.dir(emailData)
-    //   return emailData
-    // } catch(error) {
-    //   console.log('service could not get the data:')
-    //   console.dir(error)
-    // }
+
+    return this.http.post(`${this.endpoint}/${data.permitId}/email`, data, options);
   }
 
   /**
