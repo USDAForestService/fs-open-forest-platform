@@ -484,7 +484,9 @@ firewoodPermitService.generatePermitHTML = (data) => {
               <span class="nine-twelfths margin-indent">${data.firstName} ${data.lastName}</span>
             </div>
             <div class="two-twelfths no-border-top border-left">&nbsp;&nbsp;${data.permitNumber}</div>
-            <div class="two-twelfths no-border-top border-left border-right">&nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}</div>
+            <div class="two-twelfths no-border-top border-left border-right">
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}
+            </div>
             <div class="three-twelfths no-border-top no-border-left border-right"></div>
           </div>
           <div class="permit-row no-border-bottom">
