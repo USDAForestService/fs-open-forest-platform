@@ -1,6 +1,6 @@
 /**
  * Module for feedback routes
- * @module routers/feedback
+ * @module routers/nrm
  */
 
 const express = require('express');
@@ -12,5 +12,10 @@ const router = express.Router();
 // get all nrm service
 router.get('/', nrmController.getEntries);
 
+// get nrm by id
+router.get('/:id', nrmController.getEntry);
+
+// create new nrm entry
+router.post('/create', nrmController.createEntry);
 
 module.exports = router;

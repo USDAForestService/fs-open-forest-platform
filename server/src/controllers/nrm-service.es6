@@ -2,32 +2,31 @@
 
 /**
  * Module for feedback API to retrieve openforest feedback
- * @module controllers/feedback
+ * @module controllers/nrm-service
  */
 
 const logger = require('../services/logger.es6');
 const nrmModel = require('../models/nrm-service.es6');
 
-const nrmService = {};
+const nrm = {};
 
 /**
  * @function getEntries - API function to get all feedback
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
-nrmService.getEntries = (req, res) => {
-  nrmModel
-    .findAll({
+nrm.getEntries = (req, res) => {
+  nrmModel.findAll({
       attributes: ['id', 'permitCn', 'regionCode', 'regionName', 'forestCode', 'forestName', 'districtCode',
         'districtName', 'planCn', 'planNo', 'planDescription', 'issueNumber', 'permUseCode', 'percentOfSalvageVolume',
         'percentOfCwk2Volume', 'percentOfCflrVolume', 'percentOfNftmVolume', 'stateCode', 'stateName', 'numberOfPermits',
         'convertibleNonConvertible', 'spuInfo'],
-      order: [['id', 'ASC']]
+      order: [['permitCn', 'ASC']]
     }).then((results) => {
     if (results) {
       res.status(200).json(results);
     } else {
-      logger.error('404 from getNrmService');
+      logger.error('404 from getnrm');
       res.status(404).send();
     }
   }).catch((error) => {
@@ -35,4 +34,4 @@ nrmService.getEntries = (req, res) => {
   });
 };
 
-module.exports = nrmService;
+module.exports = nrm;
