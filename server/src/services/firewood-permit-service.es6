@@ -186,6 +186,15 @@ firewoodPermitService.emailPDF = async (data) => {
   return sentData;
 };
 
+firewoodPermitService.getFriendlyDate = (date) => {
+  const friendlyDate = new Date(date);
+  const month = friendlyDate.getMonth();
+  const day = friendlyDate.getDay();
+  const year = friendlyDate.getFullYear();
+
+  return `${month}/${day}/${year}`;
+};
+
 firewoodPermitService.generatePermitHTML = (data) => {
   const permitTemplate = `
   <style>
@@ -452,7 +461,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
           </div>
           <div class="permit-header-section right-section">
             <span>OMB No.: 0596-0085</span>
-            <span>Expires:  ${data.expiration_date}</span>
+            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.expirationDate)}</span>
           </div>
         </div>
         <div class="general-info">
@@ -472,10 +481,10 @@ firewoodPermitService.generatePermitHTML = (data) => {
           <div class="permit-row no-border-bottom">
             <div class="five-twelfths no-border-top border-left border-right">
               <span class="margin-indent border-right three-twelfths italic-text">Name:</span>
-              <span class="nine-twelfths margin-indent">${data.name}</span>
+              <span class="nine-twelfths margin-indent">${data.firstName} ${data.lastName}</span>
             </div>
-            <div class="two-twelfths no-border-top border-left"></div>
-            <div class="two-twelfths no-border-top border-left border-right"></div>
+            <div class="two-twelfths no-border-top border-left">&nbsp;&nbsp;${data.permitNumber}</div>
+            <div class="two-twelfths no-border-top border-left border-right">&nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}</div>
             <div class="three-twelfths no-border-top no-border-left border-right"></div>
           </div>
           <div class="permit-row no-border-bottom">
@@ -492,8 +501,12 @@ firewoodPermitService.generatePermitHTML = (data) => {
               <span class="margin-indent border-right three-twelfths italic-text"></span>
               <span class="nine-twelfths margin-indent"></span>
             </div>
-            <div class="two-twelfths no-border-top border-left"></div>
-            <div class="two-twelfths no-border-top border-left border-right"></div>
+            <div class="two-twelfths no-border-top border-left">
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}
+            </div>
+            <div class="two-twelfths no-border-top border-left border-right">
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.expirationDate)}
+            </div>
             <div class="three-twelfths no-border-top no-border-left border-right">
               <span class="six-twelfths margin-indent">From:</span>
               <span class="six-twelfths">Thru:</span>
@@ -708,7 +721,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
           <div class="permit-row no-border-top no-border-left no-border-bottom">
             <div class="no-border-right no-border-left six-twelfths"></div>
             <div class="border-right border-left four-twelfths header-cell">Total Purchase Price:</div>
-            <div class="border-right border-left two-twelfths"></div>
+            <div class="border-right border-left two-twelfths">&nbsp;&nbsp;${data.totalCost}</div>
           </div>
           <div class="product-designation header-cell">
             PRODUCT QUANTITY REMOVAL RECORD
@@ -856,11 +869,11 @@ firewoodPermitService.generatePermitHTML = (data) => {
           </div>
           <div class="permit-header-section right-section">
             <span>OMB No.: 0596-0085</span>
-            <span>Expires:  ${data.expiration_date}</span>
+            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.expirationDate)}</span>
           </div>
         </div>
         <div class="permit-number-box">
-          Permit No.: ${data.permit_number}
+          Permit No.: &nbsp;&nbsp;${data.permitNumber}
         </div>
         <div class="product-designation header-cell">
           GENERAL CONDITIONS

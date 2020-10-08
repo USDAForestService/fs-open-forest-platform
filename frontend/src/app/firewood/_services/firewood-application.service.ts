@@ -50,20 +50,23 @@ export class FirewoodApplicationService {
    */
   getPermit(id, token) {
     let params = {};
+
     if (token) {
       params = { params: new HttpParams().set('t', token) };
     }
+
     return this.http.get(`${this.endpoint}/${id}`, params).pipe(catchError(this.util.handleError));
+
   }
 
   emailPDF(data) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
     const options = {
       headers: headers
     };
 
     return this.http.post(`${this.endpoint}/${data.permitId}/email`, data, options);
+
   }
 
   /**

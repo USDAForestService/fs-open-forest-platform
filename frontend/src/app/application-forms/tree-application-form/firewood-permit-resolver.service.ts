@@ -1,7 +1,4 @@
-
 import {catchError} from 'rxjs/operators';
-
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
@@ -9,6 +6,7 @@ import { FirewoodApplicationService } from '../../firewood/_services/firewood-ap
 
 @Injectable()
 export class FirewoodPermitResolver implements Resolve<any> {
+
   constructor(private service: FirewoodApplicationService, private router: Router) {}
 
   /**
@@ -23,4 +21,5 @@ export class FirewoodPermitResolver implements Resolve<any> {
       return this.service.resolverError(err, `firewood/forests/${forest}`);
     }));
   }
+
 }

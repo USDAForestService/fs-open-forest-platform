@@ -80,6 +80,15 @@ export class OrderConfirmationComponent implements OnInit {
 
   }
 
+  getFriendlyDate(date) {
+    const friendlyDate = new Date(date);
+    const month = friendlyDate.getMonth();
+    const day = friendlyDate.getDay();
+    const year = friendlyDate.getFullYear();
+
+    return ' ' + month + '/' + day + '/' + year;
+  }
+
   generatePermitHTML = (data) => {
     const permitTemplate = `
     <html>
@@ -112,7 +121,7 @@ export class OrderConfirmationComponent implements OnInit {
             </div>
             <div class="permit-header-section right-section">
               <span>OMB No.: 0596-0085</span>
-              <span>Expires:  ${data.expiration_date}</span>
+              <span>Expires: &nbsp;&nbsp; ${this.getFriendlyDate(data.expirationDate)}</span>
             </div>
           </div>
           <div class="general-info">
@@ -132,8 +141,8 @@ export class OrderConfirmationComponent implements OnInit {
                 <span class="margin-indent border-right three-twelfths italic-text">Name:</span>
                 <span class="nine-twelfths margin-indent">${data.firstName} ${data.lastName}</span>
               </div>
-              <div class="two-twelfths no-border-top border-left">${data.permitNumber}</div>
-              <div class="two-twelfths no-border-top border-left border-right"></div>
+              <div class="two-twelfths no-border-top border-left">&nbsp;&nbsp;${data.permitNumber}</div>
+              <div class="two-twelfths no-border-top border-left border-right">&nbsp;&nbsp;${this.getFriendlyDate(data.transactionDate)}</div>
               <div class="three-twelfths no-border-top no-border-left border-right"></div>
             </div>
             <div class="permit-row no-border-bottom">
@@ -150,8 +159,8 @@ export class OrderConfirmationComponent implements OnInit {
                 <span class="margin-indent border-right three-twelfths italic-text"></span>
                 <span class="nine-twelfths margin-indent"></span>
               </div>
-              <div class="two-twelfths no-border-top border-left"></div>
-              <div class="two-twelfths no-border-top border-left border-right"></div>
+              <div class="two-twelfths no-border-top border-left">&nbsp;&nbsp;${this.getFriendlyDate(data.transactionDate)}</div>
+              <div class="two-twelfths no-border-top border-left border-right">&nbsp;&nbsp;${this.getFriendlyDate(data.expirationDate)}</div>
               <div class="three-twelfths no-border-top no-border-left border-right">
                 <span class="six-twelfths margin-indent">From:</span>
                 <span class="six-twelfths">Thru:</span>
@@ -366,7 +375,7 @@ export class OrderConfirmationComponent implements OnInit {
             <div class="permit-row no-border-top no-border-left no-border-bottom">
               <div class="no-border-right no-border-left six-twelfths"></div>
               <div class="border-right border-left four-twelfths header-cell">Total Purchase Price:</div>
-              <div class="border-right border-left two-twelfths"></div>
+              <div class="border-right border-left two-twelfths">&nbsp;&nbsp;${data.totalCost}</div>
             </div>
             <div class="product-designation header-cell">
               PRODUCT QUANTITY REMOVAL RECORD
@@ -514,11 +523,11 @@ export class OrderConfirmationComponent implements OnInit {
             </div>
             <div class="permit-header-section right-section">
               <span>OMB No.: 0596-0085</span>
-              <span>Expires:  ${data.expiration_date}</span>
+              <span>Expires: &nbsp;&nbsp; ${this.getFriendlyDate(data.expirationDate)}</span>
             </div>
           </div>
           <div class="permit-number-box">
-            Permit No.: ${data.permit_id}
+            Permit No.: &nbsp;&nbsp; ${data.permitNumber}
           </div>
           <div class="product-designation header-cell">
             GENERAL CONDITIONS
