@@ -57,7 +57,7 @@ export class FirewoodApplicationService {
   }
 
   emailPDF(data) {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const options = {
       headers: headers

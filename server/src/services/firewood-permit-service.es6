@@ -181,9 +181,9 @@ firewoodPermitService.emailPDF = async (data) => {
   // end the headless browser session
   await browser.close();
 
-  let sentData = await email.sendPermit(emailData);
+  const sentData = await email.sendPermit(emailData);
 
-  return sentData
+  return sentData;
 };
 
 firewoodPermitService.generatePermitHTML = (data) => {
