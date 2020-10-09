@@ -6,7 +6,7 @@
  */
 
 const logger = require('../services/logger.es6');
-const nrmModel = require('../models/nrm-service.es6');
+const nrmEntries = require('../models/nrm-service.es6');
 
 const nrm = {};
 
@@ -16,7 +16,7 @@ const nrm = {};
  * @param {Object} res - http response
  */
 nrm.getEntries = (req, res) => {
-  nrmModel.findAll({
+  nrmEntries.findAll({
       attributes: ['id', 'permitCn', 'regionCode', 'regionName', 'forestCode', 'forestName', 'districtCode',
         'districtName', 'planCn', 'planNo', 'planDescription', 'issueNumber', 'permUseCode', 'percentOfSalvageVolume',
         'percentOfCwk2Volume', 'percentOfCflrVolume', 'percentOfNftmVolume', 'stateCode', 'stateName', 'numberOfPermits',

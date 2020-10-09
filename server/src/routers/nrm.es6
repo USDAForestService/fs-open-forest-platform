@@ -12,10 +12,4 @@ const router = express.Router();
 // get all nrm service
 router.get('/', nrmController.getEntries);
 
-// get nrm by id
-router.get('/:id', nrmController.getEntry);
-
-// create new nrm entry
-router.post('/create', nrmController.createEntry);
-
 module.exports = router;
