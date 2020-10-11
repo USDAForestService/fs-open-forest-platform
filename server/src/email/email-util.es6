@@ -1,9 +1,8 @@
-
-
 /**
  * Module for common controllers
  * @module email/email-util
  */
+const fs = require('fs');
 const nodemailer = require('nodemailer');
 const juice = require('juice');
 const logger = require('../services/logger.es6');
@@ -100,8 +99,7 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
   return emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
 };
 
-emailUtil.sendPermit = (data) => {
-  console.log('emailUtil sending this data: ');
+emailUtil.sendPermit = async (data) => {
   const mailOptions = {
     from: 'Forest Service - OpenForest',
     to: data.emailAddress,
@@ -115,14 +113,14 @@ emailUtil.sendPermit = (data) => {
     `
   };
 
-  return emailUtil.transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.error('NODE_MAILER_SMTP_ERROR: ', error);
-      process.exit(1);
-    } else {
-      console.log('Snyk report successfully sent');
-    }
-  });
+  const emailResponse = await emailUtil.transporter.sendMail(mailOptions);
+  try {
+    fs.unlinkSync('permit.pdf');
+    console.log('successfully deleted permit.pdf');
+  } catch (err) {
+    console.log('error deleting permit.pdf');
+  }
+  return emailResponse;
 };
 
 module.exports = emailUtil;

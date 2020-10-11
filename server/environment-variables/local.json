@@ -55,7 +55,8 @@
       "security": [
         "bdavidson@cynerge.com"
       ],
-      "smtp_server": "smtp.sendgrid.net",
+      "port": 25,
+      "smtp_server": "mailproxy1.usda.gov",
       "username": "do_not_reply_openforest@example.com"
     }
   }, {
