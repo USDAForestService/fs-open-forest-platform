@@ -49,14 +49,15 @@ export class FirewoodGuidelinesComponent implements OnInit {
 
   printLoadTag = () => {
     // use dummy data for now
-    let dummy_data = {
+    const dummy_data = {
       forestName: 'Flathead National Park',
       quantity: 2,
       permitNumber: 'OF00021',
       tagNumber: 'OF00021-2',
       expirationDate: '12/21/2021'
-    }
+    };
     const loadTags = this.generateLoadTagsHTML(dummy_data);
+    const instructions = this.generateInstructionsHTML(dummy_data);
     const popupWin = this.nativeWindow.open('FirewoodLoadTags', '_blank', 'top=0,left=0,height=auto,width=auto');
 
     popupWin.document.open();
@@ -66,9 +67,181 @@ export class FirewoodGuidelinesComponent implements OnInit {
     popupWin.document.close();
 
   }
+  printInstructions = () => {
+    // use dummy data for now
+    const dummy_data = {
+      forestName: 'Flathead National Park',
+      quantity: 2,
+      permitNumber: 'OF00021',
+      tagNumber: 'OF00021-2',
+      expirationDate: '12/21/2021'
+    };
+    const loadTags = this.generateLoadTagsHTML(dummy_data);
+    const instructions = this.generateInstructionsHTML(dummy_data);
+    const popupWin = this.nativeWindow.open('FirewoodLoadTags', '_blank', 'top=0,left=0,height=auto,width=auto');
+
+    popupWin.document.open();
+
+    popupWin.document.write(instructions);
+
+    popupWin.document.close();
+
+  }
+
+  generateInstructionsHTML = (data) => {
+    const instructions = [{
+      image: `/assets/img/site-wide/load-tags-instructions-1.png`,
+      long: `Fill in the day and month that you're harvesting the wood \
+      with a black marker. For example, if you harvested on the 4th of \
+      July, you would fill in "7" for the month and "4" for the day.`,
+      short: `Fill in the day and month`
+    }, {
+      image: `/assets/img/site-wide/load-tags-instructions-2.png`,
+      long: `Cut tags apart.`,
+      short: `Cut your tag`
+    }, {
+      image: `/assets/img/site-wide/load-tags-instructions-3.png`,
+      long: `Fold your tag on the dotted line.`,
+      short: `Fold your tag`
+    }, {
+      image: `/assets/img/site-wide/load-tags-instructions-4.png`,
+      long: `Place each tag in it's own individual zip-top bag and close the bag.`,
+      short: `Place in zip-top bag`
+    }, {
+      image: `/assets/img/site-wide/load-tags-instructions-5.png`,
+      long: `Nail your tag(s) to a piece of wood in the back of your load so \
+      that the section with the USDA logo is visible to cars behind you.`,
+      short: `Nail your tag`
+    }];
+
+    // instructions page styles
+    let styleHtml = `<style>`;
+    styleHtml += `@media print{@page {size: landscape}}`;
+    styleHtml += `.load-tags-instructions {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      height: 100%;
+      max-height: 100%;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+    }
+    .written-instructions {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      left: 25px;
+      top: 150px;
+      height: 100%;
+      width: calc(50% - 50px);
+    }
+    .written-instructions-title {
+      font-weight: bold;
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+    .written-instruction {
+      display: flex;
+      flex-direction: row;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .written-instruction-number {
+      border: 1px solid black;
+      border-radius: 100%;
+      text-align: center;
+      height: 25px;
+      width: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .written-instruction-text {
+      margin-left: 10px;
+      width: calc(100% - 25px);
+    }
+    .pictograph-instructions {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 50%;
+    }
+    .pictograph-instructions-image-container {
+      position: absolute;
+      top: 50px;
+      right: 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .pictograph-instructions-image {
+      height: 150px;
+      margin: 10px;
+    }`;
+
+    styleHtml += `</style>`;
+
+    // instructions page elements
+    let elementsHtml = `
+    <html>
+      <head>
+        <title></title>
+      </head>
+      <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">`;
+
+    elementsHtml += `
+    <div class="load-tags-instructions">`;
+
+      // written instructions / left side
+      elementsHtml += `<div class="written-instructions">
+        <div class="written-instructions-title">
+          Instructions for tagging your load
+        </div>`;
+        for (let x = 0; x < instructions.length; x++) {
+          elementsHtml += `
+          <div class="written-instruction">
+            <div class="written-instruction-number">${x + 1}</div>
+            <div class="written-instruction-text">${instructions[x].long}</div>
+          </div>`;
+        }
+      elementsHtml += `
+      </div>`;
+      // end of written instructions / left side
+
+      // pictograph instructions / right side
+      elementsHtml += `
+      <div class="pictograph-instructions">
+      <div class="pictograph-instructions-image-container">`;
+      for (let x = 0; x < instructions.length; x++) {
+        elementsHtml += `
+          <img class="pictograph-instructions-image" src="${instructions[x].image}"/>`;
+      }
+      elementsHtml += `
+      </div>
+      </div>`;
+      // end of pictograph instructions / right side
+
+    elementsHtml += `
+    </div>`;
+    // end of load tag instructions page
+
+    elementsHtml += `
+    </body>
+    </html>`;
+
+    const loadTagsTemplate = styleHtml + elementsHtml;
+    return loadTagsTemplate;
+
+  }
 
   generateLoadTagsHTML = (data) => {
-    let styleHtml = `<style>`
+    let styleHtml = `<style>`;
+    styleHtml += `@media print{@page {size: portrait}}`;
 
     // position the four main load tag squares
     styleHtml += `
@@ -104,7 +277,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       right: 0px;
       width: calc(50% - 2px);
       height: calc(50% - 2px);
-    }`
+    }`;
 
     // fold arrow
     styleHtml += `.fold-arrow {
@@ -116,7 +289,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       width: 20px;
       color: lightgray;
       position: absolute;
-    }`
+    }`;
 
     styleHtml += `.folding-text {
       font-weight: bold;
@@ -124,7 +297,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       transform: rotate(180deg);
       position: relative;
       top: 44px;
-    }`
+    }`;
 
     // punch hole
     styleHtml += `.punch-hole {
@@ -137,7 +310,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       background: white;
       border: 1px dotted black;
       border-radius: 100%;
-    }`
+    }`;
 
     // month / day / info box
     styleHtml += `.load-tags-info-box {
@@ -147,17 +320,17 @@ export class FirewoodGuidelinesComponent implements OnInit {
       transform: translate(-50%, -50%);
       display: flex;
       flex-direction: column;
-    }`
+    }`;
     styleHtml += `.month-day-boxes {
       display: flex;
       flex-direction: row;
-    }`
+    }`;
     styleHtml += `.month-box {
       border: 1px black solid;
       height: 90px;
       width: 90px;
       margin-right: 5px;
-    }`
+    }`;
     styleHtml += `.month-box-caption {
       position: relative;
       height: 30px;
@@ -169,13 +342,13 @@ export class FirewoodGuidelinesComponent implements OnInit {
       background: white;
       font-size: 12px;
       font-weight: bold;
-    }`
+    }`;
     styleHtml += `.day-box {
       border: 1px black solid;
       height: 90px;
       width: 90px;
       margin-left: 5px;
-    }`
+    }`;
     styleHtml += `.day-box-caption {
       max-width: 30px;
       position: relative;
@@ -187,7 +360,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       background: white;
       font-size: 12px;
       font-weight: bold;
-    }`
+    }`;
     styleHtml += `.cord-count {
       background: black;
       color: white;
@@ -195,7 +368,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       font-size: 20px;
       text-align: center;
       margin-top: 10px;
-    }`
+    }`;
     styleHtml += `.permit-number-input {
       display: flex;
       flex-direction: row;
@@ -203,7 +376,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       align-items: center;
       padding: 8px;
       border-bottom: 1px solid black;
-    }`
+    }`;
     styleHtml += `.tag-number-input {
       display: flex;
       flex-direction: row;
@@ -211,7 +384,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       align-items: center;
       padding: 8px;
       border-bottom: 1px solid black;
-    }`
+    }`;
     styleHtml += `.expires-input {
       display: flex;
       flex-direction: row;
@@ -219,19 +392,19 @@ export class FirewoodGuidelinesComponent implements OnInit {
       align-items: center;
       padding: 8px;
       border-bottom: 1px solid black;
-    }`
+    }`;
     styleHtml += `.permit-number-input-label {
       font-size: 12px;
       font-weight: bold;
-    }`
+    }`;
     styleHtml += `.tag-number-input-label {
       font-size: 12px;
       font-weight: bold;
-    }`
+    }`;
     styleHtml += `.expires-input-label {
       font-size: 12px;
       font-weight: bold;
-    }`
+    }`;
 
     // styles for the section one and four (logo)
     styleHtml += `
@@ -274,10 +447,10 @@ export class FirewoodGuidelinesComponent implements OnInit {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-    }`
+    }`;
 
     // generate style rules for watermark text
-    const numOfWatermarkLines = 24
+    const numOfWatermarkLines = 24;
     for (let x = 1; x <= numOfWatermarkLines; x++) {
       const watermarkline = `.watermark-text-${x} {
         color: lightgray;
@@ -285,7 +458,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
         font-family: Public Sans ExtraLight;
         position: relative;
         left: -${x * 50}px;
-      }`
+      }`;
       styleHtml += watermarkline;
     }
 
@@ -299,8 +472,8 @@ export class FirewoodGuidelinesComponent implements OnInit {
         font-family: Public Sans Black;
         font-weight: bold;
         left: 0px;
-        top: ${(x - 1) * (100/8)}%;
-      }`
+        top: ${(x - 1) * (100 / 8)}%;
+      }`;
       styleHtml += wavyline;
     }
 
@@ -312,11 +485,11 @@ export class FirewoodGuidelinesComponent implements OnInit {
         bottom: 0px;
         left: ${(x - 1) * 200}px;
         font-size: 28px;
-      }`
+      }`;
     }
 
     // generate arc text style rules for each character in "2021"
-    let numOfCharacters = 16;
+    const numOfCharacters = 16;
     let degrees = 0;
     // first arc
     for (let x = 1; x <= 4; x++) {
@@ -351,6 +524,8 @@ export class FirewoodGuidelinesComponent implements OnInit {
       styleHtml += char;
     }
     degrees = 0;
+
+    // third arc
     for (let x = 9; x <= 12; x++) {
       const char = `.character-${x} {
         transform-origin: bottom center;
@@ -382,74 +557,101 @@ export class FirewoodGuidelinesComponent implements OnInit {
       styleHtml += char;
     }
 
-    styleHtml += `</style>`
+    styleHtml += `</style>`;
 
     let elementsHtml = `
     <html>
       <head>
         <title></title>
       </head>
-      <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">
+      <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">`;
 
-          <div class="load-tags-section-one">
-          <div class="watermark-container">
-          `;
-          // generate watermark lines
+        // load tags page
+        elementsHtml += `
+        <div class="load-tags-section-one">`;
+
+          // watermark lines container
+          elementsHtml += `
+          <div class="watermark-container">`;
+
+          // watermark lines
           for (let x = 1; x <= numOfWatermarkLines; x++) {
-            elementsHtml +=`
+            elementsHtml += `
             <div class="watermark-text-${x}">`;
-            for (let y = 1; y <= 20; y++) {
-              elementsHtml += `${data.forestName} &bullet;&nbsp;`;
-            }
-            elementsHtml += `</div>`;
-          }
-          elementsHtml += `</div>`
 
-          elementsHtml += `<div class="wavy-text-container">`
+            // show forest name multiple times per line, separated y a bullet
+            for (let y = 1; y <= 20; y++) {
+              elementsHtml += `
+              ${data.forestName} &bullet;&nbsp;`;
+            }
+            elementsHtml += `
+            </div>`;
+          }
+          elementsHtml += `
+          </div>`;
+          // end of watermark lines container
+
+          // create wavy-lines container
+          elementsHtml += `<div class="wavy-text-container">`;
+
           // generate wavy lines
           for (let x = 1; x <= numOfWavyLines; x++) {
-            elementsHtml +=`
+            elementsHtml += `
             <div class="wavy-text-${x}">`;
+
+            // generate multiple "2021"s per wavy line
             for (let y = 1; y <= numOfTwentyTwentyOnes; y++) {
-              // 2021
-              elementsHtml += `<div class="twenty-twentyone-${y}">`;
-              // individual characters in "2021" block
-              elementsHtml += `<span class="character-1">2</span>`;
-              elementsHtml += `<span class="character-2">0</span>`;
-              elementsHtml += `<span class="character-3">2</span>`;
-              elementsHtml += `<span class="character-4">1</span>`;
+              elementsHtml += `
+              <div class="twenty-twentyone-${y}">`;
 
-              elementsHtml += `<span class="character-5">2</span>`;
-              elementsHtml += `<span class="character-6">0</span>`;
-              elementsHtml += `<span class="character-7">2</span>`;
-              elementsHtml += `<span class="character-8">1</span>`;
+                // individual characters in "2021" block
+                elementsHtml += `<span class="character-1">2</span>`;
+                elementsHtml += `<span class="character-2">0</span>`;
+                elementsHtml += `<span class="character-3">2</span>`;
+                elementsHtml += `<span class="character-4">1</span>`;
 
-              elementsHtml += `<span class="character-9">2</span>`;
-              elementsHtml += `<span class="character-10">0</span>`;
-              elementsHtml += `<span class="character-11">2</span>`;
-              elementsHtml += `<span class="character-12">1</span>`;
+                elementsHtml += `<span class="character-5">2</span>`;
+                elementsHtml += `<span class="character-6">0</span>`;
+                elementsHtml += `<span class="character-7">2</span>`;
+                elementsHtml += `<span class="character-8">1</span>`;
 
-              elementsHtml += `<span class="character-13">2</span>`;
-              elementsHtml += `<span class="character-14">0</span>`;
-              elementsHtml += `<span class="character-15">2</span>`;
-              elementsHtml += `<span class="character-16">1</span>`;
-              elementsHtml += `</div>`;
-            }
-            elementsHtml += `</div>`;
+                elementsHtml += `<span class="character-9">2</span>`;
+                elementsHtml += `<span class="character-10">0</span>`;
+                elementsHtml += `<span class="character-11">2</span>`;
+                elementsHtml += `<span class="character-12">1</span>`;
+
+                elementsHtml += `<span class="character-13">2</span>`;
+                elementsHtml += `<span class="character-14">0</span>`;
+                elementsHtml += `<span class="character-15">2</span>`;
+                elementsHtml += `<span class="character-16">1</span>`;
+                // end of characters
+
+            elementsHtml += `
+            </div>`;
+            // end of "2021" block
           }
-          elementsHtml += `</div>`
-
-          // punch hole element
-          elementsHtml += `<div class="punch-hole"></div>`
 
           elementsHtml += `
-          <div class="load-tags-logo-section">
-            <img class="load-tags-logo-image" src="/assets/img/site-wide/load-tags-usda-logo.png"/>
-            <div class="load-tags-sub-logo-text">
-              <div class="load-tags-forest-name">${data.forestName}</div>
-              <div class="firewood-load-tag-text">Firewood Load Tag</div>
-            </div>
+          </div>`;
+          // end of wavy line
+
+        }
+        elementsHtml += `
+        </div>`;
+        // end of wavy line container
+
+        // punch hole element
+        elementsHtml += `
+        <div class="punch-hole"></div>`;
+
+        elementsHtml += `
+        <div class="load-tags-logo-section">
+          <img class="load-tags-logo-image" src="/assets/img/site-wide/load-tags-usda-logo.png"/>
+          <div class="load-tags-sub-logo-text">
+            <div class="load-tags-forest-name">${data.forestName}</div>
+            <div class="firewood-load-tag-text">Firewood Load Tag</div>
           </div>
+        </div>
           </div>
 
           <div class="load-tags-section-two">
@@ -515,55 +717,55 @@ export class FirewoodGuidelinesComponent implements OnInit {
           <div class="load-tags-section-four">
             <div class="watermark-container">
             `;
-            // generate watermark lines
-            for (let x = 1; x <= numOfWatermarkLines; x++) {
-              elementsHtml +=`
+    // generate watermark lines
+    for (let x = 1; x <= numOfWatermarkLines; x++) {
+      elementsHtml += `
               <div class="watermark-text-${x}">`;
-              for (let y = 1; y <= 20; y++) {
-                elementsHtml += `${data.forestName} &bullet;&nbsp;`;
-              }
-              elementsHtml += `</div>`;
-            }
-            elementsHtml += `</div>`
+      for (let y = 1; y <= 20; y++) {
+        elementsHtml += `${data.forestName} &bullet;&nbsp;`;
+      }
+      elementsHtml += `</div>`;
+    }
+    elementsHtml += `</div>`;
 
-            elementsHtml += `<div class="wavy-text-container">`
-            // generate wavy lines
-            for (let x = 1; x <= numOfWavyLines; x++) {
-              elementsHtml +=`
+    elementsHtml += `<div class="wavy-text-container">`;
+    // generate wavy lines
+    for (let x = 1; x <= numOfWavyLines; x++) {
+      elementsHtml += `
               <div class="wavy-text-${x}">`;
-              for (let y = 1; y <= numOfTwentyTwentyOnes; y++) {
-                // 2021
-                elementsHtml += `<div class="twenty-twentyone-${y}">`;
-                // individual characters in "2021" block
-                elementsHtml += `<span class="character-1">2</span>`;
-                elementsHtml += `<span class="character-2">0</span>`;
-                elementsHtml += `<span class="character-3">2</span>`;
-                elementsHtml += `<span class="character-4">1</span>`;
+      for (let y = 1; y <= numOfTwentyTwentyOnes; y++) {
+        // 2021
+        elementsHtml += `<div class="twenty-twentyone-${y}">`;
+        // individual characters in "2021" block
+        elementsHtml += `<span class="character-1">2</span>`;
+        elementsHtml += `<span class="character-2">0</span>`;
+        elementsHtml += `<span class="character-3">2</span>`;
+        elementsHtml += `<span class="character-4">1</span>`;
 
-                elementsHtml += `<span class="character-5">2</span>`;
-                elementsHtml += `<span class="character-6">0</span>`;
-                elementsHtml += `<span class="character-7">2</span>`;
-                elementsHtml += `<span class="character-8">1</span>`;
+        elementsHtml += `<span class="character-5">2</span>`;
+        elementsHtml += `<span class="character-6">0</span>`;
+        elementsHtml += `<span class="character-7">2</span>`;
+        elementsHtml += `<span class="character-8">1</span>`;
 
-                elementsHtml += `<span class="character-9">2</span>`;
-                elementsHtml += `<span class="character-10">0</span>`;
-                elementsHtml += `<span class="character-11">2</span>`;
-                elementsHtml += `<span class="character-12">1</span>`;
+        elementsHtml += `<span class="character-9">2</span>`;
+        elementsHtml += `<span class="character-10">0</span>`;
+        elementsHtml += `<span class="character-11">2</span>`;
+        elementsHtml += `<span class="character-12">1</span>`;
 
-                elementsHtml += `<span class="character-13">2</span>`;
-                elementsHtml += `<span class="character-14">0</span>`;
-                elementsHtml += `<span class="character-15">2</span>`;
-                elementsHtml += `<span class="character-16">1</span>`;
-                elementsHtml += `</div>`;
-              }
-              elementsHtml += `</div>`;
-            }
-            elementsHtml += `</div>`
+        elementsHtml += `<span class="character-13">2</span>`;
+        elementsHtml += `<span class="character-14">0</span>`;
+        elementsHtml += `<span class="character-15">2</span>`;
+        elementsHtml += `<span class="character-16">1</span>`;
+        elementsHtml += `</div>`;
+      }
+      elementsHtml += `</div>`;
+    }
+    elementsHtml += `</div>`;
 
-            // punch hole element
-            elementsHtml += `<div class="punch-hole"></div>`
+    // punch hole element
+    elementsHtml += `<div class="punch-hole"></div>`;
 
-            elementsHtml += `
+    elementsHtml += `
             <div class="load-tags-logo-section">
               <img class="load-tags-logo-image" src="/assets/img/site-wide/load-tags-usda-logo.png"/>
               <div class="load-tags-sub-logo-text">
