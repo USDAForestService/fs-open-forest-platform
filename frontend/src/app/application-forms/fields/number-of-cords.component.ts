@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
-  selector: 'app-numer-of-cords',
+  selector: 'app-number-of-cords',
   templateUrl: './number-of-cords.component.html'
 })
 export class NumberOfCordsComponent {
