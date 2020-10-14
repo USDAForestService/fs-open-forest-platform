@@ -19,42 +19,42 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     permitCn: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(34),
       field: 'permit_cn',
       allowNull: false
     },
     regionCode: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(2),
       field: 'region_code',
       allowNull: false
     },
     regionName: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(80),
       field: 'region_name',
       allowNull: false
     },
     forestCode: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(2),
       field: 'forest_code',
       allowNull: false
     },
     forestName: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(80),
       field: 'forest_name',
       allowNull: false
     },
     districtCode: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(2),
       field: 'district_code',
       allowNull: false
     },
     districtName: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(80),
       field: 'district_name',
       allowNull: false
     },
     planCn: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(34),
       field: 'plan_cn',
       allowNull: false
     },
@@ -64,7 +64,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     planDescription: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(78),
       field: 'plan_description',
       allowNull: false
     },
@@ -74,7 +74,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     permUseCode: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(5),
       field: 'perm_use_code',
       allowNull: false
     },
@@ -99,12 +99,12 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     stateCode: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(2),
       field: 'state_code',
       allowNull: false
     },
     stateName: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(40),
       field: 'state_name',
       allowNull: false
     },
@@ -114,7 +114,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     convertibleNonConvertible: {
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(1),
       field: 'convertible_non_convertible',
       allowNull: false
     },

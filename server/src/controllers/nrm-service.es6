@@ -17,12 +17,12 @@ const nrm = {};
  */
 nrm.getEntries = (req, res) => {
   nrmEntries.findAll({
-      attributes: ['id', 'permitCn', 'regionCode', 'regionName', 'forestCode', 'forestName', 'districtCode',
-        'districtName', 'planCn', 'planNo', 'planDescription', 'issueNumber', 'permUseCode', 'percentOfSalvageVolume',
-        'percentOfCwk2Volume', 'percentOfCflrVolume', 'percentOfNftmVolume', 'stateCode', 'stateName', 'numberOfPermits',
-        'convertibleNonConvertible', 'spuInfo'],
-      order: [['permitCn', 'ASC']]
-    }).then((results) => {
+    attributes: ['id', 'permitCn', 'regionCode', 'regionName', 'forestCode', 'forestName', 'districtCode',
+      'districtName', 'planCn', 'planNo', 'planDescription', 'issueNumber', 'permUseCode', 'percentOfSalvageVolume',
+      'percentOfCwk2Volume', 'percentOfCflrVolume', 'percentOfNftmVolume', 'stateCode', 'stateName', 'numberOfPermits',
+      'convertibleNonConvertible', 'spuInfo'],
+    order: [['permitCn', 'ASC']]
+  }).then((results) => {
     if (results) {
       res.status(200).json(results);
     } else {
