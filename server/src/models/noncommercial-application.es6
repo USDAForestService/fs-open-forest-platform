@@ -416,8 +416,8 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false,
       validate: {
         len: {
-          args: [1, 512],
-          msg: 'noncommercialFieldsActivityDescription must be less than 512 characters in length'
+          args: [1, 1000],
+          msg: 'noncommercialFieldsActivityDescription must be less than 1000 characters in length'
         }
       }
     },
