@@ -50,11 +50,10 @@
     "credentials": {
       "admins": [
         "bdavidson@cynerge.com",
-        "mtlaney@gmail.com",
-        "dylanmc21@gmail"
+        "mtlaney@gmail.com"
       ],
       "security": [
-        "dylanmc21@gmail"
+        "bdavidson@cynerge.com"
       ],
       "port": 25,
       "smtp_server": "mailproxy1.usda.gov",
