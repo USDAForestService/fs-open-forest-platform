@@ -91,7 +91,7 @@
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
-    "undoAllSeed": "sequelize db:seed:undo:all",
+    "undoAllSeed": "sequelize db:undoAllMigrate;sequelize db:undoAllSeed;sequelize db:dropdb;sequelize db:createdb;sequelize db:migrate;sequelize db:seed"
     "undoAllMigrate": "sequelize db:migrate:undo:all",
     "undoLastMigrate": "sequelize db:migrate:undo"
   },
