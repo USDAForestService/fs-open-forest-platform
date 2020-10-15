@@ -69,8 +69,10 @@
 
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
       <div *ngIf="application.tempOutfitterFields.advertisingURL">
-        <h3>Promotional website:</h3>
-        <a title="WARNING: This link will open a new window or tab to an applicant-provided URL" href="{{ application.tempOutfitterFields.advertisingURL | UrlPipe }}" target="_blank">{{ application.tempOutfitterFields.advertisingURL }}</a>
+        <h3>Promotional website:<br>
+        <span id="location-hint-text" class="help-text usa-form-hint">WARNING: Applicant URL will open a new window</span>
+      </h3>
+        <a title="WARNING: Applicant URL will open a new window" href="{{ application.tempOutfitterFields.advertisingURL | UrlPipe }}" target="_blank">{{ application.tempOutfitterFields.advertisingURL }}</a>
       </div>
       <div *ngIf="application.tempOutfitterFields.advertisingDescription">
         <h3>Advertising description:</h3>
