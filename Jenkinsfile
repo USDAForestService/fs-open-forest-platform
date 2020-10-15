@@ -129,18 +129,18 @@ stage('run-unit-tests'){
                   export DATABASE_URL="${DB_URL}${currentdate}"
                  
                   cd frontend
-                  npm install
+                  #npm install
                   cd ../server
-                  npm install
+                  #npm install
                   
                   ./copy-frontend-assets.sh
                   cd ../frontend
-                  npm run test:ci
+                  #npm run test:ci
                   cd ../server
-                  npm run undoAllSeed
-	          npm run migrate
-	          npm run seed
-                  npm run coverage --silent                    
+                  #npm run undoAllSeed
+	          #npm run migrate
+	          #npm run seed
+                  #npm run coverage --silent                    
                   '''
 		
                   }
