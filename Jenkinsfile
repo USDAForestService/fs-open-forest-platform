@@ -328,7 +328,7 @@ sh '''
 	 
  stage('dev-deploy'){	 
 	when{
-	branch 'dev'
+	branch 'fixdevdb'
 	}
 	steps {
 	    echo 'run this stage - ony if the branch = dev branch'
