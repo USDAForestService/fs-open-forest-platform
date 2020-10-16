@@ -5,7 +5,7 @@ properties = null
 pipeline {
     agent {
     node {
-    label 'linuxworker2'
+    label 'linuxworker1'
         }
     }
 
