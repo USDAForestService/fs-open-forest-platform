@@ -48,6 +48,11 @@ export class FirewoodGuidelinesComponent implements OnInit {
       content: `Learn more about how to purchase a Firewood permit with the\
        United States Forest Service on your National Forest with Open Forest.`
     });
+
+  }
+
+  minCost() {
+    return this.forest.woodCost * this.forest.minCords;
   }
 
   emailPDF = () => {
