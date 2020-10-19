@@ -74,6 +74,10 @@ export class ErrorMessageComponent {
     } and less than or equal to ${errors.lessThanOrEqualFail.number}. `;
   }
 
+  minMaxCordsFail(errors) {
+    return `${this.name} must be between ${errors.minMaxCordsFail.minNumber} and ${errors.minMaxCordsFail.number} cords.`;
+  }
+
   min(errors) {
     return `${this.name} must have a value greater than or equal to ${errors.min.min}. `;
   }
