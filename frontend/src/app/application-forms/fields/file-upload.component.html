@@ -4,7 +4,7 @@
     <span id="{{type}}-replace-file" *ngIf="uploader.queue[0] || field.value">Replace<span class="hidden-text"> file </span></span>
     <span class="hidden-text">to upload for {{name}}</span>
   </button>
-  <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000"
+  <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null"
     [attr.aria-labelledby]="errorMessage ? type + '-error' : type + '-label'"
     [attr.aria-invalid]="errorMessage ? 'true' : 'false'"
   />
