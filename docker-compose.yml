@@ -1,0 +1,42 @@
+version: "3.2"
+services:
+  db:
+    image: postgres:10
+    environment:
+      - POSTGRES_DB=fs_open_forest
+      - POSTGRES_USER=fs_open_forest
+      - POSTGRES_PASSWORD=fs_open_forest
+    expose:
+      - 5432
+    ports:
+      - 54399:5432
+  
+  server:
+    build: ./server
+    image: open-forest-platform/server
+    depends_on:
+      - db
+    environment:
+      - PORT=8000
+      - DATABASE_URL=postgres://fs_open_forest:fs_open_forest@db/fs_open_forest
+      - NODE_ENV=development
+    volumes:
+      - type: bind
+        source: ./server
+        target: /app
+        consistency: delegated
+      - /app/node_modules
+    ports:
+      - 8000:8000
+    
+  frontend:
+    build: ./frontend
+    image: open-forest-platform/frontend
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /app
+        consistency: delegated
+      - /app/node_modules
+    ports:
+      - 4200:4200

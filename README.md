@@ -124,6 +124,10 @@ There are two options for development - Docker or installing the dependencies in
 
 ** The following instructions outline tools and procedures required for local development without docker **
 
+#### Docker
+
+Run `docker-compose up`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
 #### Node
 
 Install [Node ^8.15.1](https://nodejs.org/en/)
