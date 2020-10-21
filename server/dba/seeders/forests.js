@@ -20,7 +20,16 @@ const forests = [
       contact:
       '{ "Idaho Panhandle Supervisors Office": {"address": "3815 Schreiber Way", "citystate": "Coeur d AudioListener, ID", "phone": "(208) 765-7223"},',
       poss_financial_id: '999900018',
+      districts:
+    '{'
+    + '"COEUR D ALENE RIVER": {"code": "03", "name": "Couer D Alene River"},'
+    + '"ST. JOE": {"code": "04", "name": "St. Joe"},'
+    + '"SANDPOINT": {"code": "06", "name": "Sandpoint"},'
+    + '"BONNERS FERRY": {"code": "07", "name": "Bonners Ferry"},'
+    + '"PRIEST LAKE": {"code": "08", "name": "Priest Lake"}'
+    + '}',
       state: 'Idaho',
+      state_fips: 16,
       permit_type: 'fuel',
       region_name: 'Northern',
       region: 1
@@ -46,7 +55,16 @@ const forests = [
       contact:
       '{ "Flathead Supervisors Office / Tally Lake Ranger District": {"address": "650 Wolfpack Way", "citystate": "Kalispell, Montana", "phone": "(406) 758-5204"},',
       poss_financial_id: '999900019',
+      districts:
+    '{'
+    + '"SWAN LAKE": {"code": "01", "name": "Swan Lake"},'
+    + '"SPOTTED BEAR": {"code": "04", "name": "Spotted Bear"},'
+    + '"HUNGRY HORSE": {"code": "06", "name": "Hungry Horse"},'
+    + '"GLACIER VIEW": {"code": "07", "name": "Glacier View"},'
+    + '"TALLY LAKE": {"code": "08", "name": "Tally Lake"}'
+    + '}',
       state: 'Montana',
+      state_fips: 30,
       permit_type: 'fuel',
       region_name: 'Northern',
       region: 1
@@ -72,7 +90,15 @@ const forests = [
       contact:
       '',
       poss_financial_id: '999900021',
+      districts:
+    '{'
+    + '"CONASUAGA": {"code": "01", "name": "Conasuaga"},'
+    + '"BLUE RIDGE": {"code": "04", "name": "Blue Ridge"},'
+    + '"CHATTOOGA RIVER": {"code": "06", "name": "Chattooga River"},'
+    + '"OCONEE": {"code": "08", "name": "Oconee"}'
+    + '}',
       state: 'Georgia',
+      state_fips: 13,
       permit_type: 'fuel',
       region_name: 'Southern',
       region: 8
@@ -98,7 +124,20 @@ const forests = [
       contact:
       '',
       poss_financial_id: '999900020',
+      districts:
+    '{'
+    + '"NORTH RIVER": {"code": "02", "name": "North River"},'
+    + '"JAMES RIVER": {"code": "03", "name": "James River"},'
+    + '"LEE": {"code": "04", "name": "Lee"},'
+    + '"WARM SPRINGS": {"code": "06", "name": "Warm Springs"},'
+    + '"EASTERN DIVIDE": {"code": "11", "name": "Eastern Divide"},'
+    + '"CLINCH": {"code": "12", "name": "Clinch"},'
+    + '"GLENWOOD-PEDLAR": {"code": "13", "name": "Glenwood-Pedlar"},'
+    + '"MT ROGERS NRA": {"code": "14", "name": "Mt Rogers Nra"},'
+    + '"NEW CASTLE": {"code": "15", "name": "New Castle"}'
+    + '}',
       state: 'Virginia',
+      state_fips: 51,
       permit_type: 'fuel',
       region_name: 'Southern',
       region: 8
@@ -124,7 +163,16 @@ const forests = [
       contact:
       '',
       poss_financial_id: '999900023',
+      districts:
+    '{'
+    + '"CLARKS FORK": {"code": "01", "name": "Clarks Fork"},'
+    + '"GREYBULL": {"code": "02", "name": "Greybull"},'
+    + '"WASHAKIE": {"code": "03", "name": "Washakie"},'
+    + '"WAPITI": {"code": "04", "name": "Wapiti"},'
+    + '"WIND RIVER": {"code": "05", "name": "Wind River"}'
+    + '}',
       state: 'Wyoming',
+      state_fips: 56,
       permit_type: 'fuel',
       region_name: 'Rocky Mountain',
       region: 2
@@ -150,7 +198,16 @@ const forests = [
       contact:
       '',
       poss_financial_id: '999900022',
+      districts:
+    '{'
+    + '"RAPID RIVER": {"code": "01", "name": "Rapid River"},'
+    + '"MANISTIQUE": {"code": "02", "name": "Manistique"},'
+    + '"MUNISING": {"code": "03", "name": "Munising"},'
+    + '"SAULT STE MARIE": {"code": "04", "name": "Sault Ste Marie"},'
+    + '"ST IGNACE": {"code": "05", "name": "St Ignace"}'
+    + '}',
       state: 'Michigan',
+      state_fips: 26,
       permit_type: 'fuel',
       region_name: 'Eastern',
       region: 9
@@ -176,7 +233,16 @@ const forests = [
       contact:
       '',
       poss_financial_id: '999900024',
+      districts:
+    '{'
+    + '"GRAND VALLEY": {"code": "02", "name": "Grand Valley"},'
+    + '"NORWOOD": {"code": "05", "name": "Norwood"},'
+    + '"OURAY": {"code": "06", "name": "Ouray"},'
+    + '"GUNNISON": {"code": "07", "name": "Gunnison"},'
+    + '"PAONIA": {"code": "08", "name": "Paonia"}'
+    + '}',
       state: 'Colorado',
+      state_fips: 8,
       permit_type: 'fuel',
       region_name: 'Rocky Mountain',
       region: 2
