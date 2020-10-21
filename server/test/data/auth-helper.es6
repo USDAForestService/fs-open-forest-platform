@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 module.exports = {
   loginAdmin(agent) {
     return async () => {
