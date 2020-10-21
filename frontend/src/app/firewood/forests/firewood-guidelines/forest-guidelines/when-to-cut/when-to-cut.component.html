@@ -9,18 +9,23 @@
   <p>You can buy firewood permits online or in-person at one of <a href="#prohibited">our district offices</a>.</p>
 </div>
 
-<!-- flathead block -->
-<div *ngIf="(forest.forestAbbr) === 'flathead'">
-  <h3>When to cut firewood</h3>
+<!-- conf block -->
+<div *ngIf="(forest.forestAbbr) === 'conf'">
+  <h3>Firewood permits are available</h3>
+  <p>Jan 1, 2020 - Dec 31, 2020</p>
+  <h3>When to gather firewood</h3>
   <p>Firewood permits are valid through the calendar year. However, <strong>firewood cutting is not allowed at certain times of the year</strong> in parts of the forest.
   <p>See <a>prohibited areas and restrictions</a> for more information.</p>
+  <h3>Cost</h3>
   <p>Firewood permits are <strong>$5.00 per cord</strong> with a <strong>4 cord ($20) minimum purchase. </strong>Limit of 12 cords per household per year. All permits are nonrefundable.
   <h3>Buy a permit</h3>
   <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
 </div>
 
-<!-- conf block -->
-<div *ngIf="(forest.forestAbbr) == 'conf'">
+<!-- flathead block -->
+<div *ngIf="(forest.forestAbbr) == 'flathead'">
+  <h3>Firewood permits are available</h3>
+  <p>Jan 1, 2020 - Dec 31, 2020</p>
   <h3>When to cut firewood</h3>
   <p>Firewood permits are valid through the calendar year.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
@@ -32,6 +37,8 @@
 
 <!-- gwj block -->
 <div *ngIf="(forest.forestAbbr) == 'gwj'">
+  <h3>Firewood permits are available</h3>
+  <p>Jan 1, 2020 - Dec 31, 2020</p>
   <h3>When to cut firewood</h3>
   <p>Firewood permits are valid through the calendar year.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
@@ -43,32 +50,34 @@
 
 <!-- shoshone block -->
 <div *ngIf="(forest.forestAbbr) == 'shoshone'">
+  <h3>Firewood permits are available</h3>
+  <p>Jan 1, 2020 - Dec 31, 2020</p>
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid through the calendar year.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
   <h3>Cost</h3>
   <p>Firewood permits cost <strong>$7.50 per cord</strong>. with a <strong>3 cord ($22.50) minimum purchase</strong>. Limit of 10 cords per household per year. All permits are nonrefundable and nontransferable.</p>
   <h3>Buy a permit</h3>
-  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>. You must be 18 years of age to purchase a permit.</p>
 </div>
 
 <!-- Hiawatha block -->
 <div *ngIf="(forest.forestAbbr) == 'hiawatha'">
-  <h3>When are permits available?</h3>
+  <h3>Firewood permits are available</h3>
   <p>Jan 1, 2020 - Dec 31, 2020</p>
-  <h3>When to cut firewood {{forest.forestAbbr}}</h3>
+  <h3>When to cut firewood</h3>
   <p>Firewood permits are valid from one year from point of issuance.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
   <h3>Cost</h3>
-  <p>Firewood permits cost $5.00 per cord with a 4 cord ($20) minimum purchase. All permits are nonrefundable.</p>
+  <p>Firewood permits cost $4.00 per cord with a 5 cord ($20) minimum purchase. Limit of 20 cords per household per year. All permits are nonrefundable.</p>
   <h3>Buy a permit</h3>
-  <p>You can buy firewood permits online or in-person at one of <a>our district offices</a>.</p>
+  <p>You can buy firewood permits online or in-person at one of <a>the District Offices</a>.</p>
 </div>
 
 <!-- GMUG block -->
 <div *ngIf="(forest.forestAbbr) == 'gmug'">
-  <h3>When are permits available?</h3>
-  <p>Firewood permits can be purchased at any time throughout the year.</p>
+  <h3>Firewood permits are available</h3>
+  <p>Jan 1, 2020 - Dec 31, 2020</p>
   <h3>When to cut firewood {{forest.forestAbbr}}</h3>
   <p>Firewood permits are valid through December 31, 2020.</p>
   <p>See <a href="#prohibited">prohibited areas and restrictions</a> for more information.</p>
