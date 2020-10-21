@@ -148,7 +148,7 @@
       <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
           <fieldset>
             <legend>Permit details</legend>
-            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords."></app-numer-of-cords>
+            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Cost: ${{forest.woodCost}}/cord. You can buy {{forest.minCords}} - {{forest.maxCords}} cords."></app-numer-of-cords>
             <label class="margin-top-2">Total cost for firewood permit: ${{totalCost}} </label>
 
             <legend class="firewood-permit-holder-legend">Permit holder information</legend>
