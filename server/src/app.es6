@@ -58,12 +58,15 @@ const domain = vcapConstants.BASE_URL.replace(/https?:\/\//i, '');
 app.use(session({
   name: 'session',
   keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
-  cookie: {
-    sameSite: 'none',
-    maxAge: 3600000,
-    secure: true,
-    domain
-  }
+  maxAge: 3600000, // 1 hour
+  httpOnly: true,
+  sameSite: 'none',
+  // In testing, we use superagent, which wraps the express app, so there's
+  // no actual HTTP calls and therefore no hostname. The test instance also
+  // isn't configured for SSL, so the cookie library will refuse to set a
+  // secure cookie. Thus, modify these two cookie properties accordingly.
+  secure: process.env.NODE_ENV !== 'test',
+  domain: process.env.NODE_ENV === 'test' ? '' : domain
 }));
 
 // eslint-disable-next-line prefer-arrow-callback
