@@ -20,7 +20,8 @@ nrm.getEntries = (req, res) => {
     attributes: ['id', 'permitCn', 'regionCode', 'regionName', 'forestCode', 'forestName', 'districtCode',
       'districtName', 'planCn', 'planNo', 'planDescription', 'issueNumber', 'permUseCode', 'percentOfSalvageVolume',
       'percentOfCwk2Volume', 'percentOfCflrVolume', 'percentOfNftmVolume', 'stateCode', 'stateName', 'numberOfPermits',
-      'convertibleNonConvertible', 'spuInfo'],
+      'convertibleNonConvertible', 'lineItemNumber', 'speciesCode', 'productCode', 'uomCode', 'soldQuantity', 'rate',
+      'yieldComponentCode', 'mbfConvFactor', 'ccfConFactor'],
     order: [['permitCn', 'ASC']]
   }).then((results) => {
     if (results) {

@@ -25,8 +25,15 @@ module.exports = {
       stateName: { type: Sequelize.STRING(40), field: 'state_name' },
       numberOfPermits: { type: Sequelize.INTEGER, field: 'number_of_permits' },
       convertibleNonConvertible: { type: Sequelize.STRING(1), field: 'convertible_non_convertible' },
-      spuInfo: { type: Sequelize.JSONB, field: 'spu_info' },
-
+      lineItemNumber: { type: Sequelize.STRING(10), field: 'line_item_number'},
+      speciesCode: { type: Sequelize.STRING(40), field: 'species_code'},
+      productCode: { type: Sequelize.STRING(10), field: 'product_code'},
+      uomCode: { type: Sequelize.STRING(10), field: 'uom_code'},
+      soldQuantity: { type: Sequelize.STRING(10), field: 'sold_quantity'},
+      rate: { type: Sequelize.STRING(10), field: 'rate'},
+      yieldComponentCode: { type: Sequelize.STRING(10), field: 'yield_component_code'},
+      mbfConvFactor: { type: Sequelize.STRING(10), field: 'mbf_conv_factor'},
+      ccfConFactor: { type: Sequelize.STRING(10), field: 'ccf_con_factor'}
     });
   },
   down: function(queryInterface, Sequelize) {

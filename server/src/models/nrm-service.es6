@@ -118,9 +118,49 @@ module.exports = util.getSequelizeConnection().define(
       field: 'convertible_non_convertible',
       allowNull: false
     },
-    spuInfo: {
-      type: Sequelize.JSONB,
-      field: 'spu_info',
+    lineItemNumber: {
+      type: Sequelize.STRING(10),
+      field: 'line_item_number',
+      allowNull: false
+    },
+    speciesCode: {
+      type: Sequelize.STRING(40),
+      field: 'species_code',
+      allowNull: false
+    },
+    productCode: {
+      type: Sequelize.STRING(10),
+      field: 'product_code',
+      allowNull: false
+    },
+    uomCode: {
+      type: Sequelize.STRING(10),
+      field: 'uom_code',
+      allowNull: false
+    },
+    soldQuantity: {
+      type: Sequelize.STRING(10),
+      field: 'sold_quantity',
+      allowNull: false
+    },
+    rate: {
+      type: Sequelize.STRING(10),
+      field: 'rate',
+      allowNull: false
+    },
+    yieldComponentCode: {
+      type: Sequelize.STRING(10),
+      field: 'yield_component_code',
+      allowNull: false
+    },
+    mbfConvFactor: {
+      type: Sequelize.STRING(10),
+      field: 'mbf_conv_factor',
+      allowNull: false
+    },
+    ccfConFactor: {
+      type: Sequelize.STRING(10),
+      field: 'ccf_con_factor',
       allowNull: false
     },
     createdAt: {

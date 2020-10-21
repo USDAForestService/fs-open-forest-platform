@@ -22,18 +22,15 @@ const data = [
     state_name: 'Montana',
     number_of_permits: 1,
     convertible_non_convertible: 'C',
-    spu_info:
-      '{'
-       + '"line_item_number": "1",'
-       + '"species_code": "DOUGLASFIR",'
-       + '"product_code": "07",'
-       + '"uom_code": "02",'
-       + '"sold_quantity": "1",'
-       + '"rate": "5.00",'
-       + '"yield_component_code": "CD",'
-       + '"mbf_conv_factor": "2",'
-       + '"ccf_con_factor": "2"'
-      + '}'
+    line_item_number: '1',
+    species_code: 'DOUGLASFIR',
+    product_code: '07',
+    uom_code: '02',
+    sold_quantity: '1',
+    rate: '5.00',
+    yield_component_code: 'CD',
+    mbf_conv_factor: '2',
+    ccf_con_factor: '2',
   },
   {
     id: 2,
@@ -58,18 +55,15 @@ const data = [
     state_name: 'Wyoming',
     number_of_permits: 1,
     convertible_non_convertible: 'C',
-    spu_info:
-      '{'
-       + '"line_item_number": "1",'
-       + '"species_code": "CEDAR",'
-       + '"product_code": "07",'
-       + '"uom_code": "02",'
-       + '"sold_quantity": "1",'
-       + '"rate": "5.00",'
-       + '"yield_component_code": "CD",'
-       + '"mbf_conv_factor": "2",'
-       + '"ccf_con_factor": "2"'
-      + '}'
+    line_item_number: '1',
+    species_code: 'ENGLISHSAP',
+    product_code: '07',
+    uom_code: '02',
+    sold_quantity: '1',
+    rate: '5.00',
+    yield_component_code: 'CD',
+    mbf_conv_factor: '2',
+    ccf_con_factor: '2',
   }
 ];
 module.exports = {
