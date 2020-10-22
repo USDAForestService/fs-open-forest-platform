@@ -21,12 +21,6 @@
       <p>You can buy firewood permits online or in-person at one of <a href="#prohibited">our district offices</a>.</p>
       <button #staticBuyButton [routerLink]="['/firewood/forests/', forest.forestAbbr, 'buy']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>
 
-      <br>
-      <span (click)="printLoadTag()">Print Load Tag</span>
-      <br>
-      <span (click)="printInstructions()">Print instructions</span>
-      <br>
-
       <!-- where to find firewood -->
       <app-where-to-find></app-where-to-find>
 
