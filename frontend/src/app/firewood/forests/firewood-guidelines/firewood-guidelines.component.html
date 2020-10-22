@@ -11,8 +11,15 @@
       <!-- general forest info -->
       <h3 *ngIf="forest">{{forest.forestName}}</h3>
       <h1>Firewood permit information</h1>
-      <p>With a firewood permit, you can cut and collect firewood from the {{forest.forestName}}.</p>
-
+      <p *ngIf="(forest.forestAbbr)==='ipnf'">
+        With a firewood permit, you can collect firewood from the {{forest.forestName}}.
+      </p>
+      <p *ngIf="(forest.forestAbbr)==='flathead' || (forest.forestAbbr)==='gwj' || (forest.forestAbbr)==='conf'">
+        With a firewood permit, you can gather firewood from the {{forest.forestName}}.
+      </p>
+      <p *ngIf="(forest.forestAbbr)==='hiawatha' || (forest.forestAbbr)==='gmug' || (forest.forestAbbr)==='shoshone'">
+        With a firewood permit, you can cut and gather firewood from the {{forest.forestName}}.
+      </p>
       <!-- getting a firewood permit -->
       <app-section-heading heading="Getting a firewood permit" id="season-dates" tabIndex="-1"></app-section-heading>
       <h3>Cost</h3>
