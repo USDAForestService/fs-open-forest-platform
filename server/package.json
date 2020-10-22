@@ -86,7 +86,7 @@
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r .",
     "lint": "eslint **/**/*.es6 **/**/**/*.es6",
     "lint:fix": "eslint **/**/*.es6 **/**/**/*.es6 --fix",
-    "migrate": "sequelize db:migrate",
+    "migrate": "sequelize db:migrate:undo:all; sequelize db:migrate",
     "seed": "sequelize db:seed:all",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
