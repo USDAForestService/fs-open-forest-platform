@@ -64,7 +64,7 @@ export class OrderConfirmationComponent implements OnInit {
       if (data.permit) {
         this.permit = data.permit;
         if (data.forest) {
-          this.permit.forest = data.forest
+          this.permit.forest = data.forest;
         }
         this.firewoodApplicationService.emailPDF(data.permit).subscribe();
       }
