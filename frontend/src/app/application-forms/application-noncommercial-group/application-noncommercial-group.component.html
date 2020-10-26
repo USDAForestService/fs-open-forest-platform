@@ -105,10 +105,10 @@
         <!-- signature -->
         <fieldset id="section-signature" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
           <legend>Signature</legend>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
+          <label for="signature" id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
           <input id="signature"
             name="signature"
-            type="text"
+            type="signature"
             minlength="2"
             maxlength="3"
             formControlName="signature"
