@@ -15,7 +15,7 @@
         <div class="box-top">
           <h2>2020 Personal-use Firewood permit</h2>
           <h3>For the {{forest.forestName}}</h3>
-          <h3 class="not-bold">Jan 1, 2020 - Dec 31, 2020</h3>
+          <h3 class="not-bold"><mark>Expires December 31, 2020</mark></h3>
         </div>
         <div class="box-bottom">
           <ul>
@@ -34,11 +34,11 @@
         <div class="box-top">
           <h2>2020 Personal-use Firewood permit</h2>
           <h3>For the {{forest.forestName}}</h3>
-          <h3 class="not-bold">Expires 6 months after the date of purchase.</h3>
+          <h3 class="not-bold">Expires December 31, 2020</h3>
         </div>
         <div class="box-bottom">
           <ul>
-            <li><strong>Permits are non refundable</strong></li>
+            <li><strong><mark>Permits are non refundable</mark></strong></li>
             <li>
               <strong>Your permit must be printed to be valid and cannot be stored on a mobile device.</strong>
               If you do not have access to a printer, you can purchase your permit in-person from a district office.
@@ -110,7 +110,7 @@
         <div class="box-top">
           <h2>2020 Personal-use Firewood permit</h2>
           <h3>For the {{forest.forestName}}</h3>
-          <h3 class="not-bold">Expires December 31, 2020.</h3>
+          <h3 class="not-bold">Permit expires one year after purchase date.</h3>
         </div>
         <div class="box-bottom">
           <ul>
@@ -148,7 +148,7 @@
       <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
           <fieldset>
             <legend>Permit details</legend>
-            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Each cord is ${{forest.woodCost}}. Minimum of {{forest.minCords}} cords."></app-numer-of-cords>
+            <app-numer-of-cords [applicantInfo]="applicationForm" (onkeyup)="quantityChange($event)" hintText="Cost: ${{forest.woodCost}}/cord. You can buy {{forest.minCords}} - {{forest.maxCords}} cords."></app-numer-of-cords>
             <label class="margin-top-2">Total cost for firewood permit: ${{totalCost}} </label>
 
             <legend class="firewood-permit-holder-legend">Permit holder information</legend>

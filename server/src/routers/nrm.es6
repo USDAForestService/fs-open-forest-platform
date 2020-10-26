@@ -1,6 +1,6 @@
 /**
  * Module for feedback routes
- * @module routers/feedback
+ * @module routers/nrm
  */
 
 const express = require('express');
@@ -11,6 +11,5 @@ const router = express.Router();
 
 // get all nrm service
 router.get('/', nrmController.getEntries);
-
 
 module.exports = router;
