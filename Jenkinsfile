@@ -127,7 +127,8 @@ stage('run-unit-tests'){
                 docker.image('circleci/node:10.22.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
-                 
+                  node -v
+		  
                   cd frontend
                   npm install
                   cd ../server

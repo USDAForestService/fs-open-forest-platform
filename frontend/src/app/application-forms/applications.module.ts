@@ -10,6 +10,7 @@ import { ApplicationNoncommercialGroupLeftNavComponent } from './application-non
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
 import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
+import { FirewoodPermitResolver } from './tree-application-form/firewood-permit-resolver.service';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
 import { DateTimeRangeService } from './_services/date-time-range.service';
@@ -105,6 +106,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ApplicationFieldsService,
     DateTimeRangeService,
     FileUploadService,
+    FirewoodPermitResolver,
     ChristmasTreePermitResolver,
   ]
 })
