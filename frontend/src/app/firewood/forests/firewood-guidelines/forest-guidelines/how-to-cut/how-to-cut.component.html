@@ -21,7 +21,7 @@
   <p>Chainsaws must be equipped with an approved spark arrester screen.</p>
   <p>All vehicles must be equipped with a baffled muffler and serviceable tailpipe.</p>
   <h3>What to expect</h3>
-  <p>Dead trees are dangerous to fall. Make sure you are experienced with your falling equipment and skills.</p>
+  <p>Dead trees are dangerous to fell. Make sure you are experienced with your felling equipment and skills.</p>
   <p>Drive safely and be alert for winter driving conditions. Your vehicle should be equipped with 4-wheel drive, snow tires, chains, and a shovel during the winter season.</p>
   <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return</p>
   <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
@@ -119,47 +119,64 @@
   <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
   <p>Park in areas so that traffic can get by safely and do not block gates.</p>
   <p>The maximum piece length for firewood removal is three (3) feet (36").</p>
-  <h3>Tagging your load</h3>
-  <p>Before hauling wood out of the forest, you will need to fill out a load tag and attach it to the back of your vehicle. The load tag helps law enforcement see that you  have a valid permit and have collected your wood legally.</p>
-  <p>You'll get your load tags after you purchase your permit. Each load tag is equal to a 1/2 cord of wood.</p>
-  <h3>How many tags do you need?</h3>
-  <p>For each cord that you purchase, you will need 2 load tags. Ex. If you purchase 6 cords, you will need 12 load tags.</p>
-  <h3>Filling out tags for online permits</h3>
-  <p>Online firewood permit buyers are emailed black and white load tags that you will need to print with your permit.</p>
-  <p>To validate your tag, you'll need to:</p>
-    <ul>
-      <li>Cut the paper with your two load tags in half to separate the tags.</li>
-      <li>Fill in the day and month that you're harvesting the wood with a black marker. For example, if you harvested on the 4th of July, you would fill in "7" for the month and "4" for the day.</li>
-      <li>Fold your tag on the dotted lines.</li>
-      <li>Place each tag in its own zip-top bag, and close the bag.</li>
-      <li>Nail your tag(s) to a piece of wood in the back of your load so that the side with the USDA logo is visible to cars behind you.</li>
-    </ul>
   <h3>Using your firewood</h3>
   <p>Help prevent the spread of invasive pests and pathogens. Please make an effort to burn your firewood locally.</p>
 </div>
 
-<!-- Tagging Your Load Block -->
-<h3>Tagging your load</h3>
-<p>Before hauling wood out of the forest, you will need to fill out a load tag and attach it
-  to the back of your vehicle. The load tag helps law enforcement see that you have a valid
-  permit and have collected your wood legally.
-</p>
-<p>You'll get your load tags after you purchase your permit. Each load tag is equal to 1/2 cord of wood.</p>
-<h3>Filling out tags for online permits</h3>
-<p>Online permit buyers are emailed black and white load tags that you will need to print with your permit</p>
-<p>To validate your tag, you will need to:</p>
-<ul>
-  <li>Fill in the day and the month that you are harvesting the wood with a black marker. For example,
-    if you harvested on the 4th of July, you would fill in "4" for day and "7" for month.</li>
-  <li>Fold your tag on the dotted lines</li>
-  <li>Place each tag in a zip-top bag, and close the bag.</li>
-  <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
-</ul>
-<h3>Filling out tags for in-person permits</h3>
-<p>You will be given colored load tags when you buy your permit from a district office or a registered vendor.</p>
-<p>To validate your tag, you will need to:</p>
-<ul>
-  <li>Punch out the month</li>
-  <li>Punch out the date</li>
-  <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
-</ul>
+<!-- Tagging Your Load Block for Regions 1, 8, and 9-->
+<div *ngIf="(forest.forestAbbr) == 'ipnf' || (forest.forestAbbr)=='flathead'|| (forest.forestAbbr)=='conf' || (forest.forestAbbr)=='gwj' || (forest.forestAbbr)=='hiawatha'">
+  <h3>Load tags are required for permits bought online</h3>
+  <p>
+    If you get your permit online, you’ll need to tag your load by filling out
+    and attaching a load tag to your firewood before you haul it out of the forest.
+    You'll get your load tags after you purchase your permit.
+  </p>
+  <h3>How to tag your load</h3>
+  <p>After you purchase your permit online, you’ll be emailed black and white load tags along with your permit. You will need to print your load tags and your permit and bring them with you when you go to the forest.</p>
+  <p>Fill out your tag(s) after you've loaded your wood, but before you start hauling it.</p>
+  <h3>To fill out a tag, you'll need to:</h3>
+  <ul>
+    <li>Write in the day and the month that you get the wood with a black marker. For example, if you get wood  on the 4th of July, you would fill in "4" for day and "7" for month.</li>
+  </ul>
+  <h3>To attach a tag, you'll need to:</h3>
+  <ul>
+    <li>Fold your tag on the dotted lines.</li>
+    <li>Place each tag in a zip-top bag, and close the bag.</li>
+    <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
+  </ul>
+</div>
+
+<!-- Tagging Your Load Block for Region 2 -->
+<div *ngIf="(forest.forestAbbr)=='shoshone' || (forest.forestAbbr)=='GMUG'">
+  <h3>Tagging your load</h3>
+  <p>You’ll need to tag your load by filling out and attaching a load tag to your firewood before you haul it out of the forest. You'll get your load tags after you purchase your permit. </p>
+  <p>The load tag helps law enforcement see that you have a valid permit and have collected your wood legally.</p>
+  <h3>How to tag your load if you bought your permit online</h3>
+  <p>After you purchase your permit online, you’ll be emailed black and white load tags along with your permit. </p>
+  <p>You’ll need to print your load tags and your permit and bring them with you when you go to the forest. </p>
+  <p>Fill out and attach your tag(s) after you’ve loaded your wood, but before you start hauling it.</p>
+  <p>To fill out  a tag, you’ll need to:</p>
+    <ul>
+      <li>Write in the day and the month that you  get wood with a black marker. For example, if you get wood on the 4th of July, you would write in "4" for day and "7" for month.</li>
+    </ul>
+  <p>To attach a tag, you’ll need to: </p>
+  <ul>
+    <li>Fold your tag on the dotted lines.</li>
+    <li>Place each tag in a zip-top bag, and close the bag.</li>
+    <li>Nail your tag(s) to a piece of wood in the back of your load so that it is visible to cars behind you.</li>
+  </ul>
+  <p>How to tag your load if you bought your permit at a District office or from a vendor.</p>
+  <p>You’ll be given colored load tags when you buy your permit from a district office or a registered vendor.</p>
+  <p>Fill out and attach your tag(s) after you’ve loaded your wood, but before you start hauling it.</p>
+  <h3>To fill out a tag, you'll need to:</h3>
+  <ul>
+    <li>Punch out the month</li>
+    <li>Punch out the date</li>
+  </ul>
+  <h3>To attach a tag, you'll need to:</h3>
+  <ul>
+    <li>Nail your tag to a piece of wood in the back of your load so that it’s visible to cars behind you.</li>
+  </ul>
+  <h3>How many tags you'll need</h3>
+  <p>Load tags are in 1/2 cord increments. So, for example, if you're hauling 1 cord of wood, you'll need to fill in and attach 2 tags.</p>
+</div>
