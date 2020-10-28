@@ -332,9 +332,7 @@ const appRoutes: Routes = [
       },
       {
         path: ':id',
-        resolve: {
-          forest: ForestResolver
-        },
+        component: ForestFinderComponent,
         data: {
           breadcrumbs: true,
           text: '{{forest.forestName}}'
@@ -342,7 +340,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: '',
-            component: TreeGuidelinesComponent
+            component: ForestFinderComponent,
           },
           {
             path: 'applications',
@@ -350,14 +348,14 @@ const appRoutes: Routes = [
             children: [
               {
                 path: '',
-                component: TreeApplicationFormComponent
+                component: ForestFinderComponent
               }
             ]
           },
           {
             // cancel route
             path: 'applications/:permitId',
-            component: TreeApplicationFormComponent,
+            component: ForestFinderComponent,
             resolve: {
               permit: ChristmasTreePermitResolver
             },
@@ -365,7 +363,7 @@ const appRoutes: Routes = [
           },
           {
             path: 'maps/:mapId',
-            component: ChristmasTreeMapDetailsComponent
+            component: ForestFinderComponent
           }
         ]
       }
@@ -373,10 +371,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'christmas-trees/forests/:id/applications/permits/:permitId',
-    component: TreePermitViewComponent,
-    resolve: {
-      permit: ChristmasTreePermitResolver
-    },
+    component: ForestFinderComponent,
     data: {
       breadcrumbs: PermitBreadcrumbsResolver,
       showAdmin: true
