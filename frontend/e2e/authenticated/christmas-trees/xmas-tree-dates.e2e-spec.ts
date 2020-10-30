@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Christmas tree  - When to Cut Your Tree page', () => {
+xdescribe('Christmas tree  - When to Cut Your Tree page', () => {
   let page: TreesSidebarPage;
 
   describe('Mt Hood', () => {
