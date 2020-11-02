@@ -4,7 +4,7 @@ applications:
   routes:
     - route: fs-intake-api-staging.app.cloud.gov
   path: ../../../server
-  buildpack: nodejs_buildpack
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 256M
   instances: 1
   disk_quota: 2G
