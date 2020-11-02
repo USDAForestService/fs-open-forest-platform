@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^9.1.0",
-    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular-devkit/build-angular": "^0.1002.0",
     "@angular/cli": "^7.3.3",
     "@angular/compiler-cli": "^7.2.7",
     "@types/jasmine": "^2.8.16",
@@ -82,7 +82,7 @@
     "karma-coverage-istanbul-reporter": "^1.4.3",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "pa11y-ci": "^2.0.0",
+    "pa11y-ci": "^2.4.0",
     "protractor": "^5.4.2",
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
     "replace-in-file": "^2.5.2",
@@ -90,7 +90,7 @@
     "superstatic": "^6.0.4",
     "ts-node": "^3.1.0",
     "tslint": "^5.12.1",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.19.2",
     "typescript": "^3.2.4"
   }
 }
