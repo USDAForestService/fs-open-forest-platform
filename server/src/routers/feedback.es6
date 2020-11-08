@@ -16,6 +16,6 @@ router.get('/', feedbackController.getEntries);
 router.get('/:id', feedbackController.getEntry);
 
 // create new feedback entry
-router.post('/create', feedbackController.createEntry);
+router.post('/create', feedbackController.create);
 
 module.exports = router;
