@@ -34,7 +34,7 @@ nrm.getEntries = (req, res) => {
   });
 };
 
-nrm.create = async (req, res) => {
+nrm.createEntry = async (req, res) => {
   nrm.createService(req.body).then((entry) => {
     res.status(200).json(entry);
   }).catch((error) => {
