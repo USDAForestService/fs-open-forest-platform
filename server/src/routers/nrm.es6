@@ -12,6 +12,6 @@ const router = express.Router();
 // get all nrm service
 router.get('/', nrmController.getEntries);
 
-router.post('/', nrmController.create);
+router.post('/', nrmController.createEntry);
 
 module.exports = router;
