@@ -7,6 +7,7 @@
 
 const logger = require('../services/logger.es6');
 const nrmEntries = require('../models/nrm-service.es6');
+const nrmService = require('../services/nrm.service.es6');
 
 const nrm = {};
 
@@ -35,7 +36,7 @@ nrm.getEntries = (req, res) => {
 };
 
 nrm.createEntry = async (req, res) => {
-  nrm.createService(req.body).then((entry) => {
+  nrmService.createNrmPermit(req.body).then((entry) => {
     res.status(200).json(entry);
   }).catch((error) => {
     res.status(500).json(error);
