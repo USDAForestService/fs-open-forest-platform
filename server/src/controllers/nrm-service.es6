@@ -34,4 +34,14 @@ nrm.getEntries = (req, res) => {
   });
 };
 
+// API function to create a new feedback entry
+nrm.createEntry = async (req, res) => {
+  nrmService.create(req.body).then((entry) => {
+    res.status(200).json(entry);
+  }).catch((error) => {
+    res.status(500).json(error);
+    util.handleErrorResponse(error, res, '  createEntry#end  ');
+  });
+};
+
 module.exports = nrm;
