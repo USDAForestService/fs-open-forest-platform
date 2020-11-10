@@ -279,8 +279,8 @@ sh '''
       '''
 
 
-docker.image('circleci/node:10.22.1-browsers').withRun() {
-                docker.image('circleci/node:10.22.1-browsers').inside() {
+docker.image('circleci/node:8.15.1-browsers').withRun() {
+                docker.image('circleci/node:8.15.1-browsers').inside() {
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
                   export OPEN_FOREST_CHROME_DRIVER="$OPEN_FOREST_CHROME_DRIVER"
