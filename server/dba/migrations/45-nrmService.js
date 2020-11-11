@@ -3,7 +3,7 @@
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('nrmEntries', {
-      id: { type: Sequelize.INTEGER, primaryKey: true, field: 'id'},
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, field: 'id'},
       permitCn: { type: Sequelize.STRING(34), field: 'permit_cn' },
       regionName: { type: Sequelize.STRING(80), field: 'region_name' },
       regionCode: { type: Sequelize.STRING(2), field: 'region_code' },
