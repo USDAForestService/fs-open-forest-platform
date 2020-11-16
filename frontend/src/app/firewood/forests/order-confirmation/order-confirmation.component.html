@@ -6,13 +6,13 @@
       <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Firewood permit confirmation</h1>
     </div>
 
-    <div class="confirmation-details-container margin-top-2" *ngIf="(forest.forestAbbr) == 'ipnf' || (forest.forestAbbr)=='flathead'|| (forest.forestAbbr)=='conf' || (forest.forestAbbr)=='gwj' || (forest.forestAbbr)=='hiawatha'">
+    <div class="confirmation-details-container margin-top-2" *ngIf="(forest.region) !== '2'">
       <p>Your firewood permit has been purchased.</p>
       <p>Your permit, load tags and required documents have been sent to <strong>{{permit.emailAddress}}</strong>. If for some reason this email address is incorrect, please print your documents now.</p>
       <p><strong>You will need to have your permit, load tags and required documents with you when collecting firewood for your permit to be valid.</strong> Your load tags will have instructions for how to fill it out and attach it to your load.</p>
     </div>
 
-    <div class="confirmation-details-container margin-top-2" *ngIf="(forest.forestAbbr)=='shoshone' || (forest.forestAbbr)=='GMUG'">
+    <div class="confirmation-details-container margin-top-2" *ngIf="(forest.region) === '2'">
       <p>Your firewood permit has been purchased.</p>
       <p>Your permit and required documents have been sent to <strong>{{permit.emailAddress}}</strong>. If for some reason this email address is incorrect, please print your documents now.</p>
       <p><strong>You will need to have your permit and required documents with you when collecting firewood for your permit to be valid.</strong> Your load tags will have instructions for how to fill it out and attach it to your load.</p>

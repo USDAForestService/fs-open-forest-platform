@@ -124,7 +124,7 @@
 </div>
 
 <!-- Tagging Your Load Block for Regions 1, 8, and 9-->
-<div *ngIf="(forest.forestAbbr) === 'ipnf' || (forest.forestAbbr)==='flathead'|| (forest.forestAbbr)==='conf' || (forest.forestAbbr)==='gwj' || (forest.forestAbbr)==='hiawatha'">
+<div *ngIf="(forest.region) !== '2'">
   <h3>Load tags are required for permits bought online</h3>
   <p>
     If you get your permit online, you’ll need to tag your load by filling out
@@ -147,7 +147,7 @@
 </div>
 
 <!-- Tagging Your Load Block for Region 2 -->
-<div *ngIf="(forest.forestAbbr)==='shoshone' || (forest.forestAbbr)==='GMUG'">
+<div *ngIf="(forest.region) === '2'">
   <h3>Tagging your load</h3>
   <p>You’ll need to tag your load by filling out and attaching a load tag to your firewood before you haul it out of the forest. You'll get your load tags after you purchase your permit. </p>
   <p>The load tag helps law enforcement see that you have a valid permit and have collected your wood legally.</p>
