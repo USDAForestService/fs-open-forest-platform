@@ -1,7 +1,7 @@
 <app-section-heading heading="How to gather your firewood" id="cutting-instructions" tabIndex="-1"></app-section-heading>
 
 <!-- ipnf block -->
-<div *ngIf="(forest.forestAbbr) == 'ipnf'">
+<div *ngIf="(forest.forestAbbr) === 'ipnf'">
   <h3>Equipment you'll need</h3>
   <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
   <p>Chainsaws must be equipped with an approved spark arrestor screen.</p>
@@ -15,7 +15,7 @@
 </div>
 
 <!-- flathead block -->
-<div *ngIf="(forest.forestAbbr)=='flathead'">
+<div *ngIf="(forest.forestAbbr)==='flathead'">
   <h3>Equipment you'll need during the Proclaimed Fire Season</h3>
   <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
   <p>Chainsaws must be equipped with an approved spark arrester screen.</p>
@@ -31,7 +31,7 @@
 </div>
 
 <!-- conf block -->
-<div *ngIf="(forest.forestAbbr)=='conf'">
+<div *ngIf="(forest.forestAbbr)==='conf'">
   <p>Dead trees can be dangerous when they fall. Make sure you understand how to collect dead trees safely, using the right equipment and skills. </p>
   <p>Before you go check the weather forecast and always let someone know where you will be and when you are expected to return.</p>
   <p>Forest Service roads may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.</p>
@@ -42,7 +42,7 @@
 </div>
 
 <!-- gwj block -->
-<div *ngIf="(forest.forestAbbr)=='gwj'">
+<div *ngIf="(forest.forestAbbr)==='gwj'">
   <h3>Equipment</h3>
   <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
   <p>Chainsaws must be equipped with an approved spark arrestor screen.</p>
@@ -69,7 +69,7 @@
 </div>
 
 <!-- GMUG block -->
-<div *ngIf="(forest.forestAbbr)=='GMUG'">
+<div *ngIf="(forest.forestAbbr)==='GMUG'">
   <h3>Equipment</h3>
   <p>Chainsaw operators must have a serviceable fire extinguisher (liquid 8 oz. or dry chemical 1 lb.) and shovel available at all times.</p>
   <p>Chainsaws must be equipped with an approved spark arrestor device properly installed, maintained, and in effective working order.</p>
@@ -90,7 +90,7 @@
 </div>
 
 <!-- shoshone block -->
-<div *ngIf="(forest.forestAbbr)=='shoshone'">
+<div *ngIf="(forest.forestAbbr)==='shoshone'">
   <h3>Equipment</h3>
   <p>Chainsaws must be in good repair and equipped with a spark arrester with a 0.023 screen.</p>
   <h3>What to expect</h3>
@@ -109,7 +109,7 @@
 </div>
 
 <!-- Hiawatha block -->
-<div *ngIf="(forest.forestAbbr)=='hiawatha'">
+<div *ngIf="(forest.forestAbbr)==='hiawatha'">
   <h3>Equipment you'll need</h3>
   <p>The use of portable sawmill equipment, large capacity hydraulic boom loaders and large capacity truck/trailer combinations are prohibited.</p>
   <p>The use of equipment to move firewood out to a road such as tractors, rubber-tired skidders, ATV's/OHV's or similar vehicles is prohibited.</p>
@@ -124,7 +124,7 @@
 </div>
 
 <!-- Tagging Your Load Block for Regions 1, 8, and 9-->
-<div *ngIf="(forest.forestAbbr) == 'ipnf' || (forest.forestAbbr)=='flathead'|| (forest.forestAbbr)=='conf' || (forest.forestAbbr)=='gwj' || (forest.forestAbbr)=='hiawatha'">
+<div *ngIf="(forest.forestAbbr) === 'ipnf' || (forest.forestAbbr)==='flathead'|| (forest.forestAbbr)==='conf' || (forest.forestAbbr)==='gwj' || (forest.forestAbbr)==='hiawatha'">
   <h3>Load tags are required for permits bought online</h3>
   <p>
     If you get your permit online, you’ll need to tag your load by filling out
@@ -147,7 +147,7 @@
 </div>
 
 <!-- Tagging Your Load Block for Region 2 -->
-<div *ngIf="(forest.forestAbbr)=='shoshone' || (forest.forestAbbr)=='GMUG'">
+<div *ngIf="(forest.forestAbbr)==='shoshone' || (forest.forestAbbr)==='GMUG'">
   <h3>Tagging your load</h3>
   <p>You’ll need to tag your load by filling out and attaching a load tag to your firewood before you haul it out of the forest. You'll get your load tags after you purchase your permit. </p>
   <p>The load tag helps law enforcement see that you have a valid permit and have collected your wood legally.</p>
