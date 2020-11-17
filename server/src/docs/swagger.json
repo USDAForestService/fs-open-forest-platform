@@ -747,7 +747,7 @@
     }
   }, 
   "schemes": [
-    "http"
+    "https"
   ], 
   "definitions": {
     "tempOutfitterFields": {

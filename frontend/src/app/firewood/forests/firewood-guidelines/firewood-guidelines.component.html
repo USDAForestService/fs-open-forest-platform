@@ -11,8 +11,15 @@
       <!-- general forest info -->
       <h3 *ngIf="forest">{{forest.forestName}}</h3>
       <h1>Firewood permit information</h1>
-      <p>With a firewood permit, you can cut and collect firewood from the {{forest.forestName}}.</p>
-
+      <p *ngIf="(forest.forestAbbr)==='ipnf'">
+        With a firewood permit, you can collect firewood from the {{forest.forestName}}.
+      </p>
+      <p *ngIf="(forest.forestAbbr)==='flathead' || (forest.forestAbbr)==='gwj' || (forest.forestAbbr)==='conf'">
+        With a firewood permit, you can gather firewood from the {{forest.forestName}}.
+      </p>
+      <p *ngIf="(forest.forestAbbr)==='hiawatha' || (forest.forestAbbr)==='gmug' || (forest.forestAbbr)==='shoshone'">
+        With a firewood permit, you can cut and gather firewood from the {{forest.forestName}}.
+      </p>
       <!-- getting a firewood permit -->
       <app-section-heading heading="Getting a firewood permit" id="season-dates" tabIndex="-1"></app-section-heading>
       <h3>Cost</h3>
@@ -20,9 +27,6 @@
       <h3>Buy a permit</h3>
       <p>You can buy firewood permits online or in-person at one of <a href="#prohibited">our district offices</a>.</p>
       <button #staticBuyButton [routerLink]="['/firewood/forests/', forest.forestAbbr, 'buy']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>
-
-      <span (click)="printPDF()">Print PDF</span>
-      <span (click)="emailPDF()">Email PDF</span>
 
       <!-- where to find firewood -->
       <app-where-to-find></app-where-to-find>
