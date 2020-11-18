@@ -12,9 +12,11 @@ module.exports = util.getSequelizeConnection().define(
   'nrmEntries',
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      unique: true,
+      allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
       field: 'id'
     },
     permitCn: {
