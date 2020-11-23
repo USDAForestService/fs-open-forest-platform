@@ -3,6 +3,7 @@ applications:
 - name: open-forest-platform-frontend-staging
   path: ../../../frontend/dist
   memory: 64M
+  disk_quota: 6G
   host: open-forest-staging
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
