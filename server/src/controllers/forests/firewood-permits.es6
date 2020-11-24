@@ -53,6 +53,27 @@ firewoodPermits.create = async (req, res) => {
   }
 };
 
+firewoodPermits.processPermitForNRM = async (req, res) => {
+  const unprocessedPermit = req.body
+
+  const query = {
+    where: { permitId: unprocessedPermit.permitId },
+    include: [{ model: forestsDb.fsForests }]
+  };
+
+  try {
+    const permit = await forestsDb.firewoodPermits.findOne(query);
+
+    if (!permit) {
+      return res.status(404).send();
+    }
+    const updatedPermit = await permit.update({ processed: true });
+    return res.status(200).json(updatedPermit);
+  } catch (error) {
+    util.handleErrorResponse(error, res, 'processPermitForNRM#end');
+  }
+}
+
 /**
  * @function getOnePermit - API function to get a permit.
  * @param {Object} req - http request

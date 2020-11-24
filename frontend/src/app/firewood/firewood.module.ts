@@ -5,6 +5,7 @@ import { ReportResultsComponent } from './admin/report/results/report-results.co
 import { SharedModule } from '../shared/shared.module';
 import { FirewoodCuttingDatesComponent } from './forests/firewood-guidelines/firewood-cutting-dates/firewood-cutting-dates.component';
 import { FirewoodGuidelinesComponent } from './forests/firewood-guidelines/firewood-guidelines.component';
+import { NrmService } from './_services/nrm.service';
 import { FirewoodInfoService } from './_services/firewood-info.service';
 import { FirewoodPermitRulesComponent } from './forests/firewood-rules/firewood-permit-rules.component';
 import { FeedbackService } from './_services/feedback.service';
@@ -49,6 +50,7 @@ import { ContactUsComponent } from './forests/firewood-guidelines/forest-guideli
   providers: [
     FeedbackService,
     FirewoodInfoService,
+    NrmService,
     FirewoodAdminService,
     FirewoodApplicationService,
   ]
