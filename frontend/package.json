@@ -72,7 +72,7 @@
     "async": "^2.6.1",
     "codelyzer": "^4.1.1",
     "emoji-regex": "^6.5.0",
-    "highlight.js": "9.13.1",
+    "highlight.js": "10.1.2",
     "is-docker": "^1.1.0",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^4.1.1",
