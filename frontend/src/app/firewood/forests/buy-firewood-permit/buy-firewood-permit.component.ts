@@ -19,6 +19,7 @@ import { WindowRef } from '../../../_services/native-window.service';
   templateUrl: './buy-firewood-permit.component.html'
 })
 export class BuyFirewoodPermitComponent implements OnInit {
+  //This comment is just a change that I can test my git push with
   @Input() applicantInfo: FormGroup;
   forest: any;
   permit: any;
