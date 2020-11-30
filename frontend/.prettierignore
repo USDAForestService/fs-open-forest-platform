@@ -1,2 +1,9 @@
-**/esri-map/*.scss
-**/esri-map/*.ts
+# The below commented lines (8 & 9) were an attempt to make Prettier ignore
+# all esri files as they were causing problems with the pre-push checks.
+# Utimately, the Husky pre-push hooks were set to "false" in order to
+# skip them altogether.
+
+
+
+#**/esri-map/*.scss
+#**/esri-map/*.ts
