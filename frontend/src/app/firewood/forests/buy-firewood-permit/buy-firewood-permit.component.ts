@@ -16,11 +16,16 @@ import { WindowRef } from '../../../_services/native-window.service';
 
 @Component({
   selector: 'app-buy-firewood-permit',
-  templateUrl: './buy-firewood-permit.component.html'
+  templateUrl: './buy-firewood-permit.component.html',
 })
 export class BuyFirewoodPermitComponent implements OnInit {
-  @Input() applicantInfo: FormGroup;
-  forest: any;permit:any;submitted = false;application: any;applicationForm: FormGroup;
+  @Input()
+  applicantInfo: FormGroup;
+  forest: any;
+  permit: any;
+  submitted = false;
+  application: any;
+  applicationForm: FormGroup;
   costPerTree: number;
   apiErrors: any;
   showRules = false;
@@ -43,7 +48,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: `Purchase a Firewood permit with the United States Forest Service on your National Forest.`
+      content: `Purchase a Firewood permit with the United States Forest Service on your National Forest.`,
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl(),
@@ -51,7 +56,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       firstName: new FormControl(),
       lastName: new FormControl(),
     });
-    this.totalCost = 0.00;
+    this.totalCost = 0.0;
   }
 
   /**
@@ -60,10 +65,9 @@ export class BuyFirewoodPermitComponent implements OnInit {
   quantityChange(userInput) {
     const minCords = this.forest.minCords;
     const maxCords = this.forest.maxCords;
-    this.applicationForm.get('numberOfCords').setValidators([
-      Validators.required,
-      numberOfCordsValidator(maxCords, minCords)
-    ]);
+    this.applicationForm
+      .get('numberOfCords')
+      .setValidators([Validators.required, numberOfCordsValidator(maxCords, minCords)]);
     this.totalCost = userInput * this.forest.woodCost;
     this.applicationForm.get('totalCost').setValue(this.totalCost);
   }
@@ -72,23 +76,39 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * @returns application form
    */
   getApplicationForm(formBuilder) {
-    return formBuilder.group({
-      acceptPII: [false, Validators.required],
-      forestId: ['', [Validators.required]],
-      forestAbbr: [''],
-      firstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
-      lastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
-      orgStructureCode: ['', [Validators.required]],
-      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
-      emailAddressConfirmation: [
-        '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
-          '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
-        ), Validators.maxLength(255)]
-      ],
-      numberOfCords: ['', [Validators.required, numberOfCordsValidator(this.forest.maxCords, this.forest.minCords)]],
-      totalCost: [0, [Validators.required, currencyValidator()]]
-    },
-    {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')});
+    return formBuilder.group(
+      {
+        acceptPII: [false, Validators.required],
+        forestId: ['', [Validators.required]],
+        forestAbbr: [''],
+        firstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
+        lastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
+        orgStructureCode: ['', [Validators.required]],
+        emailAddress: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            alphanumericValidator(),
+            Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'),
+            Validators.maxLength(255),
+          ],
+        ],
+        emailAddressConfirmation: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            alphanumericValidator(),
+            Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'),
+            Validators.maxLength(255),
+          ],
+        ],
+        numberOfCords: ['', [Validators.required, numberOfCordsValidator(this.forest.maxCords, this.forest.minCords)]],
+        totalCost: [0, [Validators.required, currencyValidator()]],
+      },
+      { validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation') }
+    );
   }
 
   /**
@@ -105,7 +125,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       this.rePopulateForm();
     }
 
-    this.applicationForm.get('numberOfCords').valueChanges.subscribe(value => {
+    this.applicationForm.get('numberOfCords').valueChanges.subscribe((value) => {
       this.quantityChange(value);
     });
   }
@@ -120,14 +140,14 @@ export class BuyFirewoodPermitComponent implements OnInit {
   }
 
   /**
-  * handle the data of an existing application
-  */
+   * handle the data of an existing application
+   */
   handleData(isCancel) {
     this.checkSeasonStartDate(this.forest);
 
     // cancel any permits coming here that are still initiated and not yet completed
     if (this.permit && isCancel && this.permit.status === 'Initiated') {
-      this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
+      this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe((updated) => {
         this.permit = updated;
         this.showCancelAlert = true;
       });
@@ -137,7 +157,6 @@ export class BuyFirewoodPermitComponent implements OnInit {
       'Buy a Firewood permit | ' + this.forest.forestName + ' | U.S. Forest Service Open Forest'
     );
     this.createForm(this.forest, this.formBuilder);
-
   }
 
   /**
@@ -146,7 +165,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
   ngOnInit() {
     this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
 
-    this.location.subscribe(locationChange => {
+    this.location.subscribe((locationChange) => {
       if (locationChange.type === 'hashchange') {
         // back button press from #rules
         this.showRules = false;
@@ -154,7 +173,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     });
     let isCancel = false;
     this.route.queryParams.forEach((params: Params) => {
-      if (params.cancel)  {
+      if (params.cancel) {
         isCancel = true;
       }
 
@@ -163,7 +182,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
       }
     });
 
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       if (data.forest) {
         this.forest = data.forest;
         this.permit = data.permit;
@@ -208,16 +227,14 @@ export class BuyFirewoodPermitComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
-    const paramsWhitelist = [
-      'forestId', 'firstName', 'lastName', 'emailAddress', 'numberOfCords'
-    ];
+    const paramsWhitelist = ['forestId', 'firstName', 'lastName', 'emailAddress', 'numberOfCords'];
 
     const formValuesToSend = Object.keys(this.applicationForm.value)
-    .filter((key) => paramsWhitelist.includes(key))
-    .reduce((aggregator, key) => {
-      aggregator[key] = this.applicationForm.value[key];
-      return aggregator;
-    }, {});
+      .filter((key) => paramsWhitelist.includes(key))
+      .reduce((aggregator, key) => {
+        aggregator[key] = this.applicationForm.value[key];
+        return aggregator;
+      }, {});
     this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
       (response: any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
