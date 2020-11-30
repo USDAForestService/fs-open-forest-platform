@@ -1,1 +1,2 @@
-**/esri-map/*
+**/esri-map/*.scss
+**/esri-map/*.ts
