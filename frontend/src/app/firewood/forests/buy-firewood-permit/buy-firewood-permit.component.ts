@@ -21,12 +21,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 export class BuyFirewoodPermitComponent implements OnInit {
   //This comment is just a change that I can test my git push with
   @Input() applicantInfo: FormGroup;
-  forest: any;
-  permit: any;
-  submitted = false;
-  application: any;
-  applicationForm: FormGroup;
-  costPerTree: number;
+  forest: any;permit: any;submitted = false;application: any;applicationForm: FormGroup;costPerTree: number;
   apiErrors: any;
   showRules = false;
   jwtToken: string;
