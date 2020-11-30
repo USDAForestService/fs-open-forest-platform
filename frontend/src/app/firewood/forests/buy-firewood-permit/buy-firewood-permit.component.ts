@@ -20,10 +20,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 })
 export class BuyFirewoodPermitComponent implements OnInit {
   @Input() applicantInfo: FormGroup;
-  forest: any;permit:
-  any;submitted = false;
-  application: any;
-  applicationForm: FormGroup;
+  forest: any;permit:any;submitted = false;application: any;applicationForm: FormGroup;
   costPerTree: number;
   apiErrors: any;
   showRules = false;
