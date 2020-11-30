@@ -13,7 +13,6 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-// This comment is just a benign change to allow a PR to be opened in order to figure out why PRs aren't being permitted after Prettier is implemented
 
 @Component({
   selector: 'app-buy-firewood-permit',
@@ -21,11 +20,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 })
 export class BuyFirewoodPermitComponent implements OnInit {
   @Input() applicantInfo: FormGroup;
-  forest: any;
-  permit: any;
-  submitted = false;
-  application: any;
-  applicationForm: FormGroup;
+  forest: any;permit: any;submitted = false;application: any;applicationForm: FormGroup;
   costPerTree: number;
   apiErrors: any;
   showRules = false;
