@@ -73,7 +73,7 @@
     "npm-run-all": "^4.1.5",
     "nyc": "^11.9.0",
     "path": "^0.12.7",
-    "prettier": "^2.2.1",
+    "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
     "sequelize-cli": "^5.5.1",
     "sinon": "^4.4.6",
@@ -82,6 +82,7 @@
     "unionized": "^5.0.0"
   },
   "scripts": {
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "copy-frontend-assets": "./copy-frontend-assets.sh",
     "coverage": "nyc --check-coverage --lines 65 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
@@ -89,6 +90,8 @@
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
     "docs": "npm run jsdoc",
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r .",
+    "format:fix": "pretty-quick --staged",
+    "precommit": "run-s format:fix lint",
     "lint": "eslint **/**/*.es6 **/**/**/*.es6",
     "lint:fix": "eslint **/**/*.es6 **/**/**/*.es6 --fix",
     "migrate": "sequelize db:migrate:undo:all; sequelize db:migrate",
@@ -99,6 +102,12 @@
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
     "undoLastMigrate": "sequelize db:migrate:undo"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "ng build --aot true"
+    }
   },
   "engines": {
     "node": "^10.18.0"
