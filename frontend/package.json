@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "build": "ng build",
     "dist-dev": "ng build --prod --output-hashing=all --configuration=dev",
     "dist-trees": "ng build --prod --output-hashing=all --configuration=trees",
@@ -14,6 +15,8 @@
     "e2e:cidkr:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:su:head": "ng e2e --port=4200  --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:head": "ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
+    "format:fix": "pretty-quick --staged",
+    "pre-commit": "run-s format:fix lint",
     "lint": "ng lint",
     "ng": "ng",
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
@@ -25,6 +28,12 @@
     "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
     "update-version": "node ./replace.build.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "ng build --aot true"
+    }
   },
   "private": true,
   "dependencies": {
@@ -85,7 +94,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "npm-run-all": "^4.1.5",
     "pa11y-ci": "^2.0.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
     "protractor": "^5.4.2",
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
