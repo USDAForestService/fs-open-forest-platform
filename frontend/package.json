@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
     "build": "ng build",
     "dist-dev": "ng build --prod --output-hashing=all --configuration=dev",
     "dist-trees": "ng build --prod --output-hashing=all --configuration=trees",
@@ -16,7 +16,6 @@
     "e2e:su:head": "ng e2e --port=4200  --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:head": "ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
     "format:fix": "pretty-quick --staged",
-    "pre-commit": "run-s format:fix lint",
     "lint": "ng lint",
     "ng": "ng",
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
@@ -28,12 +27,6 @@
     "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
     "update-version": "node ./replace.build.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "pre-push": false
-    }
   },
   "private": true,
   "dependencies": {
@@ -54,7 +47,7 @@
     "angular2-spinner": "^1.0.10",
     "classlist.js": "^1.1.20150312",
     "core-js": "2.6.1",
-    "esri-loader": "^2.14.0",
+    "esri-loader": "^2.16.0",
     "intl": "^1.2.5",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.21",
@@ -63,6 +56,7 @@
     "ng2-file-upload": "^1.2.1",
     "ngx-md": "^7.1.0",
     "ngx6-angular-breadcrumbs": "^0.0.3",
+    "onchange": "^7.1.0",
     "postcss-loader": "^3.0.0",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.0.0-rc.0",
@@ -82,7 +76,6 @@
     "codelyzer": "^4.1.1",
     "emoji-regex": "^6.5.0",
     "highlight.js": "9.13.1",
-    "husky": "^4.3.0",
     "is-docker": "^1.1.0",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^4.1.1",
@@ -92,9 +85,8 @@
     "karma-coverage-istanbul-reporter": "^1.4.3",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "npm-run-all": "^4.1.5",
     "pa11y-ci": "^2.0.0",
-    "prettier": "^2.1.2",
+    "prettier": "2.2.1",
     "pretty-quick": "^3.1.0",
     "protractor": "^5.4.2",
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
