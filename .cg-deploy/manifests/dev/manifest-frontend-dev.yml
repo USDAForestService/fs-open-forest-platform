@@ -3,6 +3,7 @@ applications:
 - name: open-forest-platform-frontend-dev
   path: ../../../frontend/dist
   memory: 64M
+  disk_quota: 6G
   routes:
    - route: open-forest-dev.app.cloud.gov
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git

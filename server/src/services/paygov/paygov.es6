@@ -62,7 +62,7 @@ paygov.createToken = (permitId) => {
 paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
   const token = paygov.createToken(permitId);
   let url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/firewood/forests/`;
-  url += `${forestAbbr}permits/${permitId}`;
+  url += `${forestAbbr}/permits/${permitId}`;
   url += `${isCancelUrl ? 'cancel=true' : ''}t=${token}`;
   return url;
 };
