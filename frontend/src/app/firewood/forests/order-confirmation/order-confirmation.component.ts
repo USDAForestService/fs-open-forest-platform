@@ -69,10 +69,13 @@ export class OrderConfirmationComponent implements OnInit {
         // process this permit for NRM if it has not been already
         if (!data.permit.processed) {
           this.firewoodApplicationService.processPermitForNRM(this.permit).subscribe(value => {
-            this.nrmService.create(this.permit)
+            this.nrmService.create(this.permit).subscribe(nrmEntry => {
+              // e-mail the permit to the purchaser
+              this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
+                console.log('email sent')
+              });
+            })
           })
-          // e-mail the permit to the purchaser
-          this.firewoodApplicationService.emailPDF(data.permit).subscribe();
         }
 
       }

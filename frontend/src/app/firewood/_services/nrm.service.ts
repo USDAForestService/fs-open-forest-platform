@@ -14,8 +14,6 @@ export class NrmService {
   // create an nrm entry
   create(body) {
 
-    console.dir(body)
-
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     let nrmEntry = {
