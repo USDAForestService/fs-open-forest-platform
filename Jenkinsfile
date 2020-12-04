@@ -1,6 +1,6 @@
 def jobnameparts = JOB_NAME.tokenize('/') as String[]
 def jobconsolename = jobnameparts[0]
-properties = null   
+properties = null
 
 pipeline {
     agent {
@@ -17,7 +17,7 @@ pipeline {
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
-    
+
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
@@ -25,20 +25,20 @@ pipeline {
 	RUN_E2E_STATUS = 'Pending'
 	RUN_PA11Y_STATUS = 'Pending'
 	DEPLOY_STATUS = 'Pending'
-	RUN_SONARQUBE_STATUS = 'Pending'	        
+	RUN_SONARQUBE_STATUS = 'Pending'
     POSTGRES_HOST = 'localhost'
     POSTGRES_USER = 'postgres'
-    HOME='.' 
+    HOME='.'
     currentdate= sh (returnStdout: true, script: 'date +%Y%m%d%H%M%S').trim()
     DB_URL = 'postgres://fs_open_forest:fs_open_forest@10.0.0.102/'
     OPEN_FOREST_CHROME_DRIVER="/usr/local/bin/chromedriver"
 
-    CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')  
-    CF_PASSWORD_DEV = credentials('CF_PASSWORD_DEV')  
-    CF_USERNAME_STAGING = credentials('CF_USERNAME_STAGING')  
-    CF_PASSWORD_STAGING = credentials('CF_PASSWORD_STAGING')  
-    CF_USERNAME_PROD = credentials('CF_USERNAME_PROD')  
-    CF_PASSWORD_PROD = credentials('CF_PASSWORD_PROD')  
+    CF_USERNAME_DEV = credentials('CF_USERNAME_DEV')
+    CF_PASSWORD_DEV = credentials('CF_PASSWORD_DEV')
+    CF_USERNAME_STAGING = credentials('CF_USERNAME_STAGING')
+    CF_PASSWORD_STAGING = credentials('CF_PASSWORD_STAGING')
+    CF_USERNAME_PROD = credentials('CF_USERNAME_PROD')
+    CF_PASSWORD_PROD = credentials('CF_PASSWORD_PROD')
     }
 
     options {
@@ -128,12 +128,12 @@ stage('run-unit-tests'){
                   sh '''
                   export DATABASE_URL="${DB_URL}${currentdate}"
                   node -v
-		  
+
                   cd frontend
                   npm install
                   cd ../server
                   npm install
-                  
+
                   ./copy-frontend-assets.sh
                   cd ../frontend
                   npm run test:ci
@@ -141,9 +141,9 @@ stage('run-unit-tests'){
                   npm run undoAllSeed
 	          npm run migrate
 	          npm run seed
-                  npm run coverage --silent                    
+                  npm run coverage --silent
                   '''
-		
+
                   }
               }
 
@@ -263,7 +263,7 @@ sh '''
 sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fs.usda.gov/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''
-				 
+
     		}
                 }
             }
@@ -287,24 +287,24 @@ docker.image('circleci/node:8.15.1-browsers').withRun() {
                   cd frontend
                   npm install
                   cd ../server
-                  
+
 		#   npm cache verify
 		   npm config rm proxy
 		   npm config rm https-proxy
 	    	   npm config set registry https://registry.npmjs.org/
-	   # 	   npm config set strict-ssl false                    
+	   # 	   npm config set strict-ssl false
                    npm i -D webdriver-manager
                    rm -rf node_modules
                    npm install
-		    
+
                   ./copy-frontend-assets.sh
 		  npm run undoAllSeed
       		  npm run migrate
       		  npm run seed
-		  
+
                   cd ..
                   .circleci/run-e2e.sh
-                         
+
                   '''
                   }
               }
@@ -325,9 +325,9 @@ sh '''
     		}
                 }
             }
-   }	 	 
-	 
- stage('dev-deploy'){	 
+   }
+
+ stage('dev-deploy'){
 	when{
 	branch 'dev'
 	}
@@ -346,7 +346,7 @@ sh '''
 		'''
         	DEPLOY_STATUS= 'Success'
         	}
-	     } 	
+	     }
 
      post {
                 failure {
@@ -361,7 +361,7 @@ sh '''
     }
 
 
-    stage('staging-deploy'){	 
+    stage('staging-deploy'){
 	when{
 	branch 'staging'
 	}
@@ -380,7 +380,7 @@ sh '''
 		'''
         	DEPLOY_STATUS= 'Success'
         	}
-	     } 	
+	     }
 
      post {
                 failure {
@@ -394,7 +394,7 @@ sh '''
             }
     }
 
-    stage('prod-deploy'){	 
+    stage('prod-deploy'){
 	when{
 	branch 'master'
 	}
@@ -413,7 +413,7 @@ sh '''
 		'''
         	DEPLOY_STATUS= 'Success'
         	}
-	     } 	
+	     }
 
      post {
                 failure {
@@ -440,10 +440,10 @@ post{
               	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
 	         rm -f ${WORKSPACE}/pipeline.properties
-		touch ${WORKSPACE}/pipeline.properties 
+		touch ${WORKSPACE}/pipeline.properties
 		AuthorVar="GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME"
-                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties			 
-			 
+                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties
+
             '''
 
             properties = readProperties file: 'pipeline.properties'
@@ -462,7 +462,7 @@ post{
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
 		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
       	emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple2.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
-	deleteDir() /* clean up our workspace */		    
+	deleteDir() /* clean up our workspace */
 	    }
         }
 
@@ -478,14 +478,14 @@ post{
               	 GIT_AUTHOR_NAME=$(git --no-pager show -s --format='%an' $GIT_COMMIT)
     	         GIT_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
 	        	 rm -f ${WORKSPACE}/pipeline.properties
-		         touch ${WORKSPACE}/pipeline.properties 
+		         touch ${WORKSPACE}/pipeline.properties
 		AuthorVar="GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME"
-                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties			 		 
-			 
+                 echo $AuthorVar > ${WORKSPACE}/pipeline.properties
+
             '''
 
         properties = readProperties file: 'pipeline.properties'
-            
+
 
 	        env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
  	        env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
@@ -502,9 +502,9 @@ post{
 		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"
 		env.LSONARQUBE_URL="${env.SONAR_URL_OPENFORESTPLATFORM}"
 	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest_simple2.template"}''', mimeType: 'text/html', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST_OPENFOREST}"
-		deleteDir() /* clean up our workspace */		    
+		deleteDir() /* clean up our workspace */
 	    }
-        }	
+        }
 
     }
  }
