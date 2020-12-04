@@ -54,7 +54,7 @@ firewoodPermits.create = async (req, res) => {
 };
 
 firewoodPermits.processPermitForNRM = async (req, res) => {
-  const unprocessedPermit = req.body
+  const unprocessedPermit = req.body;
 
   const query = {
     where: { permitId: unprocessedPermit.permitId },
@@ -72,7 +72,7 @@ firewoodPermits.processPermitForNRM = async (req, res) => {
   } catch (error) {
     util.handleErrorResponse(error, res, 'processPermitForNRM#end');
   }
-}
+};
 
 /**
  * @function getOnePermit - API function to get a permit.
