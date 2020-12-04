@@ -45,6 +45,14 @@ export class FirewoodApplicationService {
     return this.http.put(`${this.endpoint}/permits`, body, params).pipe(catchError(this.util.handleError));
   }
 
+  processPermitForNRM(permit) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = {
+      headers: headers
+    };
+    return this.http.post(`${this.endpoint}/${permit.permitId}/process`, permit, options);
+  }
+
   /**
    * @returns Get permit
    */

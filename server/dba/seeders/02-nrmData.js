@@ -1,6 +1,8 @@
+const uuid = require('uuid/v4');
+
 const data = [
   {
-    id: 1,
+    id: uuid(),
     permit_cn: 'OF48303820',
     region_code: '01',
     region_name: 'Northern',
@@ -36,7 +38,7 @@ const data = [
       + '}'
   },
   {
-    id: 2,
+    id: uuid(),
     permit_cn: 'OF23890327',
     region_code: '02',
     region_name: 'Rocky Mountain',
