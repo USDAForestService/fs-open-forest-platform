@@ -66,18 +66,15 @@ export class OrderConfirmationComponent implements OnInit {
       if (data.permit) {
         data.permit.forest = this.forest;
         this.permit = data.permit;
-        // process this permit for NRM if it has not been already
-        if (!data.permit.processed) {
-          this.firewoodApplicationService.processPermitForNRM(this.permit).subscribe(value => {
-            this.nrmService.create(this.permit).subscribe(nrmEntry => {
-              // e-mail the permit to the purchaser
-              this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
-                console.log('email sent');
-              });
-            });
+        this.firewoodApplicationService.create(this.permit).subscribe(value => {
+          // e-mail the permit to the purchaser
+          this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
+            console.log('email sent');
           });
-        }
-
+        });
+        // process this permit for NRM if it has not been already
+        // if (!data.permit.processed) {
+        // }
       }
     });
   }
@@ -818,34 +815,34 @@ export class OrderConfirmationComponent implements OnInit {
     elementsHtml += `
     <div class="load-tags-instructions">`;
 
-      // written instructions / left side
-      elementsHtml += `<div class="written-instructions">
+    // written instructions / left side
+    elementsHtml += `<div class="written-instructions">
         <div class="written-instructions-title">
           Instructions for tagging your load
         </div>`;
-        for (let x = 0; x < instructions.length; x++) {
-          elementsHtml += `
+    for (let x = 0; x < instructions.length; x++) {
+      elementsHtml += `
           <div class="written-instruction">
             <div class="written-instruction-number">${x + 1}</div>
             <div class="written-instruction-text">${instructions[x].long}</div>
           </div>`;
-        }
-      elementsHtml += `
+    }
+    elementsHtml += `
       </div>`;
-      // end of written instructions / left side
+    // end of written instructions / left side
 
-      // pictograph instructions / right side
-      elementsHtml += `
+    // pictograph instructions / right side
+    elementsHtml += `
       <div class="pictograph-instructions">
       <div class="pictograph-instructions-image-container">`;
-      for (let x = 0; x < instructions.length; x++) {
-        elementsHtml += `
-          <img class="pictograph-instructions-image" src="${instructions[x].image}"/>`;
-      }
+    for (let x = 0; x < instructions.length; x++) {
       elementsHtml += `
+          <img class="pictograph-instructions-image" src="${instructions[x].image}"/>`;
+    }
+    elementsHtml += `
       </div>
       </div>`;
-      // end of pictograph instructions / right side
+    // end of pictograph instructions / right side
 
     elementsHtml += `
     </div>`;
@@ -1187,85 +1184,85 @@ export class OrderConfirmationComponent implements OnInit {
       </head>
       <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">`;
 
-        // load tags page
-        elementsHtml += `
+    // load tags page
+    elementsHtml += `
         <div class="load-tags-section-one">`;
 
-          // watermark lines container
-          elementsHtml += `
+    // watermark lines container
+    elementsHtml += `
           <div class="watermark-container">`;
 
-          // watermark lines
-          for (let x = 1; x <= numOfWatermarkLines; x++) {
-            elementsHtml += `
+    // watermark lines
+    for (let x = 1; x <= numOfWatermarkLines; x++) {
+      elementsHtml += `
             <div class="watermark-text-${x}">`;
 
-            // show forest name multiple times per line, separated y a bullet
-            for (let y = 1; y <= 20; y++) {
-              elementsHtml += `
+      // show forest name multiple times per line, separated y a bullet
+      for (let y = 1; y <= 20; y++) {
+        elementsHtml += `
               ${data.forest.forestName} &bullet;&nbsp;`;
-            }
-            elementsHtml += `
+      }
+      elementsHtml += `
             </div>`;
-          }
-          elementsHtml += `
+    }
+    elementsHtml += `
           </div>`;
-          // end of watermark lines container
+    // end of watermark lines container
 
-          // create wavy-lines container
-          elementsHtml += `<div class="wavy-text-container">`;
+    // create wavy-lines container
+    elementsHtml += `<div class="wavy-text-container">`;
 
-          // generate wavy lines
-          for (let x = 1; x <= numOfWavyLines; x++) {
-            elementsHtml += `
+    // generate wavy lines
+    for (let x = 1; x <= numOfWavyLines; x++) {
+      elementsHtml += `
             <div class="wavy-text-${x}">`;
 
-            // generate multiple "2021"s per wavy line
-            for (let y = 1; y <= numOfTwentyTwentyOnes; y++) {
-              elementsHtml += `
+      // generate multiple "2021"s per wavy line
+      for (let y = 1; y <= numOfTwentyTwentyOnes; y++) {
+        elementsHtml += `
               <div class="twenty-twentyone-${y}">`;
 
-                // individual characters in "2021" block
-                elementsHtml += `<span class="character-1">2</span>`;
-                elementsHtml += `<span class="character-2">0</span>`;
-                elementsHtml += `<span class="character-3">2</span>`;
-                elementsHtml += `<span class="character-4">1</span>`;
+        // individual characters in "2021" block
+        elementsHtml += `<span class="character-1">2</span>`;
+        elementsHtml += `<span class="character-2">0</span>`;
+        elementsHtml += `<span class="character-3">2</span>`;
+        elementsHtml += `<span class="character-4">1</span>`;
 
-                elementsHtml += `<span class="character-5">2</span>`;
-                elementsHtml += `<span class="character-6">0</span>`;
-                elementsHtml += `<span class="character-7">2</span>`;
-                elementsHtml += `<span class="character-8">1</span>`;
+        elementsHtml += `<span class="character-5">2</span>`;
+        elementsHtml += `<span class="character-6">0</span>`;
+        elementsHtml += `<span class="character-7">2</span>`;
+        elementsHtml += `<span class="character-8">1</span>`;
 
-                elementsHtml += `<span class="character-9">2</span>`;
-                elementsHtml += `<span class="character-10">0</span>`;
-                elementsHtml += `<span class="character-11">2</span>`;
-                elementsHtml += `<span class="character-12">1</span>`;
+        elementsHtml += `<span class="character-9">2</span>`;
+        elementsHtml += `<span class="character-10">0</span>`;
+        elementsHtml += `<span class="character-11">2</span>`;
+        elementsHtml += `<span class="character-12">1</span>`;
 
-                elementsHtml += `<span class="character-13">2</span>`;
-                elementsHtml += `<span class="character-14">0</span>`;
-                elementsHtml += `<span class="character-15">2</span>`;
-                elementsHtml += `<span class="character-16">1</span>`;
-                // end of characters
+        elementsHtml += `<span class="character-13">2</span>`;
+        elementsHtml += `<span class="character-14">0</span>`;
+        elementsHtml += `<span class="character-15">2</span>`;
+        elementsHtml += `<span class="character-16">1</span>`;
+        // end of characters
 
-            elementsHtml += `
+        elementsHtml += `
             </div>`;
-            // end of "2021" block
-          }
+        // end of "2021" block
+      }
 
-          elementsHtml += `
+      elementsHtml += `
           </div>`;
-          // end of wavy line
+      // end of wavy line
 
-        }
-        elementsHtml += `
+    }
+    elementsHtml += `
         </div>`;
-        // end of wavy line container
+    // end of wavy line container
 
-        // punch hole element
-        elementsHtml += `
+    // punch hole element
+    elementsHtml += `
         <div class="punch-hole"></div>`;
 
-        elementsHtml += `
+    elementsHtml += `
         <div class="load-tags-logo-section">
           <img class="load-tags-logo-image" src="/assets/img/site-wide/load-tags-usda-logo.png"/>
           <div class="load-tags-sub-logo-text">
