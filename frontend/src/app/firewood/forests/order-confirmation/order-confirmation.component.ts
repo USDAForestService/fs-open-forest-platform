@@ -64,7 +64,7 @@ export class OrderConfirmationComponent implements OnInit {
         this.forest = data.forest;
       }
       if (data.permit) {
-        data.permit.forest = this.forest
+        data.permit.forest = this.forest;
         this.permit = data.permit;
         // process this permit for NRM if it has not been already
         if (!data.permit.processed) {
@@ -72,10 +72,10 @@ export class OrderConfirmationComponent implements OnInit {
             this.nrmService.create(this.permit).subscribe(nrmEntry => {
               // e-mail the permit to the purchaser
               this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
-                console.log('email sent')
+                console.log('email sent');
               });
-            })
-          })
+            });
+          });
         }
 
       }
