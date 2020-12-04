@@ -5,6 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import * as moment from 'moment-timezone';
 import { FirewoodInfoService } from '../../_services/firewood-info.service';
+import { NrmService } from '../../_services/nrm.service';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { UtilService } from '../../../_services/util.service';
@@ -28,6 +29,7 @@ export class OrderConfirmationComponent implements OnInit {
     private location: Location,
     private titleService: Title,
     public firewoodInfoService: FirewoodInfoService,
+    public nrmService: NrmService,
     public firewoodApplicationService: FirewoodApplicationService,
     public util: UtilService,
     private winRef: WindowRef,
@@ -62,11 +64,20 @@ export class OrderConfirmationComponent implements OnInit {
         this.forest = data.forest;
       }
       if (data.permit) {
+        data.permit.forest = this.forest;
         this.permit = data.permit;
-        if (data.forest) {
-          this.permit.forest = data.forest;
+        // process this permit for NRM if it has not been already
+        if (!data.permit.processed) {
+          this.firewoodApplicationService.processPermitForNRM(this.permit).subscribe(value => {
+            this.nrmService.create(this.permit).subscribe(nrmEntry => {
+              // e-mail the permit to the purchaser
+              this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
+                console.log('email sent');
+              });
+            });
+          });
         }
-        this.firewoodApplicationService.emailPDF(data.permit).subscribe();
+
       }
     });
   }

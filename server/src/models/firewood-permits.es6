@@ -6,6 +6,11 @@
 module.exports = (sequelize, DataTypes) => sequelize.define(
   'firewoodPermits',
   {
+    processed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      field: 'processed'
+    },
     permitId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
