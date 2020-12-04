@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const htmlToText = require('html-to-text');
 const moment = require('moment-timezone');
 const uuid = require('uuid/v4');
 const zpad = require('zpad');
@@ -8,7 +7,6 @@ const email = require('../email/email-util.es6');
 const forestDb = require('../models/forests.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const paygov = require('./paygov');
-const permitSvgService = require('./christmas-trees-permit-svg-util.es6');
 
 const firewoodPermitService = {};
 
