@@ -27,7 +27,7 @@ firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => 
   forestId: forest.id,
   orgStructureCode: forest.orgStructureCode,
   permitExpireDate: forest.endDate,
-  permitNumber: zpad(permit.permitNumber, 9)
+  permitNumber: Math.floor(Math.random() * 90000000) + 10000000
 });
 
 /**
@@ -48,7 +48,7 @@ firewoodPermitService.permitResult = permit => ({
   transactionDate: permit.updatedAt,
   paygovTrackingId: permit.paygovTrackingId,
   expirationDate: permit.permitExpireDate,
-  permitNumber: permit.permitNumber,
+  permitNumber: zpad(permit.permitNumber, 8),
   forest: {
     forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
     forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
