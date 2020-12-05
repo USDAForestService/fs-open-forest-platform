@@ -64,17 +64,12 @@ export class OrderConfirmationComponent implements OnInit {
         this.forest = data.forest;
       }
       if (data.permit) {
-        data.permit.forest = this.forest;
         this.permit = data.permit;
-        this.firewoodApplicationService.create(this.permit).subscribe(value => {
-          // e-mail the permit to the purchaser
-          this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
-            console.log('email sent');
-          });
+        this.permit.forest = this.forest;
+        // e-mail the permit to the purchaser
+        this.firewoodApplicationService.emailPDF(data.permit).subscribe(email => {
+          console.log('email sent');
         });
-        // process this permit for NRM if it has not been already
-        // if (!data.permit.processed) {
-        // }
       }
     });
   }
