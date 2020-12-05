@@ -47,7 +47,7 @@ firewoodPermitService.permitResult = permit => ({
   transactionDate: permit.updatedAt,
   paygovTrackingId: permit.paygovTrackingId,
   expirationDate: permit.permitExpireDate,
-  permitNumber: zpad(permit.permitNumber, 9),
+  permitNumber: zpad(permit.permitNumber, 8, 3),
   forest: {
     forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
     forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
