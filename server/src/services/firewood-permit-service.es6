@@ -104,7 +104,7 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
 
 firewoodPermitService.emailPDF = async (data) => {
   // create a headless browser
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
   // create new page in browser
   const page = await browser.newPage();
