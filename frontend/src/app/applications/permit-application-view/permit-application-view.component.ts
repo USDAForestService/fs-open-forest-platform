@@ -94,9 +94,7 @@ export class PermitApplicationViewComponent implements OnInit {
         this.reasonOrCancel.label = 'Additional message for the permit holder.';
         break;
       case 'Hold':
-        this.reasonOrCancel.buttonClass = 'usa-button-primary';
-        this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';
-        this.reasonOrCancel.label = 'Why is this application on hold?';
+        this.reasonOrCancel.buttonClass = 'usa-button-primary';this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';this.reasonOrCancel.label = 'Why is this application on hold?';
         break;
       case 'Rejected':
         this.reasonOrCancel.buttonClass = 'usa-button-red';
