@@ -18,6 +18,9 @@ router.get('/:id', forestController.getForest);
 // get a single firewood permit by id
 router.get('/firewood-permits/:id', firewoodController.getOnePermit);
 
+// process a permit for NRM
+router.post('/firewood-permits/:id/process', firewoodController.processPermitForNRM);
+
 router.post('/firewood-permits', firewoodController.create);
 
 router.put('/firewood-permits/:id', firewoodController.updatePermitApplication);
