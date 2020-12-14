@@ -69,9 +69,7 @@ export class OrderConfirmationComponent implements OnInit {
         // e-mail the permit to the purchaser
         if (data.permit.status !== 'Completed') {
           this.firewoodApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe((updated) => {
-            this.firewoodApplicationService.emailPDF(updated).subscribe(email => {
-              console.log('email sent');
-            });
+            console.log('email sent');
           });
         }
       }

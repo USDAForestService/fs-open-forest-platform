@@ -22,8 +22,7 @@ firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => 
   lastName: permit.lastName,
   emailAddress: permit.emailAddress,
   quantity: permit.quantity,
-  // TODO update to reflect real cost
-  totalCost: parseInt(permit.quantity, 10) * 1,
+  totalCost: parseInt(permit.quantity, 10) * forest.woodCost,
   forestId: forest.id,
   orgStructureCode: forest.orgStructureCode,
   permitExpireDate: forest.endDate,
@@ -98,8 +97,7 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
     throw new Error('Paygov Error');
   }
   const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
-  firewoodPermitService.generateRulesAndEmail(updatedPermit);
-  return firewoodPermitService.permitResult(updatedPermit);
+  return firewoodPermitService.emailPDF(updatedPermit);
 };
 
 firewoodPermitService.emailPDF = async (data) => {
