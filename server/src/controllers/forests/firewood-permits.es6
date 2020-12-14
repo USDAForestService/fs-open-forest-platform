@@ -129,7 +129,7 @@ firewoodPermits.updatePermitApplication = async (req, res) => {
   };
 
   try {
-    const permit = await firewoodModel.findOne(query);
+    const permit = await forestsDb.firewoodPermits.findOne(query);
 
     if (!permit) {
       logger.error('Permit status unknown. 404.');
