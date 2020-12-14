@@ -22,7 +22,7 @@ firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => 
   lastName: permit.lastName,
   emailAddress: permit.emailAddress,
   quantity: permit.quantity,
-  totalCost: parseInt(permit.quantity) * forest.woodCost,
+  totalCost: parseInt(permit.quantity, 10) * forest.woodCost,
   forestId: forest.id,
   orgStructureCode: forest.orgStructureCode,
   permitExpireDate: forest.endDate,
