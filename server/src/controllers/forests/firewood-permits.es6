@@ -4,7 +4,6 @@
  * @module controllers/forests/firewood-permits
  */
 const logger = require('../../services/logger.es6');
-const firewoodModel = require('../../models/firewood-permits.es6');
 const forestsDb = require('../../models/forests.es6');
 // const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
 const firewoodPermitService = require('../../services/firewood-permit-service.es6');
