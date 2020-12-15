@@ -2,7 +2,6 @@
  * Module for common controllers
  * @module email/email-util
  */
-const fs = require('fs');
 const nodemailer = require('nodemailer');
 const juice = require('juice');
 const logger = require('../services/logger.es6');
@@ -113,14 +112,18 @@ emailUtil.sendPermit = async (data) => {
     `
   };
 
-  const emailResponse = await emailUtil.transporter.sendMail(mailOptions);
-  try {
-    fs.unlinkSync('permit.pdf');
-    console.log('successfully deleted permit.pdf');
-  } catch (err) {
-    console.log('error deleting permit.pdf');
+  if (vcapConstants.SMTP_HOST) {
+    try {
+      const emailResponse = await emailUtil.transporter.sendMail(mailOptions);
+      console.log('successfully sent permit.pdf');
+      return emailResponse;
+    } catch (err) {
+      console.log('error sending permit.pdf');
+      return err;
+    }
+  } else {
+    return data;
   }
-  return emailResponse;
 };
 
 module.exports = emailUtil;
