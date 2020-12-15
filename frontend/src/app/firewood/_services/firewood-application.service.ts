@@ -38,7 +38,7 @@ export class FirewoodApplicationService {
    */
   updatePermit(id, status, token) {
     const body = { permitId: id, status: status };
-    return this.http.put(`${this.endpoint}/permits`, body).pipe(catchError(this.util.handleError));
+    return this.http.put(`${this.endpoint}/${id}`, body).pipe(catchError(this.util.handleError));
   }
 
   processPermitForNRM(permit) {
