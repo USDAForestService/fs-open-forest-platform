@@ -2,7 +2,6 @@
  * Module for common controllers
  * @module email/email-util
  */
-const fs = require('fs');
 const nodemailer = require('nodemailer');
 const juice = require('juice');
 const logger = require('../services/logger.es6');
@@ -120,12 +119,11 @@ emailUtil.sendPermit = async (data) => {
       return emailResponse;
     } catch (err) {
       console.log('error sending permit.pdf');
-      return err
+      return err;
     }
   } else {
-    return data
+    return data;
   }
-
 };
 
 module.exports = emailUtil;

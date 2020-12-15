@@ -101,7 +101,6 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
 };
 
 firewoodPermitService.emailPDF = async (data) => {
-
   // create a headless browser
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
@@ -128,9 +127,8 @@ firewoodPermitService.emailPDF = async (data) => {
     const sentData = await email.sendPermit(emailData);
     return sentData;
   } catch (error) {
-    return error
+    return error;
   }
-
 };
 
 firewoodPermitService.getFriendlyDate = (date) => {
