@@ -17,6 +17,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
   @Input() numberOfCords: any;
   @Input() emailAddress: any;
   applicationRulesForm: FormGroup;
+  buttonDisabled: boolean;
 
   constructor(
     private firewoodInfoService: FirewoodInfoService,
@@ -26,12 +27,14 @@ export class FirewoodPermitRulesComponent implements OnInit {
     this.applicationRulesForm = new FormGroup({
       acceptRules: new FormControl()
     });
+    this.buttonDisabled = false;
   }
 
   ngOnInit() {
   }
 
   createApplication() {
+    this.buttonDisabled = true;
     const data = {
       forestId: this.forest.id,
       firstName: this.firstName,
