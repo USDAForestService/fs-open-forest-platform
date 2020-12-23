@@ -75,7 +75,7 @@ const data = [
   },
   {
     id: uuid(),
-    permit_cn: 'OFc620d0d2-d96d-4ef2-a5aa-1e0a782b27b8',
+    permit_cn: 'OFd96d-4ef2-a5aa-1e0a782b27b8',
     region_code: '02',
     region_name: 'Rocky Mountain',
     forest_code: '14',
@@ -111,7 +111,7 @@ const data = [
   },
   {
     id: uuid(),
-    permit_cn: 'OFdb5bc965-698d-4daa-aad2-8be299a3bffa',
+    permit_cn: 'OF698d-4daa-aad2-8be299a3bffa',
     region_code: '01',
     region_name: 'Northern',
     forest_code: '10',
