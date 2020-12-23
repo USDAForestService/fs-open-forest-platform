@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 const moment = require('moment-timezone');
 const uuid = require('uuid/v4');
 const zpad = require('zpad');
@@ -97,40 +97,41 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
     throw new Error('Paygov Error');
   }
   const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
-  return firewoodPermitService.emailPDF(updatedPermit);
+  return updatedPermit;
+  // return firewoodPermitService.emailPDF(updatedPermit);
 };
 
-firewoodPermitService.emailPDF = async (data) => {
-  // create a headless browser
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-
-  // create new page in browser
-  const page = await browser.newPage();
-
-  // generate the HTML and set it as the page content
-  await page.setContent(firewoodPermitService.generatePermitHTML(data));
-
-  await page.pdf({ printBackground: true, path: 'permit.pdf' });
-
-  // todo: pdf file on the server needs to be deleted after this
-  const emailData = data;
-  emailData.html = firewoodPermitService.generatePermitHTML(data);
-  emailData.attachments = [{
-    filename: 'permit.pdf',
-    path: 'permit.pdf',
-    contentType: 'application/pdf'
-  }];
-
-  // end the headless browser session
-  await browser.close();
-  return emailData;
-  // try {
-  //   const sentData = await email.sendPermit(emailData);
-  //   return sentData;
-  // } catch (error) {
-  //   return error;
-  // }
-};
+// firewoodPermitService.emailPDF = async (data) => {
+//   // create a headless browser
+//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+//
+//   // create new page in browser
+//   const page = await browser.newPage();
+//
+//   // generate the HTML and set it as the page content
+//   await page.setContent(firewoodPermitService.generatePermitHTML(data));
+//
+//   await page.pdf({ printBackground: true, path: 'permit.pdf' });
+//
+//   // todo: pdf file on the server needs to be deleted after this
+//   const emailData = data;
+//   emailData.html = firewoodPermitService.generatePermitHTML(data);
+//   emailData.attachments = [{
+//     filename: 'permit.pdf',
+//     path: 'permit.pdf',
+//     contentType: 'application/pdf'
+//   }];
+//
+//   // end the headless browser session
+//   await browser.close();
+//   return emailData;
+//   try {
+//     const sentData = await email.sendPermit(emailData);
+//     return sentData;
+//   } catch (error) {
+//     return error;
+//   }
+// };
 
 firewoodPermitService.getFriendlyDate = (date) => {
   const friendlyDate = new Date(date);
