@@ -268,8 +268,7 @@
     <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
   </div>
   </div>
-    <button *ngIf="!buttonDisabled" id="submit-application" class="usa-button-primary usa-button-big" (click)="createApplication()" type="submit">Continue to Checkout</button>
-    <button *ngIf="buttonDisabled" id="submit-application" class="usa-button-primary usa-button-disabled usa-button-big" type="button">Continue to Checkout</button>
+    <button id="submit-application" class="usa-button-primary usa-button-big" (click)="createApplication()" type="submit" [disabled]="buttonDisabled" [style.opacity]= "buttonDisabled ? '.65' : ''">Continue to Checkout</button>
     <p class="usa-form-hint">A copy of these rules and guidelines will be sent with your permit to the email address you have provided. You can print these rules and guidelines and your permit after you make your purchase.</p>
     <p class="usa-form-hint">We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
     <p class="usa-form-hint">All permits are non-refundable.</p>

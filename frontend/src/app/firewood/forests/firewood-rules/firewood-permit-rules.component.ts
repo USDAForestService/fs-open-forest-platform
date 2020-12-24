@@ -34,7 +34,6 @@ export class FirewoodPermitRulesComponent implements OnInit {
   }
 
   createApplication() {
-    this.buttonDisabled = true;
     const data = {
       forestId: this.forest.id,
       firstName: this.firstName,
@@ -46,6 +45,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
     if (this.applicationRulesForm.valid) {
       this.applicationService.create(JSON.stringify(data)).subscribe((response: any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        this.buttonDisabled = true;
       }, (error: any) => {
         window.location.hash = '';
         this.applicationRulesForm.get('acceptRules').setValue(false);
