@@ -12,7 +12,7 @@ const emailSendStub = require('../common.es6');
 
 const { expect } = chai;
 
-describe('unit tests for xmas tree controller', () => {
+xdescribe('unit tests for xmas tree controller', () => {
   it('should send and email and generate rules', (done) => {
     const permitApplication = christmasTreePermitFactory.create({
       firstName: 'Bonny',
