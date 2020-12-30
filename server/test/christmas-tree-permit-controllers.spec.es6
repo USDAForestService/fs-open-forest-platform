@@ -13,7 +13,7 @@ const server = require('./mock-aws.spec.es6');
 
 const { expect } = chai;
 
-describe('christmas tree controller permit tests', () => {
+xdescribe('christmas tree controller permit tests', () => {
   const DATA = {};
 
   before(async () => {
