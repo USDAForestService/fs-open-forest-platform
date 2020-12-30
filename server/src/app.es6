@@ -59,11 +59,14 @@ app.use(
     name: 'session',
     keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
     maxAge: 3600000, // 1 hour
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      domain
-    }
+    httpOnly: true,
+    sameSite: 'none',
+    // In testing, we use superagent, which wraps the express app, so there's
+    // no actual HTTP calls and therefore no hostname. The test instance also
+    // isn't configured for SSL, so the cookie library will refuse to set a
+    // secure cookie. Thus, modify these two cookie properties accordingly.
+    secure: process.env.NODE_ENV !== 'test',
+    domain: process.env.NODE_ENV === 'test' ? '' : domain
   })
 );
 
