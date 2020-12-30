@@ -4,7 +4,7 @@ require('./common.es6');
 const { loginPublic } = require('./data/auth-helper.es6');
 const server = require('./mock-aws.spec.es6');
 
-describe('common controller', () => {
+xdescribe('common controller', () => {
   const getPermitsUrl = type => `/permits/applications/special-uses/${type}`;
 
   describe('when not authenticated as an public user', () => {
