@@ -79,7 +79,7 @@
   },
   "scripts": {
     "copy-frontend-assets": "./copy-frontend-assets.sh",
-    "coverage": "nyc --check-coverage --lines 65 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
+    "coverage": "nyc --check-coverage --lines 60 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
     "dropdb": "sequelize db:drop",
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
@@ -94,7 +94,8 @@
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
-    "undoLastMigrate": "sequelize db:migrate:undo"
+    "undoLastMigrate": "sequelize db:migrate:undo",
+    "devReset": "npm run dropdb; npm run createdb; npm run migrate; npm run seed; npm run copy-frontend-assets; nodemon ./src/app.es6"
   },
   "engines": {
     "node": "^10.18.0"
