@@ -363,7 +363,7 @@ sh '''
 
     stage('staging-deploy'){
 	when{
-	branch 'staging'
+	branch 'puppettertest'
 	}
 	steps {
 	    echo 'run this stage - ony if the branch = staging branch'
