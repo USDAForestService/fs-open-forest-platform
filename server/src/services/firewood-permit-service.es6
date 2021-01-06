@@ -101,12 +101,6 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
 };
 
 firewoodPermitService.emailPDF = async (data) => {
-
-  console.log('TRY TO LAUNCH PUPPET in 5')
-  console.log('TRY TO LAUNCH PUPPET in 4')
-  console.log('TRY TO LAUNCH PUPPET in 3')
-  console.log('TRY TO LAUNCH PUPPET in 2')
-  console.log('TRY TO LAUNCH PUPPET in 1')
   // create a headless browser
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
@@ -133,6 +127,7 @@ firewoodPermitService.emailPDF = async (data) => {
     const sentData = await email.sendPermit(emailData);
     return sentData;
   } catch (error) {
+    console.log('there was an error trying to email.sendPermit');
     return error;
   }
 };

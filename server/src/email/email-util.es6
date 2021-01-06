@@ -119,10 +119,10 @@ emailUtil.sendPermit = async (data) => {
       return emailResponse;
     } catch (err) {
       console.log('error sending permit.pdf');
-      return err;
+      return 'error: emailUtil.transporter.sendMail was unsuccessful';
     }
   } else {
-    return data;
+    return 'error: vcapConsants.SMTP_HOST was undefined';
   }
 };
 
