@@ -97,7 +97,7 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
     throw new Error('Paygov Error');
   }
   const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
-  return firewoodPermitService.emailPDF(updatedPermit);
+  return updatedPermit;
 };
 
 firewoodPermitService.emailPDF = async (data) => {
@@ -127,6 +127,7 @@ firewoodPermitService.emailPDF = async (data) => {
     const sentData = await email.sendPermit(emailData);
     return sentData;
   } catch (error) {
+    console.log('there was an error trying to email.sendPermit');
     return error;
   }
 };
