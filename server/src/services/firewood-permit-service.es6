@@ -97,10 +97,16 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
     throw new Error('Paygov Error');
   }
   const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
-  return firewoodPermitService.emailPDF(updatedPermit);
+  return updatedPermit;
 };
 
 firewoodPermitService.emailPDF = async (data) => {
+
+  console.log('TRY TO LAUNCH PUPPET in 5')
+  console.log('TRY TO LAUNCH PUPPET in 4')
+  console.log('TRY TO LAUNCH PUPPET in 3')
+  console.log('TRY TO LAUNCH PUPPET in 2')
+  console.log('TRY TO LAUNCH PUPPET in 1')
   // create a headless browser
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
