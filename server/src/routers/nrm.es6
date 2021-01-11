@@ -5,13 +5,14 @@
 
 const express = require('express');
 
-const nrmController = require('../controllers/nrm-service.es6');
+const nrmController = require('../controllers/nrm.es6');
 
 const router = express.Router();
 
 // get all nrm service
-router.get('/', nrmController.getEntries);
+router.get('/', nrmController.getUnprocessedPermits);
 
-router.post('/', nrmController.createEntry);
+// process all unprocessed permits
+router.get('/process', nrmController.updateUnprocessedPermits);
 
 module.exports = router;

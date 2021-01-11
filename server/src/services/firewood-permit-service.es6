@@ -16,7 +16,7 @@ const firewoodPermitService = {};
  * @return {Object} - formatted permit object
  */
 firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => ({
-  // processed: false,
+  processed: permit.processed,
   permitId: uuid(),
   firstName: permit.firstName,
   lastName: permit.lastName,
@@ -35,7 +35,7 @@ firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => 
  * @return {Object} - formatted permit object
  */
 firewoodPermitService.permitResult = permit => ({
-  // processed: permit.processed,
+  processed: permit.processed,
   permitId: permit.permitId,
   orgStructureCode: permit.orgStructureCode,
   firstName: permit.firstName,
