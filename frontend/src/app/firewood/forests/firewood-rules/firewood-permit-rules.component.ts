@@ -17,6 +17,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
   @Input() numberOfCords: any;
   @Input() emailAddress: any;
   applicationRulesForm: FormGroup;
+  buttonDisabled = false;
 
   constructor(
     private firewoodInfoService: FirewoodInfoService,
@@ -43,6 +44,7 @@ export class FirewoodPermitRulesComponent implements OnInit {
     if (this.applicationRulesForm.valid) {
       this.applicationService.create(JSON.stringify(data)).subscribe((response: any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        this.buttonDisabled = true;
       }, (error: any) => {
         window.location.hash = '';
         this.applicationRulesForm.get('acceptRules').setValue(false);
