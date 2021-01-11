@@ -16,17 +16,17 @@ const firewoodPermitService = {};
  * @return {Object} - formatted permit object
  */
 firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => ({
-  // processed: false,
+  processed: permit.processed,
   permitId: uuid(),
   firstName: permit.firstName,
   lastName: permit.lastName,
   emailAddress: permit.emailAddress,
   quantity: permit.quantity,
-  // TODO update to reflect real cost
-  totalCost: parseInt(permit.quantity, 10) * 1,
+  totalCost: parseInt(permit.quantity, 10) * forest.woodCost,
   forestId: forest.id,
   orgStructureCode: forest.orgStructureCode,
-  permitExpireDate: forest.endDate
+  permitExpireDate: forest.endDate,
+  permitNumber: Math.floor(Math.random() * 90000000) + 10000000
 });
 
 /**
@@ -35,7 +35,7 @@ firewoodPermitService.translatePermitFromClientToDatabase = (permit, forest) => 
  * @return {Object} - formatted permit object
  */
 firewoodPermitService.permitResult = permit => ({
-  // processed: permit.processed,
+  processed: permit.processed,
   permitId: permit.permitId,
   orgStructureCode: permit.orgStructureCode,
   firstName: permit.firstName,
@@ -47,7 +47,7 @@ firewoodPermitService.permitResult = permit => ({
   transactionDate: permit.updatedAt,
   paygovTrackingId: permit.paygovTrackingId,
   expirationDate: permit.permitExpireDate,
-  permitNumber: zpad(permit.permitNumber, 8, 3),
+  permitNumber: zpad(permit.permitNumber, 8),
   forest: {
     forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
     forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
@@ -97,13 +97,12 @@ firewoodPermitService.completePermitTransaction = async (permit) => {
     throw new Error('Paygov Error');
   }
   const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
-  firewoodPermitService.generateRulesAndEmail(updatedPermit);
-  return firewoodPermitService.permitResult(updatedPermit);
+  return updatedPermit;
 };
 
 firewoodPermitService.emailPDF = async (data) => {
   // create a headless browser
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
   // create new page in browser
   const page = await browser.newPage();
@@ -124,10 +123,13 @@ firewoodPermitService.emailPDF = async (data) => {
 
   // end the headless browser session
   await browser.close();
-
-  const sentData = await email.sendPermit(emailData);
-
-  return sentData;
+  try {
+    const sentData = await email.sendPermit(emailData);
+    return sentData;
+  } catch (error) {
+    console.log('there was an error trying to email.sendPermit');
+    return error;
+  }
 };
 
 firewoodPermitService.getFriendlyDate = (date) => {
@@ -405,7 +407,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
           </div>
           <div class="permit-header-section right-section">
             <span>OMB No.: 0596-0085</span>
-            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.expirationDate)}</span>
+            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.permitExpireDate)}</span>
           </div>
         </div>
         <div class="general-info">
@@ -429,7 +431,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
             </div>
             <div class="two-twelfths no-border-top border-left">&nbsp;&nbsp;${data.permitNumber}</div>
             <div class="two-twelfths no-border-top border-left border-right">
-              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.purchaseDate)}
             </div>
             <div class="three-twelfths no-border-top no-border-left border-right"></div>
           </div>
@@ -448,10 +450,10 @@ firewoodPermitService.generatePermitHTML = (data) => {
               <span class="nine-twelfths margin-indent"></span>
             </div>
             <div class="two-twelfths no-border-top border-left">
-              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.transactionDate)}
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.purchaseDate)}
             </div>
             <div class="two-twelfths no-border-top border-left border-right">
-              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.expirationDate)}
+              &nbsp;&nbsp;${firewoodPermitService.getFriendlyDate(data.permitExpireDate)}
             </div>
             <div class="three-twelfths no-border-top no-border-left border-right">
               <span class="six-twelfths margin-indent">From:</span>
@@ -815,7 +817,7 @@ firewoodPermitService.generatePermitHTML = (data) => {
           </div>
           <div class="permit-header-section right-section">
             <span>OMB No.: 0596-0085</span>
-            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.expirationDate)}</span>
+            <span>Expires: &nbsp;&nbsp; ${firewoodPermitService.getFriendlyDate(data.permitExpireDate)}</span>
           </div>
         </div>
         <div class="permit-number-box">

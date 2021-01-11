@@ -37,12 +37,8 @@ export class FirewoodApplicationService {
    * @returns Update Firewood application
    */
   updatePermit(id, status, token) {
-    let params = {};
-    if (token) {
-      params = { params: new HttpParams().set('t', token) };
-    }
     const body = { permitId: id, status: status };
-    return this.http.put(`${this.endpoint}/permits`, body, params).pipe(catchError(this.util.handleError));
+    return this.http.put(`${this.endpoint}/permits`, body).pipe(catchError(this.util.handleError));
   }
 
   processPermitForNRM(permit) {
@@ -57,14 +53,7 @@ export class FirewoodApplicationService {
    * @returns Get permit
    */
   getPermit(id, token) {
-    let params = {};
-
-    if (token) {
-      params = { params: new HttpParams().set('t', token) };
-    }
-
-    return this.http.get(`${this.endpoint}/${id}`, params).pipe(catchError(this.util.handleError));
-
+    return this.http.get(`${this.endpoint}/${id}`).pipe(catchError(this.util.handleError));
   }
 
   emailPDF(data) {
