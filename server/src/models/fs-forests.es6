@@ -98,7 +98,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.JSONB,
       field: 'contact'
     },
-    possId: {
+    possFinancialId: {
       type: DataTypes.STRING(50),
       field: 'poss_financial_id'
     },
