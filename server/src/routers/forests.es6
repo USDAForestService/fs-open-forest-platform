@@ -23,7 +23,7 @@ router.post('/firewood-permits/:id/process', firewoodController.processPermitFor
 
 router.post('/firewood-permits', firewoodController.create);
 
-router.put('/firewood-permits/:id', firewoodController.updatePermitApplication);
+router.put('/firewood-permits/permits', firewoodController.updatePermitApplication);
 
 router.post('/firewood-permits/:id/email', firewoodController.emailPDF);
 
