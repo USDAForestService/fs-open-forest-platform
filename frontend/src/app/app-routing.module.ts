@@ -107,7 +107,6 @@ const appRoutes: Routes = [
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
       text: 'Mt. Baker-Snoqualmie special use permits',
-      displayLogin: true,
       specialUse: true,
     },
     resolve: {
@@ -358,10 +357,16 @@ const appRoutes: Routes = [
           },
           {
             path: 'buy',
-            data: { breadcrumbs: 'Buy a permit' },
+            canActivateChild: [AccessControlService],
+            data: {
+              breadcrumbs: 'Buy a permit',
+             },
             children: [
               {
                 path: '',
+                data: {
+                  displayLogin: true
+                },
                 component: BuyFirewoodPermitComponent
               }
             ]
