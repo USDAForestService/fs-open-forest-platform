@@ -1,4 +1,4 @@
-<a *ngIf="!btnAlt && !learnMore" class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
+<a *ngIf="!btnAlt && !learnMore && !firewood" class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
   {{buttonText}}
   <span *ngIf="!authentication.user"  class="button-hint usa-form-hint">Sign in with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  to apply
   </span>
@@ -10,6 +10,14 @@
     {{buttonText}}
   <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Apply</span>
   <span *ngIf="!authentication.user" class="button-hint usa-form-hint">Sign in with <br><img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  <br>to apply</span>
+  </a>
+</div>
+
+<div *ngIf="firewood">
+  <a class="usa-button-primary-alt usa-button usa-button display-inline" [routerLink]="link" (click)="setRequestingUrl()">
+    {{buttonText}}
+  <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Buy Permit</span>
+  <span *ngIf="!authentication.user" class="button-hint usa-form-hint">Sign in with <br><img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  <br>to purchase</span>
   </a>
 </div>
 

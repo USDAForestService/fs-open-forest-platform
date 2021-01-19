@@ -358,10 +358,16 @@ const appRoutes: Routes = [
           },
           {
             path: 'buy',
-            data: { breadcrumbs: 'Buy a permit' },
+            canActivateChild: [AccessControlService],
+            data: {
+              breadcrumbs: 'Buy a permit',
+             },
             children: [
               {
                 path: '',
+                data: {
+                  displayLogin: true
+                },
                 component: BuyFirewoodPermitComponent
               }
             ]
