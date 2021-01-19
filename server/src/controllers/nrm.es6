@@ -6,6 +6,31 @@ const forestsDb = require('../models/forests.es6');
 
 const nrm = {};
 
+nrm.getSpeciesCode = (region) => {
+  let code = '';
+  switch (region) {
+    case '1':
+      code = 'FW';
+      break;
+
+    case '2':
+      code = 'CSFW';
+      break;
+
+    case '8':
+      code = 'HDW';
+      break;
+
+    case '9':
+      code = 'MH';
+      break;
+
+    default:
+      break;
+  }
+  return code;
+};
+
 // get all permits that have not been processed by NRM yet
 nrm.getUnprocessedPermits = async (req, res) => {
   const preparedPermits = [];
@@ -33,6 +58,17 @@ nrm.getUnprocessedPermits = async (req, res) => {
 
       // prepare the permit object to be processed by NRM
       // as required by their specifications
+      const rawSpuInfo = {
+        lineItemNumber: 1,
+        speciesCode: nrm.getSpeciesCode(permit.fsForest.region),
+        productCode: '07',
+        uomCode: '02',
+        soldQuantity: '01',
+        rate: '$5.00',
+        yieldComponentCode: 'CD',
+        mbfConvFactor: '02',
+        ccfConvFactor: '02'
+      };
       const preparedPermit = {
         nrmEntry: permit.permitId,
         permitCn: `OF${permit.permitNumber}`,
@@ -56,15 +92,7 @@ nrm.getUnprocessedPermits = async (req, res) => {
         stateName: permit.fsForest.state,
         numberOfPermits: 1,
         convertibleNonConvertible: 'c',
-        spuInfo: `{"lineItemNumber": 1,
-        "speciesCode": null,
-        "productCode": 07,
-        "uomCode": 02,
-        "soldQuantity": 01,
-        "rate": "$5.00",
-        "yieldComponentCode": "CD",
-        "mbfConvFacgtor": 02,
-        "ccfConFactor": 02}`
+        spuInfo: JSON.stringify(rawSpuInfo)
       };
       preparedPermits.push(preparedPermit);
     }
