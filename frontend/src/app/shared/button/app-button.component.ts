@@ -10,6 +10,7 @@ export class AppButtonComponent {
   @Input() buttonText: string;
   @Input() btnAlt: false;
   @Input() learnMore: false;
+  @Input() firewood: false;
 
   constructor(public authentication: AuthenticationService) {}
 
