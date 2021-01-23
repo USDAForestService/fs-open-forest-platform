@@ -6,8 +6,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class FspsService {
-  private endpoint = environment.apiUrl + 'fsps/';
+export class FpfsService {
+  // TODO: this endpoint needs to be changed to the one FPFS specified
+  private endpoint = environment.apiUrl + 'fpfs/';
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +41,7 @@ export class FspsService {
 
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    // prepare the permit object to be sent to FSPS
+    // prepare the permit object to be sent to FPFS
     // as required by their specifications
     const spuVolumeRates = {
       speciesCode: this.getSpeciesCode(permit.fsForest.region),

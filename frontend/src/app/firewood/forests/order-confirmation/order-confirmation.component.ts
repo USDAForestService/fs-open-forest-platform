@@ -10,7 +10,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-import { FspsService } from '../../../_services/fsps.service';
+import { FpfsService } from '../../../_services/fpfs.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -31,7 +31,7 @@ export class OrderConfirmationComponent implements OnInit {
     private titleService: Title,
     public firewoodInfoService: FirewoodInfoService,
     public nrmService: NrmService,
-    public fsps: FspsService,
+    public fpfs: FpfsService,
     public firewoodApplicationService: FirewoodApplicationService,
     public util: UtilService,
     private winRef: WindowRef,
@@ -71,8 +71,8 @@ export class OrderConfirmationComponent implements OnInit {
         // e-mail the permit to the purchaser
         this.firewoodApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe((updated) => {
           this.firewoodApplicationService.emailPDF(updated).subscribe((emailed) => {
-            // send notification to FSPS
-            this.fsps.sendPurchaseNotification(updated).subscribe((notified) => {
+            // send notification to FPFS
+            this.fpfs.sendPurchaseNotification(updated).subscribe((notified) => {
               return;
             });
           });
