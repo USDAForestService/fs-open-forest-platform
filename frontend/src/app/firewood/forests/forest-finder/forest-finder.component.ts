@@ -10,7 +10,7 @@ import { Meta } from '@angular/platform-browser';
   providers: [RemovePuncPipe]
 })
 export class FirewoodForestFinderComponent implements OnInit {
-  @ViewChild('forestFinder') form: ElementRef;
+  @ViewChild('forestFinder', {static: true, read: ElementRef}) form: ElementRef;
 
   forests = [];
   selectedForest = null;

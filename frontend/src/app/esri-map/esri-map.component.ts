@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 export class EsriMapComponent implements AfterViewInit {
 
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+  @ViewChild('mapViewNode', {static: true, read: ElementRef}) private mapViewEl: ElementRef;
 
   constructor(
     public router: Router
