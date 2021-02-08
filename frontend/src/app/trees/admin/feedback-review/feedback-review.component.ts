@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Angular2Csv } from 'angular2-csv';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { FeedbackService } from '../../_services/feedback.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -60,6 +60,6 @@ export class AdminFeedbackReviewComponent implements OnInit {
       });
     }
 
-    const ng2csv = new Angular2Csv(orderedFeedback, 'Feedback Report', options);
+    const ng2csv = new AngularCsv(orderedFeedback, 'Feedback Report', options);
   }
 }
