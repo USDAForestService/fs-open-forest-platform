@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { ForestsAdminResolver } from './forests-admin-resolver.service';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
-import { Observable, of } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 
