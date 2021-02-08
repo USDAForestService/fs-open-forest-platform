@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { NgxMdModule } from 'ngx-md';

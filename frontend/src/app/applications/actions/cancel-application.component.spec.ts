@@ -6,7 +6,7 @@ import { AlertService } from '../../_services/alert.service';
 import { UtilService } from '../../_services/util.service';
 import { WindowRef } from '../../_services/native-window.service';
 import { CancelApplicationComponent } from './cancel-application.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CamelToHyphensPipe } from '../../_pipes/camel-to-hyphens.pipe';
 
 @Component({

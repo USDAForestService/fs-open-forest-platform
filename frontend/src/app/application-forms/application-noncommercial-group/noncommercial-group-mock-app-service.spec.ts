@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
 import { noncommercialMock } from './noncommercial.mock';

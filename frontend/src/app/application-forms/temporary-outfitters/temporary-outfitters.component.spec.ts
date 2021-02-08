@@ -7,7 +7,7 @@ import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';

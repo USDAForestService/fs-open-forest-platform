@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NavigationEnd, Router, Routes } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppComponent } from './app.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { AuthenticationService } from './_services/authentication.service';

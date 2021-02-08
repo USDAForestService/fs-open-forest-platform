@@ -8,7 +8,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { Title } from '@angular/platform-browser';
 import * as moment from 'moment/moment';

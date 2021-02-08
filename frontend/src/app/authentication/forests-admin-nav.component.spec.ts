@@ -4,7 +4,7 @@ import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../_services/util.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { WindowRef } from '../_services/native-window.service';
 
 class MockAuthenticationService {

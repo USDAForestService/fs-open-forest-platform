@@ -4,7 +4,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { PermitApplicationViewComponent } from './permit-application-view.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import * as sinon from 'sinon';

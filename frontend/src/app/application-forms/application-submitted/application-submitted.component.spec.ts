@@ -3,7 +3,7 @@ import { ApplicationSubmittedComponent } from './application-submitted.component
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial.mock';
 import { ApplicationService } from '../../_services/application.service';
 import { HttpClientModule } from '@angular/common/http';

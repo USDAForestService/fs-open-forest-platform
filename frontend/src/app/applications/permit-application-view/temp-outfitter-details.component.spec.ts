@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationService } from '../../_services/application.service';
 import { TempOutfitterDetailsComponent } from './temp-outfitter-details.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Base64 } from '../../_pipes/base64.pipe';
 import { UrlPipe } from '../../_pipes/url.pipe';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';

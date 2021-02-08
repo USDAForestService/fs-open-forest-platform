@@ -13,7 +13,7 @@ import {
   Router,
   UrlSegment
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
