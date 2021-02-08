@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
@@ -14,7 +14,7 @@ describe('TreePermitViewComponent', () => {
   let fixture: ComponentFixture<TreePermitViewComponent>;
   const mockActivatedRoute = {
     queryParams: [{t: '123'}],
-    data: Observable.of({
+    data: of({
       permit: {
         error: {
           errors: [

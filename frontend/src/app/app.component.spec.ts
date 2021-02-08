@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NavigationEnd, Router, Routes } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { AuthenticationService } from './_services/authentication.service';
@@ -13,13 +13,13 @@ import { WindowRef } from './_services/native-window.service';
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
   getAuthenticatedUser(): Observable<{}> {
-    return Observable.of({ email: 'test@test.com', role: 'admin' });
+    return of({ email: 'test@test.com', role: 'admin' });
   }
 }
 
 class MockServices {
   // Router
-  public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
+  public events = of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
   parseUrl(): String { return ''; }
 }
 

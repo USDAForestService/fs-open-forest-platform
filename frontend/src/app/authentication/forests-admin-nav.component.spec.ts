@@ -4,12 +4,12 @@ import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../_services/util.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { WindowRef } from '../_services/native-window.service';
 
 class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {
-    return Observable.of({ role: 'admin', forests: ['mthood'] });
+    return of({ role: 'admin', forests: ['mthood'] });
   }
   setUser(obj) {
     return '';

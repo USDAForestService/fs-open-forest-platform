@@ -55,6 +55,7 @@
     "ngx6-angular-breadcrumbs": "^0.0.3",
     "postcss-loader": "^3.0.0",
     "rxjs": "6.6.3",
+    "rxjs-compat": "^6.6.3",
     "tslib": "^1.9.0",
     "uswds": "^1.6.9",
     "web-animations-js": "^2.3.2",

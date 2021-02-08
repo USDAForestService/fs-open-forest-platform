@@ -7,7 +7,7 @@ import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';
@@ -19,7 +19,7 @@ import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 class MockApplicationService {
   getOne(id): Observable<{}> {
     if (id === '111') {
-      return Observable.of(tempOutfitterMock);
+      return of(tempOutfitterMock);
     } else {
       return Observable.throw('The application could not be found.');
     }
@@ -27,14 +27,14 @@ class MockApplicationService {
 
   update(id): Observable<{}> {
     if (id === '111') {
-      return Observable.of(tempOutfitterMock);
+      return of(tempOutfitterMock);
     } else {
       return Observable.throw('There were errors when attempting to update your application.');
     }
   }
 
   create(): Observable<{}> {
-    return Observable.of(tempOutfitterMock);
+    return of(tempOutfitterMock);
   }
 
   handleStatusCode(e) {
@@ -50,7 +50,7 @@ class MockApplicationService {
       { documentType: 'operating-plan', originalFileName: 'test5' },
       { documentType: 'location-map', originalFileName: 'test6' }
     ];
-    return Observable.of(array);
+    return of(array);
   }
 }
 

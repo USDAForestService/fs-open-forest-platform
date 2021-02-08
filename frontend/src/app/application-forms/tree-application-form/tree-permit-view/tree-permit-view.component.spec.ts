@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -41,10 +41,10 @@ class MockChristmasTreesApplicationService {
     return Observable.throw('error');
   }
   updatePermit(permitId, status, token): Observable<{}> {
-    return Observable.of(mockPermit);
+    return of(mockPermit);
   }
   getPrintablePermit(permitId, includeRules): Observable<{}> {
-    return Observable.of([{'result': '<h1>test</h1>'}, {'result': '<h2>test</h2>'}]);
+    return of([{'result': '<h1>test</h1>'}, {'result': '<h2>test</h2>'}]);
   }
 }
 
@@ -54,7 +54,7 @@ describe('TreePermitViewComponent', () => {
 
   const mockActivatedRoute = {
     queryParams: [ {t: '123'}],
-    data: Observable.of({
+    data: of({
       permit: {
         permitId: '123',
         status: 'Initiated',
