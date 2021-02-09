@@ -4,7 +4,7 @@ import { TreeApplicationFormComponent } from './tree-application-form.component'
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
@@ -21,7 +21,7 @@ import { WindowRef } from '../../_services/native-window.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
-    return Observable.throw('error');
+    return throwError('error');
   }
   cancelOldApp(permitId): Observable<{}> {
     return of({ success: 'success' });

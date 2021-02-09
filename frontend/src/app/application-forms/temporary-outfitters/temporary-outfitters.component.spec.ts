@@ -7,7 +7,7 @@ import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';
@@ -21,7 +21,7 @@ class MockApplicationService {
     if (id === '111') {
       return of(tempOutfitterMock);
     } else {
-      return Observable.throw('The application could not be found.');
+      return throwError('The application could not be found.');
     }
   }
 
@@ -29,7 +29,7 @@ class MockApplicationService {
     if (id === '111') {
       return of(tempOutfitterMock);
     } else {
-      return Observable.throw('There were errors when attempting to update your application.');
+      return throwError('There were errors when attempting to update your application.');
     }
   }
 

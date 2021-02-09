@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -38,7 +38,7 @@ class MockWindowRef {
 
 class MockChristmasTreesApplicationService {
   create(): Observable<{}> {
-    return Observable.throw('error');
+    return throwError('error');
   }
   updatePermit(permitId, status, token): Observable<{}> {
     return of(mockPermit);

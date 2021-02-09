@@ -4,7 +4,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { PermitApplicationViewComponent } from './permit-application-view.component';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import * as sinon from 'sinon';
@@ -16,7 +16,7 @@ class MockApplicationService {
 
   getOne(err, obj): Observable<{}> {
     if (err && err.fail) {
-      return Observable.throw('error');
+      return throwError('error');
     } else {
       return of({ test: 'meow' });
     }
@@ -24,7 +24,7 @@ class MockApplicationService {
 
   update(obj): Observable<{}> {
     if (obj.fail) {
-      return Observable.throw('error');
+      return throwError('error');
     } else {
       return of({ test: 'meow' });
     }

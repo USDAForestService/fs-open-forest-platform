@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
 import { noncommercialMock } from './noncommercial.mock';
@@ -19,7 +19,7 @@ export class MockApplicationService {
     if (id === '111') {
       return of(noncommercialMock);
     } else {
-      return Observable.throw('The application could not be found.');
+      return throwError('The application could not be found.');
     }
   }
 
