@@ -1,13 +1,13 @@
 _defaults:
   docker_image: &docker_image
     docker:
-      - image: circleci/node:8.15.1
+      - image: circleci/node:10.18
     environment:
       SNYK_DIR: "snyk"
 
   docker_image_browser: &docker_image_browser
     docker:
-      - image: circleci/node:8.15.1-browsers
+      - image: circleci/node:10.18-browsers
         environment:
           DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
           VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
