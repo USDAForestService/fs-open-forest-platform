@@ -16,6 +16,14 @@
         </p>
         <p *ngIf="applicationFieldsService.getEditApplication()">You are about to update your permit application. Once you click "Save Edits & Submit" you will not be able to make any further updates unless your application is placed on hold again.
         </p>
+        <div class="usa-alert usa-alert-info usa-alert-paragraph">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">This is a timed application</h3>
+            <p class="usa-alert-text">
+              This application will time out after one hour and all progress will be lost if not already submitted.
+            </p>
+          </div>
+        </div>
         <br>
         <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
         <div id="form-errors"
