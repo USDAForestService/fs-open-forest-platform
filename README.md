@@ -121,6 +121,9 @@ Navigate to cloned repo
 ### Local Environment
 
 There are two options for development - Docker or installing the dependencies independently.
+#### Docker
+
+Run `docker-compose up`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ** The following instructions outline tools and procedures required for local development without docker **
 
