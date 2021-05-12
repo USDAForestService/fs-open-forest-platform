@@ -32,7 +32,7 @@
     "newrelic": "^5.10.0",
     "node-forge": "^0.7.6",
     "node-jose": "^0.11.1",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "openid-client": "^2.4.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
