@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 @Component({
   template: `<app-breadcrumbs id="test" ></app-breadcrumbs>`
@@ -32,7 +32,7 @@ describe('BreadcrumbsComponent', () => {
         providers: [McBreadcrumbsService, McBreadcrumbsConfig]
       }).compileComponents();
       breadcrumbService = TestBed.get(McBreadcrumbsService);
-      spyOn(breadcrumbService, 'crumbs$').and.returnValue(Observable.of([{text: 'test', path: null}]));
+      spyOn(breadcrumbService, 'crumbs$').and.returnValue(of([{text: 'test', path: null}]));
 
     })
   );

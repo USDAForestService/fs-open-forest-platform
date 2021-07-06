@@ -1,6 +1,6 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { PermitApplicationListComponent } from './permit-application-list.component';
 import { ApplicationService } from './../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -20,7 +20,7 @@ class MockService {
   }
 
   get(): Observable<{}> {
-    return Observable.of();
+    return of();
   }
 
   handleStatusCode() {

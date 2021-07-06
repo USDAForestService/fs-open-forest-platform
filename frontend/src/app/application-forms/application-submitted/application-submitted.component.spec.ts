@@ -3,7 +3,7 @@ import { ApplicationSubmittedComponent } from './application-submitted.component
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of, throwError } from 'rxjs';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial.mock';
 import { ApplicationService } from '../../_services/application.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,9 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 export class MockApplicationService {
   getOne(id): Observable<{}> {
     if (id === '111') {
-      return Observable.of(noncommercialMock);
+      return of(noncommercialMock);
     } else {
-      return Observable.throw(['Server Error']);
+      return throwError(['Server Error']);
     }
   }
 }

@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { NgxMdModule } from 'ngx-md';
@@ -17,8 +17,8 @@ describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
   let fixture: ComponentFixture<TreeGuidelinesComponent>;
   const mockRoute = {
-    params: Observable.of({ id: 1 }),
-    data: Observable.of({forest: forest})
+    params: of({ id: 1 }),
+    data: of({forest: forest})
   };
 
   beforeEach(
@@ -71,8 +71,8 @@ describe('TreeGuidelinesComponent', () => {
   describe('season closed', () => {
     it('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
       const mockSeasonNotOpenRoute = {
-        params: Observable.of({ id: 1 }),
-        data: Observable.of({
+        params: of({ id: 1 }),
+        data: of({
           forest: {
             forestName: 'forest name',
             species: {
@@ -95,8 +95,8 @@ describe('TreeGuidelinesComponent', () => {
 
     it('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
       const mockSeasonNotOpenRoute = {
-        params: Observable.of({ id: 1 }),
-        data: Observable.of({
+        params: of({ id: 1 }),
+        data: of({
           forest: {
             forestName: 'forest name',
             species: {

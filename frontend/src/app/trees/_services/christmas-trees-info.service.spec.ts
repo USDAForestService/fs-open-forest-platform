@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { ChristmasTreesInfoService } from './christmas-trees-info.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import * as sinon from 'sinon';
 
 xdescribe('ChristmasTreesInfoService', () => {

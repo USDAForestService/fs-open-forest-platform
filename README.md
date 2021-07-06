@@ -129,7 +129,7 @@ Run `docker-compose up`. Navigate to `http://localhost:4200/`. The app will auto
 
 #### Node
 
-Install [Node ^8.15.1](https://nodejs.org/en/)
+Install [Node ^10.18](https://nodejs.org/en/)
 
 We recommend installing `node` such that it does not require the `sudo` command to run and different versions can be easily managed, for example, using [NVM](https://github.com/creationix/nvm#installation)
 

@@ -21,7 +21,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './report.component.html'
 })
 export class ReportComponent implements OnInit, AfterViewInit {
-  @ViewChild('reportResults') reportResults: ElementRef;
+  @ViewChild('reportResults', {static: true, read: ElementRef}) reportResults: ElementRef;
 
   forests: any;
   selectedForest: any;

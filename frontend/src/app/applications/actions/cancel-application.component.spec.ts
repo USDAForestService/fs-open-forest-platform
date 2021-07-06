@@ -6,7 +6,7 @@ import { AlertService } from '../../_services/alert.service';
 import { UtilService } from '../../_services/util.service';
 import { WindowRef } from '../../_services/native-window.service';
 import { CancelApplicationComponent } from './cancel-application.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { CamelToHyphensPipe } from '../../_pipes/camel-to-hyphens.pipe';
 
 @Component({
@@ -24,7 +24,7 @@ class TestComponentWrapperComponent {
 class MockApplicationService {
   public user = { email: 'test@test.com', role: 'user' };
   update(value1, value2) {
-    return Observable.of({ type: 'noncommercial', status: 'Cancelled' });
+    return of({ type: 'noncommercial', status: 'Cancelled' });
   }
 }
 

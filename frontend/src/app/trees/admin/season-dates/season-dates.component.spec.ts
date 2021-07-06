@@ -7,7 +7,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { AdminSeasonDatesComponent } from './season-dates.component';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { Title } from '@angular/platform-browser';
@@ -18,8 +18,8 @@ describe('Season Dates Admin Component', () => {
   let formBuilder: FormBuilder;
 
   const mockActivatedRoute = {
-    params: Observable.of({ id: 1 }),
-    data: Observable.of({
+    params: of({ id: 1 }),
+    data: of({
       user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'] },
       forests: [
         {
@@ -56,7 +56,7 @@ describe('Season Dates Admin Component', () => {
 
   class MockApplicationService {
     getAllByDateRange(): Observable<{}> {
-      return Observable.of({
+      return of({
         parameters: {
           forestName: 'Arapaho and Roosevelt National Forests',
           startDate: '10/10/2018',
@@ -68,7 +68,7 @@ describe('Season Dates Admin Component', () => {
     }
 
     updateSeasonDates(): Observable<{}> {
-      return Observable.of({});
+      return of({});
     }
   }
 

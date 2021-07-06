@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ChristmasTreeMapDetailsComponent } from './christmas-tree-map-details.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -14,8 +14,8 @@ describe('ChristmasTreeMapDetailsComponent', () => {
   beforeEach(
     async(() => {
       const mockSeasonNotOpenRoute = {
-        params: Observable.of({ id: 'id', mapId: 'mapId' }),
-        data: Observable.of({
+        params: of({ id: 'id', mapId: 'mapId' }),
+        data: of({
           forest: {
             forestName: 'forest name'
           }

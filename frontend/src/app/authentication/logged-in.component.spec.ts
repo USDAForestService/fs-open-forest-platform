@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthenticationService } from '../_services/authentication.service';
 import { LoggedInComponent } from './logged-in.component';
 import { MockRouter } from '../_mocks/routes.mock';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 import { Router } from '@angular/router';
 
 class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {
-    return Observable.of({ role: 'admin' });
+    return of({ role: 'admin' });
   }
   setUser(obj) {
     return '';

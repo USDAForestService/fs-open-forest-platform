@@ -13,7 +13,7 @@ import {
   Router,
   UrlSegment
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
@@ -23,7 +23,7 @@ export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
 
   getAuthenticatedUser(): Observable<{}> {
-    return Observable.of(this.user);
+    return of(this.user);
   }
 
   removeUser() {
@@ -33,7 +33,7 @@ export class MockAuthenticationService {
 
 class MockServices {
   // Router
-  public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
+  public events = of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
   parseUrl(): String { return ''; }
 }
 
@@ -68,7 +68,7 @@ xdescribe('AuthenticatedComponent', () => {
   // const mockRoute = new MockActivatedRoute();
   // mockRoute.parent = new MockActivatedRoute();
   // mockRoute.firstChild = new MockActivatedRoute();
-  // mockRoute.firstChild.data = Observable.of({
+  // mockRoute.firstChild.data = of({
   //   user: { role: 'admin', email: 'test@test.com' },
   //   displayLogin: true
   // });

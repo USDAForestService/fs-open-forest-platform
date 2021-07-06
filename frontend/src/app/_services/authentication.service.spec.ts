@@ -1,7 +1,7 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { ApplicationService } from '../_services/application.service';
 import { UtilService } from './util.service';
 import { WindowRef } from './native-window.service';
@@ -11,7 +11,7 @@ import * as sinon from 'sinon';
 
 class MockApplicationService {
   get(): Observable<{}> {
-    return Observable.of();
+    return of();
   }
 
   scrollToFirstError() {
@@ -23,7 +23,7 @@ class MockApplicationService {
   }
 
   create(): Observable<{}> {
-    return Observable.of();
+    return of();
   }
 }
 
@@ -61,7 +61,7 @@ describe('Authentication Service', () => {
 
   it('remove user should removeUser user', () => {
     const stub = sinon.stub(service, 'isAuthenticated');
-    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    stub.returns(of({ email: 'test@test.com', role: 'admin' }));
     service.removeUser();
     expect(service.user).toBeFalsy();
     stub.restore();
@@ -69,7 +69,7 @@ describe('Authentication Service', () => {
 
   it('should get authenticated user', () => {
     const stub = sinon.stub(service, 'isAuthenticated');
-    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    stub.returns(of({ email: 'test@test.com', role: 'admin' }));
     service.getAuthenticatedUser();
     expect(service.user.email).toEqual('test@test.com');
     stub.restore();
@@ -77,7 +77,7 @@ describe('Authentication Service', () => {
 
   it('should set user if user is authenticated', () => {
     const stub = sinon.stub(service, 'isAuthenticated');
-    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    stub.returns(of({ email: 'test@test.com', role: 'admin' }));
     service.getAuthenticatedUser(true);
     expect(service.user.email).toEqual('test@test.com');
     stub.restore();

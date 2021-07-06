@@ -4,7 +4,7 @@ import { TreeApplicationFormComponent } from './tree-application-form.component'
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of, throwError } from 'rxjs';
 import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
@@ -21,10 +21,10 @@ import { WindowRef } from '../../_services/native-window.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
-    return Observable.throw('error');
+    return throwError('error');
   }
   cancelOldApp(permitId): Observable<{}> {
-    return Observable.of({ success: 'success' });
+    return of({ success: 'success' });
   }
 }
 
@@ -54,7 +54,7 @@ describe('TreeApplicationFormComponent', () => {
               provide: ActivatedRoute,
               useValue: {
                 queryParams: [{t: '123'}],
-                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
+                data: of({ forest: forest, permit: {status: 'Cancelled'} })
               }
             },
             WindowRef
@@ -107,7 +107,7 @@ describe('TreeApplicationFormComponent', () => {
               provide: ActivatedRoute,
               useValue: {
                 queryParams: [{t: '123'}],
-                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
+                data: of({ forest: forest, permit: {status: 'Cancelled'} })
               }
             },
             WindowRef
