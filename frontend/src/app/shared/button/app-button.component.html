@@ -18,6 +18,7 @@
     {{buttonText}}
   <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Buy Permit</span>
   <span *ngIf="!authentication.user" class="button-hint usa-form-hint">Sign in with <br><img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  <br>to purchase</span>
+  <!-- !!Attention developer!! If you're on the Firewood permit info page and are trying to get auth working in staging or production, please see lines 55 - 59 in server/src/app.es6 -->
   </a>
 </div>
 
