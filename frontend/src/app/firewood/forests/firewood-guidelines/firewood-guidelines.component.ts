@@ -51,7 +51,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
    *  @returns set forest data from route resolver
    */
   ngOnInit() {
-    console.log("!!Attention developer!! If you're on the Firewood permit info page and are trying to get auth working in staging or production, please see lines 55 - 59 in server/src/app.es6");
+    console.log('!!Attention developer!! If you\'re on the Firewood permit info page and are trying to get auth working in staging or production, please see lines 55 - 59 in server/src/app.es6');
     this.template = 'sidebar';
     this.route.params.subscribe(params => {
       this.id = params['id'];
