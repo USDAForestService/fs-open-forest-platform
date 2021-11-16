@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "fs-open-forest-platform",
   "dependencies": {
-    "aws-sdk": "^2.395.0",
+    "aws-sdk": "^2.814.0",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
     "body-parser-xml": "^1.1.0",
