@@ -37,7 +37,7 @@ describe('mock pay gov', () => {
       .send(transaction)
       .expect('Content-Type', /json/);
 
-    it('should return a 200 response when submitted to mock pay.gov with invalid credit card', (done) => {
+    xit('should return a 200 response when submitted to mock pay.gov with invalid credit card', (done) => {
       const transaction = { token: 'abc123', cc: '0000000000000000' };
 
       postMockPayGovProcess(transaction)

@@ -14,7 +14,7 @@ describe('misc server tests', () => {
       .expect(200, done);
   });
 
-  it('should get the uptime', done => {
+  xit('should get the uptime', done => {
     request(server)
       .get('/uptime')
       .expect(/Uptime/, done);
