@@ -44,13 +44,13 @@ export class OrderConfirmationComponent implements OnInit {
     });
   }
 
-  /**
-   * Get data from route resolver
-   */
-   ngOnInit() {
-    this.getForestData();
-    this.getPermitData();
-  }
+/**
+ * Get data from route resolver
+ */
+  ngOnInit() {
+  this.getForestData();
+  this.getPermitData();
+}
 
 getForestData() {
     this.http.get<any>("http://localhost:8080/fsforests").subscribe((data) => {
@@ -61,8 +61,9 @@ getForestData() {
   }
   
   getPermitData() {
+    console.log('start method');
     this.http
-      .get<any>("http://localhost:8080/fsforests/firewood-permits/09e846a5-b67a-4888-b1eb-f022b9837ad1")
+      .get<any>("http://localhost:8080/fsforests/firewood-permits/0b38a46c-e6ac-4bbe-aab6-492aefc28311")
       .subscribe((data) => {
         console.log(data);
         this.permit = data;
