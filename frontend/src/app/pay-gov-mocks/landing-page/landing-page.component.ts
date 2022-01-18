@@ -84,7 +84,7 @@ export class LandingPageComponent implements OnInit {
     };
     this.httpClient.post(url, params).subscribe(
       response => {
-        window.location.href = 'order-confirmation.';
+        window.location.href = 'order-confirmation';
       },
       (e: any) => {}
     );

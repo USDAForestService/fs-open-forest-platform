@@ -50,6 +50,7 @@ import { ForestTemplateComponent } from './forest-pages/forest-template/forest-t
 
 
 const appRoutes: Routes = [
+  { path: 'order-confirmation', component: OrderConfirmationComponent },
   {
     path: '',
     component: MainLandingComponent,
