@@ -10,6 +10,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { FirewoodApplicationService } from '../../_services/firewood-application.service';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -33,7 +34,8 @@ export class OrderConfirmationComponent implements OnInit {
     public firewoodApplicationService: FirewoodApplicationService,
     public util: UtilService,
     private winRef: WindowRef,
-    private meta: Meta
+    private meta: Meta,
+    private http: HttpClient
   ) {
     this.nativeWindow = winRef.getNativeWindow();
     this.meta.addTag({
@@ -45,36 +47,26 @@ export class OrderConfirmationComponent implements OnInit {
   /**
    * Get data from route resolver
    */
-  ngOnInit() {
-    this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
+   ngOnInit() {
+    this.getForestData();
+    this.getPermitData();
+  }
 
-    let isCancel = false;
-    this.route.queryParams.forEach((params: Params) => {
-      if (params.cancel) {
-        isCancel = true;
-      }
-
-      if (params.t) {
-        this.jwtToken = params.t;
-      }
+getForestData() {
+    this.http.get<any>("http://localhost:8080/fsforests").subscribe((data) => {
+      console.log(data);
+      this.forest = data[0];
+      console.log(this.forest);
     });
-
-    this.route.data.subscribe(data => {
-      if (data.forest) {
-        this.forest = data.forest;
-      }
-      if (data.permit) {
-        this.permit = data.permit;
-        this.permit.forest = this.forest;
-        // e-mail the permit to the purchaser
-        this.firewoodApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe((updated) => {
-          this.firewoodApplicationService.emailPDF(updated).subscribe((emailed) => {
-            console.log('email process complete:');
-            console.dir(emailed);
-          });
-        });
-      }
-    });
+  }
+  
+  getPermitData() {
+    this.http
+      .get<any>("http://localhost:8080/fsforests/firewood-permits/09e846a5-b67a-4888-b1eb-f022b9837ad1")
+      .subscribe((data) => {
+        console.log(data);
+        this.permit = data;
+      });
   }
 
   getFriendlyDate(date) {
