@@ -63,7 +63,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Digital Permitsmits.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()

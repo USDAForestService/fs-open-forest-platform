@@ -20,7 +20,7 @@
  const expressLogger = require('./services/expresslogger.es6');
  const vcapConstants = require('./vcap-constants.es6');
  
- logger.info('\n\n\nOpen Forest Platform Server starting up with features:\n', {
+ logger.info('\n\n\nDigital Permitsmitsmitsmitsmits Platform Server starting up with features:\n', {
    message: `${JSON.stringify(vcapConstants.FEATURES, null, ' ')}\n\n`
  });
  

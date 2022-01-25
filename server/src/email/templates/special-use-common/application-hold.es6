@@ -7,9 +7,9 @@ module.exports = (application, defaultApplicationDetails) => {
   const editLink = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${editURLAppType}/${application.appControlNumber}/edit`;
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'An update on your recent Open Forest permit application to the Forest Service.',
+    subject: 'An update on your recent Digital Permits permit application to the Forest Service.',
     body: `
-    Open Forest permit application status update
+    Digital Permits permit application status update
     *********************************
 
     Your recently submitted application has been put on hold due to insufficient information. Please log in, provide the requested information below, and save your application.
@@ -35,7 +35,7 @@ module.exports = (application, defaultApplicationDetails) => {
     ${defaultForestContact.text}
 `,
     html: `
-    <h2>Open Forest permit application status update</h2>
+    <h2>Digital Permits permit application status update</h2>
     <p>Your recently submitted application has been put on hold
      due to insufficient information. Please log in, provide the
       requested information below, and save your application.</p>

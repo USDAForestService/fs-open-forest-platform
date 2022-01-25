@@ -23,7 +23,7 @@ export class FirewoodForestFinderComponent implements OnInit {
     private meta: Meta
   ) {
     this.meta.addTag({
-      name: 'description', content: 'Use Open Forest to purchase\
+      name: 'description', content: 'Use Digital Permits to purchase\
  a Firwood permit with the United States Forest Service.'
     });
   }

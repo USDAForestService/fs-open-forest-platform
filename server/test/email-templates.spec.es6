@@ -12,7 +12,7 @@ require('./common.es6');
 
 // to do convert to ${type}.translateFromClientToDatabase beforeall
 describe('Special use email templates', () =>{
-  const specialUseSubject = 'An update on your recent Open Forest permit application to the Forest Service.';
+  const specialUseSubject = 'An update on your recent Digital Permits permit application to the Forest Service.';
   const forestName = 'Mt.Baker - Snoqualmie National Forest';
   const adminSubject = `A new permit application with a start date of 12/12/2018 has been submitted to the ${forestName}.`;
 

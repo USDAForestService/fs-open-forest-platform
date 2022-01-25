@@ -37,7 +37,7 @@ xdescribe('Apply for a ', () => {
   });
 
   it('should display have a heading that says pending permit applications', () => {
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications for Digital Permits');
   });
 
   it('should show table headings', () => {
@@ -46,18 +46,18 @@ xdescribe('Apply for a ', () => {
 
   it('should switch applications when changing filter', () => {
     element(by.cssContainingText('option', 'Accepted')).click();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Accepted permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Accepted permit applications for Digital Permits');
 
     element(by.cssContainingText('option', 'Rejected')).click();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Rejected permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Rejected permit applications for Digital Permits');
 
     element(by.cssContainingText('option', 'Cancelled')).click();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Cancelled permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Cancelled permit applications for Digital Permits');
 
     element(by.cssContainingText('option', 'Expired')).click();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Expired permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Expired permit applications for Digital Permits');
 
     element(by.cssContainingText('option', 'Pending')).click();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications for Open Forest');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications for Digital Permits');
   });
 });

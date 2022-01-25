@@ -31,7 +31,7 @@ export class TreeGuidelinesComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description', content: `Learn more about how to purchase\
-a Christmas tree permit with the United States Forest Service on your National Forest with Open Forest.`
+a Christmas tree permit with the United States Forest Service on your National Forest with Digital Permits.`
     });
   }
 
@@ -87,7 +87,7 @@ a Christmas tree permit with the United States Forest Service on your National F
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
-        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Digital Permits`);
         this.configService.getJSON('trees').subscribe(configData => {
           this.sidebarItems = configData;
           if (!this.forest.isSeasonOpen) {

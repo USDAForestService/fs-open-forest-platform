@@ -5,7 +5,7 @@ module.exports = (application, defaultAdminApplicationDetails) => {
 
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: 'An update to a recent Open Forest permit application has been submitted for review.',
+    subject: 'An update to a recent Digital Permits permit application has been submitted for review.',
     body: `
       Go to ${applicationUrl} to log in and view the application.
       **************************************
@@ -17,8 +17,8 @@ module.exports = (application, defaultAdminApplicationDetails) => {
 
     `, 
     html: `
-        <h2>Open Forest permit application status update</h2>
-        <p>An update to a recent Open Forest permit application has been submitted for review.</p>
+        <h2>Digital Permits permit application status update</h2>
+        <p>An update to a recent Digital Permits permit application has been submitted for review.</p>
         ${defaultAdminApplicationDetails.html(application)}
 `
   };

@@ -29,7 +29,7 @@ export class ForestTemplateComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description', content: `Learn more about how to purchase\
-permits with the United States Forest Service on your National Forest with Open Forest.`
+permits with the United States Forest Service on your National Forest with Digital Permits.`
     });
   }
 
@@ -87,7 +87,7 @@ permits with the United States Forest Service on your National Forest with Open 
         if (this.forest.forestAbbr === 'mbs') {
           this.specialUse = true;
         }
-        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Digital Permits`);
         this.bgImg = './assets/img/forests/' + this.forest.forestAbbr + '.jpg';
       }
     });

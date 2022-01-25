@@ -10,7 +10,7 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
       Submitted for review!
       **************************************
 
-      Your Open Forest permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
+      Your Digital Permits permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
 
 
     ${defaultApplicationDetails.text(application)}
@@ -28,7 +28,7 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
     `,
     html: `
     <h2>Submitted for review!</h2>
-    <p>Your Open Forest permit application has been submitted for review, but is <strong>NOT APPROVED</strong> until
+    <p>Your Digital Permits permit application has been submitted for review, but is <strong>NOT APPROVED</strong> until
      you hear from a special use administrator. Submitting an application does not guarantee your permit
       will be approved.</p>
     ${defaultApplicationDetails.html(application)}

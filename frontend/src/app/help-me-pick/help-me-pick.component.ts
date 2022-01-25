@@ -51,7 +51,7 @@ export class HelpMePickComponent implements OnInit {
       this.route.params.subscribe(params => {
         this.id = params['id'];
         this.getTitle(this.id);
-        this.titleService.setTitle(`${this.title} | U.S. Forest Service Open Forest`);
+        this.titleService.setTitle(`${this.title} | U.S. Forest Service Digital Permits`);
       });
     }
   }

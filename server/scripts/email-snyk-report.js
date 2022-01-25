@@ -28,7 +28,7 @@ function emailSnykReport(reportDate, reportFilename, reportContent) {
   }
 
   const mailOptions = {
-    from: `"Open Forest Security Monitoring" <${SMTP_USERNAME}>`,
+    from: `"Digital Permits Security Monitoring" <${SMTP_USERNAME}>`,
     to: SNYK_RECIPIENTS,
     subject: `Snyk Report for ${reportDate}`,
     attachments: [{

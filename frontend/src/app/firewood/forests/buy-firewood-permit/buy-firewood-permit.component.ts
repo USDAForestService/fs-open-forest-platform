@@ -138,7 +138,7 @@ export class BuyFirewoodPermitComponent implements OnInit {
     }
 
     this.titleService.setTitle(
-      'Buy a Firewood permit | ' + this.forest.forestName + ' | U.S. Forest Service Open Forest'
+      'Buy a Firewood permit | ' + this.forest.forestName + ' | U.S. Forest Service Digital Permits'
     );
     this.createForm(this.forest, this.formBuilder);
 

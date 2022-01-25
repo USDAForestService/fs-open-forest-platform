@@ -42,7 +42,7 @@ xdescribe('Apply for a noncommercial group use permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Non-Commercial Group Use permit with Open Forest.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Non-Commercial Group Use permit with Digital Permits.');
   });
 
   xit('should submit an application as individual with only the required fields populated', () => {

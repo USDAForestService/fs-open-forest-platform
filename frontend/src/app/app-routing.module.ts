@@ -69,7 +69,7 @@ const appRoutes: Routes = [
   {
     path: 'products',
     data: {
-      title: 'US Forest Service Open Forest',
+      title: 'US Forest Service Digital Permits',
       breadcrumbs: true,
       text: 'Forests'
     },
@@ -105,7 +105,7 @@ const appRoutes: Routes = [
   {
     path: 'special-use',
     data: {
-      title: 'US Forest Service Open Forest',
+      title: 'US Forest Service Digital Permits',
       breadcrumbs: true,
       text: 'Mt. Baker-Snoqualmie special use permits',
       displayLogin: true,
@@ -155,7 +155,7 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/new',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Apply for a Non-Commercial Group Use permit with Open Forest',
+              title: 'Apply for a Non-Commercial Group Use permit with Digital Permits',
               breadcrumbs: 'Application'
             },
           },
@@ -163,7 +163,7 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/:id/edit',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Edit your Non-Commercial Group Use permit with Open Forest',
+              title: 'Edit your Non-Commercial Group Use permit with Digital Permits',
               breadcrumbs: 'Application edit'
             },
           },
@@ -171,7 +171,7 @@ const appRoutes: Routes = [
             path: ':type/submitted/:id',
             component: ApplicationSubmittedComponent,
             data: {
-              title: 'Application submitted for review with Open Forest',
+              title: 'Application submitted for review with Digital Permits',
               breadcrumbs: 'Application submitted'
             },
           },
@@ -179,7 +179,7 @@ const appRoutes: Routes = [
             path: 'temp-outfitters/new',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Apply for a Temporary Outfitting and Guiding permit with Open Forest',
+              title: 'Apply for a Temporary Outfitting and Guiding permit with Digital Permits',
               breadcrumbs: 'Application'
             },
           },
@@ -187,7 +187,7 @@ const appRoutes: Routes = [
             path: 'temp-outfitters/:id/edit',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Edit your Temporary Outfitting and Guiding permit with Open Forest',
+              title: 'Edit your Temporary Outfitting and Guiding permit with Digital Permits',
               breadcrumbs: 'Application edit'
             },
           },
@@ -258,7 +258,7 @@ const appRoutes: Routes = [
         path: 'reports',
         component: ReportComponent,
         data: {
-          title: 'Christmas trees permits report | U.S. Forest Service Open Forest',
+          title: 'Christmas trees permits report | U.S. Forest Service Digital Permits',
           breadcrumbs: 'Christmas trees permits report',
         }
       },
@@ -266,7 +266,7 @@ const appRoutes: Routes = [
         path: 'season-dates',
         component: AdminSeasonDatesComponent,
         data: {
-          title: 'Christmas trees permits season dates admin | U.S. Forest Service Open Forest',
+          title: 'Christmas trees permits season dates admin | U.S. Forest Service Digital Permits',
           breadcrumbs: 'Christmas trees permits season dates',
         }
       },
@@ -274,7 +274,7 @@ const appRoutes: Routes = [
         path: 'district-dates',
         component: AdminDistrictDatesComponent,
         data: {
-          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Open Forest',
+          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Digital Permits',
           breadcrumbs: 'Christmas trees permits Ranger District dates',
         }
       },
@@ -308,14 +308,14 @@ const appRoutes: Routes = [
         path: '',
         component: PermitApplicationListComponent,
         data: {
-          title: 'Submitted Open Forest applications',
+          title: 'Submitted Digital Permits applications',
         },
       },
       {
         path: ':type/:id',
         component: PermitApplicationViewComponent,
         data: {
-          title: 'View submitted Open Forest application',
+          title: 'View submitted Digital Permits application',
           breadcrumbs: 'Application details'
         },
       },
@@ -329,7 +329,7 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Firewood permits',
-      title: 'Firewood permits | U.S. Forest Service Open Forest',
+      title: 'Firewood permits | U.S. Forest Service Digital Permits',
       showAdmin: false
     },
     resolve: {
@@ -396,7 +396,7 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Christmas tree permits',
-      title: 'Christmas tree permits | U.S. Forest Service Open Forest',
+      title: 'Christmas tree permits | U.S. Forest Service Digital Permits',
       showAdmin: true
     },
     resolve: {

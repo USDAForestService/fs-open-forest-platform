@@ -85,7 +85,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   ngOnInit() {
     this.titleService.setTitle(
-      'Firewood permits admin reports | U.S. Forest Service Open Forest'
+      'Firewood permits admin reports | U.S. Forest Service Digital Permits'
     );
     this.route.data.subscribe(data => {
       this.forests = data.forests;

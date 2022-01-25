@@ -38,7 +38,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
     this.meta.addTag({
       name: 'description',
       content: `Learn more about how to purchase a Firewood permit with the\
-       United States Forest Service on your National Forest with Open Forest.`
+       United States Forest Service on your National Forest with Digital Permits.`
     });
 
   }
@@ -60,7 +60,7 @@ export class FirewoodGuidelinesComponent implements OnInit {
       this.user = data.user;
       this.forest = data.forest;
       if (this.forest) {
-        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
+        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Digital Permits`);
         this.configService.getJSON('firewood').subscribe(configData => {
           this.sidebarItems = configData;
         });

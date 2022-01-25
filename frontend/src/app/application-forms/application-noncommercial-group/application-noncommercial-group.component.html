@@ -8,7 +8,7 @@
     <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-Commercial Group Use permit with Open Forest.</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-Commercial Group Use permit with Digital Permits.</h2>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -131,7 +131,7 @@
         <div class="noncommercial-applications-pii-accept-checkbox-container">
           <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
           <label id='accept-pii-label' for="accept-pii">
-            <span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+            <span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Digital Permits will collect and store my name and email address. For more
             information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>.
           </label>
           <app-error-message

@@ -119,8 +119,8 @@
         "tags": [
           "forests"
         ], 
-        "summary": "Retrieve forests inside of open forest", 
-        "description": "Retrieve forests inside of open forest"
+        "summary": "Retrieve forests inside of Digital Permits", 
+        "description": "Retrieve forests inside of Digital Permits"
       }
     }, 
     "/permits/applications/special-uses/noncommercial/{id}": {

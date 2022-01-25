@@ -4,9 +4,9 @@ module.exports = (application, defaultApplicationDetails) => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'An update on your recent Open Forest permit application to the Forest Service.',
+    subject: 'An update on your recent Digital Permits permit application to the Forest Service.',
     body: `
-      Open Forest permit application status update
+      Digital Permits permit application status update
       *********************************
 
       We are reviewing the additional information you provided.
@@ -25,7 +25,7 @@ module.exports = (application, defaultApplicationDetails) => {
       ${defaultForestContact.text}
     `,
     html: `
-        <h2>Open Forest permit application status update</h2>
+        <h2>Digital Permits permit application status update</h2>
         <p>We are reviewing the additional information you provided.</p>
         ${defaultApplicationDetails.html(application)}
         <h2>What happens next?</h2>

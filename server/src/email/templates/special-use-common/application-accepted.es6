@@ -5,9 +5,9 @@ module.exports = (application, defaultApplicationDetails) => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'An update on your recent Open Forest permit application to the Forest Service.',
+    subject: 'An update on your recent Digital Permitsmits permit application to the Forest Service.',
     body: `
-      Open Forest permit application status update
+      Digital Permitsmits permit application status update
       *********************************
 
       The permit application listed below has passed a preliminary review for the ${application.forestName}! An administrator will now do a more in-depth review and may be contacting you to get any additional details or documents needed.
@@ -24,7 +24,7 @@ module.exports = (application, defaultApplicationDetails) => {
       ${defaultForestContact.text}
       `,
     html: `
-    <h2>Open Forest permit application status update</h2>
+    <h2>Digital Permitsmits permit application status update</h2>
     <p>The permit application listed below has passed a preliminary review!
      An administrator will now do a more in-depth review and may be contacting
      you to get any additional details or documents needed.</p>
@@ -32,7 +32,7 @@ module.exports = (application, defaultApplicationDetails) => {
      2 weeks of approval.</p>
     <p>${application.applicantMessage}</p>
     <p>If you would like to submit another permit application
-     visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Open Forest</a>.</p>
+     visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Digital Permitsmits</a>.</p>
     ${defaultApplicationDetails.html(application)}
     ${defaultForestContact.html}
     `

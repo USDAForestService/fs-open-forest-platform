@@ -17,7 +17,7 @@ export class TemporaryOutfittersLearnMoreComponent {
   ) {
     this.forest = this.specialUseInfoService.getOne('0605');
     this.meta.addTag({
-        name: 'description', content: 'Learn more about how to use Open Forest\
+        name: 'description', content: 'Learn more about how to use Digital Permits\
  to apply for temporary outffitter and guide permits on the Mt. Baker-\
  Snoqualmie National Forest.'
         });

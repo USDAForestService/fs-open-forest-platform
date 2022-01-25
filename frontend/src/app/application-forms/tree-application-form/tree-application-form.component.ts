@@ -147,7 +147,7 @@ export class TreeApplicationFormComponent implements OnInit {
     }
 
     this.titleService.setTitle(
-      'Buy a Christmas tree permit | ' + this.forest.forestName + ' | U.S. Forest Service Open Forest'
+      'Buy a Christmas tree permit | ' + this.forest.forestName + ' | U.S. Forest Service Digital Permits'
     );
     this.createForm(this.forest, this.formBuilder);
 

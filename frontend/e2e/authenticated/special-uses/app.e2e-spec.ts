@@ -9,11 +9,11 @@ describe('frontend App', () => {
   describe('error handling', () => {
     it('should have a 404 page', () => {
       browser.get('/404');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Digital Permits - 404 Page not found');
     });
     it('should redirect to 404 page for unknown urls', () => {
       browser.get('/smokeybear');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Digital Permits - 404 Page not found');
     });
   });
 
@@ -31,7 +31,7 @@ describe('frontend App', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
       element(by.id('us-forest-service-logo')).click();
-      // expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Open Forest');
+      // expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Digital Permits');
     });
 
     it('should have ctas to apply for different permits', () => {
