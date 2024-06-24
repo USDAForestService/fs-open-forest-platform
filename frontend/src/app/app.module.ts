@@ -38,6 +38,7 @@ import { TreesModule } from './trees/trees.module';
 import { FirewoodModule } from './firewood/firewood.module';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
+import { FpfsService } from './_services/fpfs.service';
 import { UtilService } from './_services/util.service';
 import { WindowRef } from './_services/native-window.service';
 import { PageHeaderComponent } from './shared/header/header.component';
@@ -103,6 +104,7 @@ import { OrderConfirmationComponent } from './firewood/forests/order-confirmatio
     GoogleAnalyticsService,
     PermitBreadcrumbsResolver,
     SpecialUseInfoService,
+    FpfsService,
     UtilService,
     UserResolver,
     WindowRef,
