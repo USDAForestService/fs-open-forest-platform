@@ -48,7 +48,7 @@
     "esri-loader": "^2.14.0",
     "intl": "^1.2.5",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.21",
+    "moment-timezone": "^0.5.35",
     "newrelic": "^5.10.0",
     "ng-in-viewport": "6.0.3",
     "ng2-file-upload": "^1.2.1",
