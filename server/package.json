@@ -7,7 +7,7 @@
     "aws-sdk": "^2.395.0",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
-    "body-parser-xml": "^1.1.0",
+    "body-parser-xml": "^2.0.3",
     "braces": "^3.0.0",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
